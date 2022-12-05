@@ -34,7 +34,11 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.fitj.HelloApplication</mainClass>
+<!--                    TODO Change Main App name here -->
+<!--                    TODO Add VM options in run configs -->
+<!--                    TODO Add all maven folders, add 'modules-infos' folder to src/java/ and add this folder to compiler output in project structure -->
+<!--                    TODO Change SDK to SDK 19-->
+                    <mainClass>com.fitj.MainApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
