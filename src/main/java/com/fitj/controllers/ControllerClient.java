@@ -1,16 +1,61 @@
 package com.fitj.controllers;
 
+import com.fitj.Constante;
 import com.fitj.models.ModelClient;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
 public class ControllerClient {
+
+    @FXML
+    private Button connect;
+    @FXML
+    private TextField login;
+    @FXML
+    private Text errorMessage;
+    @FXML
+    private TextField password;
 
     private ModelClient modelClient;
 
     public ControllerClient(){
         this.modelClient = new ModelClient("client");
+    }
+
+    @FXML
+    private void handleButtonConnect(ActionEvent event) {
+        try {
+            String result = connexion(login.getText(), password.getText());
+            if(result.equals(Constante.CONNECTED)){
+                hideError();
+                connect();
+            }else{
+                displayError(result);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Affiche un message d'erreur
+    public void displayError(String message){
+        errorMessage.setText(message);
+    }
+    //Cache le message d'erreur
+    public void hideError(){
+        errorMessage.setText("");
+    }
+
+    //Connecte l'utilisateur et ouvre la fenêtre principale ptincipal-view.fxml
+    public void connect(){
+        System.out.println("Connecté, maintenant ouvrir la fenêtre principale");
     }
 
     public void inscrire(String mail, String pseudo, String password, float poids, int taille, String photo) {
@@ -31,29 +76,18 @@ public class ControllerClient {
 
     }
 
-    public boolean connexion(String mail, String password) throws SQLException {
+    public String connexion(String mail, String password) throws SQLException {
         try {
             ResultSet compte = modelClient.connexionClient(mail);
             if (compte.getString("password").equals(password)){
-                System.out.println("connexion ok");
-                return true;
+                return Constante.CONNECTED;
             }
             else {
-                System.out.println("mauvais mdp");
-                return false;
+                return Constante.BAD_PASSWORD;
             }
         }
         catch (SQLException e){
-            System.out.println("Le mail n'existe pas");
-            return false;
+            return Constante.BAD_LOGIN;
         }
     }
-
-
-    public static void main(String[] args) throws SQLException {
-        ControllerClient controllerClient = new ControllerClient();
-        controllerClient.inscrire("etiennet@gmail.coaaaa", "Josef", "123456",80,170,"superphoto");
-        System.out.println(controllerClient.connexion("etiennet@gmail.com","123456"));
-    }
-
 }
