@@ -1,4 +1,4 @@
-package com.fitj.connexions;
+package com.fitj.models.connexions;
 
 public abstract class ConnexionBD {
 

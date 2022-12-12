@@ -1,7 +1,6 @@
-package com.fitj.methodesBD;
+package com.fitj.models.methodesBD;
 
-import com.fitj.classes.Tool;
-import com.fitj.connexions.ConnexionPostgreSQL;
+import com.fitj.models.connexions.ConnexionPostgreSQL;
 import kotlin.Pair;
 
 import java.sql.Connection;
@@ -112,20 +111,15 @@ public class MethodesPostgreSQL extends MethodesBD{
         this.close();
     }
 
-    public boolean exist(Object param, String table) {
-        try {
-            List<Pair<String,Object>> data = new ArrayList<>();
-            String paramName = Tool.getParameterNames(this.getClass().getMethod("verifier")).get(0);
-            data.add(new Pair<>(paramName, param));
-            ResultSet result = this.selectWhere(data, table);
-            if (result.next() == false){
-                return false;
-            }
-            else return true;
+    public boolean exist(Object data, String name, String table) throws SQLException {
+        List<Pair<String,Object>> list = new ArrayList<>();
+        list.add(new Pair<String,Object>(name,data));
+        ResultSet result = this.selectWhere(list, table);
+        if (result.next() == true){
+            return true;
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
+        else {
+            return false;
         }
-        return false;
     }
 }

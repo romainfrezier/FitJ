@@ -1,6 +1,6 @@
 package com.fitj.models;
 
-public class ModelAvis extends Model {
+public abstract class ModelAvis extends Model {
     public ModelAvis() {
         super("avis");
     }

@@ -1,6 +1,6 @@
 package com.fitj.models;
 
-public class ModelExercice extends Model {
+public abstract class ModelExercice extends Model {
     public ModelExercice() {
         super("exercice");
     }

@@ -1,6 +1,6 @@
 package com.fitj.models;
 
-public class ModelSeance extends Model {
+public abstract class ModelSeance extends Model {
     public ModelSeance() {
         super("seance");
     }

@@ -1,37 +1,24 @@
 package com.fitj.facades;
 
-import com.fitj.Constante;
 import com.fitj.controllers.ControllerClient;
-import com.fitj.models.ModelClientPostgreSQL;
+import com.fitj.controllers.factory.FactoryController;
+import com.fitj.models.ModelClient;
+import com.fitj.models.tool.PasswordAuthentication;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+public abstract class FacadeClient extends Facade {
 
-public class FacadeClient extends Facade {
+    protected PasswordAuthentication passwordAuthentication;
+    protected ModelClient modelClient;
 
-    public FacadeClient(){
-        this.model = this.factoryModel.getModelClient();
-        this.controller = new ControllerClient();
+    protected FacadeClient(){
+        this.modelClient = this.factoryModel.getModelClient();
+        this.controller = FactoryController.getInstance().getControllerClient();
+        this.passwordAuthentication = new PasswordAuthentication();
     }
 
-    public String connexion(String mail, String password) throws SQLException {
-        try {
-            ResultSet compte = ((ModelClientPostgreSQL)this.model).connexionClient(mail);
-            if (compte.getString("password").equals(password)){
-                return Constante.CONNECTED;
-            }
-            else {
-                return Constante.BAD_PASSWORD;
-            }
-        }
-        catch (SQLException e){
-            return Constante.BAD_LOGIN;
-        }
-    }
+    public abstract String connexion(String mail, String password);
 
-    public static void main(String[] args) throws SQLException {
-        FacadeClient facadeClient = new FacadeClient();
-        System.out.println(facadeClient.connexion("etiennet@gmail.coaaaa","123456"));
-    }
+    public abstract void inscription(String mail, String pseudo, String password, float poids, int taille, String photo) throws Exception;
+
 
 }

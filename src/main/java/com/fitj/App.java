@@ -1,6 +1,6 @@
 package com.fitj;
 
-import com.fitj.models.FactoryModel;
+import com.fitj.controllers.factory.FactoryController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +12,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login-view.fxml"));
+       // fxmlLoader.setController(FactoryController.getInstance().getControllerClient());
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         stage.setTitle("Hello!");
         stage.setScene(scene);

@@ -1,6 +1,6 @@
 package com.fitj.models;
 
-public class ModelCommande extends Model {
+public abstract class ModelCommande extends Model {
     public ModelCommande() {
         super("commande");
     }

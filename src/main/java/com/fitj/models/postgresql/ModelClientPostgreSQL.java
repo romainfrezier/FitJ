@@ -1,6 +1,7 @@
-package com.fitj.models;
+package com.fitj.models.postgresql;
 
-import com.fitj.methodesBD.MethodesPostgreSQL;
+import com.fitj.models.methodesBD.MethodesPostgreSQL;
+import com.fitj.models.ModelClient;
 import kotlin.Pair;
 
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelClientPostgreSQL extends ModelClient{
+public class ModelClientPostgreSQL extends ModelClient {
 
     public ModelClientPostgreSQL(){
         super();
@@ -19,14 +20,14 @@ public class ModelClientPostgreSQL extends ModelClient{
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
         data.add(new Pair<>("pseudo", pseudo));
-        data.add(new Pair<>("password", password));
+        data.add(new Pair<>("password", passwordAuthentication.hash(password.toCharArray())));
         data.add(new Pair<>("poids", poids));
         data.add(new Pair<>("taille", taille));
         data.add(new Pair<>("photo", photo));
         ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
     }
 
-    public ResultSet connexionClient(String mail) throws SQLException {
+    public ResultSet getClientAccount(String mail) throws SQLException {
         ResultSet compte = null;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
@@ -43,15 +44,11 @@ public class ModelClientPostgreSQL extends ModelClient{
         return compte;
     }
 
-    //exception à gérer mieux
-    public boolean verifierEmail(String mail) throws SQLException {
-        List<Pair<String,Object>> data = new ArrayList<>();
-        data.add(new Pair<>("mail", mail));
-        ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
-        if (result.next() == false){
-            return true;
-        }
-        else return false;
-
+    @Override
+    public boolean verifier(Object data,String name) throws Exception {
+        return (((MethodesPostgreSQL)this.methodesBD).exist(data, name, this.table));
     }
+
+
+
 }

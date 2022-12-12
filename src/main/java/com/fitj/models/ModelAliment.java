@@ -1,6 +1,6 @@
 package com.fitj.models;
 
-public class ModelAliment extends Model {
+public abstract class ModelAliment extends Model {
     public ModelAliment() {
         super("aliment");
     }

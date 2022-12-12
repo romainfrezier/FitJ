@@ -1,6 +1,6 @@
-package com.fitj.methodesBD;
+package com.fitj.models.methodesBD;
 
-import com.fitj.connexions.ConnexionBD;
+import com.fitj.models.connexions.ConnexionBD;
 
 import java.sql.Connection;
 import java.sql.SQLException;

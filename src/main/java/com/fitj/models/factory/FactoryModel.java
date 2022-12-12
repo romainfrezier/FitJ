@@ -1,4 +1,6 @@
-package com.fitj.models;
+package com.fitj.models.factory;
+
+import com.fitj.models.ModelClient;
 
 public abstract class FactoryModel {
 

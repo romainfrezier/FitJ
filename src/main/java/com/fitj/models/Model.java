@@ -1,7 +1,7 @@
 package com.fitj.models;
 
 
-import com.fitj.methodesBD.MethodesBD;
+import com.fitj.models.methodesBD.MethodesBD;
 
 public abstract class Model {
     protected String table;
@@ -11,5 +11,6 @@ public abstract class Model {
     public Model(String table){
         this.table = table;
     }
+
 
 }

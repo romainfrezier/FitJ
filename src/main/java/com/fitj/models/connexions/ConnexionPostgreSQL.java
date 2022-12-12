@@ -1,4 +1,4 @@
-package com.fitj.connexions;
+package com.fitj.models.connexions;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
