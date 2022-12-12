@@ -5,9 +5,18 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe fournissant une méthode statique pour récupérer les noms des paramètres d'une méthode.
+ */
 public class Tool {
 
-
+    /**
+     * Récupère la liste des noms des paramètres d'une méthode
+     *
+     * @param method la méthode pour laquelle o veut récupérer les noms des paramètres
+     * @return List<String>, la liste des noms des paramètres de la méthode
+     * @throws IllegalArgumentException si les noms des paramètres ne sont pas présents
+     */
     public static List<String> getParameterNames(Method method) {
         Parameter[] parameters = method.getParameters();
         List<String> parameterNames = new ArrayList<>();
