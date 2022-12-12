@@ -1,4 +1,4 @@
-module org.fitj {
+module com.fitj {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
