@@ -64,6 +64,6 @@ public class FacadeClientPostgreSQL extends FacadeClient {
     public static void main(String[] args) throws Exception {
         FacadeClient facadeClient = FactoryFacade.getInstance().getFacadeClient();
         facadeClient.inscription("etiennet@gmail.coffmmmmm", "jako", "123456", 80, 180, "superbePhoto");
-        System.out.println(facadeClient.connexion("etiennet@gmail.coaaaa","123456"));
+        System.out.println(facadeClient.connexion("etiennet@gmail.coffmmmmm","123456"));
     }
 }

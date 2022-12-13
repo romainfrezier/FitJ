@@ -13,9 +13,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
-public class ControllerFXClient {
+public class ControllerLogin {
 
     private final FacadeClient clientFacade = FactoryFacade.getInstance().getFacadeClient();
     @FXML
