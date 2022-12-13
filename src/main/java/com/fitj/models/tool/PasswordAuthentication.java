@@ -1,4 +1,4 @@
-package com.fitj.models;
+package com.fitj.models.tool;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
