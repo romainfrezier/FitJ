@@ -34,6 +34,6 @@
             <Image url="@../../img/logo.png" />
          </image>
       </ImageView>
-      <Button layoutX="240.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #375ada;" text="NOUVEAU ?" textFill="WHITE" />
+      <Button fx:id="nouveau" layoutX="240.0" layoutY="341.0" mnemonicParsing="false" onAction="#GoToRegister" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #375ada;" text="NOUVEAU ?" textFill="WHITE" />
    </children>
 </AnchorPane>

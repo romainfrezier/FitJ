@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.PrincipalView">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.PrincipalController">
    <children>
       <Pane layoutY="51.0" prefHeight="46.0" prefWidth="600.0" style="-fx-border-color: black;" />
       <Text layoutX="141.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Page principal" wrappingWidth="331.7366943359375" />
