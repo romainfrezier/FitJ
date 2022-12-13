@@ -1,8 +1,6 @@
 package com.fitj;
 
-import com.fitj.controllers.factory.FactoryController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -11,8 +9,8 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = ViewSetter.getScene("login-view.fxml");
-        stage.setTitle("Login!");
+        Scene scene = ViewSetter.getScene("home-view.fxml");
+        stage.setTitle("Welcome to FitJ");
         stage.setScene(scene);
         stage.show();
     }

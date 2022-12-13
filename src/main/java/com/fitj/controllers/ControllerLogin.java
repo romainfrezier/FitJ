@@ -28,8 +28,7 @@ public class ControllerLogin {
     @FXML
     private TextField password;
 
-    @FXML
-    private void handleButtonConnect(ActionEvent event) {
+    public void handleButtonConnect(ActionEvent event) {
         try {
             String result = clientFacade.connexion(login.getText(), password.getText());
             if (result.equals(Constante.CONNECTED)) {

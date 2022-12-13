@@ -38,32 +38,33 @@ public class FacadeClientPostgreSQL extends FacadeClient {
         }
     }
 
-    public void inscription(String mail, String pseudo, String password, float poids, int taille, String photo) throws Exception {
+    public String inscription(String mail, String pseudo, String password, float poids, int taille, String photo) {
         try {
             if (modelClient.verifier(mail,"mail")){
                 //throw error custom
-                System.out.println("Email déjà utilisé");
+                return Constante.USED_EMAIL;
             }
             else {
                 if (modelClient.verifier(pseudo,"pseudo")){
                     //throw error custom
-                    System.out.println("Pseudo déjà utilisé");
+                    return Constante.USED_PSEUDO;
                 }
                 else {
                     modelClient.createClient(mail, pseudo, password,poids,taille,photo);
-                    System.out.println("Inscription ok");
+                    return Constante.REGISTERED;
                 }
             }
         }
         catch (Exception e){
             //gérer le comportement
             //créer les erreurs
+            return Constante.REGISTER_ERROR;
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        FacadeClient facadeClient = FactoryFacade.getInstance().getFacadeClient();
-        facadeClient.inscription("etiennet@gmail.coffmmmmm", "jako", "123456", 80, 180, "superbePhoto");
-        System.out.println(facadeClient.connexion("etiennet@gmail.coffmmmmm","123456"));
-    }
+//    public static void main(String[] args) throws Exception {
+//        FacadeClient facadeClient = FactoryFacade.getInstance().getFacadeClient();
+//        facadeClient.inscription("etiennet@gmail.coffmmmmm", "jako", "123456", 80, 180, "superbePhoto");
+//        System.out.println(facadeClient.connexion("etiennet@gmail.coffmmmmm","123456"));
+//    }
 }
