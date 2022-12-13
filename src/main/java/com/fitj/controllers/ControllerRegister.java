@@ -45,6 +45,7 @@ public class ControllerRegister {
     private void handleButtonRegister(ActionEvent event) throws Exception {
         if (checkPassword() && checkForm()) {
             System.out.println("here");
+            // TODO ajouter le sex et les valeur venant du form
             String result = clientFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), 80f, 180, "Femme");
             if (result.equals(Constante.REGISTERED)) {
                 hideError();
