@@ -22,7 +22,6 @@ public class ConnexionPostgreSQL extends ConnexionBD {
 
     @Override
     public Connection connection() {
-        System.out.println("\n\n\n\n\n\n\n"+dotenv+"\n\n\n\n\n\n\n");
         try {
             this.connection = DriverManager.getConnection(url,user,password);
             return connection;

@@ -12,7 +12,7 @@ public abstract class FacadeClient extends Facade {
 
     protected FacadeClient(){
         this.modelClient = this.factoryModel.getModelClient();
-        this.controller = FactoryController.getInstance().getControllerClient();
+//        this.controller = FactoryController.getInstance().getControllerClient();
         this.passwordAuthentication = new PasswordAuthentication();
     }
 
