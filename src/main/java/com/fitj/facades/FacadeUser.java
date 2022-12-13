@@ -1,4 +1,9 @@
 package com.fitj.facades;
 
-public class FacadeUser {
+/**
+ * Facade User, permet de gérer les utilisateurs en appelant le controlleur et le modèle
+ * @see Facade
+ */
+public class FacadeUser extends Facade {
+
 }

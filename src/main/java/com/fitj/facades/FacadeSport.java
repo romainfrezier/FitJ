@@ -1,4 +1,9 @@
 package com.fitj.facades;
 
-public class FacadeSport {
+/**
+ * Facade Sport, permet de gérer les sports en appelant le controlleur et le modèle
+ * @see Facade
+ */
+public class FacadeSport extends Facade {
+
 }

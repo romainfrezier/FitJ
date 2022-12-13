@@ -1,4 +1,9 @@
 package com.fitj.facades;
 
-public class FacadeRecette {
+/**
+ * Facade Recette, permet de gérer les recettes en appelant le controlleur et le modèle
+ * @see Facade
+ */
+public class FacadeRecette extends Facade {
+
 }

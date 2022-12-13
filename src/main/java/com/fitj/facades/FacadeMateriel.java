@@ -1,4 +1,9 @@
 package com.fitj.facades;
 
-public class FacadeMateriel {
+/**
+ * Facade Materiel, permet de gérer les materiels en appelant le controlleur et le modèle
+ * @see Facade
+ */
+public class FacadeMateriel extends Facade {
+
 }

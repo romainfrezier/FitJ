@@ -1,4 +1,9 @@
 package com.fitj.facades;
 
-public class FacadeDemande {
+/**
+ * Facade Demande, permet de gérer les demandes en appelant le controlleur et le modèle
+ * @see Facade
+ */
+public class FacadeDemande extends Facade {
+
 }
