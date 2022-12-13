@@ -5,12 +5,15 @@ import com.fitj.classes.Paiement;
 import java.util.*;
 
 /**
- * 
+ * Interface qui définit une méthode pour recevoir un paiement.
+ * @see Receiver
  */
 public interface PaymentReceiver {
 
     /**
-     * @param content
+     * Reçoit le paiement.
+     *
+     * @param content Paiement, le contenu du paiement
      */
     public void receive(Paiement content);
 

@@ -5,13 +5,14 @@ import com.fitj.classes.Client;
 import java.util.*;
 
 /**
- * 
+ * Une interface qui définit une méthode pour envoyer un objet à un destinataire.
  */
 public interface Sendable {
 
     /**
-     * @param destinataire
+     * Envoie un objet à un destinataire.
+     *
+     * @param destinataire Client, le destinataire à qui envoyer l'objet
      */
     public void send(Client destinataire);
-
 }
