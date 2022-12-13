@@ -8,8 +8,5 @@ import com.fitj.models.ModelSeance;
  * @author Etienne Tillier
  */
 public class ModelSeancePostgreSQL extends ModelSeance {
-    @Override
-    public boolean verifier(Object data, String name) throws Exception {
-        return false;
-    }
+
 }

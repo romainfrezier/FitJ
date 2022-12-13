@@ -8,7 +8,5 @@ import com.fitj.models.ModelCommande;
  * @author Etienne Tillier
  */
 public class ModelCommandePostgreSQL extends ModelCommande {
-    public boolean verifier(Object data, String name) throws Exception {
-        return false;
-    }
+
 }

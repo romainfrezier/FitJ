@@ -8,8 +8,5 @@ import com.fitj.models.ModelSport;
  * @author Etienne Tillier
  */
 public class ModelSportPostgreSQL extends ModelSport {
-    @Override
-    public boolean verifier(Object data, String name) throws Exception {
-        return false;
-    }
+
 }

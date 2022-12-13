@@ -8,8 +8,5 @@ import com.fitj.models.ModelAliment;
  * @author Etienne Tillier
  */
 public class ModelAlimentPostgreSQL extends ModelAliment {
-    @Override
-    public boolean verifier(Object data, String name) throws Exception {
-        return false;
-    }
+
 }
