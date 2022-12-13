@@ -10,6 +10,6 @@ public class ViewSetter {
 
     public static Scene getScene(String viewName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(viewName));
-        return new Scene(fxmlLoader.load(), 600, 400);
+        return new Scene(fxmlLoader.load());
     }
 }

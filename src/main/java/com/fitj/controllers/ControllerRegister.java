@@ -39,6 +39,9 @@ public class ControllerRegister {
     private Text errorMessage;
 
     @FXML
+    private Button homeButton;
+
+    @FXML
     private void handleButtonRegister(ActionEvent event) throws Exception {
         if (checkPassword() && checkForm()) {
             System.out.println("here");
@@ -109,5 +112,13 @@ public class ControllerRegister {
     //Cache le message d'erreur
     public void hideError(){
         errorMessage.setText("");
+    }
+
+    public void goToHome(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Scene scene = ViewSetter.getScene("home-view.fxml");
+        stage.setTitle("Welcome to FitJ");
+        stage.setScene(scene);
+        stage.show();
     }
 }

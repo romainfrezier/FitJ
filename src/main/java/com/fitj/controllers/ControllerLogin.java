@@ -18,6 +18,8 @@ public class ControllerLogin {
 
     private final FacadeClient clientFacade = FactoryFacade.getInstance().getFacadeClient();
     @FXML
+    private Button homeButton;
+    @FXML
     private Button connect;
     @FXML
     private Button nouveau;
@@ -42,7 +44,7 @@ public class ControllerLogin {
         }
     }
 
-    public void GoToRegister(ActionEvent actionEvent) throws IOException {
+    public void goToRegister(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) nouveau.getScene().getWindow();
         Scene scene = ViewSetter.getScene("register-view.fxml");
         stage.setTitle("Register");
@@ -70,5 +72,13 @@ public class ControllerLogin {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    public void goToHome(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Scene scene = ViewSetter.getScene("home-view.fxml");
+        stage.setTitle("Welcome to FitJ");
+        stage.setScene(scene);
+        stage.show();
     }
 }

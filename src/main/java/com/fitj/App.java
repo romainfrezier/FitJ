@@ -10,6 +10,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Scene scene = ViewSetter.getScene("home-view.fxml");
+        stage.setResizable(false);
         stage.setTitle("Welcome to FitJ");
         stage.setScene(scene);
         stage.show();

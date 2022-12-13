@@ -1,43 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.ControllerRegister">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.ControllerRegister">
     <children>
-        <Pane layoutX="122.0" layoutY="54.0" prefHeight="302.0" prefWidth="351.0" style="-fx-background-color: #cdcdcd; -fx-border-color: black;">
+        <Pane layoutX="325.0" layoutY="171.0" prefHeight="492.0" prefWidth="351.0" style="-fx-background-color: #cdcdcd; -fx-border-color: black;">
             <children>
                 <TextField fx:id="mail" layoutX="59.0" layoutY="39.0" prefHeight="25.0" prefWidth="234.0" />
-                <Text fill="#243fa1" layoutX="59.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse mail" wrappingWidth="92.13671875" />
-                <Text fill="#375ada" layoutX="59.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="92.13671875" />
+                <Text fill="#054371" layoutX="59.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse mail" wrappingWidth="92.13671875" />
+                <Text fill="#054371" layoutX="59.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="92.13671875" />
                 <TextField fx:id="pseudo" layoutX="59.0" layoutY="88.0" prefHeight="25.0" prefWidth="234.0" />
-                <Button fx:id="register" layoutX="96.0" layoutY="257.0" mnemonicParsing="false" onAction="#handleButtonRegister" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: red;" text="Créer mon compte" textFill="WHITE">
+                <Button fx:id="register" layoutX="97.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleButtonRegister" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: red;" text="Créer mon compte" textFill="WHITE">
                     <font>
                         <Font size="15.0" />
                     </font>
                 </Button>
                 <Text fx:id="errorMessage" fill="RED" layoutX="30.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="292.0" />
-                <TextField fx:id="password" layoutX="59.0" layoutY="140.0" prefHeight="25.0" prefWidth="234.0" />
-                <Text fill="#375ada" layoutX="59.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" wrappingWidth="92.13671875" />
-                <TextField fx:id="passwordConfirm" layoutX="59.0" layoutY="194.0" prefHeight="25.0" prefWidth="234.0" />
-                <Text fill="#375ada" layoutX="59.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmation de mot de passe" wrappingWidth="170.5367431640625" />
+                <TextField fx:id="password" layoutX="59.0" layoutY="303.0" prefHeight="25.0" prefWidth="234.0" />
+                <Text fill="#054371" layoutX="59.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" wrappingWidth="92.13671875" />
+                <TextField fx:id="passwordConfirm" layoutX="59.0" layoutY="357.0" prefHeight="25.0" prefWidth="234.0" />
+                <Text fill="#054371" layoutX="59.0" layoutY="352.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmation de mot de passe" wrappingWidth="170.5367431640625" />
+            <Text fill="#054371" layoutX="59.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poids" wrappingWidth="92.13671875" />
+            <Text fill="#054371" layoutX="59.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taille" wrappingWidth="92.13671875" />
+            <Slider fx:id="poidsSlider" blockIncrement="1.0" layoutX="60.0" layoutY="138.0" majorTickUnit="5.0" max="150.0" min="35.0" prefHeight="15.0" prefWidth="234.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="70.0" />
+            <Slider fx:id="tailleSlider" blockIncrement="1.0" layoutX="59.0" layoutY="191.0" majorTickUnit="10.0" max="220.0" min="120.0" prefHeight="15.0" prefWidth="234.0" showTickLabels="true" showTickMarks="true" value="170.0" />
+            <Text fill="#054371" layoutX="59.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexe" wrappingWidth="92.13671875" />
+            <RadioButton fx:id="hommeRadio" layoutX="59.0" layoutY="257.0" mnemonicParsing="false" selected="true" text="Homme" textFill="#054371">
+               <toggleGroup>
+                  <ToggleGroup fx:id="sex" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="femmeRadio" layoutX="145.0" layoutY="257.0" mnemonicParsing="false" text="Femme" textFill="#054371" toggleGroup="$sex" />
+            <RadioButton fx:id="autreRadio" layoutX="240.0" layoutY="257.0" mnemonicParsing="false" text="Autre" textFill="#054371" toggleGroup="$sex" />
             </children></Pane>
-        <Text layoutX="209.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inscription" textAlignment="CENTER" wrappingWidth="178.13671875">
+        <Text layoutX="412.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inscription" textAlignment="CENTER" wrappingWidth="178.13671875">
             <font>
                 <Font size="28.0" />
             </font>
         </Text>
-        <ImageView fitHeight="55.0" fitWidth="53.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@../../img/logo.png" />
-            </image>
-        </ImageView>
-        <Button fx:id="login" layoutX="239.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #375ada;" text="Déjà inscrit?" textFill="WHITE" />
+        <Button fx:id="login" layoutX="441.0" layoutY="676.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #054371;" text="Déjà inscrit?" textFill="WHITE" />
+      <Pane layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;">
+         <children>
+            <Button fx:id="loginHeaderButton" layoutX="897.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToLogin" style="-fx-background-color: #054371;" text="Se connecter" textFill="WHITE" />
+            <Button layoutX="807.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Nouveau ?" textFill="WHITE" />
+            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button fx:id="homeButton" layoutX="464.0" layoutY="760.0" mnemonicParsing="false" onAction="#goToHome" style="-fx-background-color: #054371;" text="&lt;&lt; Retour" textFill="WHITE" />
     </children>
 </AnchorPane>
