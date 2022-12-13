@@ -42,8 +42,13 @@ public abstract class ModelClient extends Model {
     public abstract Object getClientAccount(String mail) throws Exception;
 
 
-
-
+    /**
+     * @param data, la donnée que le client veut vérifier
+     * @param name, le nom de la donnée
+     * @return true si la donnée existe dans la table sinon false
+     * @throws Exception, s'il y a eu un problème lors de la requête SQL
+     */
+    public abstract boolean verifier(Object data, String name) throws Exception;
 
 
 }

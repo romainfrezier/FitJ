@@ -1,10 +1,11 @@
 package com.fitj.models.postgresql;
 
-import com.fitj.models.ModelAliment;
+import com.fitj.models.ModelAvis;
 
-public class ModelAvisPostgreSQL extends ModelAliment {
-    @Override
-    public boolean verifier(Object data, String name) throws Exception {
-        return false;
-    }
+/**
+ * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux avis
+ *
+ * @author Etienne Tillier
+ */
+public class ModelAvisPostgreSQL extends ModelAvis {
 }
