@@ -7,6 +7,7 @@ import java.util.*;
 /**
  * Interface qui définit une méthode pour recevoir un commentaire (ou un avis).
  * @see Receiver
+ * @author Paul Merceur
  */
 public interface CommentReceiver {
 

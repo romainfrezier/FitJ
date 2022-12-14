@@ -8,11 +8,12 @@ import java.util.*;
 /**
  * Une classe qui représente un coach.
  * Un coach est un utilisateur qui peut proposer des produits.
+ * @author Paco Munarriz
  */
 public class Coach extends Client implements PaymentReceiver, DemandReceiver {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Coach() {
     }
@@ -20,7 +21,7 @@ public class Coach extends Client implements PaymentReceiver, DemandReceiver {
     /**
      * @param content: montant du paiement.
      */
-    public void receivePaiement(Paiement content) {
+    public void receive(Paiement content) {
         // TODO implement here
     }
 
@@ -28,17 +29,23 @@ public class Coach extends Client implements PaymentReceiver, DemandReceiver {
      * @param content : la demande de programme personnalisé envoyée par un client.
      * Ajoute la demande a la liste de demande du coach.
      */
-    public void receiveDemande(Demande content) {
+    public void receive(Demande content) {
         // TODO implement here
     }
 
-    @Override
-    public void receiveNotification(Notification content) {
-
+    /**
+     * @param content
+     * Ajoute le produit à la liste de produit du client.
+     */
+    public void receive(Produit content) {
+        // TODO implement here
     }
 
-    @Override
-    public void receiveProduit(Produit content) {
-
+    /**
+     * @param content
+     * Ajoute la notification à la liste de notification du client.
+     */
+    public void receive(Notification content) {
+        // TODO implement here
     }
 }

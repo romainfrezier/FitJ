@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * Cette classe représente un ProgrammeNutrition, qui est un type de Programme.
  * @see Programme
+ * @author Paul Merceur
  */
 public class ProgrammeNutrition extends Programme {
 

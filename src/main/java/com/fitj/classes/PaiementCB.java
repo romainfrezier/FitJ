@@ -1,17 +1,15 @@
 package com.fitj.classes;
 
-import java.util.*;
-
 /**
- * Classe qui représente un paiement Paypal.
+ * Classe qui représente un paiement par carte bancaire.
  * @author Paco Munarriz
  */
-public class PaiementPaypal extends Paiement {
+public class PaiementCB extends Paiement {
 
     /**
      * Constructeur par défaut
      */
-    public PaiementPaypal() {
+    public PaiementCB() {
     }
 
     /**

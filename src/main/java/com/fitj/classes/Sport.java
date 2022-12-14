@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Cette classe représente un Sport
+ * @author Paul Merceur
  */
 public class Sport {
 

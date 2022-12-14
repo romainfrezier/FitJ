@@ -4,17 +4,18 @@ import java.util.*;
 
 /**
  * Une classe qui représente un avis laissé par un client sur un produit.
+ * @author Paco Munarriz
  */
 public abstract class Avis {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Avis() {
     }
 
     /**
-     * L'id de l'avis.
+     * L'id unique de l'avis.
      */
     private int id;
 

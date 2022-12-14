@@ -5,11 +5,12 @@ import java.util.*;
 /**
  * Une classe qui représente un administrateur.
  * Un administrateur est Coach qui a des droits supplémentaires.
+ * @author Paco Munarriz
  */
 public class Admin extends Coach {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Admin() {
     }

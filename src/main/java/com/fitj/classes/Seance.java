@@ -6,6 +6,7 @@ import java.util.*;
  * Cette classe représente une Seance, qui compose un ProgrammeSportif et qui est un type de Produit.
  * @see ProgrammeNutrition
  * @see Produit
+ * @author Paul Merceur
  */
 public class Seance extends Produit {
 

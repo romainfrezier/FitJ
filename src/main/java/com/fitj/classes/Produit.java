@@ -8,6 +8,9 @@ import java.util.*;
 /**
  * Une classe abstraite qui représente un produit.
  * Cette classe implémente les interfaces `Sendable` et `CommentReceiver`.
+ * @see Sendable
+ * @see CommentReceiver
+ * @author Paul Merceur
  */
 public abstract class Produit implements Sendable, CommentReceiver {
 

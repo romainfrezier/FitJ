@@ -3,7 +3,8 @@ package com.fitj.classes;
 import java.util.*;
 
 /**
- * Cette classe représente un utilisateurde l'application
+ * Cette classe représente un utilisateur de l'application
+ * @author Paul Merceur
  */
 public class Utilisateur {
 

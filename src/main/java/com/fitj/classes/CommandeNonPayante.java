@@ -4,11 +4,12 @@ import java.util.*;
 
 /**
  * Classe qui représente une commande gratuite.
+ * @author Paco Munarriz
  */
 public class CommandeNonPayante extends Commande {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public CommandeNonPayante() {
     }

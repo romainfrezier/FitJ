@@ -7,6 +7,7 @@ import java.util.*;
 /**
  * Interface qui définit une méthode pour recevoir une notification.
  * @see Receiver
+ * @author Paul Merceur
  */
 public interface NotifReceiver {
 

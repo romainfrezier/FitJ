@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * Cette classe représente un ProgrammePersonnalise, qui est un type de Programme, personnalisé pour un client.
  * @see Programme
+ * @author Paul Merceur
  */
 public class ProgrammePersonnalise extends Service {
 

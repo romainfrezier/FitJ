@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * Interface générique qui définit une méthode pour recevoir un objet.
+ * @author Paul Merceur
  */
 public interface Receiver {
 
