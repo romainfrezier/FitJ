@@ -3,7 +3,7 @@ package com.fitj.classes;
 import java.util.*;
 
 /**
- * 
+ * Une classe abstraite qui représente un commentaire.
  */
 public abstract class AbstractCommentaire {
 
@@ -14,7 +14,7 @@ public abstract class AbstractCommentaire {
     }
 
     /**
-     * 
+     * Un commentaire.
      */
     private String message;
 

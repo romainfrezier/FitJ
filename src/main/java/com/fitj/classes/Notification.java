@@ -5,7 +5,7 @@ import com.fitj.interfaces.Sendable;
 import java.util.*;
 
 /**
- * 
+ * Classe qui représente une notification.
  */
 public class Notification implements Sendable {
 
@@ -16,12 +16,13 @@ public class Notification implements Sendable {
     }
 
     /**
-     * 
+     * Message de la notification.
      */
     private String Message;
 
     /**
-     * @param destinataire
+     * @param destinataire : Le client qui reçoit la notification.
+     * Envoie la notification au destinataire.
      */
     public void send(Client destinataire) {
         // TODO implement here

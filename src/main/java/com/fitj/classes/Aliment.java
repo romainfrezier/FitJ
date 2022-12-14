@@ -3,7 +3,7 @@ package com.fitj.classes;
 import java.util.*;
 
 /**
- * 
+ * Une classe qui représente un aliment.
  */
 public class Aliment {
 

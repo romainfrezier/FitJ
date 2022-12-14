@@ -5,7 +5,7 @@ import com.fitj.interfaces.Sendable;
 import java.util.*;
 
 /**
- * 
+ * Classe qui représente un paiement.
  */
 public abstract class Paiement implements Sendable {
 
@@ -16,17 +16,18 @@ public abstract class Paiement implements Sendable {
     }
 
     /**
-     * 
+     * L'id du paiement.
      */
     private int id;
 
     /**
-     * 
+     * Le montant du paiement.
      */
     private double montant;
 
     /**
-     * @param destinataire
+     * @param destinataire: Le coach qui reçoit le paiement.
+     * Envoie le montant du paiement au destinataire.
      */
     public void send(Client destinataire) {
         // TODO implement here
