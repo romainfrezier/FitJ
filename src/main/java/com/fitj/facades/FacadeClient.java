@@ -1,10 +1,16 @@
 package com.fitj.facades;
 
-/**
- * Facade Client, permet de gérer les clients en appelant le controlleur et le modèle
- * Implémenté par la facade propre a la base de données
- * @see Facade
- */
-public abstract class FacadeClient extends Facade {
+public class FacadeClient extends Facade {
 
+    private static FacadeClient instance = null;
+    protected FacadeClient(){
+
+    }
+
+    public static FacadeClient getInstance(){
+        if (instance == null){
+            instance = new FacadeClient();
+        }
+        return instance;
+    }
 }

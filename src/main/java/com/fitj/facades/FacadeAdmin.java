@@ -1,10 +1,16 @@
 package com.fitj.facades;
 
-/**
- * Facade Admin, permet de gérer les actions de l'administrateur en appelant le controlleur et le modèle
- * Implémenté par la facade propre a la base de données
- * @see Facade
- */
-public abstract class FacadeAdmin extends Facade {
+public class FacadeAdmin extends Facade {
 
+    private static FacadeAdmin instance = null;
+    protected FacadeAdmin(){
+
+    }
+
+    public static FacadeAdmin getInstance(){
+        if (instance == null){
+            instance = new FacadeAdmin();
+        }
+        return instance;
+    }
 }

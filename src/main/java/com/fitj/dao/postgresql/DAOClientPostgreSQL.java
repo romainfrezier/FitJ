@@ -36,7 +36,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param photo    String, le lien de la photo du client
      * @throws SQLException
      */
-    public void createClient(String mail, String pseudo, String password, float poids, int taille, String photo) throws SQLException {
+    public void createClient(String mail, String pseudo, String password, float poids, int taille, String photo, Sexe sexe) throws SQLException {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
         data.add(new Pair<>("pseudo", pseudo));
@@ -44,6 +44,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         data.add(new Pair<>("poids", poids));
         data.add(new Pair<>("taille", taille));
         data.add(new Pair<>("photo", photo));
+        data.add(new Pair<>("sexe", Sexe.getSexe(sexe)));
         ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
     }
 

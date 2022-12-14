@@ -2,8 +2,6 @@ package com.fitj.classes;
 
 import com.fitj.enums.Sexe;
 import com.fitj.facades.FacadeClient;
-import com.fitj.facades.FacadeUser;
-import com.fitj.facades.factory.FactoryFacade;
 import com.fitj.interfaces.NotifReceiver;
 import com.fitj.interfaces.ProductReceiver;
 
@@ -78,7 +76,7 @@ public class Client implements ProductReceiver, NotifReceiver {
         this.taille = taille;
         this.sexe = sexe;
         this.password = password;
-        this.facadeClient = FactoryFacade.getInstance().getFacadeClient();
+        this.facadeClient = FacadeClient.getInstance();
         this.listeSport = new ArrayList<>();
         this.listeCommande = new ArrayList<>();
         this.listeMateriel = new ArrayList<>();

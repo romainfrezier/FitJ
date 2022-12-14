@@ -1,10 +1,16 @@
 package com.fitj.facades;
 
-/**
- * Facade Notification, permet de gérer les notifications en appelant le controlleur et le modèle
- * Implémenté par la facade propre a la base de données
- * @see Facade
- */
-public abstract class FacadeNotification extends Facade {
+public class FacadeNotification extends Facade {
 
+    private static FacadeNotification instance = null;
+    protected FacadeNotification(){
+
+    }
+
+    public static FacadeNotification getInstance(){
+        if (instance == null){
+            instance = new FacadeNotification();
+        }
+        return instance;
+    }
 }

@@ -1,10 +1,17 @@
 package com.fitj.facades;
 
-/**
- * Facade Sport, permet de gérer les sports en appelant le controlleur et le modèle
- * Implémenté par la facade propre a la base de données
- * @see Facade
- */
-public abstract class FacadeSport extends Facade {
+public class FacadeSport extends Facade {
 
+
+    private static FacadeSport instance = null;
+    protected FacadeSport(){
+
+    }
+
+    public static FacadeSport getInstance(){
+        if (instance == null){
+            instance = new FacadeSport();
+        }
+        return instance;
+    }
 }

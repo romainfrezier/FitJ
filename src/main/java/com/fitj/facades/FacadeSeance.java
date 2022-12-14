@@ -1,10 +1,16 @@
 package com.fitj.facades;
 
-/**
- * Facade Seance, permet de gérer les seances en appelant le controlleur et le modèle
- * Implémenté par la facade propre a la base de données
- * @see Facade
- */
-public abstract class FacadeSeance extends Facade {
+public class FacadeSeance extends Facade {
 
+    private static FacadeSeance instance = null;
+    protected FacadeSeance(){
+
+    }
+
+    public static FacadeSeance getInstance(){
+        if (instance == null){
+            instance = new FacadeSeance();
+        }
+        return instance;
+    }
 }

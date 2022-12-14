@@ -21,4 +21,19 @@ public enum Sexe {
             return INCONNU;
         }
     }
+
+    public static String getSexe(Sexe sexe){
+        if (sexe == HOMME){
+            return "homme";
+        }
+        else if (sexe == FEMME){
+            return "femme";
+        }
+        else if (sexe == AUTRE){
+            return "autre";
+        }
+        else {
+            return "inconnu";
+        }
+    }
 }

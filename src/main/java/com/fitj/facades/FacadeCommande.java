@@ -1,10 +1,16 @@
 package com.fitj.facades;
 
-/**
- * Facade Commande, permet de gérer les commandes en appelant le controlleur et le modèle
- * Implémenté par la facade propre a la base de données
- * @see Facade
- */
-public abstract class FacadeCommande extends Facade {
+public class FacadeCommande extends Facade {
 
+    private static FacadeCommande instance = null;
+    protected FacadeCommande(){
+
+    }
+
+    public static FacadeCommande getInstance(){
+        if (instance == null){
+            instance = new FacadeCommande();
+        }
+        return instance;
+    }
 }
