@@ -8,6 +8,8 @@ module com.fitj {
     opens com.fitj.controllers to javafx.fxml;
     exports com.fitj;
     exports com.fitj.controllers;
+    exports com.fitj.controllers.users;
+    opens com.fitj.controllers.users to javafx.fxml;
 //    exports com.fitj.classes;
 //    exports com.fitj.models;
 //    exports com.fitj.models.connexions;
