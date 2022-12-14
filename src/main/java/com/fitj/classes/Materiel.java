@@ -4,17 +4,18 @@ import java.util.*;
 
 /**
  * Classe qui représente un matériel.
+ * @author Paco Munarriz
  */
 public class Materiel {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Materiel() {
     }
 
     /**
-     * L'id du matériel.
+     * L'id unique du matériel.
      */
     private int id;
 

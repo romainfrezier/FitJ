@@ -7,6 +7,7 @@ import java.util.*;
 /**
  * Interface qui définit une méthode pour recevoir un produit.
  * @see Receiver
+ * @author Paul Merceur
  */
 public interface ProductReceiver {
 

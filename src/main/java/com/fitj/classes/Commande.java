@@ -5,17 +5,18 @@ import java.util.*;
 /**
  * Classe qui représente une commande.
  * Une commande est un ensemble de produits achetés par un client à un coach.
+ * @author Paco Munarriz
  */
 public abstract class Commande {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Commande() {
     }
 
     /**
-     * L'identifiant de la commande.
+     * L'identifiant unique de la commande.
      */
     private int id;
 

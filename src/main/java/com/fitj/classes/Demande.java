@@ -4,17 +4,18 @@ import java.util.*;
 
 /**
  * Une classe qui représente une demande de programme personnalisé d'un client à un coach.
+ * @author Paco Munarriz
  */
 public class Demande {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Demande() {
     }
 
     /**
-     * L'id de la demande.
+     * L'id unique de la demande.
      */
     private int id;
 

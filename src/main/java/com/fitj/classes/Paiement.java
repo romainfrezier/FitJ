@@ -6,17 +6,18 @@ import java.util.*;
 
 /**
  * Classe qui représente un paiement.
+ * @author Paco Munarriz
  */
 public abstract class Paiement implements Sendable {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Paiement() {
     }
 
     /**
-     * L'id du paiement.
+     * L'id unique du paiement.
      */
     private int id;
 

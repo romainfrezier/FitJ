@@ -6,11 +6,12 @@ import java.util.*;
 
 /**
  * Classe qui représente une notification.
+ * @author Paco Munarriz
  */
 public class Notification implements Sendable {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Notification() {
     }

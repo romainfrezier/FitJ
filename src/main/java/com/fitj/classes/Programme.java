@@ -8,6 +8,7 @@ import java.util.*;
  * Cette classe représente un Programme, qui est un type de Produit.
  * Il a un type et une durée (en mois).
  * @see Produit
+ * @author Paul Merceur
  */
 public abstract class Programme extends Produit {
 

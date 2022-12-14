@@ -4,17 +4,18 @@ import java.util.*;
 
 /**
  * Classe qui représente un exercice.
+ * @author Paco Munarriz
  */
 public class Exercice {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Exercice() {
     }
 
     /**
-     * L'id de l'exercice.
+     * L'id unique de l'exercice.
      */
     private int id;
 

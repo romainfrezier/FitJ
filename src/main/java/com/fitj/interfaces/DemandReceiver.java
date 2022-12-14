@@ -7,6 +7,7 @@ import java.util.*;
 /**
  * Interface qui définit une méthode pour recevoir une demande.
  * @see Receiver
+ * @author Paul Merceur
  */
 public interface DemandReceiver {
 

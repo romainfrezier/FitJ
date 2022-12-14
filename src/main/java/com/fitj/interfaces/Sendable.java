@@ -6,6 +6,7 @@ import java.util.*;
 
 /**
  * Une interface qui définit une méthode pour envoyer un objet à un destinataire.
+ * @author Paul Merceur
  */
 public interface Sendable {
 

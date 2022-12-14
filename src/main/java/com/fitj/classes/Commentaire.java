@@ -4,11 +4,12 @@ import java.util.*;
 
 /**
  * Une classe qui représente un commentaire.
+ * @author Paco Munarriz
  */
 public class Commentaire extends AbstractCommentaire {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Commentaire() {
     }

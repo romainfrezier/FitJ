@@ -7,17 +7,18 @@ import java.util.*;
 
 /**
  * Une classe qui représente un client.
+ * @author Paco Munarriz
  */
 public class Client extends Utilisateur implements ProductReceiver, NotifReceiver {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Client() {
     }
 
     /**
-     * L'identifiant du client.
+     * L'identifiant unique du client.
      */
     private int id;
 
@@ -34,7 +35,7 @@ public class Client extends Utilisateur implements ProductReceiver, NotifReceive
     /**
      * Le poids du client.
      */
-    private double poid;
+    private double poids;
 
     /**
      * La taille du client.
@@ -52,38 +53,32 @@ public class Client extends Utilisateur implements ProductReceiver, NotifReceive
     private String photo;
 
     /**
-     * 
-     */
-    public void Operation1() {
-        // TODO implement here
-    }
-
-    /**
-     * @param content
-     * Ajoute le produit a la liste de produit du client.
-     */
-    public void receiveProduit(Produit content) {
-        // TODO implement here
-    }
-
-    /**
-     * @param content
-     * Ajoute la notification a la liste de notification du client.
-     */
-    public void receiveNotification(Notification content) {
-        // TODO implement here
-    }
-
-    /**
      * Constructeur de la classe Client.
      */
-    public Client(int id, String mail, String mdp, double poid, int taille, String pseudo, String photo) {
+    public Client(int id, String mail, String mdp, double poids, int taille, String pseudo, String photo) {
         this.id = id;
         this.mail = mail;
         this.mdp = mdp;
-        this.poid = poid;
+        this.poids = poids;
         this.taille = taille;
         this.pseudo = pseudo;
         this.photo = photo;
+    }
+
+    /**
+     * @param content
+     * Ajoute le produit à la liste de produit du client.
+     */
+    public void receive(Produit content) {
+        // TODO implement here
+    }
+
+    /**
+     * @param content
+     * Ajoute la notification à la liste de notification du client.
+     */
+    public void receive(Notification content) {
+        // TODO implement here
+    }
 
 }

@@ -5,11 +5,12 @@ import java.util.*;
 /**
  * Classe qui représente un pack.
  * Un pack est un ensemble de produits.
+ * @author Paco Munarriz
  */
 public class Pack extends Produit {
 
     /**
-     * Default constructor
+     * Constructeur par défaut
      */
     public Pack() {
     }

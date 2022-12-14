@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * Cette classe représente une Recette, qui compose un ProgrammeNutrition.
  * @see ProgrammeNutrition
+ * @author Paul Merceur
  */
 public class Recette {
 
