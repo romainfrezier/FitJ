@@ -1,5 +1,7 @@
 package com.fitj.classes;
 
+import com.fitj.enums.Sexe;
+
 import java.util.*;
 
 /**
@@ -12,7 +14,8 @@ public class Admin extends Coach {
     /**
      * Constructeur par défaut
      */
-    public Admin() {
+    public Admin(String email, String pseudo, double poids, String image, int taille, Sexe sexe, String password) {
+        super(email,pseudo,poids,image,taille,sexe,password);
     }
 
     /**
