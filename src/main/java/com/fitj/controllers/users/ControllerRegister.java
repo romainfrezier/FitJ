@@ -1,6 +1,7 @@
 package com.fitj.controllers.users;
 
 import com.fitj.Constante;
+import com.fitj.enums.Sexe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -63,7 +64,7 @@ public class ControllerRegister extends ControllerUser {
         if (checkPassword() && checkForm()) {
             // TODO ajouter le sex et les valeur venant du form, taille, poids, photo...
             try {
-                String result = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), 80f, 180, "Femme");
+                String result = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), 80f, 180, "Femme", Sexe.getSexe("Femme"));
                 if (result.equals(Constante.REGISTERED)) {
                     hideError();
                     try {

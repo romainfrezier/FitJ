@@ -1,10 +1,16 @@
 package com.fitj.facades;
 
-/**
- * Facade Demande, permet de gérer les demandes en appelant le controlleur et le modèle
- * Implémenté par la facade propre a la base de données
- * @see Facade
- */
-public abstract class FacadeDemande extends Facade {
+public class FacadeDemande extends Facade {
 
+    private static FacadeDemande instance = null;
+    protected FacadeDemande(){
+
+    }
+
+    public static FacadeDemande getInstance(){
+        if (instance == null){
+            instance = new FacadeDemande();
+        }
+        return instance;
+    }
 }

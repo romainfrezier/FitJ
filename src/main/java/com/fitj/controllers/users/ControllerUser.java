@@ -2,7 +2,6 @@ package com.fitj.controllers.users;
 
 import com.fitj.controllers.Controller;
 import com.fitj.facades.FacadeUser;
-import com.fitj.facades.factory.FactoryFacade;
 import javafx.scene.control.Control;
 import java.io.IOException;
 
@@ -16,7 +15,7 @@ public abstract class ControllerUser extends Controller {
     /**
      * Facade pour les visiteurs
      */
-    final FacadeUser userFacade = FactoryFacade.getInstance().getFacadeUser();
+    final FacadeUser userFacade = FacadeUser.getInstance();
 
     /**
      * Methode permettant de se rendre sur la page de création de compte
