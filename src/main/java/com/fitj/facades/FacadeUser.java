@@ -1,8 +1,8 @@
 package com.fitj.facades;
 
-import com.fitj.models.ModelClient;
-import com.fitj.models.factory.FactoryModel;
-import com.fitj.models.tool.PasswordAuthentication;
+import com.fitj.dao.DAOClient;
+import com.fitj.dao.factory.FactoryModel;
+import com.fitj.dao.tool.PasswordAuthentication;
 
 /**
  * Facade User, permet de gérer les utilisateurs en appelant le controlleur et le modèle
@@ -18,7 +18,7 @@ public abstract class FacadeUser extends Facade {
     /**
      * Modèle de client
      */
-    protected ModelClient modelClient;
+    protected DAOClient modelClient;
 
     /**
      * Constructeur de la facade, initialise les attributs
@@ -39,7 +39,7 @@ public abstract class FacadeUser extends Facade {
     // TODO remplacer par objet Client
     /**
      * Gère la création d'un utilisateur
-     * @param user Client, utilisateur à créer
+     * @param client Client, utilisateur à créer
      * @return String, résultat de la création
      * @throws Exception si la création échoue
      */
