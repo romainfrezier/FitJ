@@ -1,7 +1,7 @@
-package com.fitj.controllers.users;
+package com.fitj.controllers.clients;
 
 import com.fitj.controllers.Controller;
-import com.fitj.facades.FacadeUser;
+import com.fitj.facades.FacadeClient;
 import com.fitj.facades.factory.FactoryFacade;
 import javafx.scene.control.Control;
 import java.io.IOException;
@@ -51,6 +51,6 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToHome(Control controlEl) throws IOException {
-        goToPage(controlEl, "home-client.fxml", "Home");
+        goToPage(controlEl, "mon-compte.fxml", "Home");
     }
 }
