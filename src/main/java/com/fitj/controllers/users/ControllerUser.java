@@ -51,6 +51,6 @@ public abstract class ControllerUser extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToHome(Control controlEl) throws IOException {
-        goToPage(controlEl, "home-view.fxml", "Home");
+        goToPage(controlEl, "home-client.fxml", "Home");
     }
 }
