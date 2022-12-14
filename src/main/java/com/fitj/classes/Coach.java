@@ -6,7 +6,8 @@ import com.fitj.interfaces.PaymentReceiver;
 import java.util.*;
 
 /**
- * 
+ * Une classe qui représente un coach.
+ * Un coach est un utilisateur qui peut proposer des produits.
  */
 public class Coach extends Client implements PaymentReceiver, DemandReceiver {
 
@@ -25,18 +26,19 @@ public class Coach extends Client implements PaymentReceiver, DemandReceiver {
 
     /**
      * @param content
+     * Ajoute la demande a la liste de demande du coach.
      */
-    public void receive(Demande content) {
+    public void receiveDemande(Demande content) {
         // TODO implement here
     }
 
     @Override
-    public void receive(Notification content) {
+    public void receiveNotification(Notification content) {
 
     }
 
     @Override
-    public void receive(Produit content) {
+    public void receiveProduit(Produit content) {
 
     }
 }
