@@ -21,7 +21,7 @@ public class Notification implements Sendable {
     private String Message;
 
     /**
-     * @param destinataire
+     * @param destinataire : Le client qui reçoit la notification.
      * Envoie la notification au destinataire.
      */
     public void send(Client destinataire) {

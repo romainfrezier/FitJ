@@ -18,14 +18,14 @@ public class Coach extends Client implements PaymentReceiver, DemandReceiver {
     }
 
     /**
-     * @param content
+     * @param content: montant du paiement.
      */
-    public void receive(Paiement content) {
+    public void receivePaiement(Paiement content) {
         // TODO implement here
     }
 
     /**
-     * @param content
+     * @param content : la demande de programme personnalisé envoyée par un client.
      * Ajoute la demande a la liste de demande du coach.
      */
     public void receiveDemande(Demande content) {

@@ -26,7 +26,7 @@ public abstract class Paiement implements Sendable {
     private double montant;
 
     /**
-     * @param destinataire
+     * @param destinataire: Le coach qui reçoit le paiement.
      * Envoie le montant du paiement au destinataire.
      */
     public void send(Client destinataire) {
