@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.ControllerRegister">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.users.ControllerRegister">
     <children>
         <Pane layoutX="325.0" layoutY="171.0" prefHeight="492.0" prefWidth="351.0" style="-fx-background-color: #cdcdcd; -fx-border-color: black;">
             <children>
@@ -13,7 +13,7 @@
                 <Text fill="#054371" layoutX="59.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse mail" wrappingWidth="92.13671875" />
                 <Text fill="#054371" layoutX="59.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="92.13671875" />
                 <TextField fx:id="pseudo" layoutX="59.0" layoutY="88.0" prefHeight="25.0" prefWidth="234.0" />
-                <Button fx:id="register" layoutX="97.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleButtonRegister" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: red;" text="Créer mon compte" textFill="WHITE">
+                <Button fx:id="goToHome" layoutX="97.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleButtonRegister" prefHeight="25.0" prefWidth="159.0" style="-fx-background-color: red;" text="Créer mon compte" textFill="WHITE">
                     <font>
                         <Font size="15.0" />
                     </font>
@@ -41,7 +41,7 @@
                 <Font size="28.0" />
             </font>
         </Text>
-        <Button fx:id="login" layoutX="441.0" layoutY="676.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #054371;" text="Déjà inscrit?" textFill="WHITE" />
+        <Button fx:id="loginButton" layoutX="441.0" layoutY="676.0" mnemonicParsing="false" onAction="#goToLogin" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #054371;" text="Déjà inscrit?" textFill="WHITE" />
       <Pane layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;">
          <children>
             <Button fx:id="loginHeaderButton" layoutX="897.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToLogin" style="-fx-background-color: #054371;" text="Se connecter" textFill="WHITE" />
@@ -53,6 +53,6 @@
             </ImageView>
          </children>
       </Pane>
-      <Button fx:id="homeButton" layoutX="464.0" layoutY="760.0" mnemonicParsing="false" onAction="#goToHome" style="-fx-background-color: #054371;" text="&lt;&lt; Retour" textFill="WHITE" />
+      <Button fx:id="visitorButton" layoutX="464.0" layoutY="760.0" mnemonicParsing="false" onAction="#goToVisitor" style="-fx-background-color: #054371;" text="&lt;&lt; Retour" textFill="WHITE" />
     </children>
 </AnchorPane>
