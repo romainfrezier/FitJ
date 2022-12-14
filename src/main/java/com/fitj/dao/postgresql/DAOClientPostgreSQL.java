@@ -6,6 +6,7 @@ import com.fitj.classes.Materiel;
 import com.fitj.classes.Sport;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
+import com.fitj.enums.Sexe;
 import kotlin.Pair;
 
 import java.sql.ResultSet;
@@ -58,7 +59,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
             if (compte.next() == true){
-                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("image"), compte.getInt("taille"));
+                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("image"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
                 client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
                 client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
                 client.setListeSport(this.getClientSport(compte.getInt("id")));

@@ -1,5 +1,6 @@
 package com.fitj.classes;
 
+import com.fitj.enums.Sexe;
 import com.fitj.facades.FacadeClient;
 import com.fitj.facades.FacadeUser;
 import com.fitj.facades.factory.FactoryFacade;
@@ -22,11 +23,20 @@ public class Client implements ProductReceiver, NotifReceiver {
     /**
      * L'email du client
      */
+
+    private Sexe sexe;
     private String email;
     /**
      * Le pseudo du client
      */
     private String pseudo;
+
+    /**
+     * Le password du client
+     */
+    private String password;
+
+
     /**
      * Le poids du client
      */
@@ -60,12 +70,14 @@ public class Client implements ProductReceiver, NotifReceiver {
     /**
      * Default constructor
      */
-    public Client(String email, String pseudo, double poids, String image, int taille) {
+    public Client(String email, String pseudo, double poids, String image, int taille, Sexe sexe, String password) {
         this.email = email;
         this.pseudo = pseudo;
         this.poids = poids;
         this.image = image;
         this.taille = taille;
+        this.sexe = sexe;
+        this.password = password;
         this.facadeClient = FactoryFacade.getInstance().getFacadeClient();
         this.listeSport = new ArrayList<>();
         this.listeCommande = new ArrayList<>();
@@ -74,6 +86,36 @@ public class Client implements ProductReceiver, NotifReceiver {
 
     public FacadeClient getFacadeClient() {
         return facadeClient;
+    }
+
+    /**
+     * @return le sexe du client
+     */
+    public Sexe getSexe() {
+        return sexe;
+    }
+
+    /**
+     * @return le password du client
+     */
+    public String getPassword(){
+        return password;
+    }
+
+    /**
+     * Set le password du client
+     * @param password String, le password du client
+     */
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    /**
+     * Set le sexe du client
+     * @param sexe Sexe, le sexe du client
+     */
+    public void setSexe(Sexe sexe) {
+        this.sexe = sexe;
     }
 
     /**
