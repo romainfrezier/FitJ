@@ -1,7 +1,6 @@
 package com.fitj.controllers.users;
 
 import com.fitj.Constante;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -85,7 +84,7 @@ public class ControllerLogin extends ControllerUser {
      * @throws IOException si la page n'existe pas
      */
     @FXML
-    private void goToVisitor(ActionEvent actionEvent) throws IOException {
+    private void goToVisitor() throws IOException {
         super.goToVisitor(visitorButton);
     }
 

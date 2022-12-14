@@ -41,7 +41,7 @@ public abstract class FacadeUser extends Facade {
      * Gère la création d'un utilisateur
      * @param user Client, utilisateur à créer
      * @return String, résultat de la création
-     * @throws Exception
+     * @throws Exception si la création échoue
      */
     public abstract String inscription(String mail, String pseudo, String password, float poids, int taille, String photo) throws Exception;
 

@@ -48,7 +48,7 @@ public abstract class Controller {
      * Methode pour récupérer une scène à partir d'un nom de vue
      * @param viewName String, nom de la vue dans les ressources
      * @return Scene, la scène correspondant à la vue
-     * @throws IOException
+     * @throws IOException si la vue n'existe pas
      */
     private Scene getScene(String viewName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(viewName));

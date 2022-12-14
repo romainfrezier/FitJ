@@ -1,6 +1,5 @@
 package com.fitj.controllers.users;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -21,7 +20,7 @@ public class ControllerVisitor extends ControllerUser {
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
-     * @throws IOException
+     * @throws IOException si la vue n'existe pas
      * @see ControllerUser#goToRegister(Control)
      */
     @FXML
@@ -30,7 +29,7 @@ public class ControllerVisitor extends ControllerUser {
     }
 
     /**
-     * @throws IOException
+     * @throws IOException si la vue n'existe pas
      * @see ControllerUser#goToLogin(Control)
      */
     @FXML
