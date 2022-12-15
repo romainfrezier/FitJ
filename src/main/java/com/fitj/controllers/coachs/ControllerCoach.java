@@ -1,22 +1,24 @@
-package com.fitj.controllers.clients;
+package com.fitj.controllers.coachs;
 
 import com.fitj.controllers.Controller;
 import com.fitj.facades.FacadeClient;
+import com.fitj.facades.FacadeCoach;
 import com.fitj.facades.factory.FactoryFacade;
 import javafx.scene.control.Control;
+
 import java.io.IOException;
 
 /**
- * Controller générique pour les pages accessibles aux clients
+ * Controller générique pour les pages accessibles aux coachs
  * @see Controller
  * @author Paco Munnariz
  */
-public abstract class ControllerClient extends Controller {
+public abstract class ControllerCoach extends Controller {
 
     /**
-     * Facade pour les clients
+     * Facade pour les coachs
      */
-    final FacadeClient clientFacade = FactoryFacade.getInstance().getFacadeClient();
+    final FacadeCoach coachFacade = FactoryFacade.getInstance().getFacadeCoach();
 
     /**
      * Methode permettant de se rendre sur la page mon compte
@@ -24,7 +26,7 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'est pas trouvée
      */
     void goToMonCompte(Control controlEl) throws IOException {
-        goToPage(controlEl, "monCompte-client.fxml", "MonCompte");
+        goToPage(controlEl, "monCompte-coach.fxml", "MonCompte");
     }
 
     /**
@@ -33,7 +35,7 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToCoachs(Control controlEl) throws IOException {
-        goToPage(controlEl, "coachs-client.fxml", "Coachs");
+        goToPage(controlEl, "coachs-coach.fxml", "Coachs");
     }
 
     /**
@@ -42,7 +44,7 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToMonEspace(Control controlEl) throws IOException {
-        goToPage(controlEl, "monEspace-client.fxml", "MonEspace");
+        goToPage(controlEl, "monEspace-coach.fxml", "MonEspace");
     }
 
     /**
@@ -51,6 +53,15 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToShop(Control controlEl) throws IOException {
-        goToPage(controlEl, "shop-client.fxml", "Shop");
+        goToPage(controlEl, "shop-coach.fxml", "Shop");
+    }
+
+    /**
+     * Methode permettant de se rendre sur la page mes clients
+     * @param controlEl Control, élément de contrôle de la page
+     * @throws IOException si la page n'existe pas
+     */
+    void goToMesClients(Control controlEl) throws IOException {
+        goToPage(controlEl, "mesClients-coach.fxml", "Mesclients");
     }
 }

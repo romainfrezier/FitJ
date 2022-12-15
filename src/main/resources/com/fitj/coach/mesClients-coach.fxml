@@ -5,11 +5,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerMesClients">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;">
          <children>
-            <Button fx:id="monCompte" layoutX="897.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMonCompte" style="-fx-background-color: red;" text="MON COMPTE" textFill="WHITE" />
+            <Button fx:id="monCompte" layoutX="897.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMonCompte" style="-fx-background-color: #054371;" text="MON COMPTE" textFill="WHITE" />
             <Button fx:id="coachs" layoutX="822.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToCoachs" style="-fx-background-color: #054371;" text="COACHS" textFill="WHITE" />
             <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -18,7 +18,7 @@
             </ImageView>
             <Button fx:id="monEspace" layoutX="618.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMonEscpace" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="MON ESPACE" textFill="WHITE" />
             <Button fx:id="shop" layoutX="748.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToShop" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #054371;" text="SHOP" textFill="WHITE" />
-            <Button fx:id="mesClients" layoutX="487.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMesClients" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="MES CLIENTS" textFill="WHITE" />
+            <Button fx:id="mesClients" layoutX="487.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMesClients" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: red;" text="MES CLIENTS" textFill="WHITE" />
          </children>
       </Pane>
    </children>
