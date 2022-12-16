@@ -37,7 +37,7 @@ public abstract class Controller {
      * @throws IOException si la vue n'existe pas
      */
     public static void startAppFX(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("visitor-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("users/visitor-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setResizable(false);
         stage.setTitle("Welcome to FitJ");
