@@ -18,12 +18,17 @@ public abstract class ControllerUser extends Controller {
     final FacadeUser userFacade = FacadeUser.getInstance();
 
     /**
+     * Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux utilisateurs
+     */
+    private final String path = "users/";
+
+    /**
      * Methode permettant de se rendre sur la page de création de compte
      * @param controlEl Control, élément de contrôle de la page
      * @throws IOException si la page n'est pas trouvée
      */
     void goToRegister(Control controlEl) throws IOException {
-        goToPage(controlEl, "register-view.fxml", "Register");
+        goToPage(controlEl, path + "register-view.fxml", "Register");
     }
 
     /**
@@ -32,7 +37,7 @@ public abstract class ControllerUser extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToLogin(Control controlEl) throws IOException {
-        goToPage(controlEl, "login-view.fxml", "Login");
+        goToPage(controlEl, path + "login-view.fxml", "Login");
     }
 
     /**
@@ -41,7 +46,7 @@ public abstract class ControllerUser extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToVisitor(Control controlEl) throws IOException {
-        goToPage(controlEl, "visitor-view.fxml", "Welcome to FitJ");
+        goToPage(controlEl, path + "visitor-view.fxml", "Welcome to FitJ");
     }
 
     /**
@@ -50,6 +55,6 @@ public abstract class ControllerUser extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToHome(Control controlEl) throws IOException {
-        goToPage(controlEl, "monCompte-client.fxml", "MonCompte");
+        goToPage(controlEl, path + "monCompte-client.fxml", "Mon Compte");
     }
 }

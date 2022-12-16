@@ -18,12 +18,17 @@ public abstract class ControllerAdmin extends Controller {
     final FacadeAdmin adminFacade = FacadeAdmin.getInstance();
 
     /**
+     * Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux admins
+     */
+    private final String path = "admins/";
+
+    /**
      * Methode permettant de se rendre sur la page mon compte
      * @param controlEl Control, élément de contrôle de la page
      * @throws IOException si la page n'est pas trouvée
      */
     void goToMonCompte(Control controlEl) throws IOException {
-        goToPage(controlEl, "monCompte-admin.fxml", "MonCompte");
+        goToPage(controlEl, path + "monCompte-admin.fxml", "MonCompte");
     }
 
     /**
@@ -32,7 +37,7 @@ public abstract class ControllerAdmin extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToCoachs(Control controlEl) throws IOException {
-        goToPage(controlEl, "coachs-admin.fxml", "Coachs");
+        goToPage(controlEl, path + "coachs-admin.fxml", "Coachs");
     }
 
     /**
@@ -41,7 +46,7 @@ public abstract class ControllerAdmin extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToMonEspace(Control controlEl) throws IOException {
-        goToPage(controlEl, "monEspace-admin.fxml", "MonEspace");
+        goToPage(controlEl, path + "monEspace-admin.fxml", "MonEspace");
     }
 
     /**
@@ -50,7 +55,7 @@ public abstract class ControllerAdmin extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToShop(Control controlEl) throws IOException {
-        goToPage(controlEl, "shop-admin.fxml", "Shop");
+        goToPage(controlEl, path + "shop-admin.fxml", "Shop");
     }
 
     /**
@@ -59,6 +64,6 @@ public abstract class ControllerAdmin extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToClients(Control controlEl) throws IOException {
-        goToPage(controlEl, "clients-admin.fxml", "Clients");
+        goToPage(controlEl, path + "clients-admin.fxml", "Clients");
     }
 }

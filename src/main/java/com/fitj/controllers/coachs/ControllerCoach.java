@@ -19,12 +19,17 @@ public abstract class ControllerCoach extends Controller {
     final FacadeCoach coachFacade = FacadeCoach.getInstance();
 
     /**
+     * Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux coachs
+     */
+    private final String path = "coachs/";
+
+    /**
      * Methode permettant de se rendre sur la page mon compte
      * @param controlEl Control, élément de contrôle de la page
      * @throws IOException si la page n'est pas trouvée
      */
     void goToMonCompte(Control controlEl) throws IOException {
-        goToPage(controlEl, "monCompte-coach.fxml", "MonCompte");
+        goToPage(controlEl, path + "monCompte-coach.fxml", "Mon Compte");
     }
 
     /**
@@ -33,7 +38,7 @@ public abstract class ControllerCoach extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToCoachs(Control controlEl) throws IOException {
-        goToPage(controlEl, "coachs-coach.fxml", "Coachs");
+        goToPage(controlEl, path + "coachs-coach.fxml", "Coachs");
     }
 
     /**
@@ -42,7 +47,7 @@ public abstract class ControllerCoach extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToMonEspace(Control controlEl) throws IOException {
-        goToPage(controlEl, "monEspace-coach.fxml", "MonEspace");
+        goToPage(controlEl, path + "monEspace-coach.fxml", "Mon Espace");
     }
 
     /**
@@ -51,7 +56,7 @@ public abstract class ControllerCoach extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToShop(Control controlEl) throws IOException {
-        goToPage(controlEl, "shop-coach.fxml", "Shop");
+        goToPage(controlEl, path + "shop-coach.fxml", "Shop");
     }
 
     /**
@@ -60,6 +65,6 @@ public abstract class ControllerCoach extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToMesClients(Control controlEl) throws IOException {
-        goToPage(controlEl, "mesClients-coach.fxml", "Mesclients");
+        goToPage(controlEl, path + "mesClients-coach.fxml", "Mes Clients");
     }
 }

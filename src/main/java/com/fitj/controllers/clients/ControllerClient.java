@@ -18,12 +18,17 @@ public abstract class ControllerClient extends Controller {
     final FacadeClient clientFacade = FacadeClient.getInstance();
 
     /**
+     * Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux clients
+     */
+    private final String path = "clients/";
+
+    /**
      * Methode permettant de se rendre sur la page mon compte
      * @param controlEl Control, élément de contrôle de la page
      * @throws IOException si la page n'est pas trouvée
      */
     void goToMonCompte(Control controlEl) throws IOException {
-        goToPage(controlEl, "monCompte-client.fxml", "MonCompte");
+        goToPage(controlEl, path + "monCompte-client.fxml", "MonCompte");
     }
 
     /**
@@ -32,7 +37,7 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToCoachs(Control controlEl) throws IOException {
-        goToPage(controlEl, "coachs-client.fxml", "Coachs");
+        goToPage(controlEl, path + "coachs-client.fxml", "Coachs");
     }
 
     /**
@@ -41,7 +46,7 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToMonEspace(Control controlEl) throws IOException {
-        goToPage(controlEl, "monEspace-client.fxml", "MonEspace");
+        goToPage(controlEl, path + "monEspace-client.fxml", "MonEspace");
     }
 
     /**
@@ -50,6 +55,6 @@ public abstract class ControllerClient extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToShop(Control controlEl) throws IOException {
-        goToPage(controlEl, "shop-client.fxml", "Shop");
+        goToPage(controlEl, path + "shop-client.fxml", "Shop");
     }
 }
