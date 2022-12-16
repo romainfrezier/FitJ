@@ -21,21 +21,25 @@ public class ControllerMonCompte extends ControllerClient {
 
     //Methodes-----------------------------------------------------------------------------------------------
 
-    public void goToMonCompte() throws IOException {
+    @FXML
+    private void goToMonCompte() throws IOException {
         super.goToMonCompte(monCompte);
     }
 
-    public void goToCoachs() throws IOException {
+    @FXML
+    private void goToCoachs() throws IOException {
         super.goToCoachs(coachs);
     }
 
 
-    public void goToMonEspace() throws IOException {
+    @FXML
+    private void goToMonEspace() throws IOException {
         super.goToMonEspace(monEspace);
     }
 
 
-    public void goToShop() throws IOException {
+    @FXML
+    private void goToShop() throws IOException {
         super.goToShop(shop);
     }
 }
