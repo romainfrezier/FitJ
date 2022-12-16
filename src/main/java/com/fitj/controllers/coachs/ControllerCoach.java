@@ -1,9 +1,7 @@
 package com.fitj.controllers.coachs;
 
 import com.fitj.controllers.Controller;
-import com.fitj.facades.FacadeClient;
 import com.fitj.facades.FacadeCoach;
-import com.fitj.facades.factory.FactoryFacade;
 import javafx.scene.control.Control;
 
 import java.io.IOException;
@@ -18,7 +16,7 @@ public abstract class ControllerCoach extends Controller {
     /**
      * Facade pour les coachs
      */
-    final FacadeCoach coachFacade = FactoryFacade.getInstance().getFacadeCoach();
+    final FacadeCoach coachFacade = FacadeCoach.getInstance();
 
     /**
      * Methode permettant de se rendre sur la page mon compte

@@ -2,7 +2,6 @@ package com.fitj.controllers.clients;
 
 import com.fitj.controllers.Controller;
 import com.fitj.facades.FacadeClient;
-import com.fitj.facades.factory.FactoryFacade;
 import javafx.scene.control.Control;
 import java.io.IOException;
 
@@ -16,7 +15,7 @@ public abstract class ControllerClient extends Controller {
     /**
      * Facade pour les clients
      */
-    final FacadeClient clientFacade = FactoryFacade.getInstance().getFacadeClient();
+    final FacadeClient clientFacade = FacadeClient.getInstance();
 
     /**
      * Methode permettant de se rendre sur la page mon compte

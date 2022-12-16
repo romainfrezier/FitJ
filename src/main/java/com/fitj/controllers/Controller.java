@@ -1,7 +1,6 @@
 package com.fitj.controllers;
 
 import com.fitj.App;
-import com.fitj.facades.Facade;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;

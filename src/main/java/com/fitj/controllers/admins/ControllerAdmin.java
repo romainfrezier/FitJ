@@ -2,10 +2,7 @@ package com.fitj.controllers.admins;
 
 import com.fitj.controllers.Controller;
 import com.fitj.facades.FacadeAdmin;
-import com.fitj.facades.FacadeClient;
-import com.fitj.facades.factory.FactoryFacade;
 import javafx.scene.control.Control;
-
 import java.io.IOException;
 
 /**
@@ -18,7 +15,7 @@ public abstract class ControllerAdmin extends Controller {
     /**
      * Facade pour les admins
      */
-    final FacadeAdmin adminFacade = FactoryFacade.getInstance().getFacadeAdmin();
+    final FacadeAdmin adminFacade = FacadeAdmin.getInstance();
 
     /**
      * Methode permettant de se rendre sur la page mon compte
