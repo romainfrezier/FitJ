@@ -37,7 +37,7 @@
             <Button fx:id="registerHeaderButton" layoutX="807.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToRegister" style="-fx-background-color: #054371;" text="Nouveau ?" textFill="WHITE" />
             <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../img/logo.png" />
+                  <Image url="@../../../img/logo.png" />
                </image>
             </ImageView>
          </children>
