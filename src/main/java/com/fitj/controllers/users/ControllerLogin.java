@@ -93,7 +93,7 @@ public class ControllerLogin extends ControllerUser {
      * @return true si le formulaire est complet, false sinon
      */
     private boolean checkForm() {
-        return !username.getText().isEmpty() && !password.getText().isEmpty();
+        return !username.getText().equals("") && !password.getText().equals("");
     }
 
     /**
