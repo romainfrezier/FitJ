@@ -1,13 +1,14 @@
 package com.fitj.controllers.users;
 
-import com.fitj.Constante;
+import com.fitj.classes.Client;
+import com.fitj.exceptions.BadLoginException;
+import com.fitj.exceptions.BadPageException;
+import com.fitj.exceptions.BadPasswordException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-
-import java.io.IOException;
 
 /**
  * Controller pour la page de connexion
@@ -45,14 +46,18 @@ public class ControllerLogin extends ControllerUser {
     private void handleButtonConnect() {
         if (checkForm()) {
             try {
-                String result = super.userFacade.connexion(username.getText(), password.getText());
-                if (result.equals(Constante.CONNECTED)) {
+                Client client = super.userFacade.connexion(username.getText(), password.getText());
+                if (client != null) {
                     hideError();
-                    goToHome();
-                } else {
-                    displayError(result);
+                    try {
+                        goToHome();
+                    } catch (BadPageException e) {
+                        displayError(e.getMessage());
+                    }
                 }
-            } catch (IOException e) {
+            } catch (BadLoginException | BadPasswordException e) {
+                displayError(e.getMessage());
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         } else {
@@ -63,28 +68,28 @@ public class ControllerLogin extends ControllerUser {
 
     /**
      * @see ControllerUser#goToRegister(Control)
-     * @throws IOException si la page n'existe pas
+     * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToRegister() throws IOException {
+    private void goToRegister() throws BadPageException {
         super.goToRegister(registerButton);
     }
 
     /**
      * @see ControllerUser#goToHome(Control)
-     * @throws IOException si la page n'existe pas
+     * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToHome() throws IOException {
+    private void goToHome() throws BadPageException {
         super.goToHome(loginButton);
     }
 
     /**
      * @see ControllerUser#goToVisitor(Control)
-     * @throws IOException si la page n'existe pas
+     * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToVisitor() throws IOException {
+    private void goToVisitor() throws BadPageException {
         super.goToVisitor(visitorButton);
     }
 

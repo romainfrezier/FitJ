@@ -1,8 +1,9 @@
 package com.fitj.controllers;
 
 import com.fitj.App;
-import com.fitj.facades.Facade;
+import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.stage.Stage;
@@ -20,11 +21,16 @@ public abstract class Controller {
      * @param controlEl Control, élément de contrôle de la page
      * @param viewName String, nom de la vue dans les ressources
      * @param pageName String, nom de la page
-     * @throws IOException si la vue n'existe pas
+     * @throws BadPageException si la vue n'existe pas
      */
-    public void goToPage(Control controlEl, String viewName, String pageName) throws IOException {
+    public void goToPage(Control controlEl, String viewName, String pageName) throws BadPageException {
         Stage stage = (Stage) controlEl.getScene().getWindow();
-        Scene scene = getScene(viewName);
+        Scene scene = null;
+        try {
+            scene = getScene(viewName);
+        } catch (IOException e) {
+            throw new BadPageException("La page " + pageName + " n'existe pas");
+        }
         stage.setResizable(false);
         stage.setTitle(pageName);
         stage.setScene(scene);
@@ -37,7 +43,7 @@ public abstract class Controller {
      * @throws IOException si la vue n'existe pas
      */
     public static void startAppFX(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("users/visitor-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setResizable(false);
         stage.setTitle("Welcome to FitJ");
@@ -52,7 +58,7 @@ public abstract class Controller {
      * @throws IOException si la vue n'existe pas
      */
     private Scene getScene(String viewName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(viewName));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + viewName));
         return new Scene(fxmlLoader.load());
     }
 
