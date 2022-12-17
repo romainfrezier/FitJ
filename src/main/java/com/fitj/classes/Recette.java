@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Cette classe représente une Recette, qui compose un ProgrammeNutrition.
  * @see ProgrammeNutrition
- * @author Paul Merceur
+ * @author Paul Merceur, Etienne Tillier
  */
 public class Recette implements isIngredient {
 
@@ -46,8 +46,20 @@ public class Recette implements isIngredient {
         this.ingredients = ingredients;
     }
 
+    /**
+     * Ajoute un ingrédient à la recette
+     * @param ingredient isIngredient, l'ingrédient à ajouter à la recette
+     */
     public void ajouterIngredient(isIngredient ingredient){
         this.ingredients.add(ingredient);
+    }
+
+    /**
+     * Retire un ingrédient de la recette
+     * @param ingredient isIngredient, l'ingrédient à retirer de la recette
+     */
+    public void retirerIngredient(isIngredient ingredient){
+        this.ingredients.remove(ingredient);
     }
 
 }

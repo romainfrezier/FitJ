@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Cette classe représente un ProgrammeNutrition, qui est un type de Programme.
  * @see Programme
- * @author Paul Merceur
+ * @author Paul Merceur, Etienne Tillier
  */
 public class ProgrammeNutrition extends Programme {
 
@@ -19,6 +19,13 @@ public class ProgrammeNutrition extends Programme {
     public ProgrammeNutrition(int id, String nom, String description, double prix, ProgrammeType type, int nbMois, Coach coach) {
         super(id, nom, description, prix, type, nbMois, coach);
         this.listeRecette = new ArrayList<>();
+    }
+
+    /**
+     * @return la liste des recettes du programme
+     */
+    public List<Recette> getListeRecette() {
+        return listeRecette;
     }
 
     /**

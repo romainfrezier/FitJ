@@ -29,7 +29,7 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         ResultSet resultCommande = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         Commande commande;
 
-
-        return commande;
+        //commande
+        return null;
     }
 }
