@@ -168,4 +168,29 @@ public class MethodesPostgreSQL extends MethodesBD{
             return false;
         }
     }
+
+    /**
+     * @param dataJoin List<Pair<String,Object>>, une liste de pair String (pour le nom de la table à joindre) et un autre String pour l'attribut de la table où faire la jointure. Cette liste est la liste des tables à joindre avec leurs attributs respectifs
+     * @param dataWhere List<Pair<String,Object>>, une liste de pair String (pour le nom de l'attribut) et un objet pour le contenu. Cette liste est la liste de condition pour le where
+     * @param table String, le nom de la table
+     * @return un objet de type ResultSet contenant tous les tuples de la jointure
+     * @throws SQLException
+     */
+    public ResultSet selectJoin(List<Pair<String,String>> dataJoin, List<Pair<String,Object>> dataWhere,String table) throws SQLException{
+        this.connect();
+        String sql = "SELECT * FROM " + table + " ";
+        for (Pair<String,String> pair : dataJoin) {
+            sql += "JOIN " + pair.getFirst() + " ON " + pair.getFirst() + "." + pair.getSecond() + " = " + table + ".id";
+        }
+        sql += " WHERE ";
+        for (Pair<String, Object> pair : dataWhere) {
+            sql += pair.getFirst() + " = " + (pair.getSecond() instanceof String ? "'" + pair.getSecond() + "'" : pair.getSecond() + " ") + "AND";
+        }
+        sql = sql.substring(0, sql.length() - 3);
+        sql += ";";
+        PreparedStatement query = this.getConnexion().prepareStatement(sql);
+        ResultSet result = query.executeQuery();
+        this.close();
+        return result;
+    }
 }

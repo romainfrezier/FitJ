@@ -18,11 +18,22 @@ public class Client implements ProductReceiver, NotifReceiver {
      * La facade du client pour exécuter des méthodes sur l'interface et sur la bd
      */
     private FacadeClient facadeClient;
+
+    /**
+     * Le sexe du client
+     */
+    private Sexe sexe;
+
+
+    /**
+     * L'id du client
+     */
+    private int id;
+
+
     /**
      * L'email du client
      */
-
-    private Sexe sexe;
     private String email;
     /**
      * Le pseudo du client
@@ -43,7 +54,7 @@ public class Client implements ProductReceiver, NotifReceiver {
     /**
      * La photo du client
      */
-    private String image;
+    private String photo;
 
     /**
      * La taille du client
@@ -68,11 +79,12 @@ public class Client implements ProductReceiver, NotifReceiver {
     /**
      * Default constructor
      */
-    public Client(String email, String pseudo, double poids, String image, int taille, Sexe sexe, String password) {
+    public Client(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id) {
+        this.id = id;
         this.email = email;
         this.pseudo = pseudo;
         this.poids = poids;
-        this.image = image;
+        this.photo = photo;
         this.taille = taille;
         this.sexe = sexe;
         this.password = password;
@@ -80,6 +92,39 @@ public class Client implements ProductReceiver, NotifReceiver {
         this.listeSport = new ArrayList<>();
         this.listeCommande = new ArrayList<>();
         this.listeMateriel = new ArrayList<>();
+    }
+
+
+    /**
+     * @return int, l'id du client
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Set l'id du client
+     * @param id l'id du client
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "facadeClient=" + facadeClient +
+                ", sexe=" + sexe +
+                ", email='" + email + '\'' +
+                ", pseudo='" + pseudo + '\'' +
+                ", password='" + password + '\'' +
+                ", poids=" + poids +
+                ", photo='" + photo + '\'' +
+                ", taille=" + taille +
+                ", listeSport=" + listeSport +
+                ", listeCommande=" + listeCommande +
+                ", listeMateriel=" + listeMateriel +
+                '}';
     }
 
     public FacadeClient getFacadeClient() {
@@ -140,8 +185,8 @@ public class Client implements ProductReceiver, NotifReceiver {
     /**
      * @return la photo du client
      */
-    public String getImage() {
-        return image;
+    public String getPhoto() {
+        return photo;
     }
 
     /**
@@ -181,10 +226,10 @@ public class Client implements ProductReceiver, NotifReceiver {
 
     /**
      * Set le lien vers la photo du client
-     * @param image String, le lien vers la photo du client
+     * @param photo String, le lien vers la photo du client
      */
-    public void setImage(String image) {
-        this.image = image;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     /**

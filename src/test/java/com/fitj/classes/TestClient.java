@@ -1,13 +1,21 @@
 package com.fitj.classes;
 
 import com.fitj.enums.Sexe;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 
+
 public class TestClient {
 
-    private Client client = new Client("test@gmail.com","Joe", 56, "monimage.com", 178, Sexe.HOMME, "123456");
+    private Client client;
+
+    @BeforeAll
+    public void initForTests(){
+        client = new Client("test@gmail.com","Joe", 56, "monimage.com", 178, Sexe.HOMME, "123456",1);
+    }
+
     @Test
     public void testCreationClient(){
         Assertions.assertTrue(client.getListeCommande().isEmpty() && client.getListeMateriel().isEmpty() && client.getListeSport().isEmpty());
