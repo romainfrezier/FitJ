@@ -5,18 +5,12 @@ module com.fitj {
     requires io.github.cdimascio.dotenv.java;
     requires kotlin.stdlib;
 
-    opens com.fitj.controllers to javafx.fxml;
     exports com.fitj;
-    exports com.fitj.controllers;
-    exports com.fitj.controllers.users;
+//    exports com.fitj.controllers;
+//    exports com.fitj.exceptions;
+
     opens com.fitj.controllers.users to javafx.fxml;
-//    exports com.fitj.classes;
-//    exports com.fitj.models;
-//    exports com.fitj.models.connexions;
-//    exports com.fitj.models.factory;
-//    exports com.fitj.models.methodesBD;
-//    exports com.fitj.models.postgresql;
-//    exports com.fitj.facades;
-//    exports com.fitj.facades.factory;
-//    exports com.fitj.facades.postgresql;
+    opens com.fitj.controllers.clients to javafx.fxml;
+    opens com.fitj.controllers.coachs to javafx.fxml;
+    opens com.fitj.controllers.admins to javafx.fxml;
 }

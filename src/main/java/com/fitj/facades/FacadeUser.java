@@ -1,11 +1,11 @@
 package com.fitj.facades;
 
-import com.fitj.Constante;
 import com.fitj.classes.Client;
 import com.fitj.dao.DAOClient;
 import com.fitj.dao.factory.FactoryModel;
 import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.*;
 
 import java.sql.SQLException;
 
@@ -57,27 +57,21 @@ public class FacadeUser extends Facade {
      * @param password String, mot de passe de l'utilisateur
      * @return String, message de retour
      */
-    public String connexion(String mail, String password){
+    public Client connexion(String mail, String password) throws Exception{
         try {
             Client client = this.daoClient.getClientAccount(mail);
             if (passwordAuthentication.authenticate(password.toCharArray(), client.getPassword())){
-                return Constante.CONNECTED;
+                Facade.currentClient = client;
+                return client;
             }
             else {
-                return Constante.BAD_PASSWORD;
+                throw new BadPasswordException("Mauvais mot de passe");
             }
         }
-        catch (SQLException e){
-            return Constante.BAD_LOGIN;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        catch (BadLoginException e){
+            throw new BadLoginException(e.getMessage());
         }
     }
-/**
- * Gère l'inscription d'un utilisateur
- * @param user User, utilisateur à inscrire
- * @return String, message de retour
- */
 
     /**
      * Gère l'inscription d'un utilisateur
@@ -90,23 +84,22 @@ public class FacadeUser extends Facade {
      * @param sexe Sexe, sexe de l'utilisateur
      * @return String, message de retour
      */
-    public String inscription(String mail, String pseudo, String password, float poids, int taille, String photo, Sexe sexe) {
-        try {
-            if (daoClient.verifier(mail,"mail")){
-                return Constante.USED_EMAIL;
-            }
-            else {
-                if (daoClient.verifier(pseudo,"pseudo")){
-                    return Constante.USED_PSEUDO;
+    public Client inscription(String mail, String pseudo, String password, float poids, int taille, String photo, Sexe sexe) throws Exception {
+        if (daoClient.verifier(mail, "mail")) {
+            throw new UsedEmailException(mail);
+        } else {
+            if (daoClient.verifier(pseudo, "pseudo")) {
+                throw new UsedPseudoException(pseudo);
+            } else {
+                try {
+                    daoClient.createClient(mail, pseudo, password, poids, taille, photo, sexe);
+                    Client newClient = new Client(mail, pseudo, poids, photo, taille, sexe, password);
+                    Facade.currentClient = newClient;
+                    return newClient;
+                } catch (SQLException e) {
+                    throw new DBProblemException(e.getMessage());
                 }
-                else {
-                    daoClient.createClient(mail, pseudo, password,poids,taille,photo, sexe);
-                    return Constante.REGISTERED;
-                }
             }
-        }
-        catch (Exception e){
-            return Constante.REGISTER_ERROR;
         }
     }
 }

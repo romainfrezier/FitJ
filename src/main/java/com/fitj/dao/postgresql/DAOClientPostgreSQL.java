@@ -7,6 +7,7 @@ import com.fitj.classes.Sport;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.BadLoginException;
 import kotlin.Pair;
 
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param poids    float,  le poids du client
      * @param taille   int, la taille du client
      * @param photo    String, le lien de la photo du client
-     * @throws SQLException
+     * @throws SQLException si une erreur SQL survient
      */
     public void createClient(String mail, String pseudo, String password, float poids, int taille, String photo, Sexe sexe) throws SQLException {
         List<Pair<String,Object>> data = new ArrayList<>();
@@ -51,7 +52,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * @param mail String, l'email du client
      * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
-     * @throws SQLException
+     * @throws BadLoginException si l'email rentré en paramètre ne correspond à aucun client
      */
     public Client getClientAccount(String mail) throws SQLException {
         ResultSet compte;
@@ -60,7 +61,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
             if (compte.next() == true){
-                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("image"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
+                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
                 client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
                 client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
                 client.setListeSport(this.getClientSport(compte.getInt("id")));
@@ -71,8 +72,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             }
         }
         catch (SQLException e){
-            System.out.println("Email non existant");
-            throw new SQLException();
+            throw new SQLException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

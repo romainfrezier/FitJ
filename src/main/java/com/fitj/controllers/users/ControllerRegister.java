@@ -1,12 +1,11 @@
 package com.fitj.controllers.users;
 
-import com.fitj.Constante;
+import com.fitj.classes.Client;
 import com.fitj.enums.Sexe;
-import javafx.event.ActionEvent;
+import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import java.io.IOException;
 
 /**
  * Controller pour la page de création de compte
@@ -66,19 +65,17 @@ public class ControllerRegister extends ControllerUser {
     private void handleButtonRegister(){
         if (checkPassword() && checkForm()) {
             try {
-                String result = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), (float) poidsSlider.getValue(), (int) tailleSlider.getValue(), photoProfil.getText(), getSexFromToggleGroup());
-                if (result.equals(Constante.REGISTERED)) {
+                Client client = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), (float) poidsSlider.getValue(), (int) tailleSlider.getValue(), photoProfil.getText(), getSexFromToggleGroup());
+                if (client != null) {
                     hideError();
                     try {
                         goToHome();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    } catch (BadPageException e) {
+                        displayError(e.getMessage());
                     }
-                } else {
-                    displayError(result);
                 }
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                displayError(e.getMessage());
             }
 
         }
@@ -89,28 +86,28 @@ public class ControllerRegister extends ControllerUser {
 
     /**
      * @see ControllerUser#goToHome(Control)
-     * @throws IOException Exception
+     * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToHome() throws IOException {
+    private void goToHome() throws BadPageException {
         super.goToHome(registerButton);
     }
 
     /**
      * @see ControllerUser#goToLogin(Control)
-     * @throws IOException Exception
+     * @throws BadPageException si la page n'est pas trouvée
      */
     @FXML
-    private void goToLogin() throws IOException {
+    private void goToLogin() throws BadPageException {
         super.goToLogin(loginButton);
     }
 
     /**
      * @see ControllerUser#goToHome(Control)
-     * @throws IOException Exception
+     * @throws BadPageException si la page n'est pas trouvée
      */
     @FXML
-    private void goToVisitor() throws IOException {
+    private void goToVisitor() throws BadPageException {
         super.goToVisitor(visitorButton);
     }
 
@@ -148,6 +145,10 @@ public class ControllerRegister extends ControllerUser {
         return !mail.getText().equals("") && !pseudo.getText().equals("") && !password.getText().equals("") && !passwordConfirm.getText().equals("");
     }
 
+    /**
+     * Récupère le sexe sélectionné dans le ToggleGroup
+     * @return Sexe, sexe sélectionné
+     */
     private Sexe getSexFromToggleGroup(){
         RadioButton selectedButton = (RadioButton)sex.getSelectedToggle();
         return Sexe.getSexe(selectedButton.getText());

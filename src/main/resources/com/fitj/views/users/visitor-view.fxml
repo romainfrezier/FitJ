@@ -4,11 +4,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.users.ControllerVisitor">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.users.ControllerVisitor">
    <children>
       <ImageView fitHeight="641.0" fitWidth="954.0" layoutX="23.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../img/home_image.png" />
+            <Image url="@../../../../img/home_image.png" />
          </image>
       </ImageView>
       <Pane layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;">
@@ -17,7 +17,7 @@
             <Button fx:id="registerButton" layoutX="807.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToRegister" style="-fx-background-color: #054371;" text="Nouveau ?" textFill="WHITE" />
             <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../img/logo.png" />
+                  <Image url="@../../../../img/logo.png" />
                </image>
             </ImageView>
          </children>
