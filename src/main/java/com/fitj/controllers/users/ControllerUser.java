@@ -23,6 +23,11 @@ public abstract class ControllerUser extends Controller {
     private final String path = "users/";
 
     /**
+     * Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux clients connectés
+     */
+    private final String pathConnected = "clients/";
+
+    /**
      * Methode permettant de se rendre sur la page de création de compte
      * @param controlEl Control, élément de contrôle de la page
      * @throws IOException si la page n'est pas trouvée
@@ -55,6 +60,6 @@ public abstract class ControllerUser extends Controller {
      * @throws IOException si la page n'existe pas
      */
     void goToHome(Control controlEl) throws IOException {
-        goToPage(controlEl, path + "monCompte-client.fxml", "Mon Compte");
+        goToPage(controlEl, pathConnected + "monCompte-client.fxml", "Mon Compte");
     }
 }
