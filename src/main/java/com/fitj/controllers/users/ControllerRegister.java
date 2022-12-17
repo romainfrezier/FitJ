@@ -46,6 +46,9 @@ public class ControllerRegister extends ControllerUser {
     private TextField passwordConfirm;
 
     @FXML
+    private TextField photoProfil;
+
+    @FXML
     private Text errorMessage;
 
     @FXML
@@ -62,9 +65,8 @@ public class ControllerRegister extends ControllerUser {
     @FXML
     private void handleButtonRegister(){
         if (checkPassword() && checkForm()) {
-            // TODO ajouter le sex et les valeur venant du form, taille, poids, photo...
             try {
-                String result = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), 80f, 180, "Femme", Sexe.getSexe("Femme"));
+                String result = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), (float) poidsSlider.getValue(), (int) tailleSlider.getValue(), photoProfil.getText(), getSexFromToggleGroup());
                 if (result.equals(Constante.REGISTERED)) {
                     hideError();
                     try {
@@ -144,5 +146,10 @@ public class ControllerRegister extends ControllerUser {
      */
     private boolean checkForm() {
         return !mail.getText().equals("") && !pseudo.getText().equals("") && !password.getText().equals("") && !passwordConfirm.getText().equals("");
+    }
+
+    private Sexe getSexFromToggleGroup(){
+        RadioButton selectedButton = (RadioButton)sex.getSelectedToggle();
+        return Sexe.getSexe(selectedButton.getText());
     }
 }
