@@ -1,5 +1,8 @@
 package com.fitj.classes;
 
+import com.fitj.interfaces.isIngredient;
+import kotlin.Pair;
+
 import java.util.*;
 
 /**
@@ -7,13 +10,13 @@ import java.util.*;
  * @see ProgrammeNutrition
  * @author Paul Merceur
  */
-public class Recette {
+public class Recette implements isIngredient {
 
     /**
-     * Constructeur par défaut
+     * La liste des ingrédients
      */
-    public Recette() {
-    }
+    private List<isIngredient> ingredients;
+
 
     /**
      * L'identifiant unique de la recette.
@@ -24,5 +27,27 @@ public class Recette {
      * Le nom de la recette.
      */
     private String nom;
+
+    /**
+     * Constructeur par défaut
+     */
+    public Recette(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+        this.ingredients = new ArrayList<>();
+    }
+
+    /**
+     * Constructeur avec recette remplie d'ingrédients
+     */
+    public Recette(int id, String nom, ArrayList<isIngredient> ingredients) {
+        this.id = id;
+        this.nom = nom;
+        this.ingredients = ingredients;
+    }
+
+    public void ajouterIngredient(isIngredient ingredient){
+        this.ingredients.add(ingredient);
+    }
 
 }

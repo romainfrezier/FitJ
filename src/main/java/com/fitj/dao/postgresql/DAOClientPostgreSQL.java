@@ -1,9 +1,6 @@
 package com.fitj.dao.postgresql;
 
-import com.fitj.classes.Client;
-import com.fitj.classes.Commande;
-import com.fitj.classes.Materiel;
-import com.fitj.classes.Sport;
+import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
 import com.fitj.enums.Sexe;
@@ -68,6 +65,36 @@ public class DAOClientPostgreSQL extends DAOClient {
                  client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
                  client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
                  client.setListeSport(this.getClientSport(compte.getInt("id")));
+                return client;
+            }
+            else {
+                return null;
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Email non existant");
+            throw new SQLException();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * @param id int, l'id du client
+     * @return un objet de type Client contenant toutes les informations du client qui contient l'id rentré en paramètre
+     * @throws SQLException
+     */
+    public Client getClientAccount(int id) throws SQLException {
+        ResultSet compte;
+        List<Pair<String,Object>> data = new ArrayList<>();
+        data.add(new Pair<>("id", id));
+        compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+        try {
+            if (compte.next() == true){
+                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+                client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                client.setListeSport(this.getClientSport(compte.getInt("id")));
                 return client;
             }
             else {
@@ -188,11 +215,8 @@ public class DAOClientPostgreSQL extends DAOClient {
                 do {
                     listeMateriel.add(new Materiel(result.getInt("id"), result.getString("nom")));
                 }while (result.next());
-                return listeMateriel;
             }
-            else {
-                return listeMateriel;
-            }
+            return listeMateriel;
         }
         catch (SQLException e){
             throw new SQLException();
@@ -208,7 +232,36 @@ public class DAOClientPostgreSQL extends DAOClient {
      */
     @Override
     public List<Commande> getClientCommandes(int id) throws Exception {
-        return null;
+        List<Pair<String,String>> dataJoin = new ArrayList<>();
+        dataJoin.add(new Pair<>("clientCommande", "idCommande"));
+        dataJoin.add(new Pair<>("clientCommande", "idCommande"));
+        List<Pair<String,Object>> dataWhere = new ArrayList<>();
+        dataWhere.add(new Pair<>("clientCommande.idClient",id));
+        ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Commande");
+        try {
+            List<Commande> listeCommande = new ArrayList<>();
+            if (result.next() == true){
+                do {
+                    Commande commande;
+                    Coach coach = (Coach)this.getClientAccount(result.getInt("clientCommande.idCoach"));
+                    Client client = this.getClientAccount(id);
+                    if (((Integer)result.getInt("prix")) != null){
+                        commande = new CommandePayante();
+                    }
+                    else {
+                        commande = new CommandeNonPayante();
+                    }
+
+                    listeCommande.add(new Commande(this.getClientAccount(result.getInt("clientcommande.idclient")));
+                }while (result.next());
+            }
+            return listeCommande;
+        }
+        catch (SQLException e){
+            throw new SQLException();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

@@ -51,6 +51,13 @@ public abstract class DAOClient extends DAO {
     public abstract Client getClientAccount(String mail) throws Exception;
 
     /**
+     * @param id, l'id du client
+     * @return un objet contenant toutes les informations du client
+     * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'id rentré du client
+     */
+    public abstract Client getClientAccount(int id) throws Exception;
+
+    /**
      * Supprimer le client de la base de donnée
      * @param mail, le mail du client
      * @throws Exception

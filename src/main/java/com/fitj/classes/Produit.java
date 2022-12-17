@@ -15,12 +15,6 @@ import java.util.*;
 public abstract class Produit implements Sendable, CommentReceiver {
 
     /**
-     * Constructeur par défaut
-     */
-    public Produit() {
-    }
-
-    /**
      * L'identifiant unique du produit.
      */
     private int id;
@@ -39,6 +33,94 @@ public abstract class Produit implements Sendable, CommentReceiver {
      * Le prix du produit.
      */
     private double prix;
+
+    private Coach coach;
+
+    /**
+     * Constructeur par défaut
+     */
+    public Produit(int id, String nom, String description, double prix, Coach coach) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+        this.prix = prix;
+        this.coach = coach;
+    }
+
+    /**
+     * @return le coach qui vend le produit
+     */
+    public Coach getCoach(){
+        return this.coach;
+    }
+
+    /**
+     * Set le coach vendeur du produit
+     * @param coach Coach, le coach vendu du produit
+     */
+    public void setCoach(Coach coach){
+        this.coach = coach;
+    }
+
+    /**
+     * Set l'id du produit
+     * @param id int, l'id du produit
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Set le nom du produit
+     * @param nom String, le nom du produit
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    /**
+     * Set la description du produit
+     * @param description String, la description du produit
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Set le prix du produit
+     * @param prix double, le prix du produit
+     */
+    public void setPrix(double prix) {
+        this.prix = prix;
+    }
+
+    /**
+     * @return l'id du produit
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @return le nom du produit
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     * @return la description du produit
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return le prix du produit
+     */
+    public double getPrix() {
+        return prix;
+    }
 
     /**
      * Envoie le produit à un destinataire.

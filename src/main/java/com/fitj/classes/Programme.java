@@ -12,11 +12,6 @@ import java.util.*;
  */
 public abstract class Programme extends Produit {
 
-    /**
-     * Constructeur par défaut.
-     */
-    public Programme() {
-    }
 
     /**
      * Le type du programme.
@@ -28,4 +23,42 @@ public abstract class Programme extends Produit {
      */
     private int nbMois;
 
+    /**
+     * Constructeur par défaut.
+     */
+    public Programme(int id, String nom, String description, double prix, ProgrammeType type, int nbMois, Coach coach) {
+        super(id, nom, description, prix, coach);
+        this.type = type;
+        this.nbMois = nbMois;
+    }
+
+    /**
+     * Set le type du programme
+     * @param type ProgrammeType, le type du programme
+     */
+    public void setType(ProgrammeType type) {
+        this.type = type;
+    }
+
+    /**
+     * Set le nombre de mois du programme
+     * @param nbMois int, le nombre de mois du programme
+     */
+    public void setNbMois(int nbMois) {
+        this.nbMois = nbMois;
+    }
+
+    /**
+     * @return le type du programme
+     */
+    public ProgrammeType getType() {
+        return type;
+    }
+
+    /**
+     * @return le nombre de mois du programme
+     */
+    public int getNbMois() {
+        return nbMois;
+    }
 }
