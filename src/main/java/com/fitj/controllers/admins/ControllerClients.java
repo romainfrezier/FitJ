@@ -1,6 +1,7 @@
 package com.fitj.controllers.admins;
 
 import com.fitj.controllers.coachs.ControllerCoach;
+import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -23,29 +24,29 @@ public class ControllerClients extends ControllerAdmin {
     //Methodes-----------------------------------------------------------------------------------------------
 
     @FXML
-    private void goToMonCompte() throws IOException {
+    private void goToMonCompte() throws BadPageException {
         super.goToMonCompte(monCompte);
     }
 
     @FXML
-    private void goToCoachs() throws IOException {
+    private void goToCoachs() throws BadPageException {
         super.goToCoachs(coachs);
     }
 
 
     @FXML
-    private void goToMonEspace() throws IOException {
+    private void goToMonEspace() throws BadPageException {
         super.goToMonEspace(monEspace);
     }
 
 
     @FXML
-    private void goToShop() throws IOException {
+    private void goToShop() throws BadPageException {
         super.goToShop(shop);
     }
 
     @FXML
-    private void goToClients() throws IOException {
+    private void goToClients() throws BadPageException {
         super.goToClients(clients);
     }
 

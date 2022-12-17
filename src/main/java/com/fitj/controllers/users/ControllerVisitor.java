@@ -1,5 +1,6 @@
 package com.fitj.controllers.users;
 
+import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -20,20 +21,20 @@ public class ControllerVisitor extends ControllerUser {
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
-     * @throws IOException si la vue n'existe pas
+     * @throws BadPageException si la vue n'existe pas
      * @see ControllerUser#goToRegister(Control)
      */
     @FXML
-    private void goToRegister() throws IOException {
+    private void goToRegister() throws BadPageException {
         super.goToRegister(registerButton);
     }
 
     /**
-     * @throws IOException si la vue n'existe pas
+     * @throws BadPageException si la vue n'existe pas
      * @see ControllerUser#goToLogin(Control)
      */
     @FXML
-    private void goToLogin() throws IOException {
+    private void goToLogin() throws BadPageException {
         super.goToLogin(loginButton);
     }
 }
