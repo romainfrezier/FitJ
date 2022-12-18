@@ -5,8 +5,6 @@ import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeCoach;
 import javafx.scene.control.Control;
 
-import java.io.IOException;
-
 /**
  * Controller générique pour les pages accessibles aux coachs
  * @see Controller

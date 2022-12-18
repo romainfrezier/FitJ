@@ -4,6 +4,7 @@ import com.fitj.classes.Client;
 import com.fitj.exceptions.BadLoginException;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.BadPasswordException;
+import com.fitj.exceptions.UncompletedFormException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -44,26 +45,21 @@ public class ControllerLogin extends ControllerUser {
      */
     @FXML
     private void handleButtonConnect() {
-        if (checkForm()) {
-            try {
-                Client client = super.userFacade.connexion(username.getText(), password.getText());
-                if (client != null) {
-                    hideError();
-                    try {
-                        goToHome();
-                    } catch (BadPageException e) {
-                        displayError(e.getMessage());
-                    }
-                }
-            } catch (BadLoginException | BadPasswordException e) {
-                displayError(e.getMessage());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            displayError("Le formulaire n'est pas complet");
-        }
+        try {
+            checkForm();
+            Client client = super.userFacade.connexion(username.getText(), password.getText());
+            if (client != null) {
 
+                try {
+                    hideError();
+                    goToHome();
+                } catch (BadPageException e) {
+                    displayError(e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            displayError(e.getMessage());
+        }
     }
 
     /**
@@ -97,8 +93,10 @@ public class ControllerLogin extends ControllerUser {
      * Vérifie que le formulaire est complet
      * @return true si le formulaire est complet, false sinon
      */
-    private boolean checkForm() {
-        return !username.getText().equals("") && !password.getText().equals("");
+    private void checkForm() throws UncompletedFormException {
+        if (username.getText().equals("") || password.getText().equals("")) {
+            throw new UncompletedFormException("Le formulaire n'est pas complet");
+        }
     }
 
     /**

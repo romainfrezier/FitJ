@@ -4,7 +4,6 @@ import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeAdmin;
 import javafx.scene.control.Control;
-import java.io.IOException;
 
 /**
  * Controller générique pour les pages accessibles aux admins
