@@ -1,6 +1,8 @@
 package com.fitj.controllers.users;
 
+import com.fitj.classes.Admin;
 import com.fitj.classes.Client;
+import com.fitj.classes.Coach;
 import com.fitj.exceptions.BadLoginException;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.BadPasswordException;
@@ -50,9 +52,17 @@ public class ControllerLogin extends ControllerUser {
             Client client = super.userFacade.connexion(username.getText(), password.getText());
             if (client != null) {
 
+                hideError();
                 try {
-                    hideError();
-                    goToHome();
+                    String scope;
+                    if (client instanceof Admin) {
+                        scope = "admin";
+                    } else if (client instanceof Coach) {
+                        scope = "coach";
+                    } else {
+                        scope = "client";
+                    }
+                    goToHome(scope);
                 } catch (BadPageException e) {
                     displayError(e.getMessage());
                 }
@@ -72,12 +82,12 @@ public class ControllerLogin extends ControllerUser {
     }
 
     /**
-     * @see ControllerUser#goToHome(Control)
+     * @see ControllerUser#goToHome(Control, String)
      * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToHome() throws BadPageException {
-        super.goToHome(loginButton);
+    private void goToHome(String scope) throws BadPageException {
+        super.goToHome(loginButton, scope);
     }
 
     /**

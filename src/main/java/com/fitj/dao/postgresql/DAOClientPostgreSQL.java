@@ -1,9 +1,6 @@
 package com.fitj.dao.postgresql;
 
-import com.fitj.classes.Client;
-import com.fitj.classes.Commande;
-import com.fitj.classes.Materiel;
-import com.fitj.classes.Sport;
+import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
 import com.fitj.enums.Sexe;
@@ -61,11 +58,18 @@ public class DAOClientPostgreSQL extends DAOClient {
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
             if (compte.next() == true){
-                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
-                client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                client.setListeSport(this.getClientSport(compte.getInt("id")));
-                return client;
+                Client connectedClient;
+                if (compte.getBoolean("isAdmin")){
+                    connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
+                } else if (compte.getBoolean("isCoach")){
+                    connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
+                } else {
+                    connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
+                }
+                connectedClient.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                connectedClient.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                connectedClient.setListeSport(this.getClientSport(compte.getInt("id")));
+                return connectedClient;
             }
             else {
                 return null;
