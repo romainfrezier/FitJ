@@ -5,6 +5,8 @@ import com.fitj.dao.DAOSport;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import kotlin.Pair;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class DAOSportPostgreSQL extends DAOSport {
      * @throws Exception
      */
     @Override
-    public void createSport(String nom) throws Exception {
+    public void createSport(String nom) throws SQLException {
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
         listeInsert.add(new Pair<>("nom",nom));
         ((MethodesPostgreSQL)this.methodesBD).insert(listeInsert, this.table);
@@ -38,7 +40,16 @@ public class DAOSportPostgreSQL extends DAOSport {
      * @throws Exception
      */
     @Override
-    public Sport getSportById(int id) throws Exception {
-
+    public Sport getSportById(int id) throws SQLException {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id", id));
+        ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+        if (sportData.next()){
+            Sport sport = new Sport(id, sportData.getString("nom"));
+            return sport;
+        }
+        else {
+            throw new SQLException("Sport non trouvé dans la bd");
+        }
     }
 }

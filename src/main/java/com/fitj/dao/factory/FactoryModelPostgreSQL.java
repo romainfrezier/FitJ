@@ -1,6 +1,7 @@
 package com.fitj.dao.factory;
 
-import com.fitj.dao.postgresql.DAOClientPostgreSQL;
+import com.fitj.dao.*;
+import com.fitj.dao.postgresql.*;
 
 /**
  * Classe de la factory de model PostgreSQL qui permettent de créer des model PostgreSQL
@@ -24,6 +25,85 @@ public class FactoryModelPostgreSQL extends FactoryModel {
         return new DAOClientPostgreSQL();
     }
 
+    /**
+     * @return l'instance du modelSeancePostgreSQL
+     */
+    @Override
+    public DAOSeance getModelSeance() {
+        return new DAOSeancePostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelPaiementPostgreSQL
+     */
+    @Override
+    public DAOPaiement getModelPaiement() {
+        return new DAOPaiementPostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelExercicePostgreSQL
+     */
+    @Override
+    public DAOExercice getModelExercice() {
+        return new DAOExercicePostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelAlimentPostgreSQL
+     */
+    @Override
+    public DAOAliment getModelAliment() {
+        return new DAOAlimentPostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelRecettePostgreSQL
+     */
+    @Override
+    public DAORecette getModelRecette() {
+        return new DAORecettePostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelAvisPostgreSQL
+     */
+    @Override
+    public DAOAvis getModelAvis() {
+        return new DAOAvisPostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelCommandePostgreSQL
+     */
+    @Override
+    public DAOCommande getModelCommande() {
+        return new DAOCommandePostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelProgrammePostgreSQL
+     */
+    @Override
+    public DAOProgramme getModelProgramme() {
+        return new DAOProgrammePostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelMaterielPostgreSQL
+     */
+    @Override
+    public DAOMateriel getModelMateriel() {
+        return new DAOMaterielPostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelSportPostgreSQL
+     */
+    @Override
+    public DAOSport getModelSport() {
+        return new DAOSportPostgreSQL();
+    }
 
 
 }

@@ -53,7 +53,7 @@ public class TestModelClientPostgreSQL {
     }
 
     @Test
-    public void testMaterielClient() throws SQLException {
+    public void testClientMateriel() throws SQLException {
         //A refaire quand usecase matériel fait
         List<Materiel> materiels = daoClientPostgreSQL.getClientMateriel(15);
         for (Materiel materiel : materiels){
@@ -61,12 +61,12 @@ public class TestModelClientPostgreSQL {
         }
     }
     @Test
-    public void testMaterielSport() throws SQLException {
+    public void testClientSport() throws SQLException {
 
     }
 
     @Test
-    public void testMaterielCommande() throws SQLException {
+    public void testClientCommande() throws SQLException {
 
     }
 

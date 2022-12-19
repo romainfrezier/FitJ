@@ -1,6 +1,6 @@
 package com.fitj.dao.factory;
 
-import com.fitj.dao.DAOClient;
+import com.fitj.dao.*;
 
 /**
  * Classe parente de toutes les factory de model qui permettent de créer des model en fonction du type de la base de donnée
@@ -45,6 +45,57 @@ public abstract class FactoryModel {
      * @return l'instance du modelClient
      */
     public abstract DAOClient getModelClient();
+
+    /**
+     * @return l'instance du modelSeance
+     */
+    public abstract DAOSeance getModelSeance();
+
+    /**
+     * @return l'instance du modelPaiement
+     */
+    public abstract DAOPaiement getModelPaiement();
+
+    /**
+     * @return l'instance du modelExercice
+     */
+    public abstract DAOExercice getModelExercice();
+
+
+    /**
+     * @return l'instance du modelAliment
+     */
+    public abstract DAOAliment getModelAliment();
+
+    /**
+     * @return l'instance du modelRecette
+     */
+    public abstract DAORecette getModelRecette();
+
+    /**
+     * @return l'instance du modelAvis
+     */
+    public abstract DAOAvis getModelAvis();
+
+    /**
+     * @return l'instance du modelCommande
+     */
+    public abstract DAOCommande getModelCommande();
+
+    /**
+     * @return l'instance du modelProgramme
+     */
+    public abstract DAOProgramme getModelProgramme();
+
+    /**
+     * @return l'instance du modelMateriel
+     */
+    public abstract DAOMateriel getModelMateriel();
+
+    /**
+     * @return l'instance du modelSport
+     */
+    public abstract DAOSport getModelSport();
 
 }
 

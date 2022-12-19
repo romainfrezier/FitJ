@@ -17,6 +17,11 @@ import java.util.List;
  */
 public class DAOCommandePostgreSQL extends DAOCommande {
 
+    public DAOCommandePostgreSQL() {
+        super();
+        this.methodesBD = new MethodesPostgreSQL();
+    }
+
     /**
      * @param id int, l'id de la commande
      * @return un objet de type Commande dans la base de donnée avec l'id rentré en paramètre

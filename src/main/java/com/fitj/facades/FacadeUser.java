@@ -93,7 +93,7 @@ public class FacadeUser extends Facade {
             } else {
                 try {
                     daoClient.createClient(mail, pseudo, password, poids, taille, photo, sexe);
-                    Client newClient = new Client(mail, pseudo, poids, photo, taille, sexe, password);
+                    Client newClient = daoClient.getClientAccount(mail);
                     Facade.currentClient = newClient;
                     return newClient;
                 } catch (SQLException e) {
