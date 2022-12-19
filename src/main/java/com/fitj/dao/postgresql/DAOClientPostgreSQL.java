@@ -37,7 +37,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @throws SQLException si une erreur SQL survient
      */
     @Override
-    public void createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws SQLException {
+    public Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
         data.add(new Pair<>("pseudo", pseudo));
@@ -46,7 +46,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         data.add(new Pair<>("taille", taille));
         data.add(new Pair<>("photo", photo));
         data.add(new Pair<>("sexe", Sexe.getSexe(sexe)));
-        ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
+        try {
+            int id = ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
+            return getClientAccount(id);
+        }
+        catch (Exception e){
+            throw new SQLException("La création du client a échoué");
+        }
     }
 
     /**
@@ -55,7 +61,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @return Client, le client avec le bon role correspondant au résultat de la requête SQL
      * @throws SQLException si une erreur SQL survient
      */
-    private Client chooseRole(ResultSet compte) throws SQLException {
+    private Client chooseRole(ResultSet compte) throws Exception {
         Client connectedClient;
         if (compte.getBoolean("isAdmin")){
             connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
@@ -72,7 +78,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
      * @throws SQLException
      */
-    public Client getClientAccount(String mail) throws SQLException {
+    public Client getClientAccount(String mail) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
@@ -80,19 +86,20 @@ public class DAOClientPostgreSQL extends DAOClient {
         try {
             if (compte.next() == true){
                 Client client = chooseRole(compte);
-                client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                client.setListeSport(this.getClientSport(compte.getInt("id")));
+                client.setListeCommande(new ArrayList<>());
+                client.setListeMateriel(this.getClientMateriel(client.getId()));
+                client.setListeSport(new ArrayList<>());
+                //client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                //client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                //client.setListeSport(this.getClientSport(compte.getInt("id")));
                 return client;
             }
             else {
-                return null;
+                throw new SQLException("Aucun client avec cet email n'existe");
             }
         }
-        catch (SQLException e){
-            throw new SQLException(e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        catch (Exception e){
+            throw new SQLException("La sélection du client a échoué");
         }
     }
 
@@ -101,7 +108,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @return un objet de type Client contenant toutes les informations du client qui contient l'id rentré en paramètre
      * @throws SQLException
      */
-    public Client getClientAccount(int id) throws SQLException {
+    public Client getClientAccount(int id) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("id", id));
@@ -109,21 +116,20 @@ public class DAOClientPostgreSQL extends DAOClient {
         try {
             if (compte.next() == true){
                 Client client = chooseRole(compte);
-                client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                client.setListeSport(this.getClientSport(compte.getInt("id")));
+                client.setListeCommande(new ArrayList<>());
+                client.setListeMateriel(this.getClientMateriel(client.getId()));
+                client.setListeSport(new ArrayList<>());
+                //client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                //client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                //client.setListeSport(this.getClientSport(compte.getInt("id")));
                 return client;
             }
             else {
-                return null;
+                throw new SQLException("Aucun client avec cet id n'existe");
             }
         }
-        catch (SQLException e){
-            System.out.println("id non existant");
-            System.out.println(e.getMessage());
-            throw new SQLException();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        catch (Exception e){
+            throw new SQLException("La sélection du client a échoué");
         }
     }
 
@@ -135,7 +141,12 @@ public class DAOClientPostgreSQL extends DAOClient {
     public void supprimerClient(String mail) throws SQLException{
         List<Pair<String,Object>> wherelist = new ArrayList<>();
         wherelist.add(new Pair<>("mail", mail));
-        ((MethodesPostgreSQL)this.methodesBD).delete(wherelist, this.table);
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(wherelist, this.table);
+        }
+        catch(Exception e){
+            throw new SQLException("La suppresion du client a échoué");
+        }
     }
 
     /**
@@ -143,11 +154,16 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param mail, le mail du client
      * @throws SQLException si une erreur SQL survient
      */
-    public Client updateClient(List<Pair<String,Object>> data, String mail) throws SQLException{
+    public Client updateClient(List<Pair<String,Object>> data, String mail) throws Exception{
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("mail",mail));
-        ((MethodesPostgreSQL)this.methodesBD).update(data,whereList,this.table);
-        return this.getClientAccount(mail);
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(data,whereList,this.table);
+            return this.getClientAccount(mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du client a échoué");
+        }
     }
 
     /**
@@ -160,7 +176,12 @@ public class DAOClientPostgreSQL extends DAOClient {
     public Client updateClientPhoto(String photo, String mail) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("photo",photo));
-        return this.updateClient(updateList, mail);
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour de la photo du client a échoué");
+        }
     }
 
     /**
@@ -173,7 +194,12 @@ public class DAOClientPostgreSQL extends DAOClient {
     public Client updateClientPseudo(String pseudo, String mail) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("pseudo",pseudo));
-        return this.updateClient(updateList, mail);
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du pseudo du client a échoué");
+        }
     }
 
     /**
@@ -186,7 +212,12 @@ public class DAOClientPostgreSQL extends DAOClient {
     public Client updateClientPoids(double poids, String mail) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("poids",poids));
-        return this.updateClient(updateList, mail);
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du poids du client a échoué");
+        }
     }
 
     /**
@@ -199,7 +230,12 @@ public class DAOClientPostgreSQL extends DAOClient {
     public Client updateClientTaille(int taille, String mail) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("taille",taille));
-        return this.updateClient(updateList, mail);
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour de la taille du client a échoué");
+        }
     }
 
     /**
@@ -212,7 +248,12 @@ public class DAOClientPostgreSQL extends DAOClient {
     public Client updateClientPassword(String password, String mail) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("password",passwordAuthentication.hash(password.toCharArray())));
-        return this.updateClient(updateList, mail);
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du mot de passe du client a échoué");
+        }
     }
 
     /**
@@ -221,13 +262,13 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @throws SQLException si une erreur SQL survient
      */
     @Override
-    public List<Materiel> getClientMateriel(int id) throws SQLException {
+    public List<Materiel> getClientMateriel(int id) throws Exception {
         List<Pair<String,String>> dataJoin = new ArrayList<>();
         dataJoin.add(new Pair<>("clientMateriel", "idMateriel"));
         List<Pair<String,Object>> dataWhere = new ArrayList<>();
         dataWhere.add(new Pair<>("clientMateriel.idClient",id));
-        ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Materiel");
         try {
+            ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Materiel");
             List<Materiel> listeMateriel = new ArrayList<>();
             if (result.next() == true){
                 do {
@@ -236,10 +277,8 @@ public class DAOClientPostgreSQL extends DAOClient {
             }
             return listeMateriel;
         }
-        catch (SQLException e){
-            throw new SQLException();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        catch (Exception e){
+            throw new SQLException("La selection du matériel du client a échoué");
         }
     }
 
@@ -255,8 +294,8 @@ public class DAOClientPostgreSQL extends DAOClient {
         dataJoin.add(new Pair<>("clientCommande", "idCommande"));
         List<Pair<String,Object>> dataWhere = new ArrayList<>();
         dataWhere.add(new Pair<>("clientCommande.idClient",id));
-        ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Commande");
         try {
+            ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Commande");
             List<Commande> listeCommande = new ArrayList<>();
             if (result.next() == true){
                 do {
@@ -264,10 +303,10 @@ public class DAOClientPostgreSQL extends DAOClient {
                     Coach coach = (Coach)this.getClientAccount(result.getInt("clientCommande.idCoach"));
                     Client client = this.getClientAccount(id);
                     if (((Integer)result.getInt("prix")) != null){
-                   //     commande = new CommandePayante();
+                        //     commande = new CommandePayante();
                     }
                     else {
-                     //   commande = new CommandeNonPayante();
+                        //   commande = new CommandeNonPayante();
                     }
 
                     //listeCommande.add(new Commande(this.getClientAccount(result.getInt("clientcommande.idclient")));
@@ -275,11 +314,10 @@ public class DAOClientPostgreSQL extends DAOClient {
             }
             return listeCommande;
         }
-        catch (SQLException e){
-            throw new SQLException();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        catch (Exception e){
+            throw new SQLException("La sélection des commandes du client a échoué");
         }
+
     }
 
     /**

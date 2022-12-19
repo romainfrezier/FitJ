@@ -48,11 +48,60 @@ public class DAOExercicePostgreSQL extends DAOExercice {
      * @throws Exception
      */
     @Override
-    public void createExercice(String nom, String description) throws SQLException {
+    public Exercice createExercice(String nom, String description) throws SQLException {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("nom", nom));
         data.add(new Pair<>("description", description));
-        ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
+        try {
+            int id = ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
+            return this.getExerciceById(id);
+        }
+        catch (Exception e){
+            throw new SQLException("La création de l'exercice a échoué");
+        }
+
+    }
+
+    /**
+     * Supprimer l'exercice de la base de donnée
+     * @param id int, l'id de l'exercice
+     * @throws Exception
+     */
+    @Override
+    public void supprimerExercice(int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",id));
+        List<Pair<String, Object>> whereOtherTableList = new ArrayList<>();
+        whereOtherTableList.add(new Pair<>("idexercice",id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"exercicemateriel");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"seanceexercice");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
+        }
+        catch (Exception e){
+            throw new SQLException("La suppression de l'exercice a échoué");
+        }
+
+    }
+
+    /**
+     * Met à jour l'exercice dans la base de donnée
+     * @param updateList List<Pair<String,Object>>, la liste des attributs à mettre à jour dans la base de donnée
+     * @param id int, l'id de l'exercice
+     * @return l'exercice mis à jour
+     * @throws Exception
+     */
+    @Override
+    public Exercice updateExercice(List<Pair<String, Object>> updateList, int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(updateList,whereList,this.table);
+            return this.getExerciceById(id);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour de l'exercice a échoué");
+        }
     }
 
 

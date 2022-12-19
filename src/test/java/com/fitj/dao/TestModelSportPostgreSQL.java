@@ -3,11 +3,14 @@ package com.fitj.dao;
 import com.fitj.classes.Client;
 import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOSportPostgreSQL;
+import kotlin.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestModelSportPostgreSQL {
 
@@ -23,11 +26,31 @@ public class TestModelSportPostgreSQL {
     }
 
     @Test
-    public void testSportCreate() throws SQLException {
-        daoSportPostgreSQL.createSport("Foot");
-        Sport sportBD = daoSportPostgreSQL.getSportById(1);
+    public void testSportCreate() throws Exception {
+        Sport sportBD = daoSportPostgreSQL.createSport("Foot");
+        daoSportPostgreSQL.supprimerSport(sportBD.getId());
         Assertions.assertTrue(sportBD.getNom().equals("Foot"));
     }
+
+    @Test
+    public void testSportUpdate() throws Exception {
+        Sport sportBD = daoSportPostgreSQL.createSport("Muscu");
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("nom","Snowboard"));
+        sportBD = daoSportPostgreSQL.updateSport(updateList,sportBD.getId());
+        daoSportPostgreSQL.supprimerSport(sportBD.getId());
+        Assertions.assertTrue(sportBD.getNom().equals("Snowboard"));
+    }
+
+    @Test
+    public void testSportDelete() throws Exception {
+        Sport sportBD = daoSportPostgreSQL.createSport("Muscu");
+        int idsport = sportBD.getId();
+        daoSportPostgreSQL.supprimerSport(idsport);
+        Assertions.assertThrows(SQLException.class,
+                () -> daoSportPostgreSQL.getSportById(idsport));
+    }
+
 
 
 

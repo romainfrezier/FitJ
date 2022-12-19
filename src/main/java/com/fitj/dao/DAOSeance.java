@@ -4,7 +4,9 @@ import com.fitj.classes.Coach;
 import com.fitj.classes.Exercice;
 import com.fitj.classes.Seance;
 import com.fitj.classes.Sport;
+import kotlin.Pair;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -38,7 +40,29 @@ public abstract class DAOSeance extends DAO {
      * @param exercices List<Exercice>, la liste des exercices de la séance
      * @throws Exception
      */
-    public abstract void createSeance(String nom, String description, double prix, Coach coach, Sport sport, List<Exercice> exercices) throws Exception;
+    public abstract Seance createSeance(String nom, String description, double prix, Coach coach, Sport sport, List<Exercice> exercices) throws Exception;
+
+    /**
+     * @param idSport int, l'id du sport
+     * @return une liste de séance qui font référence à ce sport
+     * @throws Exception
+     */
+    public abstract List<Seance> getSeanceFromSport(int idSport) throws Exception;
+
+    /**
+     * Supprimer de la base de donnée la séance avec l'id rentré en paramètre
+     * @param id int, l'id de la séance
+     * @throws Exception
+     */
+    public abstract void supprimerSeance(int id) throws Exception;
+
+    /**
+     * Met à jour la séance dans la base de donnée
+     * @param updateList List<Pair<String,Object>>, la liste des objet à modifié dans la table pour la séance
+     * @param id int, l'id de la séance
+     * @return
+     */
+    public abstract Seance updateSeance(List<Pair<String,Object>> updateList, int id) throws Exception;
 
 
     /**

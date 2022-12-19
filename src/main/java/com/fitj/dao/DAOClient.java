@@ -40,7 +40,7 @@ public abstract class DAOClient extends DAO {
      * @param photo String, le lien de la photo du client
      * @throws Exception
      */
-    public abstract void createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception;
+    public abstract Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception;
 
 
     /**

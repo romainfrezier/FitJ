@@ -2,6 +2,7 @@ package com.fitj.dao;
 
 import com.fitj.classes.Client;
 import com.fitj.classes.Materiel;
+import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
@@ -28,22 +29,24 @@ public class TestModelClientPostgreSQL {
 
 
     @Test
-    public void testCreateClient() throws SQLException {
-        daoClientPostgreSQL.createClient(client.getEmail(), client.getPseudo(),client.getPassword(),client.getPoids(),client.getTaille(),client.getPhoto(),client.getSexe());
-        Client newClient = daoClientPostgreSQL.getClientAccount("test@gmail.com");
+    public void testCreateClient() throws Exception {
+        Client newClient = daoClientPostgreSQL.createClient(client.getEmail(), client.getPseudo(),client.getPassword(),client.getPoids(),client.getTaille(),client.getPhoto(),client.getSexe());
+        daoClientPostgreSQL.supprimerClient(newClient.getEmail());
         Assertions.assertTrue(newClient.getEmail().equals(client.getEmail()));
     }
 
     @Test
-    public void testDeleteClient() throws SQLException {
-        daoClientPostgreSQL.createClient(client.getEmail(), client.getPseudo(),client.getPassword(),client.getPoids(),client.getTaille(),client.getPhoto(),client.getSexe());
-        daoClientPostgreSQL.supprimerClient(client.getEmail());
-        Client newClient = daoClientPostgreSQL.getClientAccount(client.getEmail());
-        Assertions.assertTrue(newClient == null);
+    public void testDeleteClient() throws Exception {
+        String monEmail = "totot@gmail.com";
+        daoClientPostgreSQL.createClient(monEmail, client.getPseudo(),client.getPassword(),client.getPoids(),client.getTaille(),client.getPhoto(),client.getSexe());
+        daoClientPostgreSQL.supprimerClient(monEmail);
+        Assertions.assertThrows(SQLException.class,
+                () -> daoClientPostgreSQL.getClientAccount(monEmail));
     }
 
+
     @Test
-    public void testUpdateClient() throws SQLException {
+    public void testUpdateClient() throws Exception {
         daoClientPostgreSQL.createClient(client.getEmail(), client.getPseudo(),client.getPassword(),client.getPoids(),client.getTaille(),client.getPhoto(),client.getSexe());
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("taille", 201));
@@ -53,7 +56,7 @@ public class TestModelClientPostgreSQL {
     }
 
     @Test
-    public void testClientMateriel() throws SQLException {
+    public void testClientMateriel() throws Exception {
         //A refaire quand usecase matériel fait
         List<Materiel> materiels = daoClientPostgreSQL.getClientMateriel(15);
         for (Materiel materiel : materiels){
@@ -61,18 +64,18 @@ public class TestModelClientPostgreSQL {
         }
     }
     @Test
-    public void testClientSport() throws SQLException {
+    public void testClientSport() throws Exception {
 
     }
 
     @Test
-    public void testClientCommande() throws SQLException {
+    public void testClientCommande() throws Exception {
 
     }
 
 
     @Test
-    public void testSelectClient() throws SQLException {
+    public void testSelectClient() throws Exception {
         daoClientPostgreSQL.createClient(client.getEmail(), client.getPseudo(),client.getPassword(),client.getPoids(),client.getTaille(),client.getPhoto(),client.getSexe());
         Client newClient = daoClientPostgreSQL.getClientAccount("test@gmail.com");
         Assertions.assertTrue(newClient.getEmail().equals(client.getEmail()));

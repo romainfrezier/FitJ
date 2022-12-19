@@ -1,6 +1,7 @@
 package com.fitj.dao;
 
 import com.fitj.classes.Sport;
+import kotlin.Pair;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public abstract class DAOSport extends DAO {
      * @param nom String, le nom du sport
      * @throws Exception
      */
-    public abstract void createSport(String nom) throws Exception;
+    public abstract Sport createSport(String nom) throws Exception;
 
     /**
      * @param id int, l'id du sport
@@ -33,9 +34,31 @@ public abstract class DAOSport extends DAO {
     public abstract Sport getSportById(int id) throws Exception;
 
     /**
+     * @param nom String, le nom du sport
+     * @return le sport dans la base de donnée contenant le nom rentré en paramètre
+     * @throws Exception
+     */
+    public abstract Sport getSportByNom(String nom) throws Exception;
+
+
+    /**
      * Récupère tous les sports dans la base de donnée
      * @return List<Sport>, la liste de tous les sports
      * @throws Exception si une erreur est détectée
      */
     public abstract List<Sport> getAllSports() throws Exception;
+
+    /**
+     * Supprime le sport de la base de donnée
+     * @param id int, l'id du sport
+     * @throws Exception
+     */
+    public abstract void supprimerSport(int id) throws Exception;
+
+    /**
+     * Met à jour dans la base de donnée le sport
+     * @param updateList List<Pair<String,Object>>, la liste du setter
+     * @param id int, l'id du sport
+     */
+    public abstract Sport updateSport(List<Pair<String,Object>> updateList, int id) throws Exception;
 }

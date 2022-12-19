@@ -36,15 +36,21 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-        if (seance.next()){
-            Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getModelClient().getClientAccount(seance.getInt("idcoach"));
-            Sport sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportById(seance.getInt("idsport"));
-            ArrayList<Exercice> listeExercice = (ArrayList<Exercice>) this.getExercices(id);
-            return new Seance(seance.getInt("id"), seance.getString("nom"), seance.getString("description"),seance.getDouble("prix"),coach,sport,listeExercice);
+        try{
+            if (seance.next()){
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getModelClient().getClientAccount(seance.getInt("idcoach"));
+                Sport sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportById(seance.getInt("idsport"));
+                ArrayList<Exercice> listeExercice = (ArrayList<Exercice>) this.getExercices(id);
+                return new Seance(seance.getInt("id"), seance.getString("nom"), seance.getString("description"),seance.getDouble("prix"),coach,sport,listeExercice);
+            }
+            else {
+                throw new SQLException("Aucune séance avec cet id n'existe");
+            }
         }
-        else {
-            throw new SQLException("Il n'y a pas de séance avec cet id");
+        catch(Exception e){
+            throw new SQLException("La sélection de la séance a échoué");
         }
+
     }
 
     /**
@@ -52,16 +58,22 @@ public class DAOSeancePostgreSQL extends DAOSeance {
      * @return l'id de la séance
      * @throws SQLException
      */
-    public int getIdSeanceByNom(String nom) throws SQLException{
+    public int getIdSeanceByNom(String nom) throws Exception{
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
         ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-        if (seance.next()){
-            return seance.getInt("id");
+        try {
+            if (seance.next()){
+                return seance.getInt("id");
+            }
+            else {
+                throw new SQLException("Il n'y a pas de séance avec ce nom");
+            }
         }
-        else {
-            throw new SQLException("Il n'y a pas de séance avec ce nom");
+        catch (Exception e){
+            throw new SQLException("La sélection de la séance a échoué");
         }
+
     }
 
 
@@ -70,17 +82,23 @@ public class DAOSeancePostgreSQL extends DAOSeance {
      * @return la liste des exercices de la séance
      * @throws SQLException
      */
-    public List<Exercice> getExercices(int id) throws SQLException {
+    public List<Exercice> getExercices(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("seanceexercice.idseance", id));
         List<Pair<String, String>> joinList = new ArrayList<>();
         joinList.add(new Pair<>("seanceexercice", "idexercice"));
-        ResultSet exerciceBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
-        List<Exercice> listeExercice = new ArrayList<>();
-        while (exerciceBD.next()){
-            listeExercice.add(new Exercice(exerciceBD.getInt("id"),exerciceBD.getString("nom"),exerciceBD.getString("description")));
+        try {
+            ResultSet exerciceBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
+            List<Exercice> listeExercice = new ArrayList<>();
+            while (exerciceBD.next()){
+                listeExercice.add(new Exercice(exerciceBD.getInt("id"),exerciceBD.getString("nom"),exerciceBD.getString("description")));
+            }
+            return listeExercice;
         }
-        return listeExercice;
+        catch (Exception e) {
+            throw new SQLException("La selection de tous les exercices de la séance a échoué !");
+        }
+
     }
 
     /**
@@ -93,20 +111,89 @@ public class DAOSeancePostgreSQL extends DAOSeance {
      * @param exercices List<Exercice>, la liste des exercices de la séance
      * @throws Exception
      */
-    public void createSeance(String nom, String description, double prix, Coach coach, Sport sport, List<Exercice> exercices) throws SQLException{
+    public Seance createSeance(String nom, String description, double prix, Coach coach, Sport sport, List<Exercice> exercices) throws Exception{
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
         listeInsert.add(new Pair<>("nom",nom));
         listeInsert.add(new Pair<>("description",description));
         listeInsert.add(new Pair<>("prix",prix));
         listeInsert.add(new Pair<>("idcoach",coach.getId()));
         listeInsert.add(new Pair<>("idsport",sport.getId()));
-        ((MethodesPostgreSQL)this.methodesBD).insert(listeInsert, this.table);
-        int idSeance = this.getIdSeanceByNom(nom);
-        for (Exercice exercice : exercices){
-            List<Pair<String,Object>> listeInsertExercice = new ArrayList<>();
-            listeInsertExercice.add(new Pair<>("idexercice",exercice.getId()));
-            listeInsertExercice.add(new Pair<>("idseance",idSeance));
-            ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertExercice, "seanceexercice");
+        try {
+            int idSeance = ((MethodesPostgreSQL)this.methodesBD).insert(listeInsert, this.table);
+            for (Exercice exercice : exercices){
+                List<Pair<String,Object>> listeInsertExercice = new ArrayList<>();
+                listeInsertExercice.add(new Pair<>("idexercice",exercice.getId()));
+                listeInsertExercice.add(new Pair<>("idseance",idSeance));
+                ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertExercice, "seanceexercice");
+            }
+            return this.getSeanceById(idSeance);
+        }
+        catch (Exception e){
+            throw new SQLException("La création de la séance a échoué");
+        }
+
+    }
+
+    /**
+     * @param idSport int, l'id du sport
+     * @return la liste des séances qui font référence à ce sport
+     * @throws Exception
+     */
+    @Override
+    public List<Seance> getSeanceFromSport(int idSport) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idsport",idSport));
+        try {
+            ResultSet seancesData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Seance> listeSeances = new ArrayList<>();
+            while (seancesData.next()){
+                listeSeances.add(this.getSeanceById(seancesData.getInt("id")));
+            }
+            return listeSeances;
+        }
+        catch (Exception e){
+            throw new SQLException("La séléction des séance en fonction du sport a échoué");
+        }
+    }
+
+    /**
+     * Supprimer la séance de la base de donnée
+     * @param id int, l'id de la séance
+     * @throws Exception
+     */
+    @Override
+    public void supprimerSeance(int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",id));
+        List<Pair<String, Object>> whereOtherTableList = new ArrayList<>();
+        whereOtherTableList.add(new Pair<>("idseance",id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandeseance");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"seanceexercice");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
+        }
+        catch(Exception e){
+            throw new SQLException("La suppresion de la séance a échoué");
+        }
+
+    }
+
+    /**
+     * @param updateList List<Pair<String,Object>>, la liste des objet à modifié dans la table pour la séance
+     * @param id int, l'id de la séance
+     * @return l'object de type Seance qui a été mis à jour dans la base de donnée
+     * @throws Exception
+     */
+    @Override
+    public Seance updateSeance(List<Pair<String, Object>> updateList, int id) throws Exception {
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(updateList,whereList,this.table);
+            return this.getSeanceById(id);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour de la séance a échoué");
         }
     }
 }

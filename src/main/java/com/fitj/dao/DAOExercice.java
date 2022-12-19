@@ -2,6 +2,9 @@ package com.fitj.dao;
 
 import com.fitj.classes.Exercice;
 import com.fitj.enums.Sexe;
+import kotlin.Pair;
+
+import java.util.List;
 
 /**
  * Classe parente de tous les modèles exercice qui permettent d'intéragir avec tout type de base de données
@@ -29,7 +32,23 @@ public abstract class DAOExercice extends DAO {
      * @param description String, la description de l'exercice
      * @throws Exception
      */
-    public abstract void createExercice(String nom, String description) throws Exception;
+    public abstract Exercice createExercice(String nom, String description) throws Exception;
+
+    /**
+     * Supprimer l'exercice de la base de donnée
+     * @param id int, l'id de l'exercice
+     * @throws Exception
+     */
+    public abstract void supprimerExercice(int id) throws Exception;
+
+    /**
+     * Met à jour l'exercice dans la base de donnée
+     * @param updateList List<Pair<String,Object>>, la liste des attributs à mettre à jour dans la base de donnée
+     * @param id int, l'id de l'exercice
+     * @return l'exercice mis à jour
+     * @throws Exception
+     */
+    public abstract Exercice updateExercice(List<Pair<String,Object>> updateList, int id) throws Exception;
 
 
 
