@@ -34,7 +34,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param poids    float, le poids du client
      * @param taille   int, la taille du client
      * @param photo    String, le lien de la photo du client
-     * @throws SQLException
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public void createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws SQLException {
@@ -61,19 +61,25 @@ public class DAOClientPostgreSQL extends DAOClient {
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
             if (compte.next() == true){
-                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
-                 client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                 client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                 client.setListeSport(this.getClientSport(compte.getInt("id")));
-                return client;
+                Client connectedClient;
+                if (compte.getBoolean("isAdmin")){
+                    connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
+                } else if (compte.getBoolean("isCoach")){
+                    connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
+                } else {
+                    connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
+                }
+                connectedClient.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                connectedClient.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                connectedClient.setListeSport(this.getClientSport(compte.getInt("id")));
+                return connectedClient;
             }
             else {
                 return null;
             }
         }
         catch (SQLException e){
-            System.out.println("Email non existant");
-            throw new SQLException();
+            throw new SQLException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

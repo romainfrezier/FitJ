@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 
-import java.io.IOException;
-
 /**
  * Controller pour la page d'accueil visiteur
  * @see ControllerUser

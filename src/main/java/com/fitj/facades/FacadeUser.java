@@ -5,7 +5,11 @@ import com.fitj.dao.DAOClient;
 import com.fitj.dao.factory.FactoryModel;
 import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
-import com.fitj.exceptions.*;
+import com.fitj.exceptions.UsedEmailException;
+import com.fitj.exceptions.UsedPseudoException;
+import com.fitj.exceptions.DBProblemException;
+import com.fitj.exceptions.BadLoginException;
+import com.fitj.exceptions.BadPasswordException;
 
 import java.sql.SQLException;
 

@@ -4,8 +4,6 @@ import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import java.io.IOException;
-
 public class ControllerMonCompte extends ControllerCoach {
     //Composants FXML-----------------------------------------------------------------------------------------------
 

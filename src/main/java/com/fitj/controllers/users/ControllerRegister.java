@@ -3,6 +3,8 @@ package com.fitj.controllers.users;
 import com.fitj.classes.Client;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.exceptions.UncompletedFormException;
+import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -63,34 +65,30 @@ public class ControllerRegister extends ControllerUser {
      */
     @FXML
     private void handleButtonRegister(){
-        if (checkPassword() && checkForm()) {
-            try {
-                Client client = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), (float) poidsSlider.getValue(), (int) tailleSlider.getValue(), photoProfil.getText(), getSexFromToggleGroup());
-                if (client != null) {
+        try {
+            checkForm();
+            checkPassword();
+            Client client = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), (float) poidsSlider.getValue(), (int) tailleSlider.getValue(), photoProfil.getText(), getSexFromToggleGroup());
+            if (client != null) {
+                try {
                     hideError();
-                    try {
-                        goToHome();
-                    } catch (BadPageException e) {
-                        displayError(e.getMessage());
-                    }
+                    goToHome();
+                } catch (BadPageException e) {
+                    displayError(e.getMessage());
                 }
-            } catch (Exception e) {
-                displayError(e.getMessage());
             }
-
-        }
-        else {
-            displayError("Le formulaire n'est pas complet");
+        } catch (Exception e) {
+            displayError(e.getMessage());
         }
     }
 
     /**
-     * @see ControllerUser#goToHome(Control)
+     * @see ControllerUser#goToHome(Control, String)
      * @throws BadPageException si la page n'existe pas
      */
     @FXML
     private void goToHome() throws BadPageException {
-        super.goToHome(registerButton);
+        super.goToHome(registerButton, "client");
     }
 
     /**
@@ -103,7 +101,7 @@ public class ControllerRegister extends ControllerUser {
     }
 
     /**
-     * @see ControllerUser#goToHome(Control)
+     * @see ControllerUser#goToVisitor(Control)
      * @throws BadPageException si la page n'est pas trouvée
      */
     @FXML
@@ -127,22 +125,23 @@ public class ControllerRegister extends ControllerUser {
     }
 
     /**
-     * Verifie que le mot de passe et la confirmation sont identiques
-     * @return boolean, true si le mot de passe et sa confirmation sont identiques et non vides
+     * Vérifie que le mot de passe et la confirmation sont identiques
+     * @throws UncompletedFormException si le mot de passe et la confirmation ne sont pas identiques
      */
-    private boolean checkPassword() {
-        if (!(password.getText().equals(""))) {
-            return password.getText().equals(passwordConfirm.getText());
+    private void checkPassword() throws UncompletedFormException {
+        if ((password.getText().equals("")) || !password.getText().equals(passwordConfirm.getText())) {
+            throw new UncompletedFormException("Le mot de passe et sa confirmation doivent être identiques");
         }
-        return false;
     }
 
     /**
      * Vérifie que le formulaire est complet
-     * @return boolean, true si le formulaire est complet
+     * @throws UncompletedFormException si le formulaire n'est pas complet
      */
-    private boolean checkForm() {
-        return !mail.getText().equals("") && !pseudo.getText().equals("") && !password.getText().equals("") && !passwordConfirm.getText().equals("");
+    private void checkForm() throws UncompletedFormException {
+        if (mail.getText().equals("") || pseudo.getText().equals("") || password.getText().equals("") || passwordConfirm.getText().equals("") || photoProfil.getText().equals("")) {
+            throw new UncompletedFormException("Le formulaire n'est pas complet");
+        }
     }
 
     /**
