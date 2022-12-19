@@ -1,14 +1,12 @@
 package com.fitj.classes;
 
-import com.fitj.interfaces.isIngredient;
-
-import java.util.*;
+import com.fitj.interfaces.IsIngredient;
 
 /**
  * Une classe qui représente un aliment.
  * @author Paco Munarriz, Etienne Tillier
  */
-public class Aliment implements isIngredient {
+public class Aliment implements IsIngredient {
 
 
     /**
