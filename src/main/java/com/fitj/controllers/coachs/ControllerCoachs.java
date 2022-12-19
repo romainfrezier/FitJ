@@ -1,11 +1,8 @@
 package com.fitj.controllers.coachs;
 
-import com.fitj.controllers.clients.ControllerClient;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
-import java.io.IOException;
 
 public class ControllerCoachs extends ControllerCoach {
     //Composants FXML-----------------------------------------------------------------------------------------------

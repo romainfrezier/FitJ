@@ -3,7 +3,6 @@ package com.fitj.controllers;
 import com.fitj.App;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.stage.Stage;

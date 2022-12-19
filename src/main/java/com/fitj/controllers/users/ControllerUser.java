@@ -1,6 +1,5 @@
 package com.fitj.controllers.users;
 
-import com.fitj.App;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeUser;
