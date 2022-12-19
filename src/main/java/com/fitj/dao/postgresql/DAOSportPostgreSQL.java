@@ -1,5 +1,6 @@
 package com.fitj.dao.postgresql;
 
+import com.fitj.classes.Materiel;
 import com.fitj.classes.Sport;
 import com.fitj.dao.DAOSport;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
@@ -25,7 +26,7 @@ public class DAOSportPostgreSQL extends DAOSport {
     /**
      * Ajoute un sport dans la base de donnée
      * @param nom String, le nom du sport
-     * @throws Exception
+     * @throws SQLException si une erreur SQL est détectée
      */
     @Override
     public void createSport(String nom) throws SQLException {
@@ -37,7 +38,7 @@ public class DAOSportPostgreSQL extends DAOSport {
     /**
      * @param id int, l'id du sport
      * @return le sport dans la base de donnée contenant l'id rentré en paramètre
-     * @throws Exception
+     * @throws SQLException si une erreur SQL est détectée
      */
     @Override
     public Sport getSportById(int id) throws SQLException {
@@ -50,6 +51,30 @@ public class DAOSportPostgreSQL extends DAOSport {
         }
         else {
             throw new SQLException("Sport non trouvé dans la bd");
+        }
+    }
+
+    /**
+     * Récupère tous les sports dans la base de donnée
+     * @return List<Sport>, la liste de tous les sports
+     * @throws Exception si une erreur est détectée
+     */
+    @Override
+    public List<Sport> getAllSports() throws Exception {
+        ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+        try {
+            List<Sport> listeSports = new ArrayList<>();
+            if (result.next()){
+                do {
+                    listeSports.add(new Sport(result.getInt("id"), result.getString("nom")));
+                } while (result.next());
+            }
+            return listeSports;
+        }
+        catch (SQLException e){
+            throw new SQLException();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

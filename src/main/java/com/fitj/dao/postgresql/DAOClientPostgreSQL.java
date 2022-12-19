@@ -50,6 +50,24 @@ public class DAOClientPostgreSQL extends DAOClient {
     }
 
     /**
+     * Fais le choix du role du client entre client, coach ou admin
+     * @param compte ResultSet, le résultat de la requête SQL
+     * @return Client, le client avec le bon role correspondant au résultat de la requête SQL
+     * @throws SQLException si une erreur SQL survient
+     */
+    private Client chooseRole(ResultSet compte) throws SQLException {
+        Client connectedClient;
+        if (compte.getBoolean("isAdmin")){
+            connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+        } else if (compte.getBoolean("isCoach")){
+            connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+        } else {
+            connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+        }
+        return connectedClient;
+    }
+
+    /**
      * @param mail String, l'email du client
      * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
      * @throws SQLException
@@ -61,18 +79,11 @@ public class DAOClientPostgreSQL extends DAOClient {
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
             if (compte.next() == true){
-                Client connectedClient;
-                if (compte.getBoolean("isAdmin")){
-                    connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
-                } else if (compte.getBoolean("isCoach")){
-                    connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
-                } else {
-                    connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
-                }
-                connectedClient.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                connectedClient.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                connectedClient.setListeSport(this.getClientSport(compte.getInt("id")));
-                return connectedClient;
+                Client client = chooseRole(compte);
+                client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                client.setListeSport(this.getClientSport(compte.getInt("id")));
+                return client;
             }
             else {
                 return null;
@@ -97,7 +108,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
             if (compte.next() == true){
-                Client client = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+                Client client = chooseRole(compte);
                 client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
                 client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
                 client.setListeSport(this.getClientSport(compte.getInt("id")));
@@ -119,7 +130,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * Supprimer le client de la base de donnée
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     public void supprimerClient(String mail) throws SQLException{
         List<Pair<String,Object>> wherelist = new ArrayList<>();
@@ -130,7 +141,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * Met à jour le client de la base de donnée
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     public Client updateClient(List<Pair<String,Object>> data, String mail) throws SQLException{
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -143,7 +154,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour la photo du client dans la base de donnée
      * @param photo, la photo du client
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public Client updateClientPhoto(String photo, String mail) throws Exception {
@@ -156,7 +167,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour le pseudo du client dans la base de donnée
      * @param pseudo, le pseudo du client
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public Client updateClientPseudo(String pseudo, String mail) throws Exception {
@@ -169,7 +180,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour le poids du client dans la base de donnée
      * @param poids, le poids du client
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public Client updateClientPoids(double poids, String mail) throws Exception {
@@ -182,7 +193,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour la taille du client dans la base de donnée
      * @param taille, la taille du client
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public Client updateClientTaille(int taille, String mail) throws Exception {
@@ -195,7 +206,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour le password du client dans la base de donnée
      * @param password, le password du client
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public Client updateClientPassword(String password, String mail) throws Exception {
@@ -207,7 +218,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * @param id int, l'id du client
      * @return la liste de matériel du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public List<Materiel> getClientMateriel(int id) throws SQLException {
@@ -235,7 +246,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * @param id int, l'id du client
      * @return la liste de commandes du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public List<Commande> getClientCommandes(int id) throws Exception {
@@ -273,8 +284,8 @@ public class DAOClientPostgreSQL extends DAOClient {
 
     /**
      * @param id int, l'id du client
-     * @return la liste des sport du client
-     * @throws Exception
+     * @return la liste des sports du client
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public List<Sport> getClientSport(int id) throws Exception {

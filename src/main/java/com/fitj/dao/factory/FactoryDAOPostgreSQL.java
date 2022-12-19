@@ -10,9 +10,9 @@ import com.fitj.dao.postgresql.*;
  *
  * @author Etienne Tillier
  */
-public class FactoryModelPostgreSQL extends FactoryModel {
+public class FactoryDAOPostgreSQL extends FactoryDAO {
 
-    public FactoryModelPostgreSQL(){
+    public FactoryDAOPostgreSQL(){
         super();
 
     }

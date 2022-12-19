@@ -1,16 +1,14 @@
 package com.fitj.dao;
 
 import com.fitj.classes.*;
-import com.fitj.dao.factory.FactoryModelPostgreSQL;
+import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.postgresql.DAOSeancePostgreSQL;
 import com.fitj.enums.Sexe;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TestModelSeancePostgreSQL {
 
@@ -23,9 +21,9 @@ public class TestModelSeancePostgreSQL {
     public static void init() throws Exception {
         daoSeancePostgreSQL = new DAOSeancePostgreSQL();
         Coach coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        Sport sport = FactoryModelPostgreSQL.getInstance().getModelSport().getSportById(1);
-        Exercice exercice1 = FactoryModelPostgreSQL.getInstance().getModelExercice().getExerciceById(1);
-        Exercice exercice2 = FactoryModelPostgreSQL.getInstance().getModelExercice().getExerciceById(2);
+        Sport sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportById(1);
+        Exercice exercice1 = FactoryDAOPostgreSQL.getInstance().getModelExercice().getExerciceById(1);
+        Exercice exercice2 = FactoryDAOPostgreSQL.getInstance().getModelExercice().getExerciceById(2);
         ArrayList<Exercice> listeExercice = new ArrayList<>();
         listeExercice.add(exercice1);
         listeExercice.add(exercice2);

@@ -2,6 +2,8 @@ package com.fitj.dao;
 
 import com.fitj.classes.Sport;
 
+import java.util.List;
+
 /**
  * Classe parente de tous les modèles sport qui permettent d'intéragir avec tout type de base de données
  * pour toutes modifications de cette dernière en rapport avec les sports
@@ -29,4 +31,11 @@ public abstract class DAOSport extends DAO {
      * @throws Exception
      */
     public abstract Sport getSportById(int id) throws Exception;
+
+    /**
+     * Récupère tous les sports dans la base de donnée
+     * @return List<Sport>, la liste de tous les sports
+     * @throws Exception si une erreur est détectée
+     */
+    public abstract List<Sport> getAllSports() throws Exception;
 }

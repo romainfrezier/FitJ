@@ -9,29 +9,29 @@ import com.fitj.dao.*;
  *
  * @author Etienne Tillier
  */
-public abstract class FactoryModel {
+public abstract class FactoryDAO {
 
     /**
      * instance du singleton
      */
-    private static FactoryModel instance = null;
+    private static FactoryDAO instance = null;
 
     /**
      * type de la base de donnée
      */
     public static final String databaseType = "postgreSQL";
 
-    protected FactoryModel(){
+    protected FactoryDAO(){
 
     }
 
     /**
      * @return l'instance du singleton
      */
-    public static FactoryModel getInstance(){
+    public static FactoryDAO getInstance(){
         if (instance == null){
             if (databaseType == "postgreSQL"){
-                instance = new FactoryModelPostgreSQL();
+                instance = new FactoryDAOPostgreSQL();
             }
             else {
                 //mettre une erreur ici
