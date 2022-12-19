@@ -52,10 +52,11 @@ public abstract class ControllerUser extends Controller {
     /**
      * Methode permettant de se rendre sur la page d'accueil
      * @param controlEl Control, élément de contrôle de la page
+     * @param scope String, niveau du client connecté (admin, coach, client)
      * @throws BadPageException si la vue n'existe pas
      */
-    void goToHome(Control controlEl) throws BadPageException {
-        String pathClient = "clients/";
-        goToPage(controlEl, pathClient + "monCompte-client.fxml", "Mon Compte");
+    void goToHome(Control controlEl, String scope) throws BadPageException {
+        String pathClient = scope + "s/";
+        goToPage(controlEl, pathClient + "monEspace-" + scope + ".fxml", "Mon Compte");
     }
 }

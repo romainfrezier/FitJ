@@ -4,6 +4,7 @@ import com.fitj.classes.Client;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UncompletedFormException;
+import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -82,12 +83,12 @@ public class ControllerRegister extends ControllerUser {
     }
 
     /**
-     * @see ControllerUser#goToHome(Control)
+     * @see ControllerUser#goToHome(Control, String)
      * @throws BadPageException si la page n'existe pas
      */
     @FXML
     private void goToHome() throws BadPageException {
-        super.goToHome(registerButton);
+        super.goToHome(registerButton, "client");
     }
 
     /**
@@ -100,7 +101,7 @@ public class ControllerRegister extends ControllerUser {
     }
 
     /**
-     * @see ControllerUser#goToHome(Control)
+     * @see ControllerUser#goToVisitor(Control)
      * @throws BadPageException si la page n'est pas trouvée
      */
     @FXML

@@ -1,12 +1,18 @@
 package com.fitj.controllers.admins;
 
 import com.fitj.exceptions.BadPageException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class ControllerMonEspace extends ControllerAdmin {
     //Composants FXML-----------------------------------------------------------------------------------------------
-
+    @FXML
+    private Button addSportButton;
     @FXML
     private Button monCompte;
     @FXML
@@ -17,6 +23,14 @@ public class ControllerMonEspace extends ControllerAdmin {
     private Button shop;
     @FXML
     private Button clients;
+    @FXML
+    private TextField sportName;
+    @FXML
+    private Text adminName;
+    @FXML
+    private ProgressBar adminGrade;
+    @FXML
+    private TableView sportList;
 
     //Methodes-----------------------------------------------------------------------------------------------
 
@@ -45,5 +59,14 @@ public class ControllerMonEspace extends ControllerAdmin {
     @FXML
     private void goToClients() throws BadPageException {
         super.goToClients(clients);
+    }
+
+    @FXML
+    private void goToAddSport() throws BadPageException {
+        super.goToAddSport(addSportButton);
+    }
+
+    @FXML
+    private void addSport(ActionEvent actionEvent) {
     }
 }

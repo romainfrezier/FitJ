@@ -23,6 +23,11 @@ public abstract class ControllerAdmin extends Controller {
     private final String path = "admins/";
 
     /**
+     * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
+     */
+    private final String sport = "sports/";
+
+    /**
      * Methode permettant de se rendre sur la page mon compte
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
@@ -65,5 +70,14 @@ public abstract class ControllerAdmin extends Controller {
      */
     void goToClients(Control controlEl) throws BadPageException {
         goToPage(controlEl, path + "clients-admin.fxml", "Clients");
+    }
+
+    /**
+     * Methode permettant de se rendre sur la page shop
+     * @param controlEl Control, élément de contrôle de la page
+     * @throws BadPageException si la vue n'existe pas
+     */
+    void goToAddSport(Control controlEl) throws BadPageException {
+        goToPage(controlEl, sport + "create-sport.fxml", "Création d'un sport");
     }
 }
