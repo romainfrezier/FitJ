@@ -1,6 +1,7 @@
 package com.fitj.dao.postgresql;
 
 import com.fitj.dao.DAORecette;
+import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 
 
 /**
@@ -9,5 +10,10 @@ import com.fitj.dao.DAORecette;
  * @author Etienne Tillier
  */
 public class DAORecettePostgreSQL extends DAORecette {
+
+    public DAORecettePostgreSQL(){
+        super();
+        this.methodesBD = new MethodesPostgreSQL();
+    }
 
 }

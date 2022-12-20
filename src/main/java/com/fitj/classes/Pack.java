@@ -5,14 +5,43 @@ import java.util.*;
 /**
  * Classe qui représente un pack.
  * Un pack est un ensemble de produits.
- * @author Paco Munarriz
+ * @author Paco Munarriz, Etienne Tillier
  */
 public class Pack extends Produit {
+
+    private List<Produit> listeProduit;
 
     /**
      * Constructeur par défaut
      */
-    public Pack() {
+    public Pack(int id, String nom, String description, double prix, Coach coach){
+        super(id, nom, description, prix, coach);
     }
+
+    /**
+     * Constructeur avec des produits
+     */
+    public Pack(int id, String nom, String description, double prix, Coach coach, List<Produit> listeProduit) {
+        super(id, nom, description, prix, coach);
+        this.listeProduit = listeProduit;
+    }
+
+    /**
+     * Ajoute un produit au pack
+     * @param produit Produit, le produit à ajouter au pack
+     */
+    public void ajouterProduit(Produit produit){
+        this.listeProduit.add(produit);
+    }
+
+
+    /**
+     * Retire un produit du pack
+     * @param produit Produit, le produit à retirer du pack
+     */
+    public void retirerProduit(Produit produit){
+        this.listeProduit.remove(produit);
+    }
+
 
 }

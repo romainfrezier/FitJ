@@ -4,7 +4,6 @@ import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
 import com.fitj.enums.Sexe;
-import com.fitj.exceptions.BadLoginException;
 import kotlin.Pair;
 
 import java.sql.ResultSet;
@@ -24,17 +23,21 @@ public class DAOClientPostgreSQL extends DAOClient {
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+
+
+
     /**
      * Créer un client dans la base de donnée avec les données rentrées en paramètre
      * @param mail     String, l'émail du client
      * @param pseudo   String, le pseudo du client
-     * @param password String,  le mot de passe rentré par le client
-     * @param poids    float,  le poids du client
+     * @param password String, le mot de passe rentré par le client
+     * @param poids    float, le poids du client
      * @param taille   int, la taille du client
      * @param photo    String, le lien de la photo du client
      * @throws SQLException si une erreur SQL survient
      */
-    public void createClient(String mail, String pseudo, String password, float poids, int taille, String photo, Sexe sexe) throws SQLException {
+    @Override
+    public Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
         data.add(new Pair<>("pseudo", pseudo));
@@ -43,69 +46,284 @@ public class DAOClientPostgreSQL extends DAOClient {
         data.add(new Pair<>("taille", taille));
         data.add(new Pair<>("photo", photo));
         data.add(new Pair<>("sexe", Sexe.getSexe(sexe)));
-        ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
+        try {
+            int id = ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
+            return getClientAccount(id);
+        }
+        catch (Exception e){
+            throw new SQLException("La création du client a échoué");
+        }
+    }
+
+    /**
+     * Fais le choix du role du client entre client, coach ou admin
+     * @param compte ResultSet, le résultat de la requête SQL
+     * @return Client, le client avec le bon role correspondant au résultat de la requête SQL
+     * @throws SQLException si une erreur SQL survient
+     */
+    private Client chooseRole(ResultSet compte) throws Exception {
+        Client connectedClient;
+        if (compte.getBoolean("isAdmin")){
+            connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+        } else if (compte.getBoolean("isCoach")){
+            connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+        } else {
+            connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+        }
+        return connectedClient;
     }
 
     /**
      * @param mail String, l'email du client
      * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
-     * @throws BadLoginException si l'email rentré en paramètre ne correspond à aucun client
+     * @throws SQLException
      */
-    public Client getClientAccount(String mail) throws SQLException {
+    public Client getClientAccount(String mail) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
             if (compte.next() == true){
-                Client connectedClient;
-                if (compte.getBoolean("isAdmin")){
-                    connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
-                } else if (compte.getBoolean("isCoach")){
-                    connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
-                } else {
-                    connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"));
-                }
-                connectedClient.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                connectedClient.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                connectedClient.setListeSport(this.getClientSport(compte.getInt("id")));
-                return connectedClient;
+                Client client = chooseRole(compte);
+                client.setListeCommande(new ArrayList<>());
+                client.setListeMateriel(this.getClientMateriel(client.getId()));
+                client.setListeSport(new ArrayList<>());
+                //client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                //client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                //client.setListeSport(this.getClientSport(compte.getInt("id")));
+                return client;
             }
             else {
-                return null;
+                throw new SQLException("Aucun client avec cet email n'existe");
             }
         }
-        catch (SQLException e){
-            throw new SQLException(e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        catch (Exception e){
+            throw new SQLException("La sélection du client a échoué");
+        }
+    }
+
+    /**
+     * @param id int, l'id du client
+     * @return un objet de type Client contenant toutes les informations du client qui contient l'id rentré en paramètre
+     * @throws SQLException
+     */
+    public Client getClientAccount(int id) throws Exception {
+        ResultSet compte;
+        List<Pair<String,Object>> data = new ArrayList<>();
+        data.add(new Pair<>("id", id));
+        compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+        try {
+            if (compte.next() == true){
+                Client client = chooseRole(compte);
+                client.setListeCommande(new ArrayList<>());
+                client.setListeMateriel(this.getClientMateriel(client.getId()));
+                client.setListeSport(new ArrayList<>());
+                //client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
+                //client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
+                //client.setListeSport(this.getClientSport(compte.getInt("id")));
+                return client;
+            }
+            else {
+                throw new SQLException("Aucun client avec cet id n'existe");
+            }
+        }
+        catch (Exception e){
+            throw new SQLException("La sélection du client a échoué");
+        }
+    }
+
+    /**
+     * Supprimer le client de la base de donnée
+     * @param mail, le mail du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    public void supprimerClient(String mail) throws SQLException{
+        List<Pair<String,Object>> wherelist = new ArrayList<>();
+        wherelist.add(new Pair<>("mail", mail));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(wherelist, this.table);
+        }
+        catch(Exception e){
+            throw new SQLException("La suppresion du client a échoué");
+        }
+    }
+
+    /**
+     * Met à jour le client de la base de donnée
+     * @param mail, le mail du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    public Client updateClient(List<Pair<String,Object>> data, String mail) throws Exception{
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("mail",mail));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(data,whereList,this.table);
+            return this.getClientAccount(mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du client a échoué");
+        }
+    }
+
+    /**
+     * Met à jour la photo du client dans la base de donnée
+     * @param photo, la photo du client
+     * @param mail, le mail du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    @Override
+    public Client updateClientPhoto(String photo, String mail) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("photo",photo));
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour de la photo du client a échoué");
+        }
+    }
+
+    /**
+     * Met à jour le pseudo du client dans la base de donnée
+     * @param pseudo, le pseudo du client
+     * @param mail, le mail du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    @Override
+    public Client updateClientPseudo(String pseudo, String mail) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("pseudo",pseudo));
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du pseudo du client a échoué");
+        }
+    }
+
+    /**
+     * Met à jour le poids du client dans la base de donnée
+     * @param poids, le poids du client
+     * @param mail, le mail du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    @Override
+    public Client updateClientPoids(double poids, String mail) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("poids",poids));
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du poids du client a échoué");
+        }
+    }
+
+    /**
+     * Met à jour la taille du client dans la base de donnée
+     * @param taille, la taille du client
+     * @param mail, le mail du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    @Override
+    public Client updateClientTaille(int taille, String mail) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("taille",taille));
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour de la taille du client a échoué");
+        }
+    }
+
+    /**
+     * Met à jour le password du client dans la base de donnée
+     * @param password, le password du client
+     * @param mail, le mail du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    @Override
+    public Client updateClientPassword(String password, String mail) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("password",passwordAuthentication.hash(password.toCharArray())));
+        try {
+            return this.updateClient(updateList, mail);
+        }
+        catch (Exception e){
+            throw new SQLException("La mise à jour du mot de passe du client a échoué");
         }
     }
 
     /**
      * @param id int, l'id du client
      * @return la liste de matériel du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public List<Materiel> getClientMateriel(int id) throws Exception {
-        return null;
+        List<Pair<String,String>> dataJoin = new ArrayList<>();
+        dataJoin.add(new Pair<>("clientMateriel", "idMateriel"));
+        List<Pair<String,Object>> dataWhere = new ArrayList<>();
+        dataWhere.add(new Pair<>("clientMateriel.idClient",id));
+        try {
+            ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Materiel");
+            List<Materiel> listeMateriel = new ArrayList<>();
+            if (result.next() == true){
+                do {
+                    listeMateriel.add(new Materiel(result.getInt("id"), result.getString("nom")));
+                }while (result.next());
+            }
+            return listeMateriel;
+        }
+        catch (Exception e){
+            throw new SQLException("La selection du matériel du client a échoué");
+        }
     }
 
     /**
      * @param id int, l'id du client
      * @return la liste de commandes du client
-     * @throws Exception
+     * @throws SQLException si une erreur SQL survient
      */
     @Override
     public List<Commande> getClientCommandes(int id) throws Exception {
-        return null;
+        List<Pair<String,String>> dataJoin = new ArrayList<>();
+        dataJoin.add(new Pair<>("clientCommande", "idCommande"));
+        dataJoin.add(new Pair<>("clientCommande", "idCommande"));
+        List<Pair<String,Object>> dataWhere = new ArrayList<>();
+        dataWhere.add(new Pair<>("clientCommande.idClient",id));
+        try {
+            ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Commande");
+            List<Commande> listeCommande = new ArrayList<>();
+            if (result.next() == true){
+                do {
+                    Commande commande;
+                    Coach coach = (Coach)this.getClientAccount(result.getInt("clientCommande.idCoach"));
+                    Client client = this.getClientAccount(id);
+                    if (((Integer)result.getInt("prix")) != null){
+                        //     commande = new CommandePayante();
+                    }
+                    else {
+                        //   commande = new CommandeNonPayante();
+                    }
+
+                    //listeCommande.add(new Commande(this.getClientAccount(result.getInt("clientcommande.idclient")));
+                }while (result.next());
+            }
+            return listeCommande;
+        }
+        catch (Exception e){
+            throw new SQLException("La sélection des commandes du client a échoué");
+        }
+
     }
 
     /**
      * @param id int, l'id du client
-     * @return la liste des sport du client
-     * @throws Exception
+     * @return la liste des sports du client
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public List<Sport> getClientSport(int id) throws Exception {

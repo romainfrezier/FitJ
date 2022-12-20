@@ -1,6 +1,9 @@
 package com.fitj.controllers.admins;
 
+import com.fitj.classes.Sport;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.FacadeSport;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,7 +33,7 @@ public class ControllerMonEspace extends ControllerAdmin {
     @FXML
     private ProgressBar adminGrade;
     @FXML
-    private TableView sportList;
+    private TableView<Sport> sportList;
 
     //Methodes-----------------------------------------------------------------------------------------------
 
@@ -68,5 +71,20 @@ public class ControllerMonEspace extends ControllerAdmin {
 
     @FXML
     private void addSport(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void initialize() {
+        FacadeSport facadeSport = FacadeSport.getInstance();
+        try {
+            ObservableList<Sport> sports = facadeSport.getAllSports();
+            sportList.setItems(sports);
+        } catch (Exception e) {
+            displayError(e.getMessage());
+        }
+
+    }
+
+    private void displayError(String message) {
     }
 }

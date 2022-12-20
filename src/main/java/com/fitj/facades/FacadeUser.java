@@ -2,7 +2,7 @@ package com.fitj.facades;
 
 import com.fitj.classes.Client;
 import com.fitj.dao.DAOClient;
-import com.fitj.dao.factory.FactoryModel;
+import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.UsedEmailException;
@@ -40,7 +40,7 @@ public class FacadeUser extends Facade {
      * Constructeur de la facade, initialise les attributs
      */
     protected FacadeUser(){
-        this.daoClient = FactoryModel.getInstance().getModelClient();
+        this.daoClient = FactoryDAO.getInstance().getModelClient();
         this.passwordAuthentication = new PasswordAuthentication();
     }
 
@@ -97,7 +97,7 @@ public class FacadeUser extends Facade {
             } else {
                 try {
                     daoClient.createClient(mail, pseudo, password, poids, taille, photo, sexe);
-                    Client newClient = new Client(mail, pseudo, poids, photo, taille, sexe, password);
+                    Client newClient = daoClient.getClientAccount(mail);
                     Facade.currentClient = newClient;
                     return newClient;
                 } catch (SQLException e) {

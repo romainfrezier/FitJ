@@ -6,6 +6,7 @@ import com.fitj.classes.Materiel;
 import com.fitj.classes.Sport;
 import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
+import kotlin.Pair;
 
 import java.util.List;
 
@@ -39,7 +40,8 @@ public abstract class DAOClient extends DAO {
      * @param photo String, le lien de la photo du client
      * @throws Exception
      */
-    public abstract void createClient(String mail, String pseudo, String password, float poids, int taille, String photo, Sexe sexe) throws Exception;
+    public abstract Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception;
+
 
     /**
      * @param mail, le mail du client
@@ -47,6 +49,67 @@ public abstract class DAOClient extends DAO {
      * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'email rentré du client
      */
     public abstract Client getClientAccount(String mail) throws Exception;
+
+    /**
+     * @param id, l'id du client
+     * @return un objet contenant toutes les informations du client
+     * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'id rentré du client
+     */
+    public abstract Client getClientAccount(int id) throws Exception;
+
+    /**
+     * Supprimer le client de la base de donnée
+     * @param mail, le mail du client
+     * @throws Exception
+     */
+    public abstract void supprimerClient(String mail) throws Exception;
+
+    /**
+     * Met à jour le client de la base de donnée
+     * @param mail, le mail du client
+     * @throws Exception
+     */
+    public abstract Client updateClient(List<Pair<String,Object>> data, String mail) throws Exception;
+
+    /**
+     * Met à jour la photo du client dans la base de donnée
+     * @param photo, la photo du client
+     * @param mail, le mail du client
+     * @throws Exception
+     */
+    public abstract Client updateClientPhoto(String photo, String mail) throws Exception;
+
+    /**
+     * Met à jour le pseudo du client dans la base de donnée
+     * @param pseudo, le pseudo du client
+     * @param mail, le mail du client
+     * @throws Exception
+     */
+    public abstract Client updateClientPseudo(String pseudo, String mail) throws Exception;
+
+    /**
+     * Met à jour le poids du client dans la base de donnée
+     * @param poids, le poids du client
+     * @param mail, le mail du client
+     * @throws Exception
+     */
+    public abstract Client updateClientPoids(double poids, String mail) throws Exception;
+
+    /**
+     * Met à jour la taille du client dans la base de donnée
+     * @param taille, la taille du client
+     * @param mail, le mail du client
+     * @throws Exception
+     */
+    public abstract Client updateClientTaille(int taille, String mail) throws Exception;
+
+    /**
+     * Met à jour le password du client dans la base de donnée
+     * @param password, le password du client
+     * @param mail, le mail du client
+     * @throws Exception
+     */
+    public abstract Client updateClientPassword(String password, String mail) throws Exception;
 
     /**
      * @param id int, l'id du client
