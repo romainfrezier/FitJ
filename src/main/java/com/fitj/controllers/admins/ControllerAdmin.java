@@ -3,6 +3,7 @@ package com.fitj.controllers.admins;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeAdmin;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Control;
 
 /**

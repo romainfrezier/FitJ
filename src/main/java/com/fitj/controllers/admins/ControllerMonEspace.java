@@ -3,16 +3,23 @@ package com.fitj.controllers.admins;
 import com.fitj.classes.Sport;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeSport;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
+
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class ControllerMonEspace extends ControllerAdmin {
+
     //Composants FXML-----------------------------------------------------------------------------------------------
     @FXML
     private Button addSportButton;
@@ -33,8 +40,13 @@ public class ControllerMonEspace extends ControllerAdmin {
     @FXML
     private ProgressBar adminGrade;
     @FXML
+    private ListView<Sport> listView;
+    @FXML
     private TableView<Sport> sportList;
-
+    @FXML
+    private TableColumn<Sport, String> idCol;
+    @FXML
+    private TableColumn<Sport, String> nomCol;
     //Methodes-----------------------------------------------------------------------------------------------
 
     @FXML
@@ -69,22 +81,50 @@ public class ControllerMonEspace extends ControllerAdmin {
         super.goToAddSport(addSportButton);
     }
 
+    private void displayError(String message) {
+    }
+
     @FXML
-    private void addSport(ActionEvent actionEvent) {
+    private void addSport() {
+        FacadeSport facadeSport = FacadeSport.getInstance();
+        try {
+            facadeSport.createSport(sportName.getText());
+            goToMonEspace();
+        } catch (Exception e) {
+            displayError(e.getMessage());
+        }
     }
 
     @FXML
     private void initialize() {
         FacadeSport facadeSport = FacadeSport.getInstance();
         try {
-            ObservableList<Sport> sports = facadeSport.getAllSports();
-            sportList.setItems(sports);
+            List<Sport> sports = facadeSport.getAllSports();
+            listView.setCellFactory(new Callback<ListView<Sport>, ListCell<Sport>>() {
+                @Override
+                public ListCell<Sport> call(ListView<Sport> param) {
+                    return new ListCell<Sport>() {
+                        @Override
+                        protected void updateItem(Sport item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item.getNom());
+                            } else {
+                                setText("");
+                            }
+                        }
+                    };
+                }
+            });
+            for (Sport sport : sports) {
+                listView.getItems().add(sport);
+            }
         } catch (Exception e) {
             displayError(e.getMessage());
         }
-
     }
 
-    private void displayError(String message) {
+    @FXML
+    private void modifySport(ActionEvent actionEvent) {
     }
 }

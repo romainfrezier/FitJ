@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -57,13 +56,10 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="addSportButton" layoutX="410.0" layoutY="530.0" mnemonicParsing="false" onAction="#goToAddSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
-                        <TableView fx:id="sportList" editable="true" fixedCellSize="1.0" layoutX="18.0" layoutY="14.0" mouseTransparent="true" prefHeight="494.0" prefWidth="900.0">
-                          <columns>
-                            <TableColumn prefWidth="752.0" text="Sport" />
-                            <TableColumn minWidth="0.0" prefWidth="67.5" sortable="false" text="Modifier" />
-                              <TableColumn prefWidth="79.5" sortable="false" text="Supprimer" />
-                          </columns>
-                        </TableView>
+                        <ListView fx:id="listView" layoutX="18.0" layoutY="16.0" prefHeight="455.0" prefWidth="902.0" />
+                        <Text fx:id="errorMessage" fill="RED" layoutX="276.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
+                        <Button fx:id="modifySportButton" layoutX="276.0" layoutY="530.0" mnemonicParsing="false" onAction="#modifySport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
+                        <Button fx:id="deleteSportbutton" layoutX="544.0" layoutY="530.0" mnemonicParsing="false" onAction="#goToAddSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
                      </children>
                   </AnchorPane>
               </content>

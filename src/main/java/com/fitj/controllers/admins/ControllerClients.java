@@ -4,6 +4,9 @@ import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class ControllerClients extends ControllerAdmin {
     //Composants FXML-----------------------------------------------------------------------------------------------
 
