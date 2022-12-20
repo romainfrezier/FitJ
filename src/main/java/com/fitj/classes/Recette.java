@@ -33,7 +33,7 @@ public class Recette implements IsIngredient {
     private Coach coach;
 
     /**
-     * Constructeur par défaut
+     * Constructeur par défaut pour getAll
      */
     public Recette(int id, String nom, Coach coach) {
         this.id = id;

@@ -27,6 +27,12 @@ public abstract class DAOExercice extends DAO {
     public abstract Exercice getExerciceById(int id) throws Exception;
 
     /**
+     * @return une liste contenant tous les exercices dans la base de donnée
+     * @throws Exception
+     */
+    public abstract List<Exercice> getAllExercices() throws Exception;
+
+    /**
      * Creer un exercice dans la base de donnée
      * @param nom String, le nom de l'exercice
      * @param description String, la description de l'exercice

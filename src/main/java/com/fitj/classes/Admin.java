@@ -18,6 +18,10 @@ public class Admin extends Coach {
         super(email,pseudo,poids,image,taille,sexe,password,id);
     }
 
+    public Admin(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel) {
+        super(email, pseudo, poids, photo, taille, sexe, password, id, listeSport, listeCommande, listeMateriel);
+    }
+
     /**
      * Ajouter un sport.
      */

@@ -1,6 +1,7 @@
 package com.fitj.dao.postgresql;
 
 import com.fitj.classes.Exercice;
+import com.fitj.classes.Sport;
 import com.fitj.dao.DAOExercice;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.Sexe;
@@ -38,6 +39,21 @@ public class DAOExercicePostgreSQL extends DAOExercice {
         }
         else {
             throw new SQLException("Il n'y a pas d'exercice avec cet id");
+        }
+    }
+
+    @Override
+    public List<Exercice> getAllExercices() throws Exception {
+        List<Exercice> listExercice = new ArrayList<>();
+        ResultSet exercicesBD = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+        try {
+            while(exercicesBD.next()){
+                listExercice.add(new Exercice(exercicesBD.getInt("id"), exercicesBD.getString("nom"), exercicesBD.getString("description")));
+            }
+            return listExercice;
+        }
+        catch (Exception e){
+            throw new SQLException("Impossible de récupérer tous les exercices");
         }
     }
 

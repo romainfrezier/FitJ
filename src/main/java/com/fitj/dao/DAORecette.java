@@ -2,7 +2,9 @@ package com.fitj.dao;
 
 
 import com.fitj.classes.Aliment;
+import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
+import com.fitj.interfaces.IsIngredient;
 import kotlin.Pair;
 
 import java.util.List;
@@ -23,11 +25,11 @@ public abstract class DAORecette extends DAO {
 
     /**
      * @param nom String, le nom de la recette
-     * @param aliments List<Aliment>, la liste des aliments présents dans la recette
+     * @param aliments List<IsIngredient>, la liste des aliments présents dans la recette
      * @return la recette créée
      * @throws Exception
      */
-    public abstract Recette createRecette(String nom, List<Aliment> aliments) throws Exception;
+    public abstract Recette createRecette(String nom, Coach coach, List<IsIngredient> aliments) throws Exception;
 
     /**
      * @param id int, l'id de la recette
@@ -41,7 +43,14 @@ public abstract class DAORecette extends DAO {
      * @param id int, l'id de la recette
      * @throws Exception
      */
-    public abstract void deleteRecette(int id) throws Exception;
+    public abstract void supprimerRecette(int id) throws Exception;
+
+    /**
+     * @return la liste de toutes les recettes présente dans la base de donnée
+     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
+     * @throws Exception
+     */
+    public abstract List<Recette> getAllRecettes(List<Pair<String,Object>> whereList) throws Exception;
 
     /**
      * Met à jour la recette dans la base de donnée

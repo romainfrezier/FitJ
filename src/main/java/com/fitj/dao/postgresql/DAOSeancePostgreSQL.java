@@ -7,9 +7,12 @@ import com.fitj.classes.Sport;
 import com.fitj.dao.DAOSeance;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.enums.Sexe;
 import kotlin.Pair;
+import kotlin.Triple;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,8 +88,8 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     public List<Exercice> getExercices(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("seanceexercice.idseance", id));
-        List<Pair<String, String>> joinList = new ArrayList<>();
-        joinList.add(new Pair<>("seanceexercice", "idexercice"));
+        List<Triple<String, String, String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("seanceexercice", "idexercice", "exercice.id"));
         try {
             ResultSet exerciceBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
             List<Exercice> listeExercice = new ArrayList<>();
@@ -153,6 +156,25 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         }
         catch (Exception e){
             throw new SQLException("La séléction des séance en fonction du sport a échoué");
+        }
+    }
+
+    @Override
+    public List<Seance> getAllSeances(List<Pair<String,Object>> whereList) throws Exception {
+        List<Seance> listeSeances = new ArrayList<>();
+        List<Triple<String,String,String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("client","id", "seance.idcoach"));
+        ResultSet seancesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+        try {
+            while(seancesBD.next()){
+                Coach coach = new Coach(seancesBD.getString("mail"), seancesBD.getString(9), seancesBD.getDouble("poids"), seancesBD.getString("photo"), seancesBD.getInt("taille"), Sexe.getSexe(seancesBD.getString("sexe")), seancesBD.getString("password"), seancesBD.getInt(5));
+                listeSeances.add(new Seance(seancesBD.getInt(1), seancesBD.getString(2), seancesBD.getString("description"), seancesBD.getDouble("prix"), coach));
+            }
+            return listeSeances;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("Impossible de récupérer toutes les séances");
         }
     }
 

@@ -19,15 +19,21 @@ public class TestModelSeancePostgreSQL {
 
     private static DAOSeancePostgreSQL daoSeancePostgreSQL;
 
+    private static Coach coach;
+
+    private static Sport sport;
+
+    private static ArrayList<Exercice> listeExercice;
+
 
     @BeforeAll
     public static void init() throws Exception {
         daoSeancePostgreSQL = new DAOSeancePostgreSQL();
-        Coach coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        Sport sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportByNom("Foot");
+        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportByNom("Foot");
         Exercice exercice1 = FactoryDAOPostgreSQL.getInstance().getModelExercice().getExerciceById(1);
         Exercice exercice2 = FactoryDAOPostgreSQL.getInstance().getModelExercice().getExerciceById(2);
-        ArrayList<Exercice> listeExercice = new ArrayList<>();
+        listeExercice = new ArrayList<>();
         listeExercice.add(exercice1);
         listeExercice.add(exercice2);
         seance = new Seance(1,"TestCoach", "Belle séance de sport en plein air", 100, coach,sport,listeExercice);
@@ -59,5 +65,15 @@ public class TestModelSeancePostgreSQL {
         Assertions.assertThrows(SQLException.class,
                 () -> daoSeancePostgreSQL.getSeanceById(seanceBD.getId()));
     }
+
+    @Test
+    public void testGetAllSeance() throws Exception {
+        Seance seance1 = daoSeancePostgreSQL.createSeance("Muscu","test",140, coach, sport, listeExercice);
+        int nbSeanceBD = daoSeancePostgreSQL.getAllSeances(new ArrayList<>()).size();
+        daoSeancePostgreSQL.supprimerSeance(seance1.getId());
+        Assertions.assertTrue(nbSeanceBD == daoSeancePostgreSQL.getAllSeances(new ArrayList<>()).size() + 1);
+    }
+
+
 
 }

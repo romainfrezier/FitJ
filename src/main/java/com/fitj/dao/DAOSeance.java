@@ -50,6 +50,13 @@ public abstract class DAOSeance extends DAO {
     public abstract List<Seance> getSeanceFromSport(int idSport) throws Exception;
 
     /**
+     * @return une liste de séance contenant toutes les séances présentes dans la base de donnée
+     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
+     * @throws Exception
+     */
+    public abstract List<Seance> getAllSeances(List<Pair<String,Object>> whereList) throws Exception;
+
+    /**
      * Supprimer de la base de donnée la séance avec l'id rentré en paramètre
      * @param id int, l'id de la séance
      * @throws Exception
