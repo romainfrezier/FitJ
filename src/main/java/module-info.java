@@ -13,5 +13,7 @@ module com.fitj {
     opens com.fitj.controllers.clients to javafx.fxml;
     opens com.fitj.controllers.coachs to javafx.fxml;
     opens com.fitj.controllers.admins to javafx.fxml;
+    opens com.fitj.controllers.sports to javafx.fxml;
+
     opens com.fitj.classes to javafx.base;
 }

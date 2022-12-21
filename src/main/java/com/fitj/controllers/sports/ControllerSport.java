@@ -1,30 +1,20 @@
-package com.fitj.controllers.admins;
+package com.fitj.controllers.sports;
 
 import com.fitj.controllers.Controller;
-import com.fitj.controllers.sports.ControllerAddSport;
-import com.fitj.controllers.sports.ControllerModifySport;
 import com.fitj.exceptions.BadPageException;
-import com.fitj.facades.FacadeAdmin;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import com.fitj.facades.FacadeSport;
 import javafx.scene.control.Control;
 
-/**
- * Controller générique pour les pages accessibles aux admins
- * @see Controller
- * @author Paco Munnariz
- */
-public abstract class ControllerAdmin extends Controller {
-
+public abstract class ControllerSport extends Controller {
     /**
-     * Facade pour les admins
+     * Facade pour les sports
      */
-    final FacadeAdmin adminFacade = FacadeAdmin.getInstance();
+    final FacadeSport sportFacade = FacadeSport.getInstance();
 
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux admins
      */
-    private final String path = "admins/";
+    private final String admin = "admins/";
 
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
@@ -37,7 +27,7 @@ public abstract class ControllerAdmin extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToMonCompte(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "monCompte-admin.fxml", "MonCompte");
+        goToPage(controlEl, admin + "monCompte-admin.fxml", "MonCompte");
     }
 
     /**
@@ -46,7 +36,7 @@ public abstract class ControllerAdmin extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToCoachs(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "coachs-admin.fxml", "Coachs");
+        goToPage(controlEl, admin + "coachs-admin.fxml", "Coachs");
     }
 
     /**
@@ -55,7 +45,7 @@ public abstract class ControllerAdmin extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToMonEspace(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "monEspace-admin.fxml", "MonEspace");
+        goToPage(controlEl, admin + "monEspace-admin.fxml", "MonEspace");
     }
 
     /**
@@ -64,7 +54,7 @@ public abstract class ControllerAdmin extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToShop(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "shop-admin.fxml", "Shop");
+        goToPage(controlEl, admin + "shop-admin.fxml", "Shop");
     }
 
     /**
@@ -73,21 +63,6 @@ public abstract class ControllerAdmin extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToClients(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "clients-admin.fxml", "Clients");
+        goToPage(controlEl, admin + "clients-admin.fxml", "Clients");
     }
-
-    /**
-     * Methode permettant de se rendre sur la page shop
-     * @param controlEl Control, élément de contrôle de la page
-     * @throws BadPageException si la vue n'existe pas
-     */
-    void goToAddSport(Control controlEl) throws BadPageException {
-        ControllerAddSport controller = new ControllerAddSport();
-        goToPage(controlEl, sport + "create-sport.fxml", "Création d'un sport");
-    }
-
-    protected void goToUpdateSport(Control controlEl) throws BadPageException {
-        goToPage(controlEl, sport + "update-sport.fxml", "Modification d'un sport");
-    }
-
 }
