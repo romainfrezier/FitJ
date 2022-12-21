@@ -5,6 +5,7 @@ import com.fitj.classes.Client;
 import com.fitj.classes.Coach;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UncompletedFormException;
+import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -61,6 +62,7 @@ public class ControllerLogin extends ControllerUser {
                 } else {
                     scope = "client";
                 }
+                Facade.currentClient = client;
                 goToHome(scope);
             }
         } catch (Exception e) {
