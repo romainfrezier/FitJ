@@ -4,8 +4,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
 
-<Pane layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.headers.ControllerHeaderVisitor" >
+<Pane layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.headers.ControllerHeaderVisitor">
    <children>
       <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -14,5 +15,6 @@
       </ImageView>
       <Button fx:id="loginButton" layoutX="897.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToLogin" style="-fx-background-color: #054371;" text="Se connecter" textFill="WHITE" />
       <Button fx:id="registerButton" layoutX="807.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToRegister" style="-fx-background-color: #054371;" text="Nouveau ?" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="356.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="287.2275390625" />
    </children>
 </Pane>

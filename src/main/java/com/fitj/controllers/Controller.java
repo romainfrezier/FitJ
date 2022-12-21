@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -82,5 +83,22 @@ public abstract class Controller {
      */
     public static void setIdObjectSelected(int idObjectSelected) {
         Controller.idObjectSelected = idObjectSelected;
+    }
+
+    /**
+     * Affiche un message d'erreur
+     * @param textEl Text, élément de texte de la page
+     * @param message String, message à afficher
+     */
+    public void displayError(Text textEl, String message) {
+        textEl.setText(message);
+    }
+
+    /**
+     * Supprime le message d'erreur
+     * @param textEl Text, élément de texte de la page
+     */
+    public void hideError(Text textEl) {
+        textEl.setText("");
     }
 }

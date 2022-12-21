@@ -3,6 +3,7 @@ package com.fitj.controllers.headers;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
 /**
  * Controller pour le header de la page coach
@@ -27,6 +28,8 @@ public class ControllerHeaderCoach extends ControllerHeader {
     private Button shop;
     @FXML
     private Button mesClients;
+    @FXML
+    private Text errorText;
     // --------------------------------------------------------------
 
     /**
@@ -34,51 +37,72 @@ public class ControllerHeaderCoach extends ControllerHeader {
      */
     @FXML
     private void initialize() {
+        super.hideError(errorText);
         super.setPath(path);
     }
 
     /**
      * Methode permettant de se rendre sur la page mon compte
-     * @throws BadPageException si la vue n'existe pas
      */
     @FXML
-    private void goToMonCompte() throws BadPageException {
-        super.goToMonCompte(monCompte);
+    private void goToMonCompte() {
+        try{
+            super.hideError(errorText);
+            super.goToMonCompte(monCompte);
+        }catch (BadPageException e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
      * Methode permettant de se rendre sur la page coachs
-     * @throws BadPageException si la vue n'existe pas
      */
     @FXML
-    private void goToCoachs() throws BadPageException {
-        super.goToCoachs(coachs);
+    private void goToCoachs() {
+        try{
+            super.hideError(errorText);
+            super.goToCoachs(coachs);
+        }catch (BadPageException e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
      * Methode permettant de se rendre sur la page mon espace
-     * @throws BadPageException si la vue n'existe pas
      */
     @FXML
-    private void goToMonEspace() throws BadPageException {
-        super.goToMonEspace(monEspace);
+    private void goToMonEspace() {
+        try{
+            super.hideError(errorText);
+            super.goToMonEspace(monEspace);
+        }catch (BadPageException e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
      * Methode permettant de se rendre sur la page shop
-     * @throws BadPageException si la vue n'existe pas
      */
     @FXML
-    private void goToShop() throws BadPageException {
-        super.goToShop(shop);
+    private void goToShop() {
+        try{
+            super.hideError(errorText);
+            super.goToShop(shop);
+        }catch (BadPageException e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
      * Methode permettant de se rendre sur la page des clients du coach
-     * @throws BadPageException si la vue n'existe pas
      */
     @FXML
-    private void goToMesClients() throws BadPageException {
-        super.goToPage(mesClients, path + "s/mesClients-" + path + ".fxml", "Mes Clients");
+    private void goToMesClients() {
+        try{
+            super.hideError(errorText);
+            super.goToPage(mesClients, path + "s/mesClients-" + path + ".fxml", "Mes Clients");
+        } catch (BadPageException e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 }
