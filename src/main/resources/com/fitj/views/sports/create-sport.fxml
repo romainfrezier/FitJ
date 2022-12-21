@@ -33,5 +33,6 @@
              <fx:include source="../../components/headers/header-admin.fxml" />
          </children>
       </VBox>
+      <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
     </children>
 </Pane>

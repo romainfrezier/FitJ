@@ -3,6 +3,7 @@ package com.fitj.controllers.sports;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 /**
  * Controller de la page d'ajout d'un sport
@@ -16,7 +17,17 @@ public class ControllerAddSport extends ControllerSport {
     private TextField sportName;
     @FXML
     private Button addSportButton;
+    @FXML
+    private Text errorText;
     // ---------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
+    @FXML
+    private void initialize() {
+        super.hideError(errorText);
+    }
 
     /**
      * Méthode appelée lors du clic sur le bouton "Ajouter". Ajoute le sport
@@ -24,17 +35,11 @@ public class ControllerAddSport extends ControllerSport {
     @FXML
     private void addSport() {
         try {
+            hideError(errorText);
             sportFacade.createSport(sportName.getText());
             super.goToMonEspace(addSportButton);
         } catch (Exception e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
-    }
-
-    /**
-     * Affiche le message d'erreur
-     * @param message Message d'erreur à afficher
-     */
-    private void displayError(String message) {
     }
 }
