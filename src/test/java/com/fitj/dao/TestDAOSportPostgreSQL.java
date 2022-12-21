@@ -1,6 +1,5 @@
 package com.fitj.dao;
 
-import com.fitj.classes.Client;
 import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOSportPostgreSQL;
 import kotlin.Pair;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModelSportPostgreSQL {
+public class TestDAOSportPostgreSQL {
 
     private static Sport sport;
 
@@ -55,11 +54,11 @@ public class TestModelSportPostgreSQL {
         Sport sportBD1 = daoSportPostgreSQL.createSport("Muscu");
         Sport sportBD2 = daoSportPostgreSQL.createSport("Badminton");
         Sport sportBD3 = daoSportPostgreSQL.createSport("Natation");
-        int nbSportBD = daoSportPostgreSQL.getAllSport().size();
+        int nbSportBD = daoSportPostgreSQL.getAllSport(new ArrayList<>()).size();
         daoSportPostgreSQL.supprimerSport(sportBD1.getId());
         daoSportPostgreSQL.supprimerSport(sportBD2.getId());
         daoSportPostgreSQL.supprimerSport(sportBD3.getId());
-        Assertions.assertTrue(nbSportBD == daoSportPostgreSQL.getAllSport().size() + 3);
+        Assertions.assertTrue(nbSportBD == daoSportPostgreSQL.getAllSport(new ArrayList<>()).size() + 3);
     }
 
 

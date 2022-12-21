@@ -6,6 +6,8 @@ import com.fitj.dao.factory.FactoryDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+
 public class FacadeSport extends Facade {
 
     protected DAOSport daoSport;
@@ -23,6 +25,6 @@ public class FacadeSport extends Facade {
     }
 
     public ObservableList<Sport> getAllSports() throws Exception {
-        return FXCollections.observableArrayList(this.daoSport.getAllSports());
+        return FXCollections.observableArrayList(this.daoSport.getAllSport(new ArrayList<>()));
     }
 }

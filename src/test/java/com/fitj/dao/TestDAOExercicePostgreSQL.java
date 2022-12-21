@@ -1,6 +1,7 @@
 package com.fitj.dao;
 
 import com.fitj.classes.Exercice;
+import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOExercicePostgreSQL;
 import kotlin.Pair;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModelExercicePostgreSQL {
+public class TestDAOExercicePostgreSQL {
 
     private static Exercice exercice;
 
@@ -47,6 +48,14 @@ public class TestModelExercicePostgreSQL {
         daoExercicePostgreSQL.supprimerExercice(exerciceBD.getId());
         Assertions.assertThrows(SQLException.class,
                 () -> daoExercicePostgreSQL.getExerciceById(exerciceBD.getId()));
+    }
+
+    @Test
+    public void testGetAllExercice() throws Exception {
+        Exercice exercice1 = daoExercicePostgreSQL.createExercice("Traction", "Se lever au dessus de la barre");
+        int nbExerciceBD = daoExercicePostgreSQL.getAllExercices(new ArrayList<>()).size();
+        daoExercicePostgreSQL.supprimerExercice(exercice1.getId());
+        Assertions.assertTrue(nbExerciceBD == daoExercicePostgreSQL.getAllExercices(new ArrayList<>()).size() + 1);
     }
 
 }

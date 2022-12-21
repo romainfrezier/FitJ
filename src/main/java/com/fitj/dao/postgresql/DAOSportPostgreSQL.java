@@ -7,6 +7,7 @@ import com.fitj.dao.DAOSport;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import kotlin.Pair;
+import kotlin.Triple;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,8 +53,8 @@ public class DAOSportPostgreSQL extends DAOSport {
     public Sport getSportById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         try{
+            ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (sportData.next()){
                 Sport sport = new Sport(id, sportData.getString("nom"));
                 return sport;
@@ -72,8 +73,8 @@ public class DAOSportPostgreSQL extends DAOSport {
     public Sport getSportByNom(String nom) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
-        ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         try{
+            ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (sportData.next()){
                 Sport sport = new Sport(sportData.getInt("id"), sportData.getString("nom"));
                 return sport;
@@ -88,12 +89,20 @@ public class DAOSportPostgreSQL extends DAOSport {
     }
 
     @Override
-    public List<Sport> getAllSport() throws Exception {
+    public List<Sport> getAllSport(List<Pair<String, Object>> whereList) throws Exception {
         List<Sport> listeSport = new ArrayList<>();
-        ResultSet sportsBD = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+        List<Triple<String,String,String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("clientsport","idsport", "sport.id"));
+        joinList.add(new Triple<>("demandesport","idsport", "sport.id"));
+        joinList.add(new Triple<>("seance","idsport", "sport.id"));
         try {
+            ResultSet sportsBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            int idCurrentSport = -1;
             while(sportsBD.next()){
-                listeSport.add(new Sport(sportsBD.getInt("id"), sportsBD.getString("nom")));
+                if (idCurrentSport != sportsBD.getInt("id")){
+                    listeSport.add(new Sport(sportsBD.getInt("id"), sportsBD.getString("nom")));
+                    idCurrentSport = sportsBD.getInt("id");
+                }
             }
             return listeSport;
         }
@@ -102,27 +111,6 @@ public class DAOSportPostgreSQL extends DAOSport {
         }
     }
 
-    /**
-     * Récupère tous les sports dans la base de donnée
-     * @return List<Sport>, la liste de tous les sports
-     * @throws Exception si une erreur est détectée
-     */
-    @Override
-    public List<Sport> getAllSports() throws Exception {
-        ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
-        try {
-            List<Sport> listeSports = new ArrayList<>();
-            if (result.next()){
-                do {
-                    listeSports.add(new Sport(result.getInt("id"), result.getString("nom")));
-                } while (result.next());
-            }
-            return listeSports;
-        }
-        catch (Exception e){
-            throw new SQLException("La sélection de tous les sport a échoué");
-        }
-    }
 
     /**
      * Supprime le sport de la base de donnée

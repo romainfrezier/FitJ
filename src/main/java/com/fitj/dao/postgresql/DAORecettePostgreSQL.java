@@ -62,8 +62,8 @@ public class DAORecettePostgreSQL extends DAORecette {
     public Recette getRecetteById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         try{
+            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (recetteBD.next()){
                 Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getModelClient().getClientAccount(recetteBD.getInt("idcoach"));
                 List<IsIngredient> listeIngredients = getIngredientsFromRecette(id);
@@ -84,7 +84,6 @@ public class DAORecettePostgreSQL extends DAORecette {
         whereListAliment.add(new Pair<>("idrecette", id));
         List<Pair<String, Object>> whereListRecette1 = new ArrayList<>();
         whereListRecette1.add(new Pair<>("idrecette1", id));
-
         try {
             ResultSet alimentsBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListAliment, "recettealiment");
             ResultSet recettesBD1 = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListRecette1, "recetterecette");
@@ -129,11 +128,18 @@ public class DAORecettePostgreSQL extends DAORecette {
         List<Recette> listeRecettes = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("client","id", "recette.idcoach"));
-        ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, new ArrayList<>(), this.table);
+        joinList.add(new Triple<>("programmenutritionrecette","idrecette", "recette.id"));
+        joinList.add(new Triple<>("recetterecette","idrecette1", "recette.id"));
+        joinList.add(new Triple<>("recettealiment","idrecette", "recette.id"));
         try {
+            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, new ArrayList<>(), this.table);
+            int idCurrentRecette = -1;
             while(recetteBD.next()){
-                Coach coach = new Coach(recetteBD.getString("mail"), recetteBD.getString(6), recetteBD.getDouble("poids"), recetteBD.getString("photo"), recetteBD.getInt("taille"), Sexe.getSexe(recetteBD.getString("sexe")), recetteBD.getString("password"), recetteBD.getInt(4));
-                listeRecettes.add(new Recette(recetteBD.getInt(1), recetteBD.getString(2), coach));
+                if (idCurrentRecette != recetteBD.getInt(1)){
+                    Coach coach = new Coach(recetteBD.getString("mail"), recetteBD.getString(6), recetteBD.getDouble("poids"), recetteBD.getString("photo"), recetteBD.getInt("taille"), Sexe.getSexe(recetteBD.getString("sexe")), recetteBD.getString("password"), recetteBD.getInt(4));
+                    listeRecettes.add(new Recette(recetteBD.getInt(1), recetteBD.getString(2), coach));
+                    idCurrentRecette = recetteBD.getInt(1);
+                }
             }
             return listeRecettes;
         }

@@ -82,12 +82,37 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
     }
 
     /**
-     * @return l'instance du modelProgrammePostgreSQL
+     * @return l'instance du modelProgrammeNutritionPostgreSQL
      */
     @Override
-    public DAOProgramme getModelProgramme() {
-        return new DAOProgrammePostgreSQL();
+    public DAOProgrammeNutrition getModelProgrammeNutrition() {
+        return new DAOProgrammeNutritionPostgreSQL();
     }
+
+    /**
+     * @return l'instance du modelProgrammeSportifPostgreSQL
+     */
+    @Override
+    public DAOProgrammeSportif getModelProgrammeSportif() {
+        return new DAOProgrammeSportifPostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelProgrammePersonnalisePostgreSQL
+     */
+    @Override
+    public DAOProgrammePersonnalise getModelProgrammePersonnalise() {
+        return new DAOProgrammePersonnalisePostgreSQL();
+    }
+
+    /**
+     * @return l'instance du modelPackPostgreSQL
+     */
+    @Override
+    public DAOPack getModelPack() {
+        return new DAOPackPostgreSQL();
+    }
+
 
     /**
      * @return l'instance du modelMaterielPostgreSQL

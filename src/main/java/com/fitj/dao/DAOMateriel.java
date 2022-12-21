@@ -12,4 +12,5 @@ public abstract class DAOMateriel extends DAO {
     public DAOMateriel() {
         super("materiel");
     }
+
 }

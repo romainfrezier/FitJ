@@ -1,9 +1,7 @@
 package com.fitj.dao;
 
 import com.fitj.classes.Aliment;
-import com.fitj.classes.Exercice;
 import com.fitj.dao.postgresql.DAOAlimentPostgreSQL;
-import com.fitj.dao.postgresql.DAOExercicePostgreSQL;
 import kotlin.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModelAlimentPostgreSQL {
+public class TestDAOAlimentPostgreSQL {
 
     private static Aliment aliment;
 

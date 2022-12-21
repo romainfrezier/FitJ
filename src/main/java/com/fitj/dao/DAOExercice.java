@@ -28,9 +28,10 @@ public abstract class DAOExercice extends DAO {
 
     /**
      * @return une liste contenant tous les exercices dans la base de donnée
+     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
      * @throws Exception
      */
-    public abstract List<Exercice> getAllExercices() throws Exception;
+    public abstract List<Exercice> getAllExercices(List<Pair<String,Object>> whereList) throws Exception;
 
     /**
      * Creer un exercice dans la base de donnée

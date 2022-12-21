@@ -2,7 +2,6 @@ package com.fitj.dao;
 
 import com.fitj.classes.Client;
 import com.fitj.classes.Materiel;
-import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModelClientPostgreSQL {
+public class TestDAOClientPostgreSQL {
 
     private static Client client;
 

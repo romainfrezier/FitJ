@@ -42,17 +42,11 @@ public abstract class DAOSport extends DAO {
 
     /**
      * @return tous les sports présents dans la base de donnée dans une List
+     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
      * @throws Exception
      */
-    public abstract List<Sport> getAllSport() throws Exception;
+    public abstract List<Sport> getAllSport(List<Pair<String, Object>> whereList) throws Exception;
 
-
-    /**
-     * Récupère tous les sports dans la base de donnée
-     * @return List<Sport>, la liste de tous les sports
-     * @throws Exception si une erreur est détectée
-     */
-    public abstract List<Sport> getAllSports() throws Exception;
 
     /**
      * Supprime le sport de la base de donnée

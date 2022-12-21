@@ -6,7 +6,6 @@ import com.fitj.dao.postgresql.DAORecettePostgreSQL;
 import com.fitj.enums.Sexe;
 import com.fitj.interfaces.IsIngredient;
 import kotlin.Pair;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModelRecettePostgreSQL {
+public class TestDAORecettePostgreSQL {
 
     private static Recette recette;
 
