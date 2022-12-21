@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.sports.ControllerAddSport">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.sports.ControllerModifySport">
     <children>
       <Pane layoutX="138.0" layoutY="215.0" prefHeight="285.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
          <children>
@@ -16,21 +16,21 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField fx:id="sportName" layoutX="132.0" layoutY="117.0" prefHeight="26.0" prefWidth="461.0" />
+            <TextField fx:id="sportNameUpdate" layoutX="132.0" layoutY="117.0" prefHeight="26.0" prefWidth="461.0" />
          </children></Pane>
-      <Text fill="#054371" layoutX="334.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un nouveau sport">
+      <Text fill="#054371" layoutX="349.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modification du sport">
          <font>
             <Font size="34.0" />
          </font>
       </Text>
-      <Button fx:id="addSportButton" layoutX="430.0" layoutY="571.0" mnemonicParsing="false" onAction="#addSport" style="-fx-background-color:  #054371;" text="Créer le sport" textFill="WHITE">
+      <Button fx:id="updateSportButton" layoutX="420.0" layoutY="573.0" mnemonicParsing="false" onAction="#modifySport" style="-fx-background-color:  #054371;" text="Modifier le sport" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
       <VBox layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
          <children>
-             <fx:include source="../../components/headers/header-admin.fxml" />
+              <fx:include source="../../components/headers/header-admin.fxml" />
          </children>
       </VBox>
     </children>

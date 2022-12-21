@@ -3,9 +3,7 @@ package com.fitj.controllers.users;
 import com.fitj.classes.Admin;
 import com.fitj.classes.Client;
 import com.fitj.classes.Coach;
-import com.fitj.exceptions.BadLoginException;
 import com.fitj.exceptions.BadPageException;
-import com.fitj.exceptions.BadPasswordException;
 import com.fitj.exceptions.UncompletedFormException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,11 +19,6 @@ import javafx.scene.text.Text;
 public class ControllerLogin extends ControllerUser {
 
     // Composants FXML -----------------------------------------------------------------------------------------------
-    @FXML
-    private Button loginHeaderButton;
-    @FXML
-    private Button registerHeaderButton;
-
     @FXML
     private TextField username;
     @FXML
@@ -73,24 +66,16 @@ public class ControllerLogin extends ControllerUser {
     }
 
     /**
-     * @see ControllerUser#goToRegister(Control)
-     * @throws BadPageException si la page n'existe pas
-     */
-    @FXML
-    private void goToRegister() throws BadPageException {
-        super.goToRegister(registerButton);
-    }
-
-    /**
+     * Méthode appelée pour rediriger vers l'intérieur de l'application
      * @see ControllerUser#goToHome(Control, String)
      * @throws BadPageException si la page n'existe pas
      */
-    @FXML
     private void goToHome(String scope) throws BadPageException {
         super.goToHome(loginButton, scope);
     }
 
     /**
+     * Méthode appelée lors du clic sur le bouton redirigeant vers la page d'accueil visiteur
      * @see ControllerUser#goToVisitor(Control)
      * @throws BadPageException si la page n'existe pas
      */
@@ -100,8 +85,17 @@ public class ControllerLogin extends ControllerUser {
     }
 
     /**
+     * Méthode appelée lors du clic sur le bouton redirigeant vers la page d'inscription
+     * @throws BadPageException si la page n'existe pas
+     */
+    @FXML
+    private void goToRegister() throws BadPageException {
+        super.goToPage(registerButton, "views/users/register-view.fxml", "Inscription");
+    }
+
+    /**
      * Vérifie que le formulaire est complet
-     * @return true si le formulaire est complet, false sinon
+     * @throws UncompletedFormException si le formulaire n'est pas complet
      */
     private void checkForm() throws UncompletedFormException {
         if (username.getText().equals("") || password.getText().equals("")) {
@@ -123,4 +117,5 @@ public class ControllerLogin extends ControllerUser {
     private void hideError() {
         errorMessage.setText("");
     }
+
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.sports.ControllerSportList">
+    <Button fx:id="addSportButton" layoutX="410.0" layoutY="530.0" mnemonicParsing="false" onAction="#goToAddSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
+    <ListView fx:id="listView" layoutX="18.0" layoutY="16.0" prefHeight="455.0" prefWidth="902.0" />
+    <Text fx:id="errorMessage" fill="RED" layoutX="276.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
+    <Button fx:id="updateSportButton" layoutX="276.0" layoutY="530.0" mnemonicParsing="false" onAction="#goToUpdateSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
+    <Button fx:id="deleteSportbutton" layoutX="544.0" layoutY="530.0" mnemonicParsing="false" onAction="#deleteSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
+</AnchorPane>

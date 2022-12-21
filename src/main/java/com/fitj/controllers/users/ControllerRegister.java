@@ -4,7 +4,6 @@ import com.fitj.classes.Client;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UncompletedFormException;
-import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -17,11 +16,6 @@ import javafx.scene.text.Text;
 public class ControllerRegister extends ControllerUser {
 
     // Composants FXML -----------------------------------------------------------------------------------------------
-    @FXML
-    private Button loginHeaderButton;
-    @FXML
-    private Button registerHeaderButton;
-
     @FXML
     private TextField mail;
     @FXML
@@ -92,17 +86,17 @@ public class ControllerRegister extends ControllerUser {
     }
 
     /**
-     * @see ControllerUser#goToLogin(Control)
-     * @throws BadPageException si la page n'est pas trouvée
+     * Méthode appelée lors du clic sur le bouton redirigeant vers la page de connexion
+     * @throws BadPageException si la page n'existe pas
      */
     @FXML
     private void goToLogin() throws BadPageException {
-        super.goToLogin(loginButton);
+        super.goToPage(registerButton, "views/users/login-view.fxml", "Connexion");
     }
 
     /**
-     * @see ControllerUser#goToVisitor(Control)
-     * @throws BadPageException si la page n'est pas trouvée
+     * Méthode appelée lors du clic sur le bouton redirigeant vers la page d'accueil visiteur
+     * @throws BadPageException si la page n'existe pas
      */
     @FXML
     private void goToVisitor() throws BadPageException {

@@ -3,8 +3,8 @@ package com.fitj.facades;
 import com.fitj.classes.Sport;
 import com.fitj.dao.DAOSport;
 import com.fitj.dao.factory.FactoryDAO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import kotlin.Pair;
+import java.util.*;
 
 public class FacadeSport extends Facade {
 
@@ -22,7 +22,25 @@ public class FacadeSport extends Facade {
         return instance;
     }
 
-    public ObservableList<Sport> getAllSports() throws Exception {
-        return FXCollections.observableArrayList(this.daoSport.getAllSports());
+    public List<Sport> getAllSports() throws Exception {
+        return this.daoSport.getAllSports();
+    }
+
+    public void createSport(String sport) throws Exception {
+        this.daoSport.createSport(sport);
+    }
+
+    public void deleteSport(int id) throws Exception {
+        this.daoSport.supprimerSport(id);
+    }
+
+    public void updateSport(int id, String sport) throws Exception {
+        List<Pair<String, Object>> updateValue = new ArrayList<>();
+        updateValue.add(new Pair<>("nom", sport));
+        this.daoSport.updateSport(updateValue, id);
+    }
+
+    public Sport getSportById(int idSport) throws Exception {
+        return this.daoSport.getSportById(idSport);
     }
 }

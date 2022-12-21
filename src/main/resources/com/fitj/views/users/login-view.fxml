@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -26,17 +25,7 @@
          </font>
       </Text>
       <Button fx:id="registerButton" layoutX="441.0" layoutY="542.0" mnemonicParsing="false" onAction="#goToRegister" prefHeight="25.0" prefWidth="119.0" style="-fx-background-color: #054371;" text="NOUVEAU ?" textFill="WHITE" />
-      <Pane layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;">
-         <children>
-            <Button fx:id="loginHeaderButton" layoutX="897.0" layoutY="15.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Se connecter" textFill="WHITE" />
-            <Button fx:id="registerHeaderButton" layoutX="807.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToRegister" style="-fx-background-color: #054371;" text="Nouveau ?" textFill="WHITE" />
-            <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../img/logo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
+      <fx:include source="../../components/headers/header-home.fxml" />
       <Button fx:id="visitorButton" layoutX="464.0" layoutY="760.0" mnemonicParsing="false" onAction="#goToVisitor" style="-fx-background-color: #054371;" text="&lt;&lt; Retour" textFill="WHITE" />
    </children>
 </AnchorPane>
