@@ -17,7 +17,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Text fx:id="errorMessage" fill="RED" layoutX="30.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="292.0" />
+            <Text fx:id="errorText" fill="RED" layoutX="30.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="292.0" />
          </children></Pane>
       <Text layoutX="411.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Connexion" textAlignment="CENTER" wrappingWidth="178.13671875">
          <font>

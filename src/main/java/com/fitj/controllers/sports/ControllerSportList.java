@@ -6,6 +6,7 @@ import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.FacadeSport;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,8 @@ public class ControllerSportList extends ControllerSport {
     private Button updateSportButton;
     @FXML
     private Button deleteSportbutton;
+    @FXML
+    private Text errorText;
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
@@ -33,6 +36,7 @@ public class ControllerSportList extends ControllerSport {
      */
     @FXML
     private void initialize() {
+        super.hideError(errorText);
         initializeSportList();
     }
 
@@ -62,17 +66,21 @@ public class ControllerSportList extends ControllerSport {
                 listView.getItems().add(sport);
             }
         } catch (Exception e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
     }
 
     /**
      * Methode permettant de se rendre sur la page d'ajout d'un sport
-     * @throws BadPageException si la vue n'existe pas
      */
     @FXML
-    private void goToAddSport() throws BadPageException {
-        super.goToAddSport(addSportButton);
+    private void goToAddSport() {
+        try {
+            super.hideError(errorText);
+            super.goToAddSport(addSportButton);
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
@@ -81,11 +89,12 @@ public class ControllerSportList extends ControllerSport {
     @FXML
     private void goToUpdateSport() {
         try {
+            super.hideError(errorText);
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
             super.goToUpdateSport(updateSportButton);
         } catch (BadPageException | UnselectedItemException e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
     }
 
@@ -95,11 +104,12 @@ public class ControllerSportList extends ControllerSport {
     @FXML
     private void deleteSport() {
         try {
+            hideError(errorText);
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
             showConfirmationDeleteSport();
         } catch (UnselectedItemException e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
     }
 
@@ -130,16 +140,9 @@ public class ControllerSportList extends ControllerSport {
                 facadeSport.deleteSport(getIdObjectSelected());
                 listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
             } catch (Exception e) {
-                displayError(e.getMessage());
+                super.displayError(errorText, e.getMessage());
             }
         }
 
-    }
-
-    /**
-     * Methode permettant d'afficher une erreur
-     * @param message le message d'erreur à afficher
-     */
-    private void displayError(String message) {
     }
 }

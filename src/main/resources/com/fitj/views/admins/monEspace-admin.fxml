@@ -34,9 +34,9 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab text="Sports" >
+            <Tab text="Sports">
               <content>
-                  <fx:include source="../../components/sports/list-sport.fxml"/>
+                  <fx:include source="../../components/sports/list-sport.fxml" translateX="20.0" />
               </content>
             </Tab>
             <Tab text="Informations">

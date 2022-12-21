@@ -4,6 +4,7 @@ import com.fitj.classes.Sport;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 /**
  * Controller de la page de modification d'un sport
@@ -17,6 +18,8 @@ public class ControllerModifySport extends ControllerSport {
     private TextField sportNameUpdate;
     @FXML
     private Button updateSportButton;
+    @FXML
+    private Text errorText;
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
@@ -29,12 +32,13 @@ public class ControllerModifySport extends ControllerSport {
      */
     @FXML
     private void initialize() {
+        super.hideError(errorText);
         Sport sport = null;
         idSportSelected = getIdObjectSelected();
         try {
             sport = sportFacade.getSportById(idSportSelected);
         } catch (Exception e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
         if (sport != null) {
             sportNameUpdate.setText(sport.getNom());
@@ -47,19 +51,13 @@ public class ControllerModifySport extends ControllerSport {
     @FXML
     private void modifySport() {
         try {
+            super.hideError(errorText);
             if (sportNameUpdate.getText() != null) {
                 sportFacade.updateSport(idSportSelected, sportNameUpdate.getText());
                 super.goToMonEspace(updateSportButton);
             }
         } catch (Exception e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
-    }
-
-    /**
-     * Affiche le message d'erreur
-     * @param message String, message d'erreur à afficher
-     */
-    private void displayError(String message) {
     }
 }

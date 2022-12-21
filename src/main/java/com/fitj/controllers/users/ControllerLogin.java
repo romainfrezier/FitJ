@@ -25,7 +25,7 @@ public class ControllerLogin extends ControllerUser {
     private TextField password;
 
     @FXML
-    private Text errorMessage;
+    private Text errorText;
 
     @FXML
     private Button loginButton;
@@ -36,6 +36,14 @@ public class ControllerLogin extends ControllerUser {
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
+     * Méthode appelée lors du chargement de la page
+     */
+    @FXML
+    private void initialize() {
+        super.hideError(errorText);
+    }
+
+    /**
      * Methode appelée lors du clic sur le bouton "Se connecter"
      */
     @FXML
@@ -44,53 +52,60 @@ public class ControllerLogin extends ControllerUser {
             checkForm();
             Client client = super.userFacade.connexion(username.getText(), password.getText());
             if (client != null) {
-
-                hideError();
-                try {
-                    String scope;
-                    if (client instanceof Admin) {
-                        scope = "admin";
-                    } else if (client instanceof Coach) {
-                        scope = "coach";
-                    } else {
-                        scope = "client";
-                    }
-                    goToHome(scope);
-                } catch (BadPageException e) {
-                    displayError(e.getMessage());
+                super.hideError(errorText);
+                String scope;
+                if (client instanceof Admin) {
+                    scope = "admin";
+                } else if (client instanceof Coach) {
+                    scope = "coach";
+                } else {
+                    scope = "client";
                 }
+                goToHome(scope);
             }
         } catch (Exception e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
     }
 
     /**
      * Méthode appelée pour rediriger vers l'intérieur de l'application
      * @see ControllerUser#goToHome(Control, String)
-     * @throws BadPageException si la page n'existe pas
      */
-    private void goToHome(String scope) throws BadPageException {
-        super.goToHome(loginButton, scope);
+    private void goToHome(String scope) {
+        try {
+            super.hideError(errorText);
+            super.goToHome(loginButton, scope);
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
      * Méthode appelée lors du clic sur le bouton redirigeant vers la page d'accueil visiteur
      * @see ControllerUser#goToVisitor(Control)
-     * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToVisitor() throws BadPageException {
-        super.goToVisitor(visitorButton);
+    private void goToVisitor() {
+        try {
+            super.hideError(errorText);
+            super.goToVisitor(visitorButton);
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
      * Méthode appelée lors du clic sur le bouton redirigeant vers la page d'inscription
-     * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToRegister() throws BadPageException {
-        super.goToPage(registerButton, "views/users/register-view.fxml", "Inscription");
+    private void goToRegister() {
+        try {
+            super.hideError(errorText);
+            super.goToPage(registerButton, "views/users/register-view.fxml", "Inscription");
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
@@ -102,20 +117,4 @@ public class ControllerLogin extends ControllerUser {
             throw new UncompletedFormException("Le formulaire n'est pas complet");
         }
     }
-
-    /**
-     * Affiche un message d'erreur
-     * @param message String, le message d'erreur à afficher
-     */
-    private void displayError(String message) {
-        errorMessage.setText(message);
-    }
-
-    /**
-     * Cache le message d'erreur
-     */
-    private void hideError() {
-        errorMessage.setText("");
-    }
-
 }
