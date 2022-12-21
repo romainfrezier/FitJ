@@ -58,6 +58,21 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
 
     }
 
+    @Override
+    public List<Aliment> getAllAliments() throws Exception {
+        List<Aliment> listeAliment = new ArrayList<>();
+        ResultSet alimentsBD = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+        try {
+            while(alimentsBD.next()){
+                listeAliment.add(new Aliment(alimentsBD.getInt("id"), alimentsBD.getString("nom")));
+            }
+            return listeAliment;
+        }
+        catch (Exception e){
+            throw new SQLException("Impossible de récupérer tous les aliments");
+        }
+    }
+
 
     @Override
     public void supprimerAliment(int id) throws Exception {

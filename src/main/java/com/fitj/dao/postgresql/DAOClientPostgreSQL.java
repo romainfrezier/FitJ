@@ -3,8 +3,10 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
+import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
+import kotlin.Triple;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -263,8 +265,8 @@ public class DAOClientPostgreSQL extends DAOClient {
      */
     @Override
     public List<Materiel> getClientMateriel(int id) throws Exception {
-        List<Pair<String,String>> dataJoin = new ArrayList<>();
-        dataJoin.add(new Pair<>("clientMateriel", "idMateriel"));
+        List<Triple<String,String,String>> dataJoin = new ArrayList<>();
+        dataJoin.add(new Triple<>("clientMateriel", "idMateriel", "materiel.id"));
         List<Pair<String,Object>> dataWhere = new ArrayList<>();
         dataWhere.add(new Pair<>("clientMateriel.idClient",id));
         try {
@@ -282,6 +284,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+
     /**
      * @param id int, l'id du client
      * @return la liste de commandes du client
@@ -289,9 +292,8 @@ public class DAOClientPostgreSQL extends DAOClient {
      */
     @Override
     public List<Commande> getClientCommandes(int id) throws Exception {
-        List<Pair<String,String>> dataJoin = new ArrayList<>();
-        dataJoin.add(new Pair<>("clientCommande", "idCommande"));
-        dataJoin.add(new Pair<>("clientCommande", "idCommande"));
+        List<Triple<String,String,String>> dataJoin = new ArrayList<>();
+        dataJoin.add(new Triple<>("clientCommande", "idCommande", "commande.id"));
         List<Pair<String,Object>> dataWhere = new ArrayList<>();
         dataWhere.add(new Pair<>("clientCommande.idClient",id));
         try {

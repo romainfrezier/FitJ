@@ -1,5 +1,5 @@
 package com.fitj.interfaces;
 
-public interface isIngredient {
+public interface IsIngredient {
 
 }

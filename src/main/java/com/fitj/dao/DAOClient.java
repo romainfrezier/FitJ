@@ -8,6 +8,7 @@ import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -49,6 +50,7 @@ public abstract class DAOClient extends DAO {
      * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'email rentré du client
      */
     public abstract Client getClientAccount(String mail) throws Exception;
+
 
     /**
      * @param id, l'id du client

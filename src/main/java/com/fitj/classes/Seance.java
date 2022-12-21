@@ -24,6 +24,15 @@ public class Seance extends Produit {
     }
 
     /**
+     * Constructeur pour getAll
+     */
+    public Seance(int id, String nom, String description, double prix, Coach coach) {
+        super(id, nom, description, prix, coach);
+        this.listeExercice = new ArrayList<>();
+        this.sport = null;
+    }
+
+    /**
      * Constructeur avec des exercices
      */
     public Seance(int id, String nom, String description, double prix, Coach coach, Sport sport, ArrayList<Exercice> listeExercice) {

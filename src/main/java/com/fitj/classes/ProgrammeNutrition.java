@@ -22,6 +22,14 @@ public class ProgrammeNutrition extends Programme {
     }
 
     /**
+     * Constructeur avec recettes
+     */
+    public ProgrammeNutrition(int id, String nom, String description, double prix, ProgrammeType type, int nbMois, Coach coach, ArrayList<Recette> listeRecette) {
+        super(id, nom, description, prix, type, nbMois, coach);
+        this.listeRecette = listeRecette;
+    }
+
+    /**
      * @return la liste des recettes du programme
      */
     public List<Recette> getListeRecette() {

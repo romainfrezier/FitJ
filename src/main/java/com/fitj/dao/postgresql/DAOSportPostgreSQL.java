@@ -87,6 +87,21 @@ public class DAOSportPostgreSQL extends DAOSport {
         }
     }
 
+    @Override
+    public List<Sport> getAllSport() throws Exception {
+        List<Sport> listeSport = new ArrayList<>();
+        ResultSet sportsBD = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+        try {
+            while(sportsBD.next()){
+                listeSport.add(new Sport(sportsBD.getInt("id"), sportsBD.getString("nom")));
+            }
+            return listeSport;
+        }
+        catch (Exception e){
+            throw new SQLException("Impossible de récupérer tous les sports");
+        }
+    }
+
     /**
      * Récupère tous les sports dans la base de donnée
      * @return List<Sport>, la liste de tous les sports
