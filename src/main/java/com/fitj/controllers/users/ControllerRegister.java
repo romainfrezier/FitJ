@@ -4,6 +4,7 @@ import com.fitj.classes.Client;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UncompletedFormException;
+import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -65,6 +66,7 @@ public class ControllerRegister extends ControllerUser {
             Client client = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), (float) poidsSlider.getValue(), (int) tailleSlider.getValue(), photoProfil.getText(), getSexFromToggleGroup());
             if (client != null) {
                 super.hideError(errorText);
+                Facade.currentClient = client;
                 goToHome();
             }
         } catch (Exception e) {
