@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Assertions;
 
 public class TestClient {
 
-    private Client client;
+    private static Client client;
 
     @BeforeAll
-    public void initForTests(){
+    public static void initForTests(){
         client = new Client("test@gmail.com","Joe", 56, "monimage.com", 178, Sexe.HOMME, "123456",1);
     }
 

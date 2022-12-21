@@ -18,11 +18,6 @@ public class ControllerRegister extends ControllerUser {
 
     // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
-    private Button loginHeaderButton;
-    @FXML
-    private Button registerHeaderButton;
-
-    @FXML
     private TextField mail;
     @FXML
     private TextField pseudo;
@@ -50,7 +45,7 @@ public class ControllerRegister extends ControllerUser {
     private TextField photoProfil;
 
     @FXML
-    private Text errorMessage;
+    private Text errorText;
 
     @FXML
     private Button registerButton;
@@ -70,58 +65,52 @@ public class ControllerRegister extends ControllerUser {
             checkPassword();
             Client client = super.userFacade.inscription(mail.getText(), pseudo.getText(), password.getText(), (float) poidsSlider.getValue(), (int) tailleSlider.getValue(), photoProfil.getText(), getSexFromToggleGroup());
             if (client != null) {
-                try {
-                    hideError();
-                    goToHome();
-                } catch (BadPageException e) {
-                    displayError(e.getMessage());
-                }
+                super.hideError(errorText);
+                Facade.currentClient = client;
+                goToHome();
             }
         } catch (Exception e) {
-            displayError(e.getMessage());
+            super.displayError(errorText, e.getMessage());
         }
     }
 
     /**
      * @see ControllerUser#goToHome(Control, String)
-     * @throws BadPageException si la page n'existe pas
      */
     @FXML
-    private void goToHome() throws BadPageException {
-        super.goToHome(registerButton, "client");
+    private void goToHome(){
+        try {
+            super.hideError(errorText);
+            super.goToHome(registerButton, "client");
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
-     * @see ControllerUser#goToLogin(Control)
-     * @throws BadPageException si la page n'est pas trouvée
+     * Méthode appelée lors du clic sur le bouton redirigeant vers la page de connexion
      */
     @FXML
-    private void goToLogin() throws BadPageException {
-        super.goToLogin(loginButton);
+    private void goToLogin() {
+        try {
+            super.hideError(errorText);
+            super.goToPage(registerButton, "views/users/login-view.fxml", "Connexion");
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
-     * @see ControllerUser#goToVisitor(Control)
-     * @throws BadPageException si la page n'est pas trouvée
+     * Méthode appelée lors du clic sur le bouton redirigeant vers la page d'accueil visiteur
      */
     @FXML
-    private void goToVisitor() throws BadPageException {
-        super.goToVisitor(visitorButton);
-    }
-
-    /**
-     * Affiche le message d'erreur
-     * @param message String, message d'erreur à afficher
-     */
-    private void displayError(String message){
-        errorMessage.setText(message);
-    }
-
-    /**
-     * Cache le message d'erreur
-     */
-    private void hideError(){
-        errorMessage.setText("");
+    private void goToVisitor() {
+        try {
+            super.hideError(errorText);
+            super.goToVisitor(visitorButton);
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**

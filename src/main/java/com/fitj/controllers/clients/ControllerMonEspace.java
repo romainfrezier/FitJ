@@ -1,43 +1,26 @@
 package com.fitj.controllers.clients;
 
-import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.text.Text;
 
+/**
+ * Controller pour la page d'accueil du client
+ * @see ControllerClient
+ * @author Romain Frezier
+ */
 public class ControllerMonEspace extends ControllerClient {
-    //Composants FXML-----------------------------------------------------------------------------------------------
 
+    // Composants FXML-----------------------------------------------------------------------------------------------
     @FXML
-    private Button monCompte;
-    @FXML
-    private Button coachs;
-    @FXML
-    private Button monEspace;
-    @FXML
-    private Button shop;
+    private Text clientName;
+    // --------------------------------------------------------------------------------------------------------------
 
-    //Methodes-----------------------------------------------------------------------------------------------
-
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
-    private void goToMonCompte() throws BadPageException {
-        super.goToMonCompte(monCompte);
+    public void initialize(){
+        clientName.setText(Facade.currentClient.getPseudo());
     }
-
-    @FXML
-    private void goToCoachs() throws BadPageException {
-        super.goToCoachs(coachs);
-    }
-
-
-    @FXML
-    private void goToMonEspace() throws BadPageException {
-        super.goToMonEspace(monEspace);
-    }
-
-
-    @FXML
-    private void goToShop() throws BadPageException {
-        super.goToShop(shop);
-    }
-
 }

@@ -1,50 +1,29 @@
 package com.fitj.controllers.coachs;
 
-import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.text.Text;
 
+/**
+ * Controller pour la page d'accueil du coach
+ * @see ControllerCoach
+ * @author Romain Frezier
+ */
 public class ControllerMonEspace extends ControllerCoach {
-    //Composants FXML-----------------------------------------------------------------------------------------------
 
+    // Composants FXML-----------------------------------------------------------------------------------------------
     @FXML
-    private Button monCompte;
+    private Text coachName;
     @FXML
-    private Button coachs;
-    @FXML
-    private Button monEspace;
-    @FXML
-    private Button shop;
-    @FXML
-    private Button mesClients;
+    private ProgressBar coachGrade;
+    // --------------------------------------------------------------------------------------------------------------
 
-    //Methodes-----------------------------------------------------------------------------------------------
-
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
-    private void goToMonCompte() throws BadPageException {
-        super.goToMonCompte(monCompte);
+    public void initialize(){
+        coachName.setText(Facade.currentClient.getPseudo());
     }
-
-    @FXML
-    private void goToCoachs() throws BadPageException {
-        super.goToCoachs(coachs);
-    }
-
-
-    @FXML
-    private void goToMonEspace() throws BadPageException {
-        super.goToMonEspace(monEspace);
-    }
-
-
-    @FXML
-    private void goToShop() throws BadPageException {
-        super.goToShop(shop);
-    }
-
-    @FXML
-    private void goToMesClients() throws BadPageException {
-        super.goToMesClients(mesClients);
-    }
-
 }

@@ -23,24 +23,6 @@ public abstract class ControllerUser extends Controller {
     private final String path = "users/";
 
     /**
-     * Methode permettant de se rendre sur la page de création de compte
-     * @param controlEl Control, élément de contrôle de la page
-     * @throws BadPageException si la vue n'existe pas
-     */
-    void goToRegister(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "register-view.fxml", "Register");
-    }
-
-    /**
-     * Methode permettant de se rendre sur la page de connexion
-     * @param controlEl Control, élément de contrôle de la page
-     * @throws BadPageException si la vue n'existe pas
-     */
-    void goToLogin(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "login-view.fxml", "Login");
-    }
-
-    /**
      * Methode permettant de se rendre sur la page d'accueil visiteur
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
