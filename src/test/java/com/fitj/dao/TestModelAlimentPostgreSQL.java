@@ -27,14 +27,14 @@ public class TestModelAlimentPostgreSQL {
     }
 
     @Test
-    public void testGetExerciceById() throws Exception {
+    public void testGetAlimentById() throws Exception {
         Aliment alimentBD = daoAlimentPostgreSQL.createAliment("Fraise");
         daoAlimentPostgreSQL.supprimerAliment(alimentBD.getId());
         Assertions.assertTrue(alimentBD.getNom().equals("Fraise"));
     }
 
     @Test
-    public void testExerciceUpdate() throws Exception {
+    public void testAlimentUpdate() throws Exception {
         Aliment alimentBD = daoAlimentPostgreSQL.createAliment("Fraise");
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("nom","Chocolat"));
@@ -44,7 +44,7 @@ public class TestModelAlimentPostgreSQL {
     }
 
     @Test
-    public void testExerciceDelete() throws Exception {
+    public void testAlimentDelete() throws Exception {
         Aliment alimentBD = daoAlimentPostgreSQL.createAliment("Fraise");
         daoAlimentPostgreSQL.supprimerAliment(alimentBD.getId());
         Assertions.assertThrows(SQLException.class,

@@ -94,6 +94,24 @@ public class Client implements ProductReceiver, NotifReceiver {
         this.listeMateriel = new ArrayList<>();
     }
 
+    /**
+     * Constructeur avec les données du client
+     */
+    public Client(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel) {
+        this.id = id;
+        this.email = email;
+        this.pseudo = pseudo;
+        this.poids = poids;
+        this.photo = photo;
+        this.taille = taille;
+        this.sexe = sexe;
+        this.password = password;
+        this.facadeClient = FacadeClient.getInstance();
+        this.listeSport = listeSport;
+        this.listeCommande = listeCommande;
+        this.listeMateriel = listeMateriel;
+    }
+
 
     /**
      * @return int, l'id du client

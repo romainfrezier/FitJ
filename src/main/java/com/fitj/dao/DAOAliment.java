@@ -34,6 +34,12 @@ public abstract class DAOAliment extends DAO {
     public abstract Aliment getAlimentById(int id) throws Exception;
 
     /**
+     * @return une liste d'aliments contenant tous les aliments présents dans la base de donnée
+     * @throws Exception
+     */
+    public abstract List<Aliment> getAllAliments() throws Exception;
+
+    /**
      * Supprime l'aliment de la base de donnée
      * @param id int, l'id de l'aliment
      * @throws Exception

@@ -40,6 +40,12 @@ public abstract class DAOSport extends DAO {
      */
     public abstract Sport getSportByNom(String nom) throws Exception;
 
+    /**
+     * @return tous les sports présents dans la base de donnée dans une List
+     * @throws Exception
+     */
+    public abstract List<Sport> getAllSport() throws Exception;
+
 
     /**
      * Récupère tous les sports dans la base de donnée

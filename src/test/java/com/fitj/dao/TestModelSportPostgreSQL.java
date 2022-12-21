@@ -45,10 +45,21 @@ public class TestModelSportPostgreSQL {
     @Test
     public void testSportDelete() throws Exception {
         Sport sportBD = daoSportPostgreSQL.createSport("Muscu");
-        int idsport = sportBD.getId();
-        daoSportPostgreSQL.supprimerSport(idsport);
+        daoSportPostgreSQL.supprimerSport(sportBD.getId());
         Assertions.assertThrows(SQLException.class,
-                () -> daoSportPostgreSQL.getSportById(idsport));
+                () -> daoSportPostgreSQL.getSportById(sportBD.getId()));
+    }
+
+    @Test
+    public void testGetAllSport() throws Exception {
+        Sport sportBD1 = daoSportPostgreSQL.createSport("Muscu");
+        Sport sportBD2 = daoSportPostgreSQL.createSport("Badminton");
+        Sport sportBD3 = daoSportPostgreSQL.createSport("Natation");
+        int nbSportBD = daoSportPostgreSQL.getAllSport().size();
+        daoSportPostgreSQL.supprimerSport(sportBD1.getId());
+        daoSportPostgreSQL.supprimerSport(sportBD2.getId());
+        daoSportPostgreSQL.supprimerSport(sportBD3.getId());
+        Assertions.assertTrue(nbSportBD == daoSportPostgreSQL.getAllSport().size() + 3);
     }
 
 
