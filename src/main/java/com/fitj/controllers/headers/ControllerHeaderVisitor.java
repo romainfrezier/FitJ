@@ -1,16 +1,17 @@
-package com.fitj.controllers.users;
+package com.fitj.controllers.headers;
 
+import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 
 /**
- * Controller pour la page d'accueil visiteur
- * @see ControllerUser
+ * Controller pour le header de la page admin
+ * @see Controller
  * @author Romain Frezier
  */
-public class ControllerVisitor extends ControllerUser {
+public class ControllerHeaderVisitor extends Controller {
+
     // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private Button loginButton;
@@ -19,20 +20,21 @@ public class ControllerVisitor extends ControllerUser {
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
+     * Méthode appelée lors du clique sur le bouton redirigeant vers la page d'incription
      * @throws BadPageException si la vue n'existe pas
-     * @see ControllerUser#goToRegister(Control)
      */
     @FXML
     private void goToRegister() throws BadPageException {
-        super.goToRegister(registerButton);
+        super.goToPage(loginButton, "users/register-view.fxml", "Inscription");
     }
 
     /**
+     * Méthode appelée lors du clique sur le bouton redirigeant vers la page de connexion
      * @throws BadPageException si la vue n'existe pas
-     * @see ControllerUser#goToLogin(Control)
      */
     @FXML
     private void goToLogin() throws BadPageException {
-        super.goToLogin(loginButton);
+        super.goToPage(registerButton, "users/login-view.fxml", "Connexion");
     }
+
 }

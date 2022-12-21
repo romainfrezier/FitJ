@@ -1,66 +1,40 @@
 package com.fitj.controllers.sports;
 
-import com.fitj.exceptions.BadPageException;
-import com.fitj.facades.FacadeSport;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller de la page d'ajout d'un sport
+ * @see ControllerSport
+ * @author Romain Frezier
+ */
 public class ControllerAddSport extends ControllerSport {
 
-    @FXML
-    private Button monCompte;
-    @FXML
-    private Button coachs;
-    @FXML
-    private Button monEspace;
-    @FXML
-    private Button shop;
-    @FXML
-    private Button clients;
+    // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private TextField sportName;
     @FXML
     private Button addSportButton;
+    // ---------------------------------------------------------------------------------------------------------------
 
-    @FXML
-    private void goToMonCompte() throws BadPageException {
-        super.goToMonCompte(monCompte);
-    }
-
-    @FXML
-    private void goToCoachs() throws BadPageException {
-        super.goToCoachs(coachs);
-    }
-
-
-    @FXML
-    private void goToMonEspace() throws BadPageException {
-        super.goToMonEspace(monEspace);
-    }
-
-
-    @FXML
-    private void goToShop() throws BadPageException {
-        super.goToShop(shop);
-    }
-
-    @FXML
-    private void goToClients() throws BadPageException {
-        super.goToClients(clients);
-    }
-
+    /**
+     * Méthode appelée lors du clic sur le bouton "Ajouter". Ajoute le sport
+     */
     @FXML
     private void addSport() {
-        FacadeSport facadeSport = FacadeSport.getInstance();
         try {
-            facadeSport.createSport(sportName.getText());
-            goToMonEspace();
+            sportFacade.createSport(sportName.getText());
+            super.goToMonEspace(addSportButton);
         } catch (Exception e) {
             displayError(e.getMessage());
         }
     }
 
+    /**
+     * Affiche le message d'erreur
+     * @param message Message d'erreur à afficher
+     */
     private void displayError(String message) {
     }
 }

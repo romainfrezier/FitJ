@@ -6,14 +6,13 @@ module com.fitj {
     requires kotlin.stdlib;
 
     exports com.fitj;
-//    exports com.fitj.controllers;
-//    exports com.fitj.exceptions;
 
     opens com.fitj.controllers.users to javafx.fxml;
     opens com.fitj.controllers.clients to javafx.fxml;
     opens com.fitj.controllers.coachs to javafx.fxml;
     opens com.fitj.controllers.admins to javafx.fxml;
     opens com.fitj.controllers.sports to javafx.fxml;
+    opens com.fitj.controllers.headers to javafx.fxml;
 
     opens com.fitj.classes to javafx.base;
 }

@@ -5,7 +5,11 @@ import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeSport;
 import javafx.scene.control.Control;
 
+/**
+ * Controller générique des pages sport
+ */
 public abstract class ControllerSport extends Controller {
+
     /**
      * Facade pour les sports
      */
@@ -22,24 +26,6 @@ public abstract class ControllerSport extends Controller {
     private final String sport = "sports/";
 
     /**
-     * Methode permettant de se rendre sur la page mon compte
-     * @param controlEl Control, élément de contrôle de la page
-     * @throws BadPageException si la vue n'existe pas
-     */
-    void goToMonCompte(Control controlEl) throws BadPageException {
-        goToPage(controlEl, admin + "monCompte-admin.fxml", "MonCompte");
-    }
-
-    /**
-     * Methode permettant de se rendre sur la page coachs
-     * @param controlEl Control, élément de contrôle de la page
-     * @throws BadPageException si la vue n'existe pas
-     */
-    void goToCoachs(Control controlEl) throws BadPageException {
-        goToPage(controlEl, admin + "coachs-admin.fxml", "Coachs");
-    }
-
-    /**
      * Methode permettant de se rendre sur la page mon espace
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
@@ -49,20 +35,20 @@ public abstract class ControllerSport extends Controller {
     }
 
     /**
-     * Methode permettant de se rendre sur la page shop
+     * Methode permettant de se rendre sur la page d'ajout d'un sport
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
      */
-    void goToShop(Control controlEl) throws BadPageException {
-        goToPage(controlEl, admin + "shop-admin.fxml", "Shop");
+    void goToAddSport(Control controlEl) throws BadPageException {
+        goToPage(controlEl, sport + "create-sport.fxml", "Création d'un sport");
     }
 
     /**
-     * Methode permettant de se rendre sur la page clients
+     * Methode permettant de se rendre sur la page de modification d'un sport
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
      */
-    void goToClients(Control controlEl) throws BadPageException {
-        goToPage(controlEl, admin + "clients-admin.fxml", "Clients");
+    void goToUpdateSport(Control controlEl) throws BadPageException {
+        goToPage(controlEl, sport + "update-sport.fxml", "Modification d'un sport");
     }
 }

@@ -1,59 +1,32 @@
 package com.fitj.controllers.sports;
 
 import com.fitj.classes.Sport;
-import com.fitj.exceptions.BadPageException;
-import com.fitj.facades.FacadeSport;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller de la page de modification d'un sport
+ * @see ControllerSport
+ * @author Romain Frezier
+ */
 public class ControllerModifySport extends ControllerSport {
 
-
-    @FXML
-    private Button monCompte;
-    @FXML
-    private Button coachs;
-    @FXML
-    private Button monEspace;
-    @FXML
-    private Button shop;
-    @FXML
-    private Button clients;
+    // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private TextField sportNameUpdate;
     @FXML
     private Button updateSportButton;
+    // ---------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Identifiant du sport à modifier ou supprimer
+     */
     private int idSportSelected;
 
-    @FXML
-    private void goToMonCompte() throws BadPageException {
-        super.goToMonCompte(monCompte);
-    }
-
-    @FXML
-    private void goToCoachs() throws BadPageException {
-        super.goToCoachs(coachs);
-    }
-
-
-    @FXML
-    private void goToMonEspace() throws BadPageException {
-        super.goToMonEspace(monEspace);
-    }
-
-
-    @FXML
-    private void goToShop() throws BadPageException {
-        super.goToShop(shop);
-    }
-
-    @FXML
-    private void goToClients() throws BadPageException {
-        super.goToClients(clients);
-    }
-
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize() {
         Sport sport = null;
@@ -68,27 +41,25 @@ public class ControllerModifySport extends ControllerSport {
         }
     }
 
-    public int getIdSportSelected() {
-        return idSportSelected;
-    }
-
-    public void setIdSportSelected(int idSportSelected) {
-        this.idSportSelected = idSportSelected;
-    }
-
+    /**
+     * Methode appelée lors du clic sur le bouton "Modifier". Modifie le sport
+     */
     @FXML
     private void modifySport() {
-        FacadeSport facadeSport = FacadeSport.getInstance();
         try {
             if (sportNameUpdate.getText() != null) {
-                facadeSport.updateSport(idSportSelected, sportNameUpdate.getText());
-                goToMonEspace();
+                sportFacade.updateSport(idSportSelected, sportNameUpdate.getText());
+                super.goToMonEspace(updateSportButton);
             }
         } catch (Exception e) {
             displayError(e.getMessage());
         }
     }
 
+    /**
+     * Affiche le message d'erreur
+     * @param message String, message d'erreur à afficher
+     */
     private void displayError(String message) {
     }
 }
