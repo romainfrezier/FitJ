@@ -1,22 +1,20 @@
 package com.fitj.dao.postgresql;
 
 import com.fitj.classes.Exercice;
-import com.fitj.classes.Sport;
 import com.fitj.dao.DAOExercice;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.enums.Sexe;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
  *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public class DAOExercicePostgreSQL extends DAOExercice {
 
@@ -29,9 +27,9 @@ public class DAOExercicePostgreSQL extends DAOExercice {
     /**
      * @param id int, l'id de l'exercice
      * @return l'exercice dans la base de donnée avec l'id rentré en paramètre
-     * @throws Exception
+     * @throws Exception si une erreur SQL est détectée
      */
-    public Exercice getExerciceById(int id) throws SQLException {
+    public Exercice getExerciceById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
@@ -40,11 +38,11 @@ public class DAOExercicePostgreSQL extends DAOExercice {
                 return new Exercice(exercice.getInt("id"), exercice.getString("nom"), exercice.getString("description"));
             }
             else{
-                throw new SQLException("Aucun exercice avec cet id n'existe");
+                throw new DBProblemException("Aucun exercice avec cet id n'existe");
             }
         }
         catch (Exception e){
-            throw new SQLException("Il y a eu un problème lors de la recherche de cet exercice");
+            throw new DBProblemException("Il y a eu un problème lors de la recherche de cet exercice");
         }
     }
 
@@ -71,7 +69,7 @@ public class DAOExercicePostgreSQL extends DAOExercice {
             return listExercice;
         }
         catch (Exception e){
-            throw new SQLException("Impossible de récupérer tous les exercices");
+            throw new DBProblemException("Impossible de récupérer tous les exercices");
         }
     }
 
@@ -79,10 +77,10 @@ public class DAOExercicePostgreSQL extends DAOExercice {
      * Creer un exercice dans la base de donnée
      * @param nom String, le nom de l'exercice
      * @param description String, la description de l'exercice
-     * @throws Exception
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
-    public Exercice createExercice(String nom, String description) throws SQLException {
+    public Exercice createExercice(String nom, String description) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("nom", nom));
         data.add(new Pair<>("description", description));
@@ -91,7 +89,7 @@ public class DAOExercicePostgreSQL extends DAOExercice {
             return this.getExerciceById(id);
         }
         catch (Exception e){
-            throw new SQLException("La création de l'exercice a échoué");
+            throw new DBProblemException("La création de l'exercice a échoué");
         }
 
     }
@@ -99,7 +97,7 @@ public class DAOExercicePostgreSQL extends DAOExercice {
     /**
      * Supprimer l'exercice de la base de donnée
      * @param id int, l'id de l'exercice
-     * @throws Exception
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
     public void supprimerExercice(int id) throws Exception {
@@ -113,7 +111,7 @@ public class DAOExercicePostgreSQL extends DAOExercice {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch (Exception e){
-            throw new SQLException("La suppression de l'exercice a échoué");
+            throw new DBProblemException("La suppression de l'exercice a échoué");
         }
 
     }
@@ -123,7 +121,7 @@ public class DAOExercicePostgreSQL extends DAOExercice {
      * @param updateList List<Pair<String,Object>>, la liste des attributs à mettre à jour dans la base de donnée
      * @param id int, l'id de l'exercice
      * @return l'exercice mis à jour
-     * @throws Exception
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
     public Exercice updateExercice(List<Pair<String, Object>> updateList, int id) throws Exception {
@@ -134,7 +132,7 @@ public class DAOExercicePostgreSQL extends DAOExercice {
             return this.getExerciceById(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour de l'exercice a échoué");
+            throw new DBProblemException("La mise à jour de l'exercice a échoué");
         }
     }
 

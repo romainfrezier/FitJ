@@ -117,7 +117,7 @@ public class TestDAOClientPostgreSQL {
      * Test de la méthode getClientAccount de la classe DAOClientPostgreSQL
      */
     @Test
-    public void testSelectClient() throws SQLException {
+    public void testSelectClient() throws Exception {
         Client newClient = daoClientPostgreSQL.getClientAccount(clientBD.getEmail());
         Assertions.assertEquals(newClient.getEmail(), clientBD.getEmail());
     }

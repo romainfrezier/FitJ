@@ -4,16 +4,20 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOProgrammePersonnalise;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
+ *
+ * @author Etienne Tillier, Romain Frezier
+ */
 public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise {
 
     public DAOProgrammePersonnalisePostgreSQL(){
@@ -34,7 +38,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La création du programme personnalisé a échoué");
+            throw new DBProblemException("La création du programme personnalisé a échoué");
         }
     }
 
@@ -52,7 +56,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             return this.getProgrammePersonnaliseId(idProgramme);
         }
         catch (Exception e){
-            throw new SQLException("La création du programme personnalisé avec demande a échoué");
+            throw new DBProblemException("La création du programme personnalisé avec demande a échoué");
         }
     }
 
@@ -69,12 +73,12 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
                 return new ProgrammePersonnalise(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),coach, demande,listeProgramme);
             }
             else {
-                throw new SQLException("Aucune programme personnalisé avec cet id n'existe");
+                throw new DBProblemException("Aucune programme personnalisé avec cet id n'existe");
             }
         }
         catch(Exception e){
             e.printStackTrace();
-            throw new SQLException("La sélection du programme personnalisé a échoué");
+            throw new DBProblemException("La sélection du programme personnalisé a échoué");
         }
     }
 
@@ -87,7 +91,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             return this.getProgrammePersonnaliseId(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du programme personnalisé a échoué");
+            throw new DBProblemException("La mise à jour du programme personnalisé a échoué");
         }
     }
 
@@ -109,7 +113,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppression du programme personnalise a échoué");
+            throw new DBProblemException("La suppression du programme personnalise a échoué");
         }
     }
 
@@ -133,7 +137,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             ResultSet programmeBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentProgramme = -1;
             while(programmeBD.next()){
-                /**
+                /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 7 = id du coach
@@ -149,7 +153,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Impossible de récupérer tous les programmes personnalisés");
+            throw new DBProblemException("Impossible de récupérer tous les programmes personnalisés");
         }
     }
 
@@ -169,7 +173,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new SQLException("La selection de tous les programmes sportif du programme personnalisé a échoué !");
+            throw new DBProblemException("La selection de tous les programmes sportif du programme personnalisé a échoué !");
         }
     }
 
@@ -181,7 +185,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new SQLException("La selection de tous les programmes nutrition du programme personnalisé a échoué !");
+            throw new DBProblemException("La selection de tous les programmes nutrition du programme personnalisé a échoué !");
         }
     }
 
@@ -194,7 +198,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             this.ajouterProgrammeNutritionProgrammePersonnalise((ProgrammeNutrition) programme,id);
         }
         else {
-            throw new Exception("Le type du programme à ajouter dans le programme personnalisé est inconnu");
+            throw new DBProblemException("Le type du programme à ajouter dans le programme personnalisé est inconnu");
         }
     }
 
@@ -207,7 +211,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("L'ajout du programme sportif dans ce programme personnalise a échoué");
+            throw new DBProblemException("L'ajout du programme sportif dans ce programme personnalise a échoué");
         }
     }
 
@@ -220,7 +224,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("L'ajout du programme nutrition dans ce programme personnalise a échoué");
+            throw new DBProblemException("L'ajout du programme nutrition dans ce programme personnalise a échoué");
         }
     }
 
@@ -233,7 +237,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             this.supprimerProgrammeNutritionProgrammePersonnalise((ProgrammeNutrition) programme,id);
         }
         else {
-            throw new Exception("Le type du programme à ajouter dans le programme personnalisé est inconnu");
+            throw new DBProblemException("Le type du programme à ajouter dans le programme personnalisé est inconnu");
         }
     }
 
@@ -246,7 +250,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La suppression du programme sportif dans ce programme personnalisé a échoué");
+            throw new DBProblemException("La suppression du programme sportif dans ce programme personnalisé a échoué");
         }
     }
 
@@ -259,7 +263,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La suppression du programme nutrition dans ce programme personnalisé a échoué");
+            throw new DBProblemException("La suppression du programme nutrition dans ce programme personnalisé a échoué");
         }
     }
 }

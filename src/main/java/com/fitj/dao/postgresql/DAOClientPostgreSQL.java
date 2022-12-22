@@ -3,20 +3,19 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
-import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux clients
  *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public class DAOClientPostgreSQL extends DAOClient {
 
@@ -36,7 +35,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param poids    float, le poids du client
      * @param taille   int, la taille du client
      * @param photo    String, le lien de la photo du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception {
@@ -53,7 +52,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return getClientAccount(id);
         }
         catch (Exception e){
-            throw new SQLException("La création du client a échoué");
+            throw new DBProblemException("La création du client a échoué");
         }
     }
 
@@ -61,9 +60,9 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Fais le choix du role du client entre client, coach ou admin
      * @param compte ResultSet, le résultat de la requête SQL
      * @return Client, le client avec le bon role correspondant au résultat de la requête SQL
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
-    private Client chooseRole(ResultSet compte) throws SQLException {
+    private Client chooseRole(ResultSet compte) throws Exception {
         Client connectedClient;
         if (compte.getBoolean("isAdmin")){
             connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
@@ -78,9 +77,9 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * @param mail String, l'email du client
      * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
-    public Client getClientAccount(String mail) throws SQLException {
+    public Client getClientAccount(String mail) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
@@ -97,18 +96,18 @@ public class DAOClientPostgreSQL extends DAOClient {
                 return client;
             }
             else {
-                throw new SQLException("Aucun client avec cet email n'existe");
+                throw new DBProblemException("Aucun client avec cet email n'existe");
             }
         }
         catch (Exception e){
-            throw new SQLException("La sélection du client a échoué");
+            throw new DBProblemException("La sélection du client a échoué");
         }
     }
 
     /**
      * @param id int, l'id du client
      * @return un objet de type Client contenant toutes les informations du client qui contient l'id rentré en paramètre
-     * @throws SQLException
+     * @throws Exception si une erreur SQL survient
      */
     public Client getClientAccount(int id) throws Exception {
         ResultSet compte;
@@ -127,50 +126,50 @@ public class DAOClientPostgreSQL extends DAOClient {
                 return client;
             }
             else {
-                throw new SQLException("Aucun client avec cet id n'existe");
+                throw new DBProblemException("Aucun client avec cet id n'existe");
             }
         }
         catch (Exception e){
-            throw new SQLException("La sélection du client a échoué");
+            throw new DBProblemException("La sélection du client a échoué");
         }
     }
 
     /**
      * Supprimer le client de la base de donnée
      * @param mail, le mail du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
-    public void supprimerClientByMail(String mail) throws SQLException{
+    public void supprimerClientByMail(String mail) throws Exception{
         List<Pair<String,Object>> wherelist = new ArrayList<>();
         wherelist.add(new Pair<>("mail", mail));
         try {
             ((MethodesPostgreSQL)this.methodesBD).delete(wherelist, this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppresion du client a échoué");
+            throw new DBProblemException("La suppresion du client a échoué");
         }
     }
 
     /**
      * Supprimer le client de la base de donnée
      * @param id int, l'id du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
-    public void supprimerClientById(int id) throws SQLException{
+    public void supprimerClientById(int id) throws Exception{
         List<Pair<String,Object>> wherelist = new ArrayList<>();
         wherelist.add(new Pair<>("id", id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).delete(wherelist, this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppresion du client a échoué");
+            throw new DBProblemException("La suppresion du client a échoué");
         }
     }
 
     /**
      * Met à jour le client de la base de donnée
      * @param mail, le mail du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     public Client updateClient(List<Pair<String,Object>> data, String mail) throws Exception{
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -180,7 +179,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return this.getClientAccount(mail);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du client a échoué");
+            throw new DBProblemException("La mise à jour du client a échoué");
         }
     }
 
@@ -188,7 +187,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour la photo du client dans la base de donnée
      * @param photo, la photo du client
      * @param mail, le mail du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public Client updateClientPhoto(String photo, String mail) throws Exception {
@@ -198,7 +197,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return this.updateClient(updateList, mail);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour de la photo du client a échoué");
+            throw new DBProblemException("La mise à jour de la photo du client a échoué");
         }
     }
 
@@ -206,7 +205,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour le pseudo du client dans la base de donnée
      * @param pseudo, le pseudo du client
      * @param mail, le mail du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public Client updateClientPseudo(String pseudo, String mail) throws Exception {
@@ -216,7 +215,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return this.updateClient(updateList, mail);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du pseudo du client a échoué");
+            throw new DBProblemException("La mise à jour du pseudo du client a échoué");
         }
     }
 
@@ -224,7 +223,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour le poids du client dans la base de donnée
      * @param poids, le poids du client
      * @param mail, le mail du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public Client updateClientPoids(double poids, String mail) throws Exception {
@@ -234,7 +233,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return this.updateClient(updateList, mail);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du poids du client a échoué");
+            throw new DBProblemException("La mise à jour du poids du client a échoué");
         }
     }
 
@@ -242,7 +241,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour la taille du client dans la base de donnée
      * @param taille, la taille du client
      * @param mail, le mail du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public Client updateClientTaille(int taille, String mail) throws Exception {
@@ -252,7 +251,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return this.updateClient(updateList, mail);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour de la taille du client a échoué");
+            throw new DBProblemException("La mise à jour de la taille du client a échoué");
         }
     }
 
@@ -260,7 +259,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Met à jour le password du client dans la base de donnée
      * @param password, le password du client
      * @param mail, le mail du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public Client updateClientPassword(String password, String mail) throws Exception {
@@ -270,14 +269,14 @@ public class DAOClientPostgreSQL extends DAOClient {
             return this.updateClient(updateList, mail);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du mot de passe du client a échoué");
+            throw new DBProblemException("La mise à jour du mot de passe du client a échoué");
         }
     }
 
     /**
      * @param id int, l'id du client
      * @return la liste de matériel du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public List<Materiel> getClientMateriel(int id) throws Exception {
@@ -296,7 +295,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return listeMateriel;
         }
         catch (Exception e){
-            throw new SQLException("La selection du matériel du client a échoué");
+            throw new DBProblemException("La selection du matériel du client a échoué");
         }
     }
 
@@ -304,7 +303,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * @param id int, l'id du client
      * @return la liste de commandes du client
-     * @throws SQLException si une erreur SQL survient
+     * @throws Exception si une erreur SQL survient
      */
     @Override
     public List<Commande> getClientCommandes(int id) throws Exception {
@@ -333,7 +332,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return listeCommande;
         }
         catch (Exception e){
-            throw new SQLException("La sélection des commandes du client a échoué");
+            throw new DBProblemException("La sélection des commandes du client a échoué");
         }
 
     }
@@ -352,7 +351,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param data Object, le contenu de l'attribut à vérifier
      * @param name String, le nom de l'attribut à vérifier
      * @return true si l'attribut est présent dans la table client sinon return false
-     * @throws Exception
+     * @throws Exception si une erreur SQL survient
      */
     public boolean verifier(Object data,String name) throws Exception {
         return (((MethodesPostgreSQL)this.methodesBD).exist(data, name, this.table));

@@ -6,6 +6,7 @@ import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
@@ -14,6 +15,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
+ *
+ * @author Etienne Tillier, Romain Frezier
+ */
 public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
 
     public DAOProgrammeSportifPostgreSQL(){
@@ -35,14 +41,14 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             for (Seance seance : listeSeances){
                 List<Pair<String,Object>> listeInsertSeance = new ArrayList<>();
                 listeInsertSeance.add(new Pair<>("idprogramme",idProgramme));
-                listeInsertSeance.add(new Pair<>("idseance",((Seance)seance).getId()));
+                listeInsertSeance.add(new Pair<>("idseance",seance.getId()));
                 ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertSeance, "programmesportseance");
             }
             return this.getProgrammeSportifId(idProgramme);
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La création du programme sportif a échoué");
+            throw new DBProblemException("La création du programme sportif a échoué");
         }
     }
 
@@ -58,7 +64,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
                 return new ProgrammeSportif(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),ProgrammeType.getProgrammeType(programmeDB.getString("type")), programmeDB.getInt("nbmois"),coach,listeSeance);
             }
             else {
-                throw new SQLException("Aucune programme sportif avec cet id n'existe");
+                throw new DBProblemException("Aucune programme sportif avec cet id n'existe");
             }
         }
         catch(Exception e){
@@ -75,7 +81,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             return this.getProgrammeSportifId(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du programme sportif a échoué");
+            throw new DBProblemException("La mise à jour du programme sportif a échoué");
         }
     }
 
@@ -96,7 +102,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppresion du programme sportif a échoué");
+            throw new DBProblemException("La suppresion du programme sportif a échoué");
         }
     }
 
@@ -119,7 +125,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             ResultSet programmeBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentProgramme = -1;
             while(programmeBD.next()){
-                /**
+                /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 7 = id du coach
@@ -134,8 +140,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             return listeProgrammes;
         }
         catch (Exception e){
-            e.printStackTrace();
-            throw new SQLException("Impossible de récupérer tous les programmes sportifs");
+            throw new DBProblemException("Impossible de récupérer tous les programmes sportifs");
         }
     }
 
@@ -147,8 +152,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             return FactoryDAOPostgreSQL.getInstance().getDAOSeance().getAllSeancesWhere(whereList);
         }
         catch (Exception e) {
-            e.printStackTrace();
-            throw new SQLException("La selection de toutes les séances du programme a échoué !");
+            throw new DBProblemException("La selection de toutes les séances du programme a échoué !");
         }
     }
 
@@ -162,7 +166,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("L'ajout de la séance dans ce programme sportif a échoué");
+            throw new DBProblemException("L'ajout de la séance dans ce programme sportif a échoué");
         }
     }
 
@@ -176,7 +180,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La suppression de la séance dans ce programme sportif a échoué");
+            throw new DBProblemException("La suppression de la séance dans ce programme sportif a échoué");
         }
     }
 }

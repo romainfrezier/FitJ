@@ -5,12 +5,11 @@ import com.fitj.dao.DAODemande;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.DemandeEtat;
-import com.fitj.enums.Sexe;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class DAODemandePostgreSQL extends DAODemande {
         try{
             ResultSet demande = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList, this.table);
             if (demande.next()){
-                /**
+                /*
                  * index = 1 : id de la demande
                  * index = 3 : Description de la demande
                  * index = 13 : Description du programme
@@ -46,12 +45,12 @@ public class DAODemandePostgreSQL extends DAODemande {
                 return new Demande(demande.getInt(1), demande.getInt("nbmois"), demande.getString(3),demande.getBoolean("programmesportif"),demande.getBoolean("programmenutrition"),demande.getInt("nbseancesemaine"),demande.getInt("nbrecettesemaine"),sport,programmePersonnalise, DemandeEtat.getDemandeEtat(demande.getString("etat")));
             }
             else {
-                throw new SQLException("Aucune demande avec cet id n'existe");
+                throw new DBProblemException("Aucune demande avec cet id n'existe");
             }
         }
         catch(Exception e){
             e.printStackTrace();
-            throw new SQLException("La sélection de la demande a échoué");
+            throw new DBProblemException("La sélection de la demande a échoué");
         }
     }
 
@@ -71,7 +70,7 @@ public class DAODemandePostgreSQL extends DAODemande {
             ResultSet demandeBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentProgramme = -1;
             while(demandeBD.next()){
-                /**
+                /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 7 = id du coach
@@ -90,7 +89,7 @@ public class DAODemandePostgreSQL extends DAODemande {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Impossible de récupérer toutes les demandes");
+            throw new DBProblemException("Impossible de récupérer toutes les demandes");
         }
     }
 
@@ -115,7 +114,7 @@ public class DAODemandePostgreSQL extends DAODemande {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La création de la demande a échoué");
+            throw new DBProblemException("La création de la demande a échoué");
         }
     }
 
@@ -144,7 +143,7 @@ public class DAODemandePostgreSQL extends DAODemande {
         }
         catch(Exception e){
             e.printStackTrace();
-            throw new SQLException("La suppresion de la demande a échoué");
+            throw new DBProblemException("La suppresion de la demande a échoué");
         }
     }
 
@@ -157,7 +156,7 @@ public class DAODemandePostgreSQL extends DAODemande {
             return this.getDemandeById(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour de la demande a échoué");
+            throw new DBProblemException("La mise à jour de la demande a échoué");
         }
     }
 

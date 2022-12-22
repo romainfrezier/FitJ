@@ -5,12 +5,12 @@ import com.fitj.dao.DAORecette;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.DBProblemException;
 import com.fitj.interfaces.IsIngredient;
 import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux recettes
  *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public class DAORecettePostgreSQL extends DAORecette {
 
@@ -47,7 +47,7 @@ public class DAORecettePostgreSQL extends DAORecette {
                     ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertIngredient, "recetterecette");
                 }
                 else {
-                    throw new SQLException("Le type de l'ingrédient ne convient pas pour une recette");
+                    throw new DBProblemException("Le type de l'ingrédient ne convient pas pour une recette");
                 }
 
             }
@@ -55,7 +55,7 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La création de la recette a échoué");
+            throw new DBProblemException("La création de la recette a échoué");
         }
     }
 
@@ -71,11 +71,11 @@ public class DAORecettePostgreSQL extends DAORecette {
                 return new Recette(recetteBD.getInt("id"),recetteBD.getString("nom"),coach, (ArrayList)listeIngredients);
             }
             else {
-                throw new SQLException("Aucune recette avec cet id n'existe");
+                throw new DBProblemException("Aucune recette avec cet id n'existe");
             }
         }
         catch(Exception e){
-            throw new SQLException("La sélection de la recette a échoué");
+            throw new DBProblemException("La sélection de la recette a échoué");
         }
     }
 
@@ -98,7 +98,7 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Les ingrédients de la recette n'ont pas pu être trouvés");
+            throw new DBProblemException("Les ingrédients de la recette n'ont pas pu être trouvés");
         }
     }
 
@@ -120,7 +120,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppresion de la recette a échoué");
+            throw new DBProblemException("La suppresion de la recette a échoué");
         }
     }
 
@@ -151,7 +151,7 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Impossible de récupérer toutes les recettes");
+            throw new DBProblemException("Impossible de récupérer toutes les recettes");
         }
     }
 
@@ -164,7 +164,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             return this.getRecetteById(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour de la recette a échoué");
+            throw new DBProblemException("La mise à jour de la recette a échoué");
         }
     }
 
@@ -177,7 +177,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             this.ajouterAliment((Aliment)ingredient, id);
         }
         else {
-            throw new Exception("Le type d'ingrédient est inconnu pour l'ajout dans la recette");
+            throw new DBProblemException("Le type d'ingrédient est inconnu pour l'ajout dans la recette");
         }
     }
 
@@ -190,7 +190,7 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("L'ajout de la recette dans cette recette a échoué");
+            throw new DBProblemException("L'ajout de la recette dans cette recette a échoué");
         }
     }
 
@@ -203,7 +203,7 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("L'ajout de cet aliment dans cette recette a échoué");
+            throw new DBProblemException("L'ajout de cet aliment dans cette recette a échoué");
         }
     }
 
@@ -216,7 +216,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             this.supprimerAliment((Aliment)ingredient, id);
         }
         else {
-            throw new Exception("Le type d'ingrédient est inconnu pour la suppresion dans la recette");
+            throw new DBProblemException("Le type d'ingrédient est inconnu pour la suppresion dans la recette");
         }
     }
 
@@ -228,7 +228,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "recetterecette");
         }
         catch (Exception e){
-            throw new SQLException("La suppression de la recette dans cette recette a échoué");
+            throw new DBProblemException("La suppression de la recette dans cette recette a échoué");
         }
     }
 
@@ -240,7 +240,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "recettealiment");
         }
         catch (Exception e){
-            throw new SQLException("La suppression de l'aliment dans cette recette a échoué");
+            throw new DBProblemException("La suppression de l'aliment dans cette recette a échoué");
         }
     }
 
