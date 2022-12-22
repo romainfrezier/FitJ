@@ -97,7 +97,6 @@ public class DAOSportPostgreSQL extends DAOSport {
         List<Sport> listeSport = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("clientsport","idsport", "sport.id"));
-        joinList.add(new Triple<>("demandesport","idsport", "sport.id"));
         joinList.add(new Triple<>("seance","idsport", "sport.id"));
         try {
             ResultSet sportsBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
@@ -145,9 +144,9 @@ public class DAOSportPostgreSQL extends DAOSport {
      * @throws SQLException
      */
     public void supprimerSeanceSport(int id) throws Exception {
-        List<Seance> listeSeance = FactoryDAOPostgreSQL.getInstance().getModelSeance().getSeanceFromSport(id);
+        List<Seance> listeSeance = FactoryDAOPostgreSQL.getInstance().getDAOSeance().getSeanceFromSport(id);
         for (Seance seance : listeSeance){
-            FactoryDAOPostgreSQL.getInstance().getModelSeance().supprimerSeance(seance.getId());
+            FactoryDAOPostgreSQL.getInstance().getDAOSeance().supprimerSeance(seance.getId());
         }
     }
 

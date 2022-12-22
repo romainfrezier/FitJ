@@ -56,7 +56,7 @@ public class TestDAOProgrammeNutritionPostgreSQL {
     public static void init() throws Exception {
         daoProgrammeNutritionPostgreSQL = new DAOProgrammeNutritionPostgreSQL();
         coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        Recette recette = FactoryDAOPostgreSQL.getInstance().getModelRecette().getAllRecettes().get(0);
+        Recette recette = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
         listeRecettes = new ArrayList<>();
         listeRecettes.add(recette);
         programmeNutrition = new ProgrammeNutrition(1,"Programme healthy", "Super programme perdre du poids", 680, ProgrammeType.DIFFCILE, 6, coach, listeRecettes);
@@ -122,7 +122,7 @@ public class TestDAOProgrammeNutritionPostgreSQL {
     @Test
     public void testSupprimerRecetteProgrammeNutrition() throws Exception {
         ProgrammeNutrition programmeBD = daoProgrammeNutritionPostgreSQL.createProgrammeNutrition(programmeNutrition.getNom(),programmeNutrition.getDescription(),programmeNutrition.getPrix(),programmeNutrition.getType(),programmeNutrition.getNbMois(),programmeNutrition.getCoach(), new ArrayList<>());
-        Recette recette = FactoryDAOPostgreSQL.getInstance().getModelRecette().getAllRecettes().get(0);
+        Recette recette = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
         daoProgrammeNutritionPostgreSQL.ajouterRecetteProgramme(recette,programmeBD.getId());
         daoProgrammeNutritionPostgreSQL.supprimerRecetteProgramme(recette,programmeBD.getId());
         ProgrammeNutrition programmeNutrition1 = daoProgrammeNutritionPostgreSQL.getProgrammeNutritionId(programmeBD.getId());
@@ -137,7 +137,7 @@ public class TestDAOProgrammeNutritionPostgreSQL {
     @Test
     public void testAjouterRecetteProgrammeNutrition() throws Exception {
         ProgrammeNutrition programmeBD = daoProgrammeNutritionPostgreSQL.createProgrammeNutrition(programmeNutrition.getNom(),programmeNutrition.getDescription(),programmeNutrition.getPrix(),programmeNutrition.getType(),programmeNutrition.getNbMois(),programmeNutrition.getCoach(), new ArrayList<>());
-        Recette recette = FactoryDAOPostgreSQL.getInstance().getModelRecette().getAllRecettes().get(0);
+        Recette recette = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
         daoProgrammeNutritionPostgreSQL.ajouterRecetteProgramme(recette,programmeBD.getId());
         ProgrammeNutrition programmeNutrition1 = daoProgrammeNutritionPostgreSQL.getProgrammeNutritionId(programmeBD.getId());
         daoProgrammeNutritionPostgreSQL.supprimerProgrammeNutrition(programmeBD.getId());

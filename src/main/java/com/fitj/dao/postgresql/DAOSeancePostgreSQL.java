@@ -41,8 +41,8 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         try{
             ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (seance.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getModelClient().getClientAccount(seance.getInt("idcoach"));
-                Sport sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportById(seance.getInt("idsport"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(seance.getInt("idcoach"));
+                Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(seance.getInt("idsport"));
                 ArrayList<Exercice> listeExercice = (ArrayList<Exercice>) this.getExercices(id);
                 return new Seance(seance.getInt("id"), seance.getString("nom"), seance.getString("description"),seance.getDouble("prix"),coach,sport,listeExercice);
             }

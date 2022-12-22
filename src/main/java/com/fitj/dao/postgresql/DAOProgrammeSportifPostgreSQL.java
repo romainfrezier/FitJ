@@ -52,7 +52,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         try{
             ResultSet programmeDB = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (programmeDB.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getModelClient().getClientAccount(programmeDB.getInt("idcoach"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(programmeDB.getInt("idcoach"));
                 ArrayList<Seance> listeSeance = (ArrayList<Seance>) this.getSeances(id);
                 return new ProgrammeSportif(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),ProgrammeType.getProgrammeType(programmeDB.getString("type")), programmeDB.getInt("nbmois"),coach,listeSeance);
             }
@@ -61,7 +61,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             }
         }
         catch(Exception e){
-            throw new SQLException("La sélection de du programme sportif a échoué");
+            throw new SQLException("La sélection du programme sportif a échoué");
         }
     }
 
@@ -143,7 +143,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("programmesportseance.idprogramme", id));
         try {
-            return FactoryDAOPostgreSQL.getInstance().getModelSeance().getAllSeancesWhere(whereList);
+            return FactoryDAOPostgreSQL.getInstance().getDAOSeance().getAllSeancesWhere(whereList);
         }
         catch (Exception e) {
             e.printStackTrace();

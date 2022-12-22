@@ -55,7 +55,7 @@ public class TestDAOProgrammeSportifPostgreSQL {
     public static void init() throws Exception {
         daoProgrammeSportifPostgreSQL = new DAOProgrammeSportifPostgreSQL();
         coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        Seance seance = FactoryDAOPostgreSQL.getInstance().getModelSeance().getAllSeances().get(0);
+        Seance seance = FactoryDAOPostgreSQL.getInstance().getDAOSeance().getAllSeances().get(0);
         listeSeances = new ArrayList<>();
         listeSeances.add(seance);
         programmeSportif = new ProgrammeSportif(1,"Programme prise de masse", "Super programme pour prendre de la masse", 540, ProgrammeType.MOYEN, 4, coach, listeSeances);
@@ -118,7 +118,7 @@ public class TestDAOProgrammeSportifPostgreSQL {
      */
     @Test
     public void testSupprimerSeanceProgrammeSportif() throws Exception {
-        Seance seance = FactoryDAOPostgreSQL.getInstance().getModelSeance().getAllSeances().get(0);
+        Seance seance = FactoryDAOPostgreSQL.getInstance().getDAOSeance().getAllSeances().get(0);
         daoProgrammeSportifPostgreSQL.ajouterSeanceProgramme(seance,programmeBD.getId());
         int size = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
         daoProgrammeSportifPostgreSQL.supprimerSeanceProgramme(seance,programmeBD.getId());
