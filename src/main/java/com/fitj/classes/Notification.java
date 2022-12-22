@@ -11,15 +11,31 @@ import java.util.*;
 public class Notification implements Sendable {
 
     /**
-     * Constructeur par défaut
+     * Identifiant de la notification
      */
-    public Notification() {
-    }
+    private int id;
 
     /**
-     * Message de la notification.
+     * Message de la notification
      */
-    private String Message;
+    private String message;
+
+    /**
+     * Id du client concerné par la notification
+     */
+    private int idClient;
+
+    /**
+     * Id de la commande concernée par la notification
+     */
+    private int idCommande;
+
+    public Notification(int id, String message, int idClient, int idCommande) {
+        this.id = id;
+        this.message = message;
+        this.idClient = idClient;
+        this.idCommande = idCommande;
+    }
 
     /**
      * @param destinataire : Le client qui reçoit la notification.
@@ -29,4 +45,35 @@ public class Notification implements Sendable {
         // TODO implement here
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public int getIdClient() {
+        return idClient;
+    }
+
+    public int getIdCommande() {
+        return idCommande;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
+    }
+
+    public void setIdCommande(int idCommande) {
+        this.idCommande = idCommande;
+    }
 }
