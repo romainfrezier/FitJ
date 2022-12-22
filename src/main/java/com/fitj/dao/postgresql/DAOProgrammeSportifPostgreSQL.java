@@ -41,6 +41,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             return this.getProgrammeSportifId(idProgramme);
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new SQLException("La création du programme sportif a échoué");
         }
     }

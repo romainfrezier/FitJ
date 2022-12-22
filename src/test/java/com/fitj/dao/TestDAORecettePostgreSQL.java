@@ -15,19 +15,47 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de test de la DAO RecettePostgreSQL
+ * @see DAORecettePostgreSQL
+ * @author Etienne Tillier, Romain Frezier
+ */
 public class TestDAORecettePostgreSQL {
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Recette recette;
 
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Recette recetteBD;
+
+    /**
+     * DAO utilisé pour les tests
+     */
     private static DAORecettePostgreSQL daoRecettePostgreSQL;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     public static Aliment aliment;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     public static Coach coach;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     public static ArrayList<IsIngredient> ingredients;
 
-
+    /**
+     * Initialisation des objets utilisés pour les tests
+     * @throws Exception si la requête SQL échoue
+     */
     @BeforeAll
     public static void init() throws Exception {
         daoRecettePostgreSQL = new DAORecettePostgreSQL();
@@ -36,82 +64,111 @@ public class TestDAORecettePostgreSQL {
         ingredients = new ArrayList<>();
         ingredients.add(aliment);
         recette = new Recette(1,"Poulet roti",coach);
+        recetteBD = daoRecettePostgreSQL.createRecette(recette.getNom(),coach,ingredients);
     }
 
+    /**
+     * Méthode appelée après tous les tests
+     * @throws Exception si la requête SQL échoue
+     */
     @AfterAll
-    public static void fin() throws Exception{
+    public static void clean() throws Exception{
         FactoryDAOPostgreSQL.getInstance().getDAOAliment().supprimerAliment(aliment.getId());
-    }
-
-    @Test
-    public void testCreateRecette() throws Exception {
-        Recette recetteBD = daoRecettePostgreSQL.createRecette(recette.getNom(),coach,ingredients);
         daoRecettePostgreSQL.supprimerRecette(recetteBD.getId());
-        Assertions.assertTrue(recetteBD.getNom().equals(recetteBD.getNom()));
     }
 
+    /**
+     * Test de la méthode createRecette
+     */
+    @Test
+    public void testCreateRecette() {
+        Assertions.assertEquals(recetteBD.getNom(), recette.getNom());
+    }
 
+    /**
+     * Test de la méthode updateRecette
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testRecetteUpdate() throws Exception {
-        Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,ingredients);
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("nom","Gateau à la fraise"));
         recetteBD = daoRecettePostgreSQL.updateRecette(updateList,recetteBD.getId());
-        daoRecettePostgreSQL.supprimerRecette(recetteBD.getId());
-        Assertions.assertTrue(recetteBD.getNom().equals("Gateau à la fraise"));
+        Assertions.assertEquals("Gateau à la fraise", recetteBD.getNom());
     }
 
-
+    /**
+     * Test de la méthode supprimerRecette
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testRecetteDelete() throws Exception {
-        Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,ingredients);
-        daoRecettePostgreSQL.supprimerRecette(recetteBD.getId());
-        Assertions.assertThrows(SQLException.class,
-                () -> daoRecettePostgreSQL.getRecetteById(recetteBD.getId()));
+        Recette recetteBD1 = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,ingredients);
+        daoRecettePostgreSQL.supprimerRecette(recetteBD1.getId());
+        Assertions.assertThrows(SQLException.class, () -> daoRecettePostgreSQL.getRecetteById(recetteBD1.getId()));
     }
 
+    /**
+     * Test de la méthode getAllRecette
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testGetAllRecette() throws Exception {
-        Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,ingredients);
+        Recette recetteBD1 = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,ingredients);
         int nbRecetteBD = daoRecettePostgreSQL.getAllRecettes().size();
-        daoRecettePostgreSQL.supprimerRecette(recetteBD.getId());
-        Assertions.assertTrue(nbRecetteBD == daoRecettePostgreSQL.getAllRecettes().size() + 1);
+        daoRecettePostgreSQL.supprimerRecette(recetteBD1.getId());
+        Assertions.assertEquals(nbRecetteBD, daoRecettePostgreSQL.getAllRecettes().size() + 1);
     }
 
+    /**
+     * Test de l'ajout d'une recette dans une autre
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testRecetteDansRecette() throws Exception{
-        Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,ingredients);
         ArrayList<IsIngredient> newIngredients = new ArrayList<>();
         newIngredients.add(aliment);
         newIngredients.add(recetteBD);
         Recette newRecette = daoRecettePostgreSQL.createRecette("Gros gateau", coach, newIngredients);
-        newRecette = daoRecettePostgreSQL.getRecetteById(newRecette.getId());
+//        newRecette = daoRecettePostgreSQL.getRecetteById(newRecette.getId());
         daoRecettePostgreSQL.supprimerRecette(newRecette.getId());
-        daoRecettePostgreSQL.supprimerRecette(recetteBD.getId());
-        Assertions.assertTrue(((Recette)newRecette.getIngredients().get(1)).getNom().equals(recetteBD.getNom()));
+        Assertions.assertEquals(((Recette) newRecette.getIngredients().get(1)).getNom(), recetteBD.getNom());
     }
 
+    /**
+     * Test de la méthode supprimer ingredient
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testSupprimerIngredientSeance() throws Exception {
-        Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au coco",coach,new ArrayList<>());
         Recette recette1 = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
         Aliment aliment1 = FactoryDAOPostgreSQL.getInstance().getDAOAliment().getAllAliments().get(0);
+
         daoRecettePostgreSQL.ajouterIngredient(recette1,recetteBD.getId());
         daoRecettePostgreSQL.ajouterIngredient(aliment1,recetteBD.getId());
+
+        int size = recetteBD.getIngredients().size();
+
         daoRecettePostgreSQL.supprimerIngredient(recette1,recetteBD.getId());
-        Recette recette2 = daoRecettePostgreSQL.getRecetteById(recetteBD.getId());
         daoRecettePostgreSQL.supprimerIngredient(aliment1,recetteBD.getId());
-        daoRecettePostgreSQL.supprimerRecette(recette2.getId());
-        Assertions.assertTrue(recette2.getIngredients().size() == 1);
+
+        Assertions.assertEquals(size - 2, recetteBD.getIngredients().size());
     }
+
+    /**
+     * Test de la méthode ajouter ingredient
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testAjouterIngredientSeance() throws Exception {
-        Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,new ArrayList<>());
-        Recette recette1 = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
-        daoRecettePostgreSQL.ajouterIngredient(recette1,recetteBD.getId());
-        Recette recette2 = daoRecettePostgreSQL.getRecetteById(recetteBD.getId());
-        daoRecettePostgreSQL.supprimerRecette(recette2.getId());
-        Assertions.assertTrue(recetteBD.getIngredients().isEmpty() && recette2.getIngredients().size() == 1);
+        Recette recette1 = daoRecettePostgreSQL.createRecette("Recette1",coach, new ArrayList<>());
+        daoRecettePostgreSQL.ajouterRecette(recette1,recetteBD.getId());
+
+        int size = recetteBD.getIngredients().size();
+
+        daoRecettePostgreSQL.supprimerIngredient(recette1,recetteBD.getId());
+
+        Assertions.assertEquals(size, recetteBD.getIngredients().size()+1);
     }
 
 }

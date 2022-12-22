@@ -129,7 +129,6 @@ public class DAOSportPostgreSQL extends DAOSport {
         whereListClientSport.add(new Pair<>("idsport",id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereListClientSport,"clientsport");
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereListClientSport,"demandesport");
             this.supprimerSeanceSport(id);
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }

@@ -3,6 +3,7 @@ package com.fitj.dao;
 import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOSportPostgreSQL;
 import kotlin.Pair;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,54 +12,97 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de test de la DAO SportPostgreSQL
+ * @see DAOSportPostgreSQL
+ * @author Etienne Tillier, Romain Frezier
+ */
 public class TestDAOSportPostgreSQL {
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Sport sport;
 
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Sport sportBD;
+
+    /**
+     * DAO utilisé pour les tests
+     */
     private static DAOSportPostgreSQL daoSportPostgreSQL;
 
-
+    /**
+     * Initialisation des objets utilisés pour les tests
+     * @throws Exception si la requête SQL échoue
+     */
     @BeforeAll
-    public static void init(){
+    public static void init() throws Exception {
         daoSportPostgreSQL = new DAOSportPostgreSQL();
         sport = new Sport(1,"Foot");
+        sportBD = daoSportPostgreSQL.createSport(sport.getNom());
     }
 
-    @Test
-    public void testSportCreate() throws Exception {
-        Sport sportBD = daoSportPostgreSQL.createSport("Foot");
+    /**
+     * Méthode appelée après tous les tests
+     * @throws Exception si la requête SQL échoue
+     */
+    @AfterAll
+    public static void clean() throws Exception {
         daoSportPostgreSQL.supprimerSport(sportBD.getId());
-        Assertions.assertTrue(sportBD.getNom().equals("Foot"));
     }
 
+    /**
+     * Test de la méthode de création d'un sport
+     */
+    @Test
+    public void testSportCreate() {
+        Assertions.assertEquals(sport.getNom(), sportBD.getNom());
+    }
+
+    /**
+     * Test de la méthode de modification d'un sport par son id
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testSportUpdate() throws Exception {
-        Sport sportBD = daoSportPostgreSQL.createSport("Muscu");
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("nom","Snowboard"));
         sportBD = daoSportPostgreSQL.updateSport(updateList,sportBD.getId());
-        daoSportPostgreSQL.supprimerSport(sportBD.getId());
-        Assertions.assertTrue(sportBD.getNom().equals("Snowboard"));
+        Assertions.assertEquals("Snowboard", sportBD.getNom());
     }
 
+    /**
+     * Test de la méthode de suppression d'un sport par son id
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testSportDelete() throws Exception {
-        Sport sportBD = daoSportPostgreSQL.createSport("Muscu");
-        daoSportPostgreSQL.supprimerSport(sportBD.getId());
+        Sport sport1 = daoSportPostgreSQL.createSport("Muscu");
+        daoSportPostgreSQL.supprimerSport(sport1.getId());
         Assertions.assertThrows(SQLException.class,
-                () -> daoSportPostgreSQL.getSportById(sportBD.getId()));
+                () -> daoSportPostgreSQL.getSportById(sport1.getId()));
     }
 
+    /**
+     * Test de la méthode de récupération de tous les sports
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testGetAllSport() throws Exception {
         Sport sportBD1 = daoSportPostgreSQL.createSport("Muscu");
         Sport sportBD2 = daoSportPostgreSQL.createSport("Badminton");
         Sport sportBD3 = daoSportPostgreSQL.createSport("Natation");
+
         int nbSportBD = daoSportPostgreSQL.getAllSport().size();
+
         daoSportPostgreSQL.supprimerSport(sportBD1.getId());
         daoSportPostgreSQL.supprimerSport(sportBD2.getId());
         daoSportPostgreSQL.supprimerSport(sportBD3.getId());
-        Assertions.assertTrue(nbSportBD == daoSportPostgreSQL.getAllSport().size() + 3);
+
+        Assertions.assertEquals(nbSportBD, daoSportPostgreSQL.getAllSport().size() + 3);
     }
 
 

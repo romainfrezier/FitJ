@@ -54,6 +54,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             return this.getRecetteById(idRecette);
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new SQLException("La création de la recette a échoué");
         }
     }
