@@ -6,6 +6,7 @@ public enum ProgrammeType {
     DIFFCILE,
     INCONNU;
 
+
     public static ProgrammeType getProgrammeType(String programmeType){
         if (programmeType.equalsIgnoreCase("facile")){
             return FACILE;

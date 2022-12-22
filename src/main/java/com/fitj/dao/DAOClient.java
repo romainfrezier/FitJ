@@ -64,7 +64,14 @@ public abstract class DAOClient extends DAO {
      * @param mail, le mail du client
      * @throws Exception
      */
-    public abstract void supprimerClient(String mail) throws Exception;
+    public abstract void supprimerClientByMail(String mail) throws Exception;
+
+    /**
+     * Supprimer le client de la base de donnée
+     * @param id int, l'id du client
+     * @throws Exception
+     */
+    public abstract void supprimerClientById(int id) throws Exception;
 
     /**
      * Met à jour le client de la base de donnée

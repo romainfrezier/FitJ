@@ -63,7 +63,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @return Client, le client avec le bon role correspondant au résultat de la requête SQL
      * @throws SQLException si une erreur SQL survient
      */
-    private Client chooseRole(ResultSet compte) throws Exception {
+    private Client chooseRole(ResultSet compte) throws SQLException {
         Client connectedClient;
         if (compte.getBoolean("isAdmin")){
             connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
@@ -78,9 +78,9 @@ public class DAOClientPostgreSQL extends DAOClient {
     /**
      * @param mail String, l'email du client
      * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
-     * @throws SQLException
+     * @throws SQLException si une erreur SQL survient
      */
-    public Client getClientAccount(String mail) throws Exception {
+    public Client getClientAccount(String mail) throws SQLException {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
@@ -140,9 +140,25 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param mail, le mail du client
      * @throws SQLException si une erreur SQL survient
      */
-    public void supprimerClient(String mail) throws SQLException{
+    public void supprimerClientByMail(String mail) throws SQLException{
         List<Pair<String,Object>> wherelist = new ArrayList<>();
         wherelist.add(new Pair<>("mail", mail));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(wherelist, this.table);
+        }
+        catch(Exception e){
+            throw new SQLException("La suppresion du client a échoué");
+        }
+    }
+
+    /**
+     * Supprimer le client de la base de donnée
+     * @param id int, l'id du client
+     * @throws SQLException si une erreur SQL survient
+     */
+    public void supprimerClientById(int id) throws SQLException{
+        List<Pair<String,Object>> wherelist = new ArrayList<>();
+        wherelist.add(new Pair<>("id", id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).delete(wherelist, this.table);
         }

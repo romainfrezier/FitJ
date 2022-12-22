@@ -111,6 +111,7 @@ public class DAOSportPostgreSQL extends DAOSport {
             return listeSport;
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new SQLException("Impossible de récupérer tous les sports");
         }
     }
