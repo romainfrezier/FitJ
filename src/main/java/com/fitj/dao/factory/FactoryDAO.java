@@ -42,75 +42,81 @@ public abstract class FactoryDAO {
     }
 
     /**
-     * @return l'instance du modelClient
+     * @return l'instance du DAOClient
      */
-    public abstract DAOClient getModelClient();
+    public abstract DAOClient getDAOClient();
 
     /**
-     * @return l'instance du modelSeance
+     * @return l'instance du DAOSeance
+     *
      */
-    public abstract DAOSeance getModelSeance();
+    public abstract DAOSeance getDAOSeance();
 
     /**
-     * @return l'instance du modelPaiement
+     * @return l'instance du DAOPaiement
      */
-    public abstract DAOPaiement getModelPaiement();
+    public abstract DAOPaiement getDAOPaiement();
 
     /**
-     * @return l'instance du modelExercice
+     * @return l'instance du DAOExercice
      */
-    public abstract DAOExercice getModelExercice();
+    public abstract DAOExercice getDAOExercice();
 
 
     /**
-     * @return l'instance du modelAliment
+     * @return l'instance du DAOAliment
      */
-    public abstract DAOAliment getModelAliment();
+    public abstract DAOAliment getDAOAliment();
 
     /**
-     * @return l'instance du modelRecette
+     * @return l'instance du DAORecette
      */
-    public abstract DAORecette getModelRecette();
+    public abstract DAORecette getDAORecette();
 
     /**
-     * @return l'instance du modelAvis
+     * @return l'instance du DAOAvis
      */
-    public abstract DAOAvis getModelAvis();
+    public abstract DAOAvis getDAOAvis();
 
     /**
-     * @return l'instance du modelCommande
+     * @return l'instance du DAOCommande
      */
-    public abstract DAOCommande getModelCommande();
+    public abstract DAOCommande getDAOCommande();
 
     /**
-     * @return l'instance du modelProgrammeNutrition
+     * @return l'instance du DAOProgrammeNutrition
      */
-    public abstract DAOProgrammeNutrition getModelProgrammeNutrition();
+    public abstract DAOProgrammeNutrition getDAOProgrammeNutrition();
 
     /**
-     * @return l'instance du modelProgrammeSportif
+     * @return l'instance du DAOProgrammeSportif
      */
-    public abstract DAOProgrammeSportif getModelProgrammeSportif();
+    public abstract DAOProgrammeSportif getDAOProgrammeSportif();
 
     /**
-     * @return l'instance du modelProgrammePersonnalise
+     * @return l'instance du DAOProgrammePersonnalise
      */
-    public abstract DAOProgrammePersonnalise getModelProgrammePersonnalise();
+    public abstract DAOProgrammePersonnalise getDAOProgrammePersonnalise();
 
     /**
-     * @return l'instance du modelPack
+     * @return l'instance du DAOPack
      */
-    public abstract DAOPack getModelPack();
+    public abstract DAOPack getDAOPack();
 
     /**
-     * @return l'instance du modelMateriel
+     * @return l'instance du DAOMateriel
      */
-    public abstract DAOMateriel getModelMateriel();
+    public abstract DAOMateriel getDAOMateriel();
 
     /**
-     * @return l'instance du modelSport
+     * @return l'instance du DAOSport
      */
-    public abstract DAOSport getModelSport();
+    public abstract DAOSport getDAOSport();
+
+    /**
+     * @return l'instance du DAODemande
+     */
+    public abstract DAODemande getDAODemande();
 
 }
 

@@ -32,16 +32,15 @@ public class TestDAORecettePostgreSQL {
     public static void init() throws Exception {
         daoRecettePostgreSQL = new DAORecettePostgreSQL();
         coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        aliment = FactoryDAOPostgreSQL.getInstance().getModelAliment().createAliment("Cacao");
+        aliment = FactoryDAOPostgreSQL.getInstance().getDAOAliment().createAliment("Cacao");
         ingredients = new ArrayList<>();
         ingredients.add(aliment);
         recette = new Recette(1,"Poulet roti",coach);
-
     }
 
     @AfterAll
     public static void fin() throws Exception{
-        FactoryDAOPostgreSQL.getInstance().getModelAliment().supprimerAliment(aliment.getId());
+        FactoryDAOPostgreSQL.getInstance().getDAOAliment().supprimerAliment(aliment.getId());
     }
 
     @Test
@@ -95,8 +94,8 @@ public class TestDAORecettePostgreSQL {
     @Test
     public void testSupprimerIngredientSeance() throws Exception {
         Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au coco",coach,new ArrayList<>());
-        Recette recette1 = FactoryDAOPostgreSQL.getInstance().getModelRecette().getAllRecettes().get(0);
-        Aliment aliment1 = FactoryDAOPostgreSQL.getInstance().getModelAliment().getAllAliments().get(0);
+        Recette recette1 = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
+        Aliment aliment1 = FactoryDAOPostgreSQL.getInstance().getDAOAliment().getAllAliments().get(0);
         daoRecettePostgreSQL.ajouterIngredient(recette1,recetteBD.getId());
         daoRecettePostgreSQL.ajouterIngredient(aliment1,recetteBD.getId());
         daoRecettePostgreSQL.supprimerIngredient(recette1,recetteBD.getId());
@@ -108,7 +107,7 @@ public class TestDAORecettePostgreSQL {
     @Test
     public void testAjouterIngredientSeance() throws Exception {
         Recette recetteBD = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,new ArrayList<>());
-        Recette recette1 = FactoryDAOPostgreSQL.getInstance().getModelRecette().getAllRecettes().get(0);
+        Recette recette1 = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
         daoRecettePostgreSQL.ajouterIngredient(recette1,recetteBD.getId());
         Recette recette2 = daoRecettePostgreSQL.getRecetteById(recetteBD.getId());
         daoRecettePostgreSQL.supprimerRecette(recette2.getId());

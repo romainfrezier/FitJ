@@ -30,9 +30,9 @@ public class TestDAOSeancePostgreSQL {
     public static void init() throws Exception {
         daoSeancePostgreSQL = new DAOSeancePostgreSQL();
         coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportByNom("Foot");
-        Exercice exercice1 = FactoryDAOPostgreSQL.getInstance().getModelExercice().getExerciceById(1);
-        Exercice exercice2 = FactoryDAOPostgreSQL.getInstance().getModelExercice().getExerciceById(2);
+        sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportByNom("Foot");
+        Exercice exercice1 = FactoryDAOPostgreSQL.getInstance().getDAOExercice().getExerciceById(1);
+        Exercice exercice2 = FactoryDAOPostgreSQL.getInstance().getDAOExercice().getExerciceById(2);
         listeExercice = new ArrayList<>();
         listeExercice.add(exercice1);
         listeExercice.add(exercice2);
@@ -77,7 +77,7 @@ public class TestDAOSeancePostgreSQL {
     @Test
     public void testSupprimerExerciceSeance() throws Exception {
         Seance seance1 = daoSeancePostgreSQL.createSeance("Muscu","test",140, coach, sport, new ArrayList<>());
-        Exercice exercice = FactoryDAOPostgreSQL.getInstance().getModelExercice().getAllExercice().get(0);
+        Exercice exercice = FactoryDAOPostgreSQL.getInstance().getDAOExercice().getAllExercice().get(0);
         daoSeancePostgreSQL.ajouterExercice(exercice,seance1.getId());
         daoSeancePostgreSQL.supprimerExercice(exercice,seance1.getId());
         Seance seance2 = daoSeancePostgreSQL.getSeanceById(seance1.getId());
@@ -87,7 +87,7 @@ public class TestDAOSeancePostgreSQL {
     @Test
     public void testAjouterExerciceSeance() throws Exception {
         Seance seance1 = daoSeancePostgreSQL.createSeance("Muscu","test",140, coach, sport, new ArrayList<>());
-        Exercice exercice = FactoryDAOPostgreSQL.getInstance().getModelExercice().getAllExercice().get(0);
+        Exercice exercice = FactoryDAOPostgreSQL.getInstance().getDAOExercice().getAllExercice().get(0);
         daoSeancePostgreSQL.ajouterExercice(exercice,seance1.getId());
         Seance seance2 = daoSeancePostgreSQL.getSeanceById(seance1.getId());
         daoSeancePostgreSQL.supprimerSeance(seance1.getId());

@@ -9,14 +9,52 @@ import java.util.*;
  */
 public class ProgrammePersonnalise extends Service {
 
+    /**
+     * La liste des programmes
+     */
+    private List<Programme> listeProgrammes;
+
+    /**
+     * La demande du programme personnalisé
+     */
     private Demande demande;
+
+
 
     /**
      * Constructeur par défaut
      */
+    public ProgrammePersonnalise(int id, String nom, String description, double prix, Coach coach, Demande demande, ArrayList<Programme> listeProgrammes) {
+        super(id, nom, description, prix, coach);
+        this.demande = demande;
+        this.listeProgrammes = listeProgrammes;
+    }
+
+    /**
+     * Constructeur pour afficher le détail
+     */
+    public ProgrammePersonnalise(int id, String nom, String description, double prix, Coach coach, ArrayList<Programme> listeProgrammes) {
+        super(id, nom, description, prix, coach);
+        this.demande = null;
+        this.listeProgrammes = listeProgrammes;
+    }
+
+    /**
+     * Constructeur avec demande
+     */
     public ProgrammePersonnalise(int id, String nom, String description, double prix, Coach coach, Demande demande) {
         super(id, nom, description, prix, coach);
         this.demande = demande;
+        this.listeProgrammes = new ArrayList<>();
+    }
+
+    /**
+     * Constructeur pour l'affichage sur le profil du coach
+     */
+    public ProgrammePersonnalise(int id, String nom, String description, double prix, Coach coach) {
+        super(id, nom, description, prix, coach);
+        this.demande = null;
+        this.listeProgrammes = new ArrayList<>();
     }
 
     /**
@@ -33,6 +71,25 @@ public class ProgrammePersonnalise extends Service {
     public Demande getDemande(){
         return this.demande;
     }
+
+    /**
+     * @return la liste des programmes du programme personnalisé
+     */
+    public List<Programme> getListeProgrammes() {
+        return listeProgrammes;
+    }
+
+    /**
+     * Set la liste des programmes du programme personnalisé
+     * @param listeProgrammes List<Programme>, la liste des programmes du programme personnalisé
+     */
+    public void setListeProgrammes(List<Programme> listeProgrammes) {
+        this.listeProgrammes = listeProgrammes;
+    }
+
+    /**
+     * @return si le programme personnalisé doit contenir des programmes sportifs
+     */
 
     /**
      * Reçoit un commentaire pour le programme personnalisé.
