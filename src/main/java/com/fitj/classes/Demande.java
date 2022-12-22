@@ -1,5 +1,7 @@
 package com.fitj.classes;
 
+import com.fitj.enums.DemandeEtat;
+
 import java.util.*;
 
 /**
@@ -44,11 +46,27 @@ public class Demande {
      */
     private int nbRecetteSemaine;
 
+    /**
+     * Le programme personnalisé dont la demande fait référence
+     */
+    private ProgrammePersonnalise programmePersonnalise;
+
+    /**
+     * Le sport de la demande
+     */
+    private Sport sport;
+
+    /**
+     * L'étât de la demande
+     */
+    private DemandeEtat etat;
+
+
 
     /**
      * Constructeur par défaut
      */
-    public Demande(int id, int nbMois, String description, boolean programmeSportif, boolean programmeNutrition, int nbSeanceSemaine, int nbRecetteSemaine) {
+    public Demande(int id, int nbMois, String description, boolean programmeSportif, boolean programmeNutrition, int nbSeanceSemaine, int nbRecetteSemaine, Sport sport, DemandeEtat demandeEtat) {
         this.id = id;
         this.nbMois = nbMois;
         this.description = description;
@@ -56,7 +74,27 @@ public class Demande {
         this.programmeNutrition = programmeNutrition;
         this.nbSeanceSemaine = nbSeanceSemaine;
         this.nbRecetteSemaine = nbRecetteSemaine;
+        this.programmePersonnalise = null;
+        this.sport = sport;
+        this.etat = demandeEtat;
     }
+
+    /**
+     * Constructeur avec programmePersonnalisé
+     */
+    public Demande(int id, int nbMois, String description, boolean programmeSportif, boolean programmeNutrition, int nbSeanceSemaine, int nbRecetteSemaine, Sport sport, ProgrammePersonnalise programmePersonnalise, DemandeEtat demandeEtat) {
+        this.id = id;
+        this.nbMois = nbMois;
+        this.description = description;
+        this.programmeSportif = programmeSportif;
+        this.programmeNutrition = programmeNutrition;
+        this.nbSeanceSemaine = nbSeanceSemaine;
+        this.nbRecetteSemaine = nbRecetteSemaine;
+        this.programmePersonnalise = programmePersonnalise;
+        this.sport = sport;
+        this.etat = demandeEtat;
+    }
+
 
     /**
      * @return l'id de la demande
@@ -162,4 +200,50 @@ public class Demande {
     public void setNbRecetteSemaine(int nbRecetteSemaine) {
         this.nbRecetteSemaine = nbRecetteSemaine;
     }
+
+    /**
+     * @return le programme personnalisé de la demande
+     */
+    public ProgrammePersonnalise getProgrammePersonnalise() {
+        return programmePersonnalise;
+    }
+
+    /**
+     * @return le sport de la demande
+     */
+    public Sport getSport() {
+        return sport;
+    }
+
+    /**
+     * @return l'état de la demande
+     */
+    public DemandeEtat getEtat() {
+        return etat;
+    }
+
+    /**
+     * Set le programme personnalisé de la demande
+     * @param programmePersonnalise ProgrammePersonnalise, le programme personnalisé de la demande
+     */
+    public void setProgrammePersonnalise(ProgrammePersonnalise programmePersonnalise) {
+        this.programmePersonnalise = programmePersonnalise;
+    }
+
+    /**
+     * Set le sport de la demande
+     * @param sport Sport, le sport de la demande
+     */
+    public void setSport(Sport sport) {
+        this.sport = sport;
+    }
+
+    /**
+     * Set l'étât de la demande
+     * @param etat DemandeEtat, l'étât de la demande
+     */
+    public void setEtat(DemandeEtat etat) {
+        this.etat = etat;
+    }
+
 }

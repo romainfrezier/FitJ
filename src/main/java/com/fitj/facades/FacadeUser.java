@@ -40,7 +40,7 @@ public class FacadeUser extends Facade {
      * Constructeur de la facade, initialise les attributs
      */
     protected FacadeUser(){
-        this.daoClient = FactoryDAO.getInstance().getModelClient();
+        this.daoClient = FactoryDAO.getInstance().getDAOClient();
         this.passwordAuthentication = new PasswordAuthentication();
     }
 

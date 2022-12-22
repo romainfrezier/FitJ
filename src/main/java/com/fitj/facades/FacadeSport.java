@@ -12,7 +12,7 @@ public class FacadeSport extends Facade {
 
     private static FacadeSport instance = null;
     protected FacadeSport(){
-        this.daoSport = FactoryDAO.getInstance().getModelSport();
+        this.daoSport = FactoryDAO.getInstance().getDAOSport();
     }
 
     public static FacadeSport getInstance(){

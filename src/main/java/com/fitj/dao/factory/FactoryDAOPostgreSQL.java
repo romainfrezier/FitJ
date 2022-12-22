@@ -21,7 +21,8 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
     /**
      * @return l'instance du modelClientPostgreSQL
      */
-    public DAOClientPostgreSQL getModelClient(){
+    @Override
+    public DAOClient getDAOClient() {
         return new DAOClientPostgreSQL();
     }
 
@@ -29,7 +30,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelSeancePostgreSQL
      */
     @Override
-    public DAOSeance getModelSeance() {
+    public DAOSeance getDAOSeance() {
         return new DAOSeancePostgreSQL();
     }
 
@@ -37,7 +38,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelPaiementPostgreSQL
      */
     @Override
-    public DAOPaiement getModelPaiement() {
+    public DAOPaiement getDAOPaiement() {
         return new DAOPaiementPostgreSQL();
     }
 
@@ -45,7 +46,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelExercicePostgreSQL
      */
     @Override
-    public DAOExercice getModelExercice() {
+    public DAOExercice getDAOExercice() {
         return new DAOExercicePostgreSQL();
     }
 
@@ -53,7 +54,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelAlimentPostgreSQL
      */
     @Override
-    public DAOAliment getModelAliment() {
+    public DAOAliment getDAOAliment() {
         return new DAOAlimentPostgreSQL();
     }
 
@@ -61,7 +62,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelRecettePostgreSQL
      */
     @Override
-    public DAORecette getModelRecette() {
+    public DAORecette getDAORecette() {
         return new DAORecettePostgreSQL();
     }
 
@@ -69,7 +70,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelAvisPostgreSQL
      */
     @Override
-    public DAOAvis getModelAvis() {
+    public DAOAvis getDAOAvis() {
         return new DAOAvisPostgreSQL();
     }
 
@@ -77,7 +78,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelCommandePostgreSQL
      */
     @Override
-    public DAOCommande getModelCommande() {
+    public DAOCommande getDAOCommande() {
         return new DAOCommandePostgreSQL();
     }
 
@@ -85,7 +86,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelProgrammeNutritionPostgreSQL
      */
     @Override
-    public DAOProgrammeNutrition getModelProgrammeNutrition() {
+    public DAOProgrammeNutrition getDAOProgrammeNutrition() {
         return new DAOProgrammeNutritionPostgreSQL();
     }
 
@@ -93,7 +94,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelProgrammeSportifPostgreSQL
      */
     @Override
-    public DAOProgrammeSportif getModelProgrammeSportif() {
+    public DAOProgrammeSportif getDAOProgrammeSportif() {
         return new DAOProgrammeSportifPostgreSQL();
     }
 
@@ -101,7 +102,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelProgrammePersonnalisePostgreSQL
      */
     @Override
-    public DAOProgrammePersonnalise getModelProgrammePersonnalise() {
+    public DAOProgrammePersonnalise getDAOProgrammePersonnalise() {
         return new DAOProgrammePersonnalisePostgreSQL();
     }
 
@@ -109,7 +110,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelPackPostgreSQL
      */
     @Override
-    public DAOPack getModelPack() {
+    public DAOPack getDAOPack() {
         return new DAOPackPostgreSQL();
     }
 
@@ -118,7 +119,7 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelMaterielPostgreSQL
      */
     @Override
-    public DAOMateriel getModelMateriel() {
+    public DAOMateriel getDAOMateriel() {
         return new DAOMaterielPostgreSQL();
     }
 
@@ -126,8 +127,13 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
      * @return l'instance du modelSportPostgreSQL
      */
     @Override
-    public DAOSport getModelSport() {
+    public DAOSport getDAOSport() {
         return new DAOSportPostgreSQL();
+    }
+
+    @Override
+    public DAODemande getDAODemande() {
+        return new DAODemandePostgreSQL();
     }
 
 
