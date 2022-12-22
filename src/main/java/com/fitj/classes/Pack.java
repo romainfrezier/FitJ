@@ -27,6 +27,21 @@ public class Pack extends Produit {
     }
 
     /**
+     * @return la liste des produits
+     */
+    public List<Produit> getListeProduit() {
+        return listeProduit;
+    }
+
+    /**
+     * Set la liste des produits
+     * @param listeProduit la liste des produits
+     */
+    public void setListeProduit(List<Produit> listeProduit) {
+        this.listeProduit = listeProduit;
+    }
+
+    /**
      * Ajoute un produit au pack
      * @param produit Produit, le produit à ajouter au pack
      */
