@@ -83,9 +83,24 @@ public abstract class FactoryDAO {
     public abstract DAOCommande getModelCommande();
 
     /**
-     * @return l'instance du modelProgramme
+     * @return l'instance du modelProgrammeNutrition
      */
-    public abstract DAOProgramme getModelProgramme();
+    public abstract DAOProgrammeNutrition getModelProgrammeNutrition();
+
+    /**
+     * @return l'instance du modelProgrammeSportif
+     */
+    public abstract DAOProgrammeSportif getModelProgrammeSportif();
+
+    /**
+     * @return l'instance du modelProgrammePersonnalise
+     */
+    public abstract DAOProgrammePersonnalise getModelProgrammePersonnalise();
+
+    /**
+     * @return l'instance du modelPack
+     */
+    public abstract DAOPack getModelPack();
 
     /**
      * @return l'instance du modelMateriel

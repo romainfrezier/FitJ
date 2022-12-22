@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModelSeancePostgreSQL {
+public class TestDAOSeancePostgreSQL {
 
     private static Seance seance;
 
@@ -69,10 +69,31 @@ public class TestModelSeancePostgreSQL {
     @Test
     public void testGetAllSeance() throws Exception {
         Seance seance1 = daoSeancePostgreSQL.createSeance("Muscu","test",140, coach, sport, listeExercice);
-        int nbSeanceBD = daoSeancePostgreSQL.getAllSeances(new ArrayList<>()).size();
+        int nbSeanceBD = daoSeancePostgreSQL.getAllSeances().size();
         daoSeancePostgreSQL.supprimerSeance(seance1.getId());
-        Assertions.assertTrue(nbSeanceBD == daoSeancePostgreSQL.getAllSeances(new ArrayList<>()).size() + 1);
+        Assertions.assertTrue(nbSeanceBD == daoSeancePostgreSQL.getAllSeances().size() + 1);
     }
+
+    @Test
+    public void testSupprimerExerciceSeance() throws Exception {
+        Seance seance1 = daoSeancePostgreSQL.createSeance("Muscu","test",140, coach, sport, new ArrayList<>());
+        Exercice exercice = FactoryDAOPostgreSQL.getInstance().getModelExercice().getAllExercice().get(0);
+        daoSeancePostgreSQL.ajouterExercice(exercice,seance1.getId());
+        daoSeancePostgreSQL.supprimerExercice(exercice,seance1.getId());
+        Seance seance2 = daoSeancePostgreSQL.getSeanceById(seance1.getId());
+        daoSeancePostgreSQL.supprimerSeance(seance1.getId());
+        Assertions.assertTrue(seance2.getListeExercice().isEmpty());
+    }
+    @Test
+    public void testAjouterExerciceSeance() throws Exception {
+        Seance seance1 = daoSeancePostgreSQL.createSeance("Muscu","test",140, coach, sport, new ArrayList<>());
+        Exercice exercice = FactoryDAOPostgreSQL.getInstance().getModelExercice().getAllExercice().get(0);
+        daoSeancePostgreSQL.ajouterExercice(exercice,seance1.getId());
+        Seance seance2 = daoSeancePostgreSQL.getSeanceById(seance1.getId());
+        daoSeancePostgreSQL.supprimerSeance(seance1.getId());
+        Assertions.assertTrue(seance1.getListeExercice().isEmpty() && seance2.getListeExercice().size() == 1);
+    }
+
 
 
 

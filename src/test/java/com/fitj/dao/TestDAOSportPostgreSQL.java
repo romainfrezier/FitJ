@@ -1,6 +1,5 @@
 package com.fitj.dao;
 
-import com.fitj.classes.Client;
 import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOSportPostgreSQL;
 import kotlin.Pair;
@@ -12,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestModelSportPostgreSQL {
+public class TestDAOSportPostgreSQL {
 
     private static Sport sport;
 

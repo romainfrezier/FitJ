@@ -6,6 +6,7 @@ import com.fitj.dao.DAOExercice;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
+import kotlin.Triple;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,22 +34,39 @@ public class DAOExercicePostgreSQL extends DAOExercice {
     public Exercice getExerciceById(int id) throws SQLException {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        ResultSet exercice = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-        if (exercice.next()){
-            return new Exercice(exercice.getInt("id"), exercice.getString("nom"), exercice.getString("description"));
+        try {
+            ResultSet exercice = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            if (exercice.next()){
+                return new Exercice(exercice.getInt("id"), exercice.getString("nom"), exercice.getString("description"));
+            }
+            else{
+                throw new SQLException("Aucun exercice avec cet id n'existe");
+            }
         }
-        else {
-            throw new SQLException("Il n'y a pas d'exercice avec cet id");
+        catch (Exception e){
+            throw new SQLException("Il y a eu un problème lors de la recherche de cet exercice");
         }
     }
 
     @Override
-    public List<Exercice> getAllExercices() throws Exception {
+    public List<Exercice> getAllExercice() throws Exception{
+        return this.getAllExerciceWhere(new ArrayList<>());
+    }
+
+    @Override
+    public List<Exercice> getAllExerciceWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Exercice> listExercice = new ArrayList<>();
-        ResultSet exercicesBD = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+        List<Triple<String,String,String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("exercicemateriel","idexercice", "exercice.id"));
+        joinList.add(new Triple<>("seanceexercice","idexercice", "exercice.id"));
         try {
+            ResultSet exercicesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            int idCurrentExercice = -1;
             while(exercicesBD.next()){
-                listExercice.add(new Exercice(exercicesBD.getInt("id"), exercicesBD.getString("nom"), exercicesBD.getString("description")));
+                if (idCurrentExercice != exercicesBD.getInt("id")){
+                    listExercice.add(new Exercice(exercicesBD.getInt("id"), exercicesBD.getString("nom"), exercicesBD.getString("description")));
+                    idCurrentExercice =  exercicesBD.getInt("id");
+                }
             }
             return listExercice;
         }

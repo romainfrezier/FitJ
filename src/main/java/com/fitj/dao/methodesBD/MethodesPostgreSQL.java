@@ -195,7 +195,7 @@ public class MethodesPostgreSQL extends MethodesBD{
         this.connect();
         String sql = "SELECT * FROM " + table + " ";
         for (Triple<String,String,String> triple : dataJoin) {
-            sql += "JOIN " + triple.getFirst() + " ON " + triple.getFirst() + "." + triple.getSecond() + " = " + triple.getThird() + " ";
+            sql += "LEFT JOIN " + triple.getFirst() + " ON " + triple.getFirst() + "." + triple.getSecond() + " = " + triple.getThird() + " ";
         }
         if (!dataWhere.isEmpty()){
             sql += "WHERE ";
@@ -206,7 +206,7 @@ public class MethodesPostgreSQL extends MethodesBD{
         }
         sql += ";";
         PreparedStatement query = this.getConnexion().prepareStatement(sql);
-        System.out.println(query);
+        //System.out.println(query);
         ResultSet result = query.executeQuery();
         this.close();
         return result;

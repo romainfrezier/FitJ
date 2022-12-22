@@ -62,8 +62,8 @@ public class DAORecettePostgreSQL extends DAORecette {
     public Recette getRecetteById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         try{
+            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (recetteBD.next()){
                 Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getModelClient().getClientAccount(recetteBD.getInt("idcoach"));
                 List<IsIngredient> listeIngredients = getIngredientsFromRecette(id);
@@ -84,7 +84,6 @@ public class DAORecettePostgreSQL extends DAORecette {
         whereListAliment.add(new Pair<>("idrecette", id));
         List<Pair<String, Object>> whereListRecette1 = new ArrayList<>();
         whereListRecette1.add(new Pair<>("idrecette1", id));
-
         try {
             ResultSet alimentsBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListAliment, "recettealiment");
             ResultSet recettesBD1 = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListRecette1, "recetterecette");
@@ -125,15 +124,27 @@ public class DAORecettePostgreSQL extends DAORecette {
     }
 
     @Override
-    public List<Recette> getAllRecettes(List<Pair<String,Object>> whereList) throws Exception {
+    public List<Recette> getAllRecettes() throws Exception{
+        return this.getAllRecettesWhere(new ArrayList<>());
+    }
+
+    @Override
+    public List<Recette> getAllRecettesWhere(List<Pair<String,Object>> whereList) throws Exception {
         List<Recette> listeRecettes = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("client","id", "recette.idcoach"));
-        ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, new ArrayList<>(), this.table);
+        joinList.add(new Triple<>("programmenutritionrecette","idrecette", "recette.id"));
+        joinList.add(new Triple<>("recetterecette","idrecette1", "recette.id"));
+        joinList.add(new Triple<>("recettealiment","idrecette", "recette.id"));
         try {
+            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+            int idCurrentRecette = -1;
             while(recetteBD.next()){
-                Coach coach = new Coach(recetteBD.getString("mail"), recetteBD.getString(6), recetteBD.getDouble("poids"), recetteBD.getString("photo"), recetteBD.getInt("taille"), Sexe.getSexe(recetteBD.getString("sexe")), recetteBD.getString("password"), recetteBD.getInt(4));
-                listeRecettes.add(new Recette(recetteBD.getInt(1), recetteBD.getString(2), coach));
+                if (idCurrentRecette != recetteBD.getInt(1)){
+                    Coach coach = new Coach(recetteBD.getString("mail"), recetteBD.getString(6), recetteBD.getDouble("poids"), recetteBD.getString("photo"), recetteBD.getInt("taille"), Sexe.getSexe(recetteBD.getString("sexe")), recetteBD.getString("password"), recetteBD.getInt(4));
+                    listeRecettes.add(new Recette(recetteBD.getInt(1), recetteBD.getString(2), coach));
+                    idCurrentRecette = recetteBD.getInt(1);
+                }
             }
             return listeRecettes;
         }
@@ -153,6 +164,82 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
         catch (Exception e){
             throw new SQLException("La mise à jour de la recette a échoué");
+        }
+    }
+
+    @Override
+    public void ajouterIngredient(IsIngredient ingredient, int id) throws Exception {
+        if (ingredient instanceof Recette){
+            this.ajouterRecette((Recette)ingredient, id);
+        }
+        else if (ingredient instanceof Aliment){
+            this.ajouterAliment((Aliment)ingredient, id);
+        }
+        else {
+            throw new Exception("Le type d'ingrédient est inconnu pour l'ajout dans la recette");
+        }
+    }
+
+    public void ajouterRecette(Recette recette, int id) throws Exception {
+        List<Pair<String, Object>> insertList = new ArrayList<>();
+        insertList.add(new Pair<>("idrecette1", id));
+        insertList.add(new Pair<>("idrecette2", recette.getId()));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "recetterecette");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("L'ajout de la recette dans cette recette a échoué");
+        }
+    }
+
+    public void ajouterAliment(Aliment aliment, int id) throws Exception {
+        List<Pair<String, Object>> insertList = new ArrayList<>();
+        insertList.add(new Pair<>("idrecette", id));
+        insertList.add(new Pair<>("idaliment", aliment.getId()));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "recettealiment");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("L'ajout de cet aliment dans cette recette a échoué");
+        }
+    }
+
+    @Override
+    public void supprimerIngredient(IsIngredient ingredient, int id) throws Exception {
+        if (ingredient instanceof Recette){
+            this.supprimerRecette((Recette)ingredient, id);
+        }
+        else if (ingredient instanceof Aliment){
+            this.supprimerAliment((Aliment)ingredient, id);
+        }
+        else {
+            throw new Exception("Le type d'ingrédient est inconnu pour la suppresion dans la recette");
+        }
+    }
+
+    public void supprimerRecette(Recette recette, int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idrecette1", id));
+        whereList.add(new Pair<>("idrecette2", recette.getId()));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "recetterecette");
+        }
+        catch (Exception e){
+            throw new SQLException("La suppression de la recette dans cette recette a échoué");
+        }
+    }
+
+    public void supprimerAliment(Aliment aliment, int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idrecette", id));
+        whereList.add(new Pair<>("idaliment", aliment.getId()));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "recettealiment");
+        }
+        catch (Exception e){
+            throw new SQLException("La suppression de l'aliment dans cette recette a échoué");
         }
     }
 

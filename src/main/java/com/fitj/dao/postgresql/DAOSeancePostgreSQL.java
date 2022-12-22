@@ -38,8 +38,8 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     public Seance getSeanceById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         try{
+            ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (seance.next()){
                 Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getModelClient().getClientAccount(seance.getInt("idcoach"));
                 Sport sport = FactoryDAOPostgreSQL.getInstance().getModelSport().getSportById(seance.getInt("idsport"));
@@ -64,8 +64,8 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     public int getIdSeanceByNom(String nom) throws Exception{
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
-        ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         try {
+            ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (seance.next()){
                 return seance.getInt("id");
             }
@@ -134,7 +134,6 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         catch (Exception e){
             throw new SQLException("La création de la séance a échoué");
         }
-
     }
 
     /**
@@ -160,15 +159,34 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     }
 
     @Override
-    public List<Seance> getAllSeances(List<Pair<String,Object>> whereList) throws Exception {
+    public List<Seance> getAllSeances() throws Exception {
+        return this.getAllSeancesWhere(new ArrayList<>());
+    }
+
+    public List<Seance> getAllSeancesWhere(List<Pair<String,Object>> whereList) throws Exception {
         List<Seance> listeSeances = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("client","id", "seance.idcoach"));
-        ResultSet seancesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+        joinList.add(new Triple<>("programmesportseance","idseance", "seance.id"));
+        joinList.add(new Triple<>("packseance","idseance", "seance.id"));
+        joinList.add(new Triple<>("seanceexercice","idseance", "seance.id"));
+        joinList.add(new Triple<>("avisseance","idseance", "seance.id"));
+        joinList.add(new Triple<>("commandeseance","idseance", "seance.id"));
         try {
+            ResultSet seancesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+            int idCurrentSeance = -1;
             while(seancesBD.next()){
-                Coach coach = new Coach(seancesBD.getString("mail"), seancesBD.getString(9), seancesBD.getDouble("poids"), seancesBD.getString("photo"), seancesBD.getInt("taille"), Sexe.getSexe(seancesBD.getString("sexe")), seancesBD.getString("password"), seancesBD.getInt(5));
-                listeSeances.add(new Seance(seancesBD.getInt(1), seancesBD.getString(2), seancesBD.getString("description"), seancesBD.getDouble("prix"), coach));
+                /**
+                 * index 1 = id de la séance
+                 * index 2 = nom de la séance
+                 * index 5 = id du coach
+                 * index 9 = nom du coach
+                 */
+                if (idCurrentSeance != seancesBD.getInt(1)){
+                    Coach coach = new Coach(seancesBD.getString("mail"), seancesBD.getString(9), seancesBD.getDouble("poids"), seancesBD.getString("photo"), seancesBD.getInt("taille"), Sexe.getSexe(seancesBD.getString("sexe")), seancesBD.getString("password"), seancesBD.getInt(5));
+                    listeSeances.add(new Seance(seancesBD.getInt(1), seancesBD.getString(2), seancesBD.getString("description"), seancesBD.getDouble("prix"), coach));
+                    idCurrentSeance = seancesBD.getInt(1);
+                }
             }
             return listeSeances;
         }
@@ -192,6 +210,9 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         try {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandeseance");
             ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"seanceexercice");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"avisseance");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"packseance");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"programmesportseance");
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
@@ -216,6 +237,33 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         }
         catch (Exception e){
             throw new SQLException("La mise à jour de la séance a échoué");
+        }
+    }
+
+    @Override
+    public void ajouterExercice(Exercice exercice, int id) throws Exception {
+        List<Pair<String, Object>> insertList = new ArrayList<>();
+        insertList.add(new Pair<>("idexercice", exercice.getId()));
+        insertList.add(new Pair<>("idseance", id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "seanceexercice");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("L'ajout de l'exercice dans cette séance a échoué");
+        }
+    }
+
+    @Override
+    public void supprimerExercice(Exercice exercice, int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idexercice", exercice.getId()));
+        whereList.add(new Pair<>("idseance", id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "seanceexercice");
+        }
+        catch (Exception e){
+            throw new SQLException("La suppression de l'exercice dans cette séance a échoué");
         }
     }
 }
