@@ -1,20 +1,19 @@
 package com.fitj.dao.postgresql;
 
 import com.fitj.classes.Aliment;
-import com.fitj.classes.Sport;
 import com.fitj.dao.DAOAliment;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux aliments
  *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public class DAOAlimentPostgreSQL extends DAOAliment {
 
@@ -33,7 +32,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
             return this.getAlimentById(id);
         }
         catch (Exception e){
-            throw new SQLException("La création de l'aliment a échoué");
+            throw new DBProblemException("La création de l'aliment a échoué");
         }
     }
 
@@ -45,15 +44,14 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
         ResultSet alimentData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
         try{
             if (alimentData.next()){
-                Aliment aliment = new Aliment(id, alimentData.getString("nom"));
-                return aliment;
+                return new Aliment(id, alimentData.getString("nom"));
             }
             else {
-                throw new SQLException("Aucun aliment avec cet id n'existe");
+                throw new DBProblemException("Aucun aliment avec cet id n'existe");
             }
         }
         catch(Exception e){
-            throw new SQLException("La selection de l'aliment a échoué");
+            throw new DBProblemException("La selection de l'aliment a échoué");
         }
 
     }
@@ -69,7 +67,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
             return listeAliment;
         }
         catch (Exception e){
-            throw new SQLException("Impossible de récupérer tous les aliments");
+            throw new DBProblemException("Impossible de récupérer tous les aliments");
         }
     }
 
@@ -85,7 +83,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch (Exception e){
-            throw new SQLException("La suppression de l'aliment a échoué");
+            throw new DBProblemException("La suppression de l'aliment a échoué");
         }
     }
 
@@ -98,7 +96,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
             return this.getAlimentById(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour de l'aliment a échoué");
+            throw new DBProblemException("La mise à jour de l'aliment a échoué");
         }
     }
 

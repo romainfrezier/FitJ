@@ -6,7 +6,6 @@ import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import kotlin.Pair;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +24,10 @@ public class DAOCommandePostgreSQL extends DAOCommande {
     /**
      * @param id int, l'id de la commande
      * @return un objet de type Commande dans la base de donnée avec l'id rentré en paramètre
-     * @throws Exception
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
-    public Commande getCommandeByID(int id) throws SQLException {
+    public Commande getCommandeByID(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id",id));
         ResultSet resultCommande = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);

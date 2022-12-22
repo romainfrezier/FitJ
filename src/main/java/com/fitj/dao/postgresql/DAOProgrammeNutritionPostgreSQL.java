@@ -6,15 +6,19 @@ import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
-import com.fitj.interfaces.IsIngredient;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
+ *
+ * @author Etienne Tillier, Romain Frezier
+ */
 public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
 
     public DAOProgrammeNutritionPostgreSQL(){
@@ -36,13 +40,13 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
             for (Recette recette : listeRecette){
                 List<Pair<String,Object>> listeInsertRecette = new ArrayList<>();
                 listeInsertRecette.add(new Pair<>("idprogramme",idProgramme));
-                listeInsertRecette.add(new Pair<>("idrecette",((Recette)recette).getId()));
+                listeInsertRecette.add(new Pair<>("idrecette",recette.getId()));
                 ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertRecette, "programmenutritionrecette");
             }
             return this.getProgrammeNutritionId(idProgramme);
         }
         catch (Exception e){
-            throw new SQLException("La création du programme nutrition a échoué");
+            throw new DBProblemException("La création du programme nutrition a échoué");
         }
     }
 
@@ -58,11 +62,11 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
                 return new ProgrammeNutrition(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),ProgrammeType.getProgrammeType(programmeDB.getString("type")), programmeDB.getInt("nbmois"),coach,listeRecette);
             }
             else {
-                throw new SQLException("Aucune programme nutrition avec cet id n'existe");
+                throw new DBProblemException("Aucune programme nutrition avec cet id n'existe");
             }
         }
         catch(Exception e){
-            throw new SQLException("La sélection de du programme nutrition a échoué");
+            throw new DBProblemException("La sélection de du programme nutrition a échoué");
         }
     }
 
@@ -73,7 +77,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
             return FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettesWhere(whereList);
         }
         catch (Exception e) {
-            throw new SQLException("La selection de toutes les recettes du programme a échoué !");
+            throw new DBProblemException("La selection de toutes les recettes du programme a échoué !");
         }
     }
 
@@ -86,7 +90,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
             return this.getProgrammeNutritionId(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du programme nutrition a échoué");
+            throw new DBProblemException("La mise à jour du programme nutrition a échoué");
         }
     }
 
@@ -107,7 +111,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppresion du programme nutrition a échoué");
+            throw new DBProblemException("La suppresion du programme nutrition a échoué");
         }
     }
 
@@ -131,7 +135,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
             ResultSet programmeBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentProgramme = -1;
             while(programmeBD.next()){
-                /**
+                /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 7 = id du coach
@@ -147,7 +151,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Impossible de récupérer tous les programmes nutrition");
+            throw new DBProblemException("Impossible de récupérer tous les programmes nutrition");
         }
     }
 
@@ -161,7 +165,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("L'ajout de la recette dans ce programme nutrition a échoué");
+            throw new DBProblemException("L'ajout de la recette dans ce programme nutrition a échoué");
         }
     }
 
@@ -175,7 +179,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("La suppression de la recette dans ce programme nutrition a échoué");
+            throw new DBProblemException("La suppression de la recette dans ce programme nutrition a échoué");
         }
     }
 }

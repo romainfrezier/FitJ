@@ -8,11 +8,11 @@ import com.fitj.dao.DAOSeance;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux séances
  *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public class DAOSeancePostgreSQL extends DAOSeance {
 
@@ -32,7 +32,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     /**
      * @param id int, l'id de la séance
      * @return la séance dans la base de donnée contenant l'id rentré en paramètre
-     * @throws Exception
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
     public Seance getSeanceById(int id) throws Exception {
@@ -47,11 +47,11 @@ public class DAOSeancePostgreSQL extends DAOSeance {
                 return new Seance(seance.getInt("id"), seance.getString("nom"), seance.getString("description"),seance.getDouble("prix"),coach,sport,listeExercice);
             }
             else {
-                throw new SQLException("Aucune séance avec cet id n'existe");
+                throw new DBProblemException("Aucune séance avec cet id n'existe");
             }
         }
         catch(Exception e){
-            throw new SQLException("La sélection de la séance a échoué");
+            throw new DBProblemException("La sélection de la séance a échoué");
         }
 
     }
@@ -59,7 +59,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     /**
      * @param nom String, le nom de la séance
      * @return l'id de la séance
-     * @throws SQLException
+     * @throws Exception si une erreur SQL est détectée
      */
     public int getIdSeanceByNom(String nom) throws Exception{
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -70,11 +70,11 @@ public class DAOSeancePostgreSQL extends DAOSeance {
                 return seance.getInt("id");
             }
             else {
-                throw new SQLException("Il n'y a pas de séance avec ce nom");
+                throw new DBProblemException("Il n'y a pas de séance avec ce nom");
             }
         }
         catch (Exception e){
-            throw new SQLException("La sélection de la séance a échoué");
+            throw new DBProblemException("La sélection de la séance a échoué");
         }
 
     }
@@ -83,7 +83,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     /**
      * @param id int, l'id de la séance
      * @return la liste des exercices de la séance
-     * @throws SQLException
+     * @throws Exception si la sélection des exercices a échoué
      */
     public List<Exercice> getExercices(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -99,7 +99,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             return listeExercice;
         }
         catch (Exception e) {
-            throw new SQLException("La selection de tous les exercices de la séance a échoué !");
+            throw new DBProblemException("La selection de tous les exercices de la séance a échoué !");
         }
 
     }
@@ -112,7 +112,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
      * @param coach Coach, le coach de la séance
      * @param sport Sport, le sport de la séance
      * @param exercices List<Exercice>, la liste des exercices de la séance
-     * @throws Exception
+     * @throws Exception si la création de la séance a échoué
      */
     public Seance createSeance(String nom, String description, double prix, Coach coach, Sport sport, List<Exercice> exercices) throws Exception{
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
@@ -132,14 +132,14 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             return this.getSeanceById(idSeance);
         }
         catch (Exception e){
-            throw new SQLException("La création de la séance a échoué");
+            throw new DBProblemException("La création de la séance a échoué");
         }
     }
 
     /**
      * @param idSport int, l'id du sport
      * @return la liste des séances qui font référence à ce sport
-     * @throws Exception
+     * @throws Exception si la sélection des séances a échoué
      */
     @Override
     public List<Seance> getSeanceFromSport(int idSport) throws Exception {
@@ -154,7 +154,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             return listeSeances;
         }
         catch (Exception e){
-            throw new SQLException("La séléction des séance en fonction du sport a échoué");
+            throw new DBProblemException("La séléction des séance en fonction du sport a échoué");
         }
     }
 
@@ -192,14 +192,14 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Impossible de récupérer toutes les séances");
+            throw new DBProblemException("Impossible de récupérer toutes les séances");
         }
     }
 
     /**
      * Supprimer la séance de la base de donnée
      * @param id int, l'id de la séance
-     * @throws Exception
+     * @throws Exception si la suppression de la séance a échoué
      */
     @Override
     public void supprimerSeance(int id) throws Exception {
@@ -216,7 +216,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppresion de la séance a échoué");
+            throw new DBProblemException("La suppresion de la séance a échoué");
         }
 
     }
@@ -225,7 +225,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
      * @param updateList List<Pair<String,Object>>, la liste des objet à modifié dans la table pour la séance
      * @param id int, l'id de la séance
      * @return l'object de type Seance qui a été mis à jour dans la base de donnée
-     * @throws Exception
+     * @throws Exception si la mise à jour de la séance a échoué
      */
     @Override
     public Seance updateSeance(List<Pair<String, Object>> updateList, int id) throws Exception {
@@ -236,7 +236,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             return this.getSeanceById(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour de la séance a échoué");
+            throw new DBProblemException("La mise à jour de la séance a échoué");
         }
     }
 
@@ -250,7 +250,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("L'ajout de l'exercice dans cette séance a échoué");
+            throw new DBProblemException("L'ajout de l'exercice dans cette séance a échoué");
         }
     }
 
@@ -263,7 +263,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "seanceexercice");
         }
         catch (Exception e){
-            throw new SQLException("La suppression de l'exercice dans cette séance a échoué");
+            throw new DBProblemException("La suppression de l'exercice dans cette séance a échoué");
         }
     }
 }

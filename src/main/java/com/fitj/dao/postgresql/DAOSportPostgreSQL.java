@@ -1,11 +1,11 @@
 package com.fitj.dao.postgresql;
 
-import com.fitj.classes.Materiel;
 import com.fitj.classes.Seance;
 import com.fitj.classes.Sport;
 import com.fitj.dao.DAOSport;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux sports
  *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public class DAOSportPostgreSQL extends DAOSport {
 
@@ -29,7 +29,7 @@ public class DAOSportPostgreSQL extends DAOSport {
     /**
      * Ajoute un sport dans la base de donnée
      * @param nom String, le nom du sport
-     * @throws SQLException si une erreur SQL est détectée
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
     public Sport createSport(String nom) throws Exception {
@@ -40,14 +40,14 @@ public class DAOSportPostgreSQL extends DAOSport {
             return this.getSportById(id);
         }
         catch (Exception e){
-            throw new SQLException("La création du sport a échoué");
+            throw new DBProblemException("La création du sport a échoué");
         }
     }
 
     /**
      * @param id int, l'id du sport
      * @return le sport dans la base de donnée contenant l'id rentré en paramètre
-     * @throws SQLException si une erreur SQL est détectée
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
     public Sport getSportById(int id) throws Exception {
@@ -56,15 +56,14 @@ public class DAOSportPostgreSQL extends DAOSport {
         try{
             ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (sportData.next()){
-                Sport sport = new Sport(id, sportData.getString("nom"));
-                return sport;
+                return new Sport(id, sportData.getString("nom"));
             }
             else {
-                throw new SQLException("Aucun sport avec cet id n'existe");
+                throw new DBProblemException("Aucun sport avec cet id n'existe");
             }
         }
         catch(Exception e){
-            throw new SQLException("La selection du sport a échoué");
+            throw new DBProblemException("La selection du sport a échoué");
         }
 
     }
@@ -76,15 +75,14 @@ public class DAOSportPostgreSQL extends DAOSport {
         try{
             ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (sportData.next()){
-                Sport sport = new Sport(sportData.getInt("id"), sportData.getString("nom"));
-                return sport;
+                return new Sport(sportData.getInt("id"), sportData.getString("nom"));
             }
             else {
-                throw new SQLException("Aucun sport avec ce nom n'existe");
+                throw new DBProblemException("Aucun sport avec ce nom n'existe");
             }
         }
         catch(Exception e){
-            throw new SQLException("La selection du sport a échoué");
+            throw new DBProblemException("La selection du sport a échoué");
         }
     }
 
@@ -111,7 +109,7 @@ public class DAOSportPostgreSQL extends DAOSport {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Impossible de récupérer tous les sports");
+            throw new DBProblemException("Impossible de récupérer tous les sports");
         }
     }
 
@@ -119,7 +117,7 @@ public class DAOSportPostgreSQL extends DAOSport {
     /**
      * Supprime le sport de la base de donnée
      * @param id int, l'id du sport
-     * @throws Exception
+     * @throws Exception si une erreur SQL est détectée
      */
     @Override
     public void supprimerSport(int id) throws Exception {
@@ -129,19 +127,18 @@ public class DAOSportPostgreSQL extends DAOSport {
         whereListClientSport.add(new Pair<>("idsport",id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereListClientSport,"clientsport");
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereListClientSport,"demandesport");
             this.supprimerSeanceSport(id);
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch (Exception e){
-            throw new SQLException("La suppression du sport a échoué");
+            throw new DBProblemException("La suppression du sport a échoué");
         }
     }
 
     /**
      * Supprimer les séances qui font référence à ce sport
      * @param id int, l'id du sport
-     * @throws SQLException
+     * @throws Exception si une erreur SQL est détectée
      */
     public void supprimerSeanceSport(int id) throws Exception {
         List<Seance> listeSeance = FactoryDAOPostgreSQL.getInstance().getDAOSeance().getSeanceFromSport(id);
@@ -165,7 +162,7 @@ public class DAOSportPostgreSQL extends DAOSport {
             return this.getSportById(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du sport a échoué");
+            throw new DBProblemException("La mise à jour du sport a échoué");
         }
     }
 
