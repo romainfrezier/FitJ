@@ -51,10 +51,16 @@ public abstract class DAOSeance extends DAO {
 
     /**
      * @return une liste de séance contenant toutes les séances présentes dans la base de donnée
-     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
      * @throws Exception
      */
-    public abstract List<Seance> getAllSeances(List<Pair<String,Object>> whereList) throws Exception;
+    public abstract List<Seance> getAllSeances() throws Exception;
+
+    /**
+     * @return une liste de séance contenant toutes les séances présentes dans la base de donnée
+     * @param whereList List<Pair<String,Object>>, la liste des conditions du where pour la requête
+     * @throws Exception
+     */
+    public abstract List<Seance> getAllSeancesWhere(List<Pair<String,Object>> whereList) throws Exception;
 
     /**
      * Supprimer de la base de donnée la séance avec l'id rentré en paramètre
@@ -70,6 +76,22 @@ public abstract class DAOSeance extends DAO {
      * @return
      */
     public abstract Seance updateSeance(List<Pair<String,Object>> updateList, int id) throws Exception;
+
+    /**
+     * Ajoute un exercice à la séance
+     * @param exercice Exercice, l'exercice à ajouter à la séance
+     * @param id int, l'id de la séance
+     * @throws Exception
+     */
+    public abstract void ajouterExercice(Exercice exercice, int id) throws Exception;
+
+    /**
+     * Supprime un exercice de la séance
+     * @param exercice Exercice, l'exercice à supprimer de la séance
+     * @param id int, l'id de la séance
+     * @throws Exception
+     */
+    public abstract void supprimerExercice(Exercice exercice,int id) throws Exception;
 
 
     /**

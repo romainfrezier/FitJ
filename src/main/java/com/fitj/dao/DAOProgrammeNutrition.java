@@ -49,11 +49,17 @@ public abstract class DAOProgrammeNutrition extends DAO{
     public abstract void supprimerProgrammeNutrition(int id) throws Exception;
 
     /**
-     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
      * @return la liste de tous les programmes nutrition
      * @throws Exception
      */
-    public abstract List<ProgrammeNutrition> getAllProgrammeNutrition(List<Pair<String,Object>> whereList) throws Exception;
+    public abstract List<ProgrammeNutrition> getAllProgrammeNutrition() throws Exception;
+
+    /**
+     * @return la liste de tous les programmes nutrition
+     * @param whereList List<Pair<String,Object>>, la liste des conditions du where pour la requête
+     * @throws Exception
+     */
+    public abstract List<ProgrammeNutrition> getAllProgrammeNutritionWhere(List<Pair<String,Object>> whereList) throws Exception;
 
     /**
      * @param id int, l'id du programme
@@ -61,6 +67,24 @@ public abstract class DAOProgrammeNutrition extends DAO{
      * @throws Exception
      */
     public abstract  List<Recette> getRecettes(int id) throws Exception;
+
+    /**
+     * Ajouter une recette au programme nutritif
+     * @param recette Recette, la recette à ajouter au programme nutritif
+     * @param id int, l'id du programme nutritif
+     * @throws Exception
+     */
+    public abstract void ajouterRecetteProgramme(Recette recette, int id) throws Exception;
+
+    /**
+     * Supprimer une recette du programme nutritif
+     * @param recette Recette, la recette à supprimer du programme nutritif
+     * @param id int, l'id du programme nutritif
+     * @throws Exception
+     */
+    public abstract void supprimerRecetteProgramme(Recette recette, int id) throws Exception;
+
+
 
 
 

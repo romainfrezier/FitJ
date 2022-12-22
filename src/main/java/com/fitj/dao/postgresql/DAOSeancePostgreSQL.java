@@ -159,13 +159,19 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     }
 
     @Override
-    public List<Seance> getAllSeances(List<Pair<String,Object>> whereList) throws Exception {
+    public List<Seance> getAllSeances() throws Exception {
+        return this.getAllSeancesWhere(new ArrayList<>());
+    }
+
+    public List<Seance> getAllSeancesWhere(List<Pair<String,Object>> whereList) throws Exception {
         List<Seance> listeSeances = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("client","id", "seance.idcoach"));
         joinList.add(new Triple<>("programmesportseance","idseance", "seance.id"));
         joinList.add(new Triple<>("packseance","idseance", "seance.id"));
         joinList.add(new Triple<>("seanceexercice","idseance", "seance.id"));
+        joinList.add(new Triple<>("avisseance","idseance", "seance.id"));
+        joinList.add(new Triple<>("commandeseance","idseance", "seance.id"));
         try {
             ResultSet seancesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentSeance = -1;
@@ -204,6 +210,9 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         try {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandeseance");
             ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"seanceexercice");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"avisseance");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"packseance");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"programmesportseance");
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
@@ -228,6 +237,33 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         }
         catch (Exception e){
             throw new SQLException("La mise à jour de la séance a échoué");
+        }
+    }
+
+    @Override
+    public void ajouterExercice(Exercice exercice, int id) throws Exception {
+        List<Pair<String, Object>> insertList = new ArrayList<>();
+        insertList.add(new Pair<>("idexercice", exercice.getId()));
+        insertList.add(new Pair<>("idseance", id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "seanceexercice");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException("L'ajout de l'exercice dans cette séance a échoué");
+        }
+    }
+
+    @Override
+    public void supprimerExercice(Exercice exercice, int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idexercice", exercice.getId()));
+        whereList.add(new Pair<>("idseance", id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "seanceexercice");
+        }
+        catch (Exception e){
+            throw new SQLException("La suppression de l'exercice dans cette séance a échoué");
         }
     }
 }

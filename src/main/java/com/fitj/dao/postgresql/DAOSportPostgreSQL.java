@@ -89,7 +89,11 @@ public class DAOSportPostgreSQL extends DAOSport {
     }
 
     @Override
-    public List<Sport> getAllSport(List<Pair<String, Object>> whereList) throws Exception {
+    public List<Sport> getAllSport() throws Exception {
+        return this.getAllSportWhere(new ArrayList<>());
+    }
+
+    public List<Sport> getAllSportWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Sport> listeSport = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("clientsport","idsport", "sport.id"));

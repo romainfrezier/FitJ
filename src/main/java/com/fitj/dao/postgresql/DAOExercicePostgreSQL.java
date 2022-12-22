@@ -49,7 +49,12 @@ public class DAOExercicePostgreSQL extends DAOExercice {
     }
 
     @Override
-    public List<Exercice> getAllExercices(List<Pair<String, Object>> whereList) throws Exception {
+    public List<Exercice> getAllExercice() throws Exception{
+        return this.getAllExerciceWhere(new ArrayList<>());
+    }
+
+    @Override
+    public List<Exercice> getAllExerciceWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Exercice> listExercice = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("exercicemateriel","idexercice", "exercice.id"));

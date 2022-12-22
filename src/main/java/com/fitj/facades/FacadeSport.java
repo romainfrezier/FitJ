@@ -23,7 +23,7 @@ public class FacadeSport extends Facade {
     }
 
     public List<Sport> getAllSports() throws Exception {
-        return this.daoSport.getAllSports();
+        return this.daoSport.getAllSport();
     }
 
     public void createSport(String sport) throws Exception {

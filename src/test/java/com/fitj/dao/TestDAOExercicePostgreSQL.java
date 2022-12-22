@@ -53,9 +53,9 @@ public class TestDAOExercicePostgreSQL {
     @Test
     public void testGetAllExercice() throws Exception {
         Exercice exercice1 = daoExercicePostgreSQL.createExercice("Traction", "Se lever au dessus de la barre");
-        int nbExerciceBD = daoExercicePostgreSQL.getAllExercices(new ArrayList<>()).size();
+        int nbExerciceBD = daoExercicePostgreSQL.getAllExercice().size();
         daoExercicePostgreSQL.supprimerExercice(exercice1.getId());
-        Assertions.assertTrue(nbExerciceBD == daoExercicePostgreSQL.getAllExercices(new ArrayList<>()).size() + 1);
+        Assertions.assertTrue(nbExerciceBD == daoExercicePostgreSQL.getAllExercice().size() + 1);
     }
 
 }

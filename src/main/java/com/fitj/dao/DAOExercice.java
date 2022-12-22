@@ -1,6 +1,7 @@
 package com.fitj.dao;
 
 import com.fitj.classes.Exercice;
+import com.fitj.classes.Sport;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 
@@ -28,10 +29,16 @@ public abstract class DAOExercice extends DAO {
 
     /**
      * @return une liste contenant tous les exercices dans la base de donnée
-     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
      * @throws Exception
      */
-    public abstract List<Exercice> getAllExercices(List<Pair<String,Object>> whereList) throws Exception;
+    public abstract List<Exercice> getAllExercice() throws Exception;
+
+    /**
+     * @return une liste contenant tous les exercices dans la base de donnée
+     * @param whereList List<Pair<String,Object>>, la liste des conditions du where pour la requête
+     * @throws Exception
+     */
+    public abstract List<Exercice> getAllExerciceWhere(List<Pair<String,Object>> whereList) throws Exception;
 
     /**
      * Creer un exercice dans la base de donnée

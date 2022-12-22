@@ -54,11 +54,11 @@ public class TestDAOSportPostgreSQL {
         Sport sportBD1 = daoSportPostgreSQL.createSport("Muscu");
         Sport sportBD2 = daoSportPostgreSQL.createSport("Badminton");
         Sport sportBD3 = daoSportPostgreSQL.createSport("Natation");
-        int nbSportBD = daoSportPostgreSQL.getAllSport(new ArrayList<>()).size();
+        int nbSportBD = daoSportPostgreSQL.getAllSport().size();
         daoSportPostgreSQL.supprimerSport(sportBD1.getId());
         daoSportPostgreSQL.supprimerSport(sportBD2.getId());
         daoSportPostgreSQL.supprimerSport(sportBD3.getId());
-        Assertions.assertTrue(nbSportBD == daoSportPostgreSQL.getAllSport(new ArrayList<>()).size() + 3);
+        Assertions.assertTrue(nbSportBD == daoSportPostgreSQL.getAllSport().size() + 3);
     }
 
 

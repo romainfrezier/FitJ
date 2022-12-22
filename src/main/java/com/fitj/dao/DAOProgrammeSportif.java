@@ -49,18 +49,40 @@ public abstract class DAOProgrammeSportif extends DAO{
     public abstract void supprimerProgrammeSportif(int id) throws Exception;
 
     /**
-     * @param whereList List<Pair<String,Object>>, La liste des conditions du where à respecter (peut être vide)
      * @return la liste de tous les programmes sportif
      * @throws Exception
      */
-    public abstract List<ProgrammeSportif> getAllProgrammeSportif(List<Pair<String,Object>> whereList) throws Exception;
+    public abstract List<ProgrammeSportif> getAllProgrammeSportif() throws Exception;
+
+    /**
+     * @return la liste de tous les programmes sportif
+     * @param whereList List<Pair<String,Object>>, la liste des conditions du where pour la requête
+     * @throws Exception
+     */
+    public abstract List<ProgrammeSportif> getAllProgrammeSportifWhere(List<Pair<String,Object>> whereList) throws Exception;
 
     /**
      * @param id int, l'id du programme
      * @return la liste des séances du programme
      * @throws Exception
      */
-    public abstract  List<Seance> getSeances(int id) throws Exception;
+    public abstract List<Seance> getSeances(int id) throws Exception;
+
+    /**
+     * Ajouter une séance au programme sportif
+     * @param seance Seance, la séance à ajouter au programme sportif
+     * @param id int, l'id du programme sportif
+     * @throws Exception
+     */
+    public abstract void ajouterSeanceProgramme(Seance seance, int id) throws Exception;
+
+    /**
+     * Supprimer une séance du programme sportif
+     * @param seance Seance, la séance à supprimer du programme sportif
+     * @param id int, l'id du programme sportif
+     * @throws Exception
+     */
+    public abstract void supprimerSeanceProgramme(Seance seance, int id) throws Exception;
 
 
 }

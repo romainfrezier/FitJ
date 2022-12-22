@@ -206,7 +206,7 @@ public class MethodesPostgreSQL extends MethodesBD{
         }
         sql += ";";
         PreparedStatement query = this.getConnexion().prepareStatement(sql);
-        System.out.println(query);
+        //System.out.println(query);
         ResultSet result = query.executeQuery();
         this.close();
         return result;
