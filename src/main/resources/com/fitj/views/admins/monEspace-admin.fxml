@@ -31,7 +31,27 @@
           </Tab>
             <Tab text="Alimentation">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane prefHeight="602.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Recettes">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                            <Tab text="Aliments">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <fx:include source="../../components/aliments/list-aliment.fxml" />
+                                    </children>
+                                </AnchorPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
               </content>
             </Tab>
             <Tab text="Sports">
