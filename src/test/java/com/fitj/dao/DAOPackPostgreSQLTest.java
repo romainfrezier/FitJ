@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDAOPackPostgreSQL {
+public class DAOPackPostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests

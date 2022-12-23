@@ -19,7 +19,7 @@ import java.util.List;
  * @see DAOClientPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOClientPostgreSQL {
+public class DAOClientPostgreSQLTest {
 
     /**
      * Objets utilisés pour les tests

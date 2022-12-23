@@ -17,7 +17,7 @@ import java.util.List;
  * @see DAOMaterielPostgreSQL
  * @author Romain Frezier
  */
-public class TestDAOMaterielPostgreSQL {
+public class DAOMaterielPostgreSQLTest {
 
     /**
      * Objet Materiel

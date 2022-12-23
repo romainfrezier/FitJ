@@ -19,7 +19,7 @@ import java.util.List;
  * @see DAOSeancePostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOSeancePostgreSQL {
+public class DAOSeancePostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests

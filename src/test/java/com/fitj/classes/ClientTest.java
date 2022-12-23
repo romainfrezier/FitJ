@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
  * @see Client
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestClient {
+public class ClientTest {
 
     /**
      * Objets clients utilisés pour les tests

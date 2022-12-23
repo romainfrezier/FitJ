@@ -78,7 +78,6 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             }
         }
         catch(Exception e){
-            e.printStackTrace();
             throw new DBProblemException("La sélection du programme personnalisé a échoué");
         }
     }

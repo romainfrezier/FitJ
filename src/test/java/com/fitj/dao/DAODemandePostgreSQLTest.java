@@ -3,8 +3,6 @@ package com.fitj.dao;
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.postgresql.DAODemandePostgreSQL;
-import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
-import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
@@ -16,21 +14,42 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDAODemandePostgreSQL {
+/**
+ * Classe de test de la classe DAODemandePostgreSQL
+ * @see DAODemandePostgreSQL
+ * @author Etienne Tillier, Romain Frezier
+ */
+public class DAODemandePostgreSQLTest {
 
-
+    /**
+     * Objets utilisés pour les tests
+     */
     private static ProgrammePersonnalise programmePersonnaliseBD;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static DAODemandePostgreSQL daoDemandePostgreSQL;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Demande demande;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Sport sport;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Coach coach;
 
-
-
+    /**
+     * Initialisation des objets utilisés pour les tests
+     * @throws Exception si la requête SQL échoue
+     */
     @BeforeAll
     public static void init() throws Exception {
         daoDemandePostgreSQL = new DAODemandePostgreSQL();
@@ -40,28 +59,42 @@ public class TestDAODemandePostgreSQL {
         demande = daoDemandePostgreSQL.createDemande(6,"Je suis Francis jaimerai manger plus et rester au meme poids", true, true,4, 9, sport, programmePersonnaliseBD);
     }
 
+    /**
+     * Méthode utilisée après tous les tests pour supprimer la demande créée et le programme personnalise créé
+     * @throws Exception si la requête SQL échoue
+     */
     @AfterAll
     public static void fin() throws Exception {
         FactoryDAOPostgreSQL.getInstance().getDAOProgrammePersonnalise().supprimerProgrammePersonnalise(programmePersonnaliseBD.getId());
         daoDemandePostgreSQL.supprimerDemande(demande.getId());
     }
 
+    /**
+     * Test de la méthode createDemande de la classe DAODemandePostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testCreateDemande() throws Exception {
-        //pb string ''
-        Assertions.assertTrue(demande.getDescription().equals("Je suis Francis jaimerai manger plus et rester au meme poids"));
+        // TODO pb string ''
+        Assertions.assertEquals("Je suis Francis jaimerai manger plus et rester au meme poids", demande.getDescription());
     }
 
-
+    /**
+     * Test de la méthode updateDemande de la classe DAODemandePostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testDemandeUpdate() throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("nbmois",9));
         Demande demande1 = daoDemandePostgreSQL.updateDemande(updateList,demande.getId());
-        Assertions.assertTrue(demande1.getNbMois() == 9);
+        Assertions.assertEquals(9, demande1.getNbMois());
     }
 
-
+    /**
+     * Test de la méthode deleteDemande de la classe DAODemandePostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testDemandeDelete() throws Exception {
         daoDemandePostgreSQL.supprimerDemande(demande.getId());
@@ -69,12 +102,14 @@ public class TestDAODemandePostgreSQL {
                 () -> daoDemandePostgreSQL.getDemandeById(demande.getId()));
     }
 
+    /**
+     * Test de la méthode getAllDemande de la classe DAODemandePostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
     public void testGetAllDemande() throws Exception {
         int nbSeanceBD = daoDemandePostgreSQL.getAllDemande().size();
         daoDemandePostgreSQL.supprimerDemande(demande.getId());
-        Assertions.assertTrue(nbSeanceBD == daoDemandePostgreSQL.getAllDemande().size() + 1);
+        Assertions.assertEquals(nbSeanceBD, daoDemandePostgreSQL.getAllDemande().size() + 1);
     }
-
-
 }

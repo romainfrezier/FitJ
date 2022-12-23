@@ -1,7 +1,6 @@
 package com.fitj.dao;
 
 import com.fitj.classes.Exercice;
-import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOExercicePostgreSQL;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
@@ -18,7 +17,7 @@ import java.util.List;
  * @see DAOExercicePostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOExercicePostgreSQL {
+public class DAOExercicePostgreSQLTest {
 
     /**
      * Objets utilisés pour les tests

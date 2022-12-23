@@ -17,7 +17,7 @@ import java.util.List;
  * @see DAOSportPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOSportPostgreSQL {
+public class DAOSportPostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests
