@@ -130,7 +130,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         joinList.add(new Triple<>("programmepersonnaliseprogrammenutrition","idprogrammenutrition", "programmenutrition.id"));
         joinList.add(new Triple<>("programmesportseance","idprogramme", "programmenutrition.id"));
         joinList.add(new Triple<>("avisprogrammesportif","idprogramme", "programmenutrition.id"));
-        joinList.add(new Triple<>("commandeprogrammesportif","idprogramme", "programmenutrition.id"));
+        joinList.add(new Triple<>("commandeprogrammenutrition","idprogramme", "programmenutrition.id"));
         try {
             ResultSet programmeBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentProgramme = -1;

@@ -56,6 +56,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
             return this.getProgrammePersonnaliseId(idProgramme);
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La création du programme personnalisé avec demande a échoué");
         }
     }

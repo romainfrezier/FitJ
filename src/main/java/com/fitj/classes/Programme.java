@@ -2,7 +2,6 @@ package com.fitj.classes;
 
 import com.fitj.enums.ProgrammeType;
 
-import java.util.*;
 
 /**
  * Cette classe représente un Programme, qui est un type de Produit.
@@ -30,6 +29,10 @@ public abstract class Programme extends Produit {
         super(id, nom, description, prix, coach);
         this.type = type;
         this.nbMois = nbMois;
+    }
+
+    public Programme(int idProduit) {
+        super(idProduit);
     }
 
     /**

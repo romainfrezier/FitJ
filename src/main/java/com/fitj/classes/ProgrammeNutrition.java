@@ -29,6 +29,10 @@ public class ProgrammeNutrition extends Programme {
         this.listeRecette = listeRecette;
     }
 
+    public ProgrammeNutrition(int idProduit) {
+        super(idProduit);
+    }
+
     /**
      * @return la liste des recettes du programme
      */

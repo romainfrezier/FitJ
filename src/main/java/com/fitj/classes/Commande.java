@@ -1,6 +1,5 @@
 package com.fitj.classes;
 
-import java.util.*;
 
 /**
  * Classe qui représente une commande.
@@ -29,18 +28,33 @@ public abstract class Commande {
      */
     private Produit produit;
 
+    /**
+     * La demande de la commande
+     */
+    private Demande demande;
+
 
     /**
-     * Constructeur par défaut
+     * Constructeur
      */
     public Commande(Client client, Coach coach, Produit produit, int id) {
         this.client = client;
         this.coach = coach;
         this.produit = produit;
         this.id = id;
+        this.demande = null;
     }
 
-
+    /**
+     * Constructeur avec demande
+     */
+    public Commande(Client client, Coach coach, Produit produit, int id, Demande demande) {
+        this.client = client;
+        this.coach = coach;
+        this.produit = produit;
+        this.id = id;
+        this.demande = demande;
+    }
 
     /**
      * @return le client de la commande
@@ -61,6 +75,13 @@ public abstract class Commande {
      */
     public Produit getProduit() {
         return produit;
+    }
+
+    /**
+     * @return la demande de la commande
+     */
+    public Demande getDemande() {
+        return demande;
     }
 
     /**
@@ -85,6 +106,14 @@ public abstract class Commande {
      */
     public void setProduit(Produit produit) {
         this.produit = produit;
+    }
+
+    /**
+     * Set la demande de la commande
+     * @param demande Demande, la demande de la commande
+     */
+    public void setDemande(Demande demande) {
+        this.demande = demande;
     }
 
     /**
