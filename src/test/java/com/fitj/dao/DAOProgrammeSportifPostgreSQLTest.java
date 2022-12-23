@@ -20,7 +20,7 @@ import java.util.List;
  * @see DAOProgrammeSportifPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOProgrammeSportifPostgreSQL {
+public class DAOProgrammeSportifPostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests

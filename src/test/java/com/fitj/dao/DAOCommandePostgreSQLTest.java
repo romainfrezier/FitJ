@@ -9,22 +9,52 @@ import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe de test de la classe DAOCommandePostgreSQL
+ * @author Romain Frezier
+ * @see DAOCommandePostgreSQL
+ */
 class DAOCommandePostgreSQLTest {
 
+    /**
+     * Instance de la classe DAOCommandePostgreSQL utilisée pour les tests
+     */
     private static DAOCommandePostgreSQL daoCommandePostgreSQL;
 
+    /**
+     * Instance de la classe Commande utilisée pour les tests
+     */
     private static Commande commande;
 
+    /**
+     * Instance de la classe Commande utilisée pour les tests
+     */
     private static Commande commandeBD;
 
+    /**
+     * Instance de la classe Produit utilisée pour les tests
+     */
     private static Produit produit;
 
+    /**
+     * Instance de la classe PaiementType utilisée pour les tests
+     */
     private static PaiementType paiementType;
 
+    /**
+     * Instance de la classe Client utilisée pour les tests
+     */
     private static Client client;
 
+    /**
+     * Instance de la classe Coach utilisée pour les tests
+     */
     private static Coach coach;
 
+    /**
+     * Initialisation des instances utilisées pour les tests
+     * @throws Exception si une erreur est survenue lors de l'initialisation des tests
+     */
     @BeforeAll
     public static void init() throws Exception {
         daoCommandePostgreSQL = new DAOCommandePostgreSQL();
@@ -36,16 +66,27 @@ class DAOCommandePostgreSQLTest {
         commandeBD = daoCommandePostgreSQL.createCommande(client.getId(), coach.getId(), produit, paiementType);
     }
 
+    /**
+     * Méthode appelée après que tous les tests ont été exécutés
+     * @throws Exception si une erreur est survenue lors de la suppression des données de tests
+     */
     @AfterAll
     public static void clean() throws Exception {
         daoCommandePostgreSQL.deleteCommande(commandeBD.getId());
     }
 
+    /**
+     * Test de la méthode createCommande
+     */
     @Test
     public void createCommande() {
         Assertions.assertEquals(commandeBD.getClient().getId(), commande.getClient().getId());
     }
 
+    /**
+     * Test de la méthode createCommande avec une demande
+     * @throws Exception si une erreur est survenue lors de la récupération de la commande
+     */
     @Test
     public void createCommandeWithDemande() throws Exception {
         DAODemandePostgreSQL daoDemandePostgreSQL = new DAODemandePostgreSQL();
@@ -61,6 +102,10 @@ class DAOCommandePostgreSQLTest {
         Assertions.assertEquals(commandeBD_pers.getProduit().getId(), produit_pers.getId());
     }
 
+    /**
+     * Test de la méthode getCommandeById
+     * @throws Exception si une erreur est survenue lors de la récupération de la commande
+     */
     @Test
     public void getCommandeById() throws Exception {
         Commande commandeBD1 = daoCommandePostgreSQL.getCommandeById(commandeBD.getId());
@@ -69,24 +114,40 @@ class DAOCommandePostgreSQLTest {
         Assertions.assertEquals(commandeBD.getProduit().getId(), commandeBD1.getProduit().getId());
     }
 
+    /**
+     * Test de la méthode getCommandeByIdClient
+     * @throws Exception si une erreur est survenue lors de la récupération des commandes
+     */
     @Test
     public void getCommandeByIdClient() throws Exception {
         List<Commande> commandes = daoCommandePostgreSQL.getCommandeByIdClient(client.getId());
         Assertions.assertEquals(commandes.get(0).getClient().getId(), client.getId());
     }
 
+    /**
+     * Test de la méthode getCommandeByIdCoach
+     * @throws Exception si une erreur est survenue lors de la récupération des commandes
+     */
     @Test
     public void getCommandeByIdCoach() throws Exception {
         List<Commande> commandes = daoCommandePostgreSQL.getCommandeByIdCoach(coach.getId());
         Assertions.assertEquals(commandes.get(0).getCoach().getId(), coach.getId());
     }
 
+    /**
+     * Test de la méthode getCommandeByProduit
+     * @throws Exception si une erreur est survenue lors de la récupération des commandes
+     */
     @Test
     public void getCommandeByProduit() throws Exception {
         List<Commande> commandes = daoCommandePostgreSQL.getCommandeByProduit(produit);
         Assertions.assertEquals(commandes.get(0).getProduit().getId(), produit.getId());
     }
 
+    /**
+     * Test de la méthode getAllCommande
+     * @throws Exception si une erreur est survenue lors de la récupération des commandes
+     */
     @Test
     public void getAllCommande() throws Exception {
         int size = daoCommandePostgreSQL.getAllCommande().size();
@@ -96,6 +157,10 @@ class DAOCommandePostgreSQLTest {
         Assertions.assertEquals(size1, size + 1);
     }
 
+    /**
+     * Test de la méthode getAllCommandeWhere
+     * @throws Exception si une erreur est survenue lors de la récupération des commandes
+     */
     @Test
     public void getAllCommandeWhere() throws Exception {
         List<Pair<String,Object>> where = new ArrayList<>();
@@ -104,6 +169,10 @@ class DAOCommandePostgreSQLTest {
         Assertions.assertEquals(commandes.get(0).getId(), commandeBD.getId());
     }
 
+    /**
+     * Test de la méthode deleteCommande
+     * @throws Exception si une erreur est survenue lors de la suppression de la commande
+     */
     @Test
     public void deleteCommande() throws Exception {
         DAODemandePostgreSQL daoDemandePostgreSQL = new DAODemandePostgreSQL();
@@ -123,6 +192,10 @@ class DAOCommandePostgreSQLTest {
         Assertions.assertEquals(size1, size - 1);
     }
 
+    /**
+     * Test de la méthode updateCommande
+     * @throws Exception si une erreur est survenue lors de la mise à jour de la commande
+     */
     @Test
     public void updateCommande() throws Exception {
         Client client1 = new DAOClientPostgreSQL().getClientAccount(48);

@@ -20,7 +20,7 @@ import java.util.List;
  * @see DAORecettePostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAORecettePostgreSQL {
+public class DAORecettePostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests

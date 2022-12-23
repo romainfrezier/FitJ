@@ -17,7 +17,7 @@ import java.util.List;
  * @see DAOAlimentPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOAlimentPostgreSQL {
+public class DAOAlimentPostgreSQLTest {
 
     /**
      * Objets utilisés pour les tests

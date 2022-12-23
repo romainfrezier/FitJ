@@ -3,8 +3,6 @@ package com.fitj.dao;
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammePersonnalisePostgreSQL;
-import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
-import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
@@ -12,31 +10,65 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDAOProgrammePersonnalisePostgreSQL {
+/**
+ * Classe de test de la DAO ProgrammePersonnalisePostgreSQL
+ * @see DAOProgrammePersonnalisePostgreSQL
+ * @author Etienne Tillier, Romain Frezier
+ */
+public class DAOProgrammePersonnalisePostgreSQLTest {
 
-
+    /**
+     * Objet utilisé pour les tests
+     */
     private static ProgrammePersonnalise programmePersonnalise;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static ProgrammePersonnalise programmePersonnaliseDemande;
+
+    /**
+     * Objet utilisé pour les tests
+     */
     private static DAOProgrammePersonnalisePostgreSQL daoProgrammePersonnalisePostgreSQL;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Coach coach;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static ArrayList<Programme> listeProgramme;
 
+    /**
+     * Initialisation des objets utilisés pour les tests
+     */
     private static Demande demande;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Sport sport;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static ProgrammeSportif programmeSportif;
 
+    /**
+     * Objet utilisé pour les tests
+     */
     private static ProgrammeNutrition programmeNutrition;
 
-
+    /**
+     * Initialisation des objets utilisés pour les tests
+     * @throws Exception si une erreur survient
+     */
     @BeforeAll
     public static void init() throws Exception {
         try {
@@ -56,60 +88,84 @@ public class TestDAOProgrammePersonnalisePostgreSQL {
 
     }
 
+    /**
+     * Suppression des objets utilisés pour les tests
+     * @throws Exception si la suppression échoue
+     */
     @AfterAll
     public static void fin() throws Exception{
-        try {
-            daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnalise.getId());
-            daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnaliseDemande.getId());
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnalise.getId());
+        daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnaliseDemande.getId());
     }
 
+    /**
+     * Test de la méthode createProgrammePersonnalise
+     */
     @Test
-    public void testCreateProgrammePersonnalise() throws Exception {
-        Assertions.assertTrue(programmePersonnalise.getDescription().equals("Je veux devenir superman"));
+    public void testCreateProgrammePersonnalise() {
+        Assertions.assertEquals("Je veux devenir superman", programmePersonnalise.getDescription());
     }
 
+    /**
+     * Test de la méthode createDemandeProgrammePersonnalise
+     */
     @Test
-    public void testCreateDemandeProgrammePersonnalise() throws Exception {
-        Assertions.assertTrue(programmePersonnaliseDemande.getDescription().equals("Je veux devenir superman"));
+    public void testCreateDemandeProgrammePersonnalise() {
+        Assertions.assertEquals("Je veux devenir superman", programmePersonnaliseDemande.getDescription());
     }
 
-
+    /**
+     * Test de la méthode updateProgrammePersonnalise
+     * @throws Exception si la requête échoue
+     */
     @Test
     public void testProgrammePersonnaliseUpdate() throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("prix",600));
         programmePersonnaliseDemande = daoProgrammePersonnalisePostgreSQL.updateProgrammePersonnalise(updateList,programmePersonnaliseDemande.getId());
-        Assertions.assertTrue(programmePersonnaliseDemande.getPrix() == 600);
+        Assertions.assertEquals(600, programmePersonnaliseDemande.getPrix());
     }
 
-
+    /**
+     * Test de la méthode deleteProgrammePersonnalise
+     * @throws Exception si la requête échoue
+     */
     @Test
     public void testProgrammePersonnaliseDelete() throws Exception {
-        daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnaliseDemande.getId());
-        Assertions.assertThrows(SQLException.class,
-                () -> daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId()));
+        ProgrammePersonnalise programmePersonnalise = daoProgrammePersonnalisePostgreSQL.createProgrammePersonnalise("ProgrammeMaster", "Je veux devenir superman", 1000, coach);
+        daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnalise.getId());
+        Assertions.assertThrows(Exception.class, () -> daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnalise.getId()));
     }
 
+    /**
+     * Test de la méthode getAllProgrammePersonnalise
+     * @throws Exception si la requête échoue
+     */
     @Test
     public void testGetAllProgrammePersonnalise() throws Exception {
-        int nbSeanceBD = daoProgrammePersonnalisePostgreSQL.getAllProgrammePersonnalise().size();
-        daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnaliseDemande.getId());
-        Assertions.assertTrue(nbSeanceBD == daoProgrammePersonnalisePostgreSQL.getAllProgrammePersonnalise().size() + 1);
+        ProgrammePersonnalise programmePersonnalise = daoProgrammePersonnalisePostgreSQL.createProgrammePersonnalise("ProgrammeMaster", "Je veux devenir superman", 1000, coach);
+        int size = daoProgrammePersonnalisePostgreSQL.getAllProgrammePersonnalise().size();
+        daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnalise.getId());
+        Assertions.assertEquals(size, daoProgrammePersonnalisePostgreSQL.getAllProgrammePersonnalise().size() + 1);
     }
 
+    /**
+     * Test de la méthode supprimerProgrammeProgrammePersonnalise
+     * @throws Exception si la requête échoue
+     */
     @Test
     public void testSupprimerProgrammeProgrammePersonnalise() throws Exception {
         daoProgrammePersonnalisePostgreSQL.ajouterProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
         ProgrammePersonnalise programmePersonnalise1 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
         ProgrammePersonnalise programmePersonnalise2 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
-        Assertions.assertTrue(programmePersonnalise1.getListeProgrammes().size() == 1 && programmePersonnalise2.getListeProgrammes().isEmpty());
+        Assertions.assertEquals(programmePersonnalise1.getListeProgrammes().size(), programmePersonnalise2.getListeProgrammes().size() + 1);
     }
 
+    /**
+     * Test de la méthode ajouterProgrammeProgrammePersonnalise
+     * @throws Exception si la requête échoue
+     */
     @Test
     public void testAjouterProgrammeProgrammePersonnalise() throws Exception {
         daoProgrammePersonnalisePostgreSQL.ajouterProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
@@ -117,7 +173,8 @@ public class TestDAOProgrammePersonnalisePostgreSQL {
         ProgrammePersonnalise programmePersonnalise1 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammeProgrammePersonnalise(programmeSportif,programmePersonnaliseDemande.getId());
-        Assertions.assertTrue(programmePersonnaliseDemande.getListeProgrammes().isEmpty() && programmePersonnalise1.getListeProgrammes().size() == 2);
+        ProgrammePersonnalise programmePersonnalise2 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
+        Assertions.assertEquals(programmePersonnalise2.getListeProgrammes().size(), programmePersonnalise1.getListeProgrammes().size() - 2);
     }
 
 }

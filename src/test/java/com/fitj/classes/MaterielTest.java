@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @see Materiel
  * @author Romain Frezier
  */
-public class TestMateriel {
+public class MaterielTest {
 
     /**
      * Objet Materiel

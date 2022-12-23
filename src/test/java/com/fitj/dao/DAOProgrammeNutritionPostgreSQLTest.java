@@ -3,7 +3,6 @@ package com.fitj.dao;
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammeNutritionPostgreSQL;
-import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
@@ -21,7 +20,7 @@ import java.util.List;
  * @see DAOProgrammeNutritionPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOProgrammeNutritionPostgreSQL {
+public class DAOProgrammeNutritionPostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests
