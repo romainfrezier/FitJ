@@ -3,7 +3,6 @@ package com.fitj.classes;
 import com.fitj.interfaces.CommentReceiver;
 import com.fitj.interfaces.Sendable;
 
-import java.util.*;
 
 /**
  * Une classe abstraite qui représente un produit.
@@ -45,6 +44,13 @@ public abstract class Produit implements Sendable, CommentReceiver {
         this.description = description;
         this.prix = prix;
         this.coach = coach;
+    }
+
+    /**
+     * Constructeur avec un id
+     */
+    public Produit(int id) {
+        this.id = id;
     }
 
     /**

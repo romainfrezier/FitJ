@@ -33,7 +33,6 @@ public class DAONotificationPostgreSQL extends DAONotification {
         insertList.add( new Pair<>("idcommande", idCommande));
         try {
             int id = ((MethodesPostgreSQL)this.methodesBD).insert(insertList, this.table);
-            System.out.println("id = " + id);
             return this.getNotificationById(id);
         } catch (Exception e) {
             e.printStackTrace();

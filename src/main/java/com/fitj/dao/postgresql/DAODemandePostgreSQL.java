@@ -107,7 +107,6 @@ public class DAODemandePostgreSQL extends DAODemande {
         listeInsert.add(new Pair<>("etat", DemandeEtat.getDemandeEtat(DemandeEtat.EN_ATTENTE)));
         try {
             int idDemande = ((MethodesPostgreSQL)this.methodesBD).insert(listeInsert, this.table);
-            System.out.println("idemande  =  " + idDemande);
             Demande demande = new Demande(idDemande, nbMois, description, programmeSportif, programmeNutrition, nbSeanceSemaine, nbRecetteSemaine, sport, DemandeEtat.EN_ATTENTE);
             ProgrammePersonnalise programmePersonnalise1 = FactoryDAOPostgreSQL.getInstance().getDAOProgrammePersonnalise().createProgrammePersonnaliseDemande(programmePersonnalise,demande);
             return this.updateProgrammePersonnalise(programmePersonnalise1.getId(), idDemande);

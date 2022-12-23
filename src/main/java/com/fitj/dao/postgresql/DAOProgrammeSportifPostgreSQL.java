@@ -64,7 +64,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
                 return new ProgrammeSportif(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),ProgrammeType.getProgrammeType(programmeDB.getString("type")), programmeDB.getInt("nbmois"),coach,listeSeance);
             }
             else {
-                throw new DBProblemException("Aucune programme sportif avec cet id n'existe");
+                throw new DBProblemException("Aucun programme sportif avec cet id n'existe");
             }
         }
         catch(Exception e){

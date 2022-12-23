@@ -26,6 +26,10 @@ public class Pack extends Produit {
         this.listeProduit = listeProduit;
     }
 
+    public Pack(int idpack) {
+        super(idpack);
+    }
+
     /**
      * @return la liste des produits
      */

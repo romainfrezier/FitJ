@@ -29,6 +29,10 @@ public class ProgrammeSportif extends Programme {
         this.listeSeance = listeSeance;
     }
 
+    public ProgrammeSportif(int idProduit) {
+        super(idProduit);
+    }
+
     /**
      * @return la liste des séances du programme
      */
