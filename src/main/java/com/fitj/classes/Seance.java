@@ -41,6 +41,10 @@ public class Seance extends Produit {
         this.sport = sport;
     }
 
+    public Seance(int idseance) {
+        super(idseance);
+    }
+
     /**
      * Ajoute un exercice à la séance
      * @param exercice Exercice, l'exercice à ajouter à la séance

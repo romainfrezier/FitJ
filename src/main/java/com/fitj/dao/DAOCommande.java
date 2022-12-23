@@ -56,21 +56,22 @@ public abstract class DAOCommande extends DAO {
      * @return un objet de type Commande dans la base de donnée avec l'id du client rentré en paramètre
      * @throws Exception si une erreur SQL est rencontrée
      */
-    public abstract Commande getCommandeByIdClient(int client) throws Exception;
+    public abstract List<Commande> getCommandeByIdClient(int client) throws Exception;
 
     /**
      * @param coach int, l'id du coach
      * @return un objet de type Commande dans la base de donnée avec l'id du coach rentré en paramètre
      * @throws Exception si une erreur SQL est rencontrée
      */
-    public abstract Commande getCommandeByIdCoach(int coach) throws Exception;
+    public abstract List<Commande> getCommandeByIdCoach(int coach) throws Exception;
 
     /**
-     * @param produit int, l'id du produit
+     * @param produit Produit, le produit associé à la commande
      * @return un objet de type Commande dans la base de donnée avec l'id du produit rentré en paramètre
      * @throws Exception si une erreur SQL est rencontrée
      */
-    public abstract Commande getCommandeByIdProduit(int produit) throws Exception;
+    public abstract List<Commande> getCommandeByProduit(Produit produit) throws Exception;
+
 
     /**
      * @return List<Commande>, liste de toutes les commandes présentes dans la base de donnée

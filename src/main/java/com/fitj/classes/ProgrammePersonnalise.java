@@ -57,6 +57,10 @@ public class ProgrammePersonnalise extends Service {
         this.listeProgrammes = new ArrayList<>();
     }
 
+    public ProgrammePersonnalise(int idProduit) {
+        super(idProduit);
+    }
+
     /**
      * Set la demande du programme
      * @param demande Demande, la demande du programme
@@ -86,10 +90,6 @@ public class ProgrammePersonnalise extends Service {
     public void setListeProgrammes(List<Programme> listeProgrammes) {
         this.listeProgrammes = listeProgrammes;
     }
-
-    /**
-     * @return si le programme personnalisé doit contenir des programmes sportifs
-     */
 
     /**
      * Reçoit un commentaire pour le programme personnalisé.

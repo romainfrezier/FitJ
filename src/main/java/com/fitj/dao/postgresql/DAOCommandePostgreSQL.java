@@ -7,6 +7,7 @@ import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
+import kotlin.Triple;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,18 +28,18 @@ public class DAOCommandePostgreSQL extends DAOCommande {
 
     /**
      * Crée une commande dans la base de donnée
-     * @param client       int, l'id du client
-     * @param coach        int, l'id du coach
+     * @param idclient       int, l'id du client
+     * @param idcoach        int, l'id du coach
      * @param produit      Produit, le produit associé à la commande
      * @param paiementType PaiementType, le type de paiement
      * @return Commande, la commande créée
      * @throws Exception si une erreur SQL survient
      */
     @Override
-    public Commande createCommande(int client, int coach, Produit produit, PaiementType paiementType) throws Exception {
+    public Commande createCommande(int idclient, int idcoach, Produit produit, PaiementType paiementType) throws Exception {
         List<Pair<String, Object>> listeInsert = new ArrayList<>();
-        listeInsert.add(new Pair<>("idclient", client));
-        listeInsert.add(new Pair<>("idcoach", coach));
+        listeInsert.add(new Pair<>("idclient", idclient));
+        listeInsert.add(new Pair<>("idcoach", idcoach));
         try {
             int id = ((MethodesPostgreSQL) this.methodesBD).insert(listeInsert, this.table);
             associateProduit(id, produit, null);
@@ -48,6 +49,7 @@ public class DAOCommandePostgreSQL extends DAOCommande {
 
             return this.getCommandeById(id);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new DBProblemException("La création de la commande a échoué");
         }
     }
@@ -203,77 +205,140 @@ public class DAOCommandePostgreSQL extends DAOCommande {
      */
     @Override
     public Commande getCommandeById(int id) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("id",id));
-        // TODO faire les jointures avec produits et demande
-        try {
-            ResultSet commandeData = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
-            if (commandeData.next()) {
-                // TODO récupérer le produit
-                Produit produit = getProduit(commandeData);
-                Client client = new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idclient"));
-                Coach coach = (Coach) new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idcoach"));
-                Commande commande;
-                if (produit != null) {
-                    if (produit instanceof ProgrammePersonnalise) {
-                        // TODO récupérer la demande
-                        Demande demande = new DAODemandePostgreSQL().getDemandeById(commandeData.getInt("iddemande"));
-                        commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"), demande);
-                    } else {
-                        if (produit.getPrix() == 0) {
-                            commande = new CommandeNonPayante(client, coach, produit, commandeData.getInt("id"));
-                        } else {
-                            commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"));
-                        }
-                    }
-                    return commande;
-                } else {
-                    throw new DBProblemException("Le produit n'existe pas");
-                }
-            } else {
-                throw new DBProblemException("La commande n'existe pas");
-            }
-        } catch (SQLException e) {
-            throw new DBProblemException("La récupération de la commande a échoué");
+        List<Pair<String, Object>> listeWhere = new ArrayList<>();
+        listeWhere.add(new Pair<>("id", id));
+        return getAllCommandeWhere(listeWhere).get(0);
+    }
+
+    @Override
+    public List<Commande>  getCommandeByIdClient(int client) throws Exception {
+        List<Pair<String, Object>> listeWhere = new ArrayList<>();
+        listeWhere.add(new Pair<>("commande.idclient", client));
+        return getAllCommandeWhere(listeWhere);
+    }
+
+    @Override
+    public List<Commande> getCommandeByIdCoach(int coach) throws Exception {
+        List<Pair<String, Object>> listeWhere = new ArrayList<>();
+        listeWhere.add(new Pair<>("commande.idcoach", coach));
+        return getAllCommandeWhere(listeWhere);
+    }
+
+    @Override
+    public List<Commande> getCommandeByProduit(Produit produit) throws Exception {
+        List<Pair<String, Object>> listeWhere = new ArrayList<>();
+        if (produit instanceof Seance) {
+            listeWhere.add(new Pair<>("commandeseance.idseance", produit.getId()));
+        } else if (produit instanceof ProgrammePersonnalise) {
+            listeWhere.add(new Pair<>("commandeprogrammepersonnalise.idprogramme", produit.getId()));
+        } else if (produit instanceof ProgrammeNutrition) {
+            listeWhere.add(new Pair<>("commandeprogrammenutrition.idprogramme", produit.getId()));
+        } else if (produit instanceof ProgrammeSportif) {
+            listeWhere.add(new Pair<>("commandeprogrammesportif.idprogramme", produit.getId()));
+        } else if (produit instanceof Pack) {
+            listeWhere.add(new Pair<>("commandepack.idpack", produit.getId()));
+        } else {
+            throw new DBProblemException("Le produit n'existe pas");
         }
-    }
 
-    private Produit getProduit(ResultSet commandeData) {
-        return null;
-    }
-
-    @Override
-    public Commande getCommandeByIdClient(int client) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Commande getCommandeByIdCoach(int coach) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Commande getCommandeByIdProduit(int produit) throws Exception {
-        return null;
+        return getAllCommandeWhere(listeWhere);
     }
 
     @Override
     public List<Commande> getAllCommande() throws Exception {
-        return null;
+        return getAllCommandeWhere(new ArrayList<>());
     }
 
     @Override
     public List<Commande> getAllCommandeWhere(List<Pair<String, Object>> whereList) throws Exception {
-        return null;
+        List<Commande> listeCommande = new ArrayList<>();
+        List<Triple<String,String,String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("commandepack","idcommande","commande.id"));
+        joinList.add(new Triple<>("commandeseance","idcommande","commande.id"));
+        joinList.add(new Triple<>("commandeprogrammesportif","idcommande","commande.id"));
+        joinList.add(new Triple<>("commandeprogrammenutrition","idcommande","commande.id"));
+        joinList.add(new Triple<>("commandeprogrammepersonnalise","idcommande","commande.id"));
+        joinList.add(new Triple<>("commandedemande","idcommande","commande.id"));
+        try {
+            ResultSet commandeData = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            while (commandeData.next()) {
+                Produit produit = getTypeProduit(commandeData);
+                Client client = new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idclient"));
+                Coach coach = (Coach) new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idcoach"));
+                Commande commande;
+                if (produit instanceof ProgrammePersonnalise) {
+                    Demande demande = new DAODemandePostgreSQL().getDemandeById(commandeData.getInt("iddemande"));
+                    commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"), demande);
+                } else {
+                    if (produit.getPrix() == 0) {
+                        commande = new CommandeNonPayante(client, coach, produit, commandeData.getInt("id"));
+                    } else {
+                        commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"));
+                    }
+                }
+                listeCommande.add(commande);
+            }
+            return listeCommande;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DBProblemException("La récupération de la commande a échoué");
+        }
+    }
+
+    /**
+     * Récupère le produit associé à une commande
+     * @param commandeData ResultSet, le résultat de la requête SQL
+     * @return Produit, le produit associé à la commande
+     * @throws Exception si une erreur SQL survient
+     */
+    private Produit getTypeProduit(ResultSet commandeData) throws Exception {
+        if (commandeData.getObject(5) != null) {
+            return new Pack(commandeData.getInt(5));
+        } else if (commandeData.getObject(7) != null) {
+            return new Seance(commandeData.getInt(7));
+        } else if (commandeData.getObject(9) != null) {
+            return new ProgrammeSportif(commandeData.getInt(9));
+        } else if (commandeData.getObject(11) != null) {
+            return new ProgrammeNutrition(commandeData.getInt(11));
+        } else if (commandeData.getObject(13) != null) {
+            return new ProgrammePersonnalise(commandeData.getInt(13));
+        } else {
+            throw new DBProblemException("Le produit n'existe pas");
+        }
     }
 
     @Override
     public void deleteCommande(int id) throws Exception {
-
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",id));
+        List<Pair<String, Object>> whereOtherTableList = new ArrayList<>();
+        whereOtherTableList.add(new Pair<>("idcommande",id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandepack");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandeseance");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandeprogrammesportif");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandeprogrammenutrition");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandeprogrammepersonnalise");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"commandedemande");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereOtherTableList,"paiement");
+            ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            throw new SQLException("La suppression de la commande a échoué");
+        }
     }
 
     @Override
     public Commande updateCommande(List<Pair<String, Object>> udpateList, int id) throws Exception {
-        return null;
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",id));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(udpateList,whereList,this.table);
+            return getCommandeById(id);
+        }
+        catch(Exception e){
+            throw new DBProblemException("La modification de la commande a échoué");
+        }
     }
 }
