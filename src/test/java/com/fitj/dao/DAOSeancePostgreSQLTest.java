@@ -2,6 +2,7 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
+import com.fitj.dao.postgresql.DAOExercicePostgreSQL;
 import com.fitj.dao.postgresql.DAOSeancePostgreSQL;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,12 +39,27 @@ public class DAOSeancePostgreSQLTest {
     /**
      * Objet utilisé pour les tests
      */
+    private static DAOExercicePostgreSQL daoExercicePostgreSQL;
+
+    /**
+     * Objet utilisé pour les tests
+     */
     private static Coach coach;
 
     /**
      * Objet utilisé pour les tests
      */
     private static Sport sport;
+
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Exercice exercice1;
+
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Exercice exercice2;
 
     /**
      * Objet utilisé pour les tests
@@ -58,10 +73,11 @@ public class DAOSeancePostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoSeancePostgreSQL = new DAOSeancePostgreSQL();
+        daoExercicePostgreSQL = new DAOExercicePostgreSQL();
         coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
         sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportByNom("Foot");
-        Exercice exercice1 = FactoryDAOPostgreSQL.getInstance().getDAOExercice().getExerciceById(1);
-        Exercice exercice2 = FactoryDAOPostgreSQL.getInstance().getDAOExercice().getExerciceById(2);
+        exercice1 = daoExercicePostgreSQL.createExercice("Nom1", "desc1");
+        exercice2 = daoExercicePostgreSQL.createExercice("Nom2", "desc2");
         listeExercice = new ArrayList<>();
         listeExercice.add(exercice1);
         listeExercice.add(exercice2);
@@ -76,6 +92,8 @@ public class DAOSeancePostgreSQLTest {
     @AfterAll
     public static void clean() throws Exception {
         daoSeancePostgreSQL.supprimerSeance(seanceBD.getId());
+        daoExercicePostgreSQL.supprimerExercice(exercice1.getId());
+        daoExercicePostgreSQL.supprimerExercice(exercice2.getId());
     }
 
     /**
@@ -106,7 +124,7 @@ public class DAOSeancePostgreSQLTest {
     public void testSeanceDelete() throws Exception {
         Seance seance1 = daoSeancePostgreSQL.createSeance("Full body","On fait le haut du corps et le bas du corps",150, seance.getCoach(), seance.getSport(), seance.getListeExercice());
         daoSeancePostgreSQL.supprimerSeance(seance1.getId());
-        Assertions.assertThrows(SQLException.class, () -> daoSeancePostgreSQL.getSeanceById(seance1.getId()));
+        Assertions.assertThrows(Exception.class, () -> daoSeancePostgreSQL.getSeanceById(seance1.getId()));
     }
 
     /**

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +81,7 @@ public class DAOSportPostgreSQLTest {
     public void testSportDelete() throws Exception {
         Sport sport1 = daoSportPostgreSQL.createSport("Muscu");
         daoSportPostgreSQL.supprimerSport(sport1.getId());
-        Assertions.assertThrows(SQLException.class,
+        Assertions.assertThrows(Exception.class,
                 () -> daoSportPostgreSQL.getSportById(sport1.getId()));
     }
 

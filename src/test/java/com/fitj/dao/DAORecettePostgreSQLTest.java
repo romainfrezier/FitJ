@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +104,7 @@ public class DAORecettePostgreSQLTest {
     public void testRecetteDelete() throws Exception {
         Recette recetteBD1 = daoRecettePostgreSQL.createRecette("Gateau au chocolat",coach,ingredients);
         daoRecettePostgreSQL.supprimerRecette(recetteBD1.getId());
-        Assertions.assertThrows(SQLException.class, () -> daoRecettePostgreSQL.getRecetteById(recetteBD1.getId()));
+        Assertions.assertThrows(Exception.class, () -> daoRecettePostgreSQL.getRecetteById(recetteBD1.getId()));
     }
 
     /**

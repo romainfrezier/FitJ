@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +72,7 @@ public class DAOClientPostgreSQLTest {
         String email = "nouveauMail";
         Client newClient = daoClientPostgreSQL.createClient(email, client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         daoClientPostgreSQL.supprimerClientByMail(newClient.getEmail());
-        Assertions.assertThrows(SQLException.class,
+        Assertions.assertThrows(Exception.class,
                 () -> daoClientPostgreSQL.getClientAccount(newClient.getEmail()));
     }
 
@@ -100,7 +99,7 @@ public class DAOClientPostgreSQLTest {
             //A refaire quand usecase matériel fait
         List<Materiel> materiels = daoClientPostgreSQL.getClientMateriel(15);
         for (Materiel materiel : materiels) {
-            System.out.println(materiel.getNom());
+            break;
         }
     }
     @Test
