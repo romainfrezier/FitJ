@@ -40,7 +40,7 @@ public abstract class ControllerMateriel extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToAddMateriel(Control controlEl) throws BadPageException {
-        goToPage(controlEl, materiel + "create-materiel.fxml", "Création d'un materiel");
+        goToPage(controlEl, materiel + "create-recette.fxml", "Création d'un materiel");
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class ControllerMateriel extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToUpdateMateriel(Control controlEl) throws BadPageException {
-        goToPage(controlEl, materiel + "update-materiel.fxml", "Modification d'un materiel");
+        goToPage(controlEl, materiel + "update-recette.fxml", "Modification d'un materiel");
     }
 }
 

@@ -1,22 +1,22 @@
-package com.fitj.controllers.admins;
+package com.fitj.controllers.coachs;
 
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
 /**
- * Controller pour la page d'accueil de l'administrateur
- * @see ControllerAdmin
+ * Controller pour la page d'accueil du coach
+ * @see ControllerCoach
  * @author Romain Frezier
  */
-public class ControllerMonEspace extends ControllerAdmin {
+public class ControllerCoachMonEspace extends ControllerCoach {
 
     // Composants FXML-----------------------------------------------------------------------------------------------
     @FXML
-    private Text adminName;
+    private Text coachName;
     @FXML
-    private ProgressBar adminGrade;
+    private ProgressBar coachGrade;
     // --------------------------------------------------------------------------------------------------------------
 
     /**
@@ -24,7 +24,6 @@ public class ControllerMonEspace extends ControllerAdmin {
      */
     @FXML
     public void initialize(){
-        adminName.setText(Facade.currentClient.getPseudo());
+        coachName.setText(Facade.currentClient.getPseudo());
     }
-
 }
