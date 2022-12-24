@@ -94,7 +94,7 @@ public class FacadeExercice extends Facade {
      * @return Exercice, l'exercice
      * @throws Exception en cas d'erreur
      */
-    public Exercice getExerciceById(int id) throws Exception {
+    public Exercice getExercice(int id) throws Exception {
         return this.daoExercice.getExerciceById(id);
     }
 

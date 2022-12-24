@@ -1,9 +1,7 @@
 package com.fitj.controllers.exercices;
 
-import com.fitj.classes.Client;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
-import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeExercice;
 import javafx.scene.control.Control;
 
@@ -53,14 +51,7 @@ public class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToAddExercice(Control controlEl) throws BadPageException {
-        String path = exercice;
-        Client currentClient = Facade.currentClient;
-        if (currentClient.getClass().getName() == "Admin") {
-            path += admin;
-        } else {
-            path += coach;
-        }
-        goToPage(controlEl, path + "create-exercice.fxml", "Création d'un exercice");
+        goToPage(controlEl, exercice + "create-exercice.fxml", "Création d'un exercice");
     }
 
     /**
@@ -69,14 +60,7 @@ public class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToUpdateExercice(Control controlEl) throws BadPageException {
-        String path = exercice;
-        Client currentClient = Facade.currentClient;
-        if (currentClient.getClass().getName() == "Admin") {
-            path += admin;
-        } else {
-            path += coach;
-        }
-        goToPage(controlEl, path + "update-exercice.fxml", "Modification d'un exercice");
+        goToPage(controlEl, exercice + "update-exercice.fxml", "Modification d'un exercice");
     }
 
 }
