@@ -68,7 +68,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         try{
             ResultSet programmeDB = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (programmeDB.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(programmeDB.getInt("idcoach"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(programmeDB.getInt("idcoach"));
                 Demande demande = FactoryDAOPostgreSQL.getInstance().getDAODemande().getDemandeById(programmeDB.getInt("iddemande"));
                 ArrayList<Programme> listeProgramme = (ArrayList<Programme>) this.getProgrammes(id);
                 return new ProgrammePersonnalise(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),coach, demande,listeProgramme);

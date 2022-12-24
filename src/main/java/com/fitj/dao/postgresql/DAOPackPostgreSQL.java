@@ -77,7 +77,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         try{
             ResultSet packBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (packBD.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(packBD.getInt("idcoach"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(packBD.getInt("idcoach"));
                 ArrayList<Produit> listeProduit = (ArrayList<Produit>) this.getAllProduitByPack(id);
                 return new Pack(packBD.getInt("id"), packBD.getString("nom"), packBD.getString("description"),packBD.getDouble("prix"),coach,listeProduit);
             }

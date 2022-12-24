@@ -58,8 +58,8 @@ class DAOCommandePostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoCommandePostgreSQL = new DAOCommandePostgreSQL();
-        coach = (Coach) new DAOClientPostgreSQL().getClientAccount(44);
-        client = new DAOClientPostgreSQL().getClientAccount(24);
+        coach = (Coach) new DAOClientPostgreSQL().getClientById(44);
+        client = new DAOClientPostgreSQL().getClientById(24);
         produit = new DAOProgrammeSportifPostgreSQL().getAllProgrammeSportif().get(0);
         commande = new CommandePayante(client, coach, produit, 1);
         paiementType = PaiementType.CARTE_BANCAIRE;
@@ -198,7 +198,7 @@ class DAOCommandePostgreSQLTest {
      */
     @Test
     public void updateCommande() throws Exception {
-        Client client1 = new DAOClientPostgreSQL().getClientAccount(48);
+        Client client1 = new DAOClientPostgreSQL().getClientById(48);
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("idclient", client1.getId()));
         Commande updatedCommande = daoCommandePostgreSQL.updateCommande(updateList, commandeBD.getId());
