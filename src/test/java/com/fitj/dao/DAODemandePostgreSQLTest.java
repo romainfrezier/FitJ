@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class DAODemandePostgreSQLTest {
      * @throws Exception si la requête SQL échoue
      */
     @AfterAll
-    public static void fin() throws Exception {
+    public static void clean() throws Exception {
         FactoryDAOPostgreSQL.getInstance().getDAOProgrammePersonnalise().supprimerProgrammePersonnalise(programmePersonnaliseBD.getId());
         daoDemandePostgreSQL.supprimerDemande(demande.getId());
     }
@@ -87,8 +86,8 @@ public class DAODemandePostgreSQLTest {
     public void testDemandeUpdate() throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("nbmois",9));
-        Demande demande1 = daoDemandePostgreSQL.updateDemande(updateList,demande.getId());
-        Assertions.assertEquals(9, demande1.getNbMois());
+        demande = daoDemandePostgreSQL.updateDemande(updateList, demande.getId());
+        Assertions.assertEquals(9, demande.getNbMois());
     }
 
     /**
@@ -97,9 +96,10 @@ public class DAODemandePostgreSQLTest {
      */
     @Test
     public void testDemandeDelete() throws Exception {
-        daoDemandePostgreSQL.supprimerDemande(demande.getId());
-        Assertions.assertThrows(SQLException.class,
-                () -> daoDemandePostgreSQL.getDemandeById(demande.getId()));
+        Demande demande1 = daoDemandePostgreSQL.createDemande(6,"Je suis Francis jaimerai manger plus et rester au meme poids", true, true,4, 9, sport, programmePersonnaliseBD);
+        daoDemandePostgreSQL.supprimerDemande(demande1.getId());
+        Assertions.assertThrows(Exception.class,
+                () -> daoDemandePostgreSQL.getDemandeById(demande1.getId()));
     }
 
     /**
@@ -108,8 +108,10 @@ public class DAODemandePostgreSQLTest {
      */
     @Test
     public void testGetAllDemande() throws Exception {
+        Demande demande1 = daoDemandePostgreSQL.createDemande(6,"Je suis Francis jaimerai manger plus et rester au meme poids", true, true,4, 9, sport, programmePersonnaliseBD);
         int nbSeanceBD = daoDemandePostgreSQL.getAllDemande().size();
-        daoDemandePostgreSQL.supprimerDemande(demande.getId());
-        Assertions.assertEquals(nbSeanceBD, daoDemandePostgreSQL.getAllDemande().size() + 1);
+        daoDemandePostgreSQL.supprimerDemande(demande1.getId());
+        int nbSeanceBD2 = daoDemandePostgreSQL.getAllDemande().size();
+        Assertions.assertEquals(nbSeanceBD, nbSeanceBD2 + 1);
     }
 }

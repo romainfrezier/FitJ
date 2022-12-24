@@ -262,21 +262,23 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         try {
             ResultSet commandeData = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             while (commandeData.next()) {
-                Produit produit = getTypeProduit(commandeData);
-                Client client = new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idclient"));
-                Coach coach = (Coach) new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idcoach"));
-                Commande commande;
-                if (produit instanceof ProgrammePersonnalise) {
-                    Demande demande = new DAODemandePostgreSQL().getDemandeById(commandeData.getInt("iddemande"));
-                    commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"), demande);
-                } else {
-                    if (produit.getPrix() == 0) {
-                        commande = new CommandeNonPayante(client, coach, produit, commandeData.getInt("id"));
+                if (commandeData.getObject(5) != null || commandeData.getObject(7) != null || commandeData.getObject(9) != null || commandeData.getObject(11) != null || commandeData.getObject(13) != null) {
+                    Produit produit = getTypeProduit(commandeData);
+                    Client client = new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idclient"));
+                    Coach coach = (Coach) new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idcoach"));
+                    Commande commande;
+                    if (produit instanceof ProgrammePersonnalise) {
+                        Demande demande = new DAODemandePostgreSQL().getDemandeById(commandeData.getInt("iddemande"));
+                        commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"), demande);
                     } else {
-                        commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"));
+                        if (produit.getPrix() == 0) {
+                            commande = new CommandeNonPayante(client, coach, produit, commandeData.getInt("id"));
+                        } else {
+                            commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"));
+                        }
                     }
+                    listeCommande.add(commande);
                 }
-                listeCommande.add(commande);
             }
             return listeCommande;
         } catch (Exception e) {
@@ -292,6 +294,11 @@ public class DAOCommandePostgreSQL extends DAOCommande {
      * @throws Exception si une erreur SQL survient
      */
     private Produit getTypeProduit(ResultSet commandeData) throws Exception {
+        System.out.println(commandeData.getObject(5));
+        System.out.println(commandeData.getObject(7));
+        System.out.println(commandeData.getObject(9));
+        System.out.println(commandeData.getObject(11));
+        System.out.println(commandeData.getObject(13));
         if (commandeData.getObject(5) != null) {
             return new Pack(commandeData.getInt(5));
         } else if (commandeData.getObject(7) != null) {
