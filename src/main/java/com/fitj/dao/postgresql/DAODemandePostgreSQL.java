@@ -39,7 +39,7 @@ public class DAODemandePostgreSQL extends DAODemande {
                  * index = 3 : Description de la demande
                  * index = 13 : Description du programme
                  */
-                Coach coach = (Coach)FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(demande.getInt("idcoach"));
+                Coach coach = (Coach)FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(demande.getInt("idcoach"));
                 ProgrammePersonnalise programmePersonnalise = new ProgrammePersonnalise(demande.getInt("idprogramme"),demande.getString("nom"),demande.getString(7), demande.getDouble("prix"), coach);
                 Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(demande.getInt("idsport"));
                 return new Demande(demande.getInt(1), demande.getInt("nbmois"), demande.getString(3),demande.getBoolean("programmesportif"),demande.getBoolean("programmenutrition"),demande.getInt("nbseancesemaine"),demande.getInt("nbrecettesemaine"),sport,programmePersonnalise, DemandeEtat.getDemandeEtat(demande.getString("etat")));

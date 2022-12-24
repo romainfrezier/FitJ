@@ -73,7 +73,7 @@ public class DAOClientPostgreSQLTest {
         Client newClient = daoClientPostgreSQL.createClient(email, client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         daoClientPostgreSQL.supprimerClientByMail(newClient.getEmail());
         Assertions.assertThrows(Exception.class,
-                () -> daoClientPostgreSQL.getClientAccount(newClient.getEmail()));
+                () -> daoClientPostgreSQL.getClientByEmail(newClient.getEmail()));
     }
 
     /**
@@ -117,7 +117,7 @@ public class DAOClientPostgreSQLTest {
      */
     @Test
     public void testSelectClient() throws Exception {
-        Client newClient = daoClientPostgreSQL.getClientAccount(clientBD.getEmail());
+        Client newClient = daoClientPostgreSQL.getClientByEmail(clientBD.getEmail());
         Assertions.assertEquals(newClient.getEmail(), clientBD.getEmail());
     }
 

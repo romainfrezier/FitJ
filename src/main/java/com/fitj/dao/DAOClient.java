@@ -1,14 +1,10 @@
 package com.fitj.dao;
 
-import com.fitj.classes.Client;
-import com.fitj.classes.Commande;
-import com.fitj.classes.Materiel;
-import com.fitj.classes.Sport;
+import com.fitj.classes.*;
 import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -49,7 +45,7 @@ public abstract class DAOClient extends DAO {
      * @return un objet contenant toutes les informations du client
      * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'email rentré du client
      */
-    public abstract Client getClientAccount(String mail) throws Exception;
+    public abstract Client getClientByEmail(String mail) throws Exception;
 
 
     /**
@@ -57,7 +53,7 @@ public abstract class DAOClient extends DAO {
      * @return un objet contenant toutes les informations du client
      * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'id rentré du client
      */
-    public abstract Client getClientAccount(int id) throws Exception;
+    public abstract Client getClientById(int id) throws Exception;
 
     /**
      * Supprimer le client de la base de donnée
@@ -121,6 +117,24 @@ public abstract class DAOClient extends DAO {
     public abstract Client updateClientPassword(String password, String mail) throws Exception;
 
     /**
+     * Modifie le sexe du client
+     * @param sexe Sexe, le sexe du client
+     * @param mail String, le mail du client
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Client updateClientSexe(Sexe sexe, String mail) throws Exception;
+
+    /**
+     * Modifie le mail du client
+     * @param mail String, le mail du client
+     * @param mail2 String, le nouveau mail du client
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Client updateClientMail(String mail, String mail2) throws Exception;
+
+    /**
      * @param id int, l'id du client
      * @return la liste de matériel du client
      * @throws Exception
@@ -141,14 +155,13 @@ public abstract class DAOClient extends DAO {
      */
     public abstract List<Sport> getClientSport(int id) throws Exception;
 
+    public abstract List<Client> getAllClient() throws Exception;
 
-    /**
-     * @param data, la donnée que le client veut vérifier
-     * @param name, le nom de la donnée
-     * @return true si la donnée existe dans la table sinon false
-     * @throws Exception, s'il y a eu un problème lors de la requête SQL
-     */
-    public abstract boolean verifier(Object data, String name) throws Exception;
+    public abstract List<Coach> getAllCoach() throws Exception;
+
+    public abstract List<Admin> getAllAdmin() throws Exception;
+
+    public abstract List<Client> getAllClientWhere(List<Pair<String,Object>> whereList) throws Exception;
 
 
 }

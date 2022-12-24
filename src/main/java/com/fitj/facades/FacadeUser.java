@@ -63,7 +63,7 @@ public class FacadeUser extends Facade {
      */
     public Client connexion(String mail, String password) throws Exception{
         try {
-            Client client = this.daoClient.getClientAccount(mail);
+            Client client = this.daoClient.getClientByEmail(mail);
             if (passwordAuthentication.authenticate(password.toCharArray(), client.getPassword())){
                 Facade.currentClient = client;
                 return client;
@@ -89,15 +89,15 @@ public class FacadeUser extends Facade {
      * @return String, message de retour
      */
     public Client inscription(String mail, String pseudo, String password, float poids, int taille, String photo, Sexe sexe) throws Exception {
-        if (daoClient.verifier(mail, "mail")) {
+        if (daoClient.dataExist(mail, "mail")) {
             throw new UsedEmailException(mail);
         } else {
-            if (daoClient.verifier(pseudo, "pseudo")) {
+            if (daoClient.dataExist(pseudo, "pseudo")) {
                 throw new UsedPseudoException(pseudo);
             } else {
                 try {
                     daoClient.createClient(mail, pseudo, password, poids, taille, photo, sexe);
-                    Client newClient = daoClient.getClientAccount(mail);
+                    Client newClient = daoClient.getClientByEmail(mail);
                     Facade.currentClient = newClient;
                     return newClient;
                 } catch (SQLException e) {

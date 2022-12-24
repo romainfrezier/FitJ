@@ -264,8 +264,8 @@ public class DAOCommandePostgreSQL extends DAOCommande {
             while (commandeData.next()) {
                 if (commandeData.getObject(5) != null || commandeData.getObject(7) != null || commandeData.getObject(9) != null || commandeData.getObject(11) != null || commandeData.getObject(13) != null) {
                     Produit produit = getTypeProduit(commandeData);
-                    Client client = new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idclient"));
-                    Coach coach = (Coach) new DAOClientPostgreSQL().getClientAccount(commandeData.getInt("idcoach"));
+                    Client client = new DAOClientPostgreSQL().getClientById(commandeData.getInt("idclient"));
+                    Coach coach = (Coach) new DAOClientPostgreSQL().getClientById(commandeData.getInt("idcoach"));
                     Commande commande;
                     if (produit instanceof ProgrammePersonnalise) {
                         Demande demande = new DAODemandePostgreSQL().getDemandeById(commandeData.getInt("iddemande"));

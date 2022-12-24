@@ -13,7 +13,6 @@ import kotlin.Pair;
 import kotlin.Triple;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         try{
             ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (seance.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(seance.getInt("idcoach"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(seance.getInt("idcoach"));
                 Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(seance.getInt("idsport"));
                 ArrayList<Exercice> listeExercice = (ArrayList<Exercice>) this.getExercices(id);
                 return new Seance(seance.getInt("id"), seance.getString("nom"), seance.getString("description"),seance.getDouble("prix"),coach,sport,listeExercice);

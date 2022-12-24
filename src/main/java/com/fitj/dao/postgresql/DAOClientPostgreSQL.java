@@ -49,7 +49,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         data.add(new Pair<>("sexe", Sexe.getSexe(sexe)));
         try {
             int id = ((MethodesPostgreSQL)this.methodesBD).insert(data, this.table);
-            return getClientAccount(id);
+            return getClientById(id);
         }
         catch (Exception e){
             throw new DBProblemException("La création du client a échoué");
@@ -79,7 +79,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
      * @throws Exception si une erreur SQL survient
      */
-    public Client getClientAccount(String mail) throws Exception {
+    public Client getClientByEmail(String mail) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
@@ -109,7 +109,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @return un objet de type Client contenant toutes les informations du client qui contient l'id rentré en paramètre
      * @throws Exception si une erreur SQL survient
      */
-    public Client getClientAccount(int id) throws Exception {
+    public Client getClientById(int id) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("id", id));
@@ -176,7 +176,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         whereList.add(new Pair<>("mail",mail));
         try {
             ((MethodesPostgreSQL)this.methodesBD).update(data,whereList,this.table);
-            return this.getClientAccount(mail);
+            return this.getClientByEmail(mail);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du client a échoué");
@@ -273,6 +273,16 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    @Override
+    public Client updateClientSexe(Sexe sexe, String mail) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Client updateClientMail(String mail, String mail2) throws Exception {
+        return null;
+    }
+
     /**
      * @param id int, l'id du client
      * @return la liste de matériel du client
@@ -317,8 +327,8 @@ public class DAOClientPostgreSQL extends DAOClient {
             if (result.next() == true){
                 do {
                     Commande commande;
-                    Coach coach = (Coach)this.getClientAccount(result.getInt("clientCommande.idCoach"));
-                    Client client = this.getClientAccount(id);
+                    Coach coach = (Coach)this.getClientById(result.getInt("clientCommande.idCoach"));
+                    Client client = this.getClientById(id);
                     if (((Integer)result.getInt("prix")) != null){
                         //     commande = new CommandePayante();
                     }
@@ -347,16 +357,25 @@ public class DAOClientPostgreSQL extends DAOClient {
         return null;
     }
 
-    /**
-     * @param data Object, le contenu de l'attribut à vérifier
-     * @param name String, le nom de l'attribut à vérifier
-     * @return true si l'attribut est présent dans la table client sinon return false
-     * @throws Exception si une erreur SQL survient
-     */
-    public boolean verifier(Object data,String name) throws Exception {
-        return (((MethodesPostgreSQL)this.methodesBD).exist(data, name, this.table));
+    @Override
+    public List<Client> getAllClient() throws Exception {
+        return null;
     }
 
+    @Override
+    public List<Coach> getAllCoach() throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Admin> getAllAdmin() throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<Client> getAllClientWhere(List<Pair<String, Object>> whereList) throws Exception {
+        return null;
+    }
 
 
 }

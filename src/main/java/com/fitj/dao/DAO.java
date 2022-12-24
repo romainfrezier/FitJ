@@ -2,6 +2,7 @@ package com.fitj.dao;
 
 
 import com.fitj.dao.methodesBD.MethodesBD;
+import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 
 /**
  * Classe parente de tous les modèles qui permettent d'intéragir avec la base de donnée
@@ -24,6 +25,16 @@ public abstract class DAO {
 
     public DAO(String table){
         this.table = table;
+    }
+
+    /**
+     * @param data Object, le contenu de l'attribut à vérifier
+     * @param name String, le nom de l'attribut à vérifier
+     * @return true si l'attribut est présent dans la table client sinon return false
+     * @throws Exception si une erreur SQL survient
+     */
+    public boolean dataExist(Object data, String name) throws Exception {
+        return (((MethodesPostgreSQL)this.methodesBD).exist(data, name, this.table));
     }
 
 }

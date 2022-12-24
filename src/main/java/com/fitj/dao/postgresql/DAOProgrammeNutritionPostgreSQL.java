@@ -57,7 +57,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         try{
             ResultSet programmeDB = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (programmeDB.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(programmeDB.getInt("idcoach"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(programmeDB.getInt("idcoach"));
                 ArrayList<Recette> listeRecette = (ArrayList<Recette>) this.getRecettes(id);
                 return new ProgrammeNutrition(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),ProgrammeType.getProgrammeType(programmeDB.getString("type")), programmeDB.getInt("nbmois"),coach,listeRecette);
             }
