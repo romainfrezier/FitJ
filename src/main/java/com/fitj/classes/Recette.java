@@ -42,6 +42,7 @@ public class Recette implements IsIngredient {
         this.ingredients = new ArrayList<>();
     }
 
+
     /**
      * Constructeur avec recette remplie d'ingrédients
      */

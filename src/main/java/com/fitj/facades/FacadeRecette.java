@@ -49,11 +49,20 @@ public class FacadeRecette extends Facade {
     public Recette updateRecette(int idRecette, String nomRecette) throws Exception{
         //ajout suppression
         List<Pair<String, Object>> updateValue = new ArrayList<>();
+        updateValue.add(new Pair<>("nom", nomRecette));
         return this.recetteDAO.updateRecette(updateValue, idRecette);
     }
 
     public Recette createRecette(String nomRecette, List<IsIngredient> ingredients, Coach coach) throws Exception{
         return this.recetteDAO.createRecette(nomRecette, coach, ingredients);
+    }
+
+    public void removeIngredientFromRecette(int idRecette, IsIngredient ingredient) throws Exception{
+        this.recetteDAO.supprimerIngredient(ingredient, idRecette);
+    }
+
+    public void addIngredientToRecette(int idRecette, IsIngredient ingredient) throws Exception{
+        this.recetteDAO.ajouterIngredient(ingredient, idRecette);
     }
 
 

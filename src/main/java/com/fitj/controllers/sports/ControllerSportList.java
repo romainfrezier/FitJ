@@ -70,6 +70,15 @@ public class ControllerSportList extends ControllerSport {
         }
     }
 
+
+    /**
+     * Méthode appelée lors du clic sur un sport de la liste
+     */
+    @FXML
+    private void selectItem(){
+        setObjectSelected(listView.getSelectionModel().getSelectedItem());
+    }
+
     /**
      * Methode permettant de se rendre sur la page d'ajout d'un sport
      */

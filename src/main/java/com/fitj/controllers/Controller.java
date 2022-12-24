@@ -30,6 +30,7 @@ public abstract class Controller {
         try {
             scene = getScene(viewName);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new BadPageException("La page " + pageName + " n'existe pas");
         }
         stage.setResizable(false);
@@ -44,8 +45,9 @@ public abstract class Controller {
      * @throws IOException si la vue n'existe pas
      */
     public static void startAppFX(Stage stage) throws IOException {
-        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/recettes/list-recette.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/recettes/list-recette.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/recettes/create-recette.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setResizable(false);
@@ -69,6 +71,27 @@ public abstract class Controller {
      * Attribut permettant de stocker l'identifiant d'un objet selectionné dans une liste
      */
     private static int idObjectSelected;
+
+    /**
+     * Attribut permettant de stocker l'objet selectionné dans une liste
+     */
+    private static Object objectSelected;
+
+    /**
+     * Getter pour l'objet selectionné dans une liste
+     * @return int, l'objet selectionné dans une liste
+     */
+    public Object getObjectSelected() {
+        return objectSelected;
+    }
+
+    /**
+     * Setter pour l'objet selectionné dans une liste
+     * @param objectSelected int, l'objet selectionné dans une liste
+     */
+    public static void setObjectSelected(Object objectSelected) {
+        Controller.objectSelected = objectSelected;
+    }
 
     /**
      * Getter pour l'identifiant d'un objet selectionné dans une liste

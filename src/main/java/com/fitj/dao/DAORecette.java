@@ -40,6 +40,13 @@ public abstract class DAORecette extends DAO {
     public abstract Recette getRecetteById(int id) throws Exception;
 
     /**
+     * @param id int, l'id de la recette
+     * @return la recette cherchée en base de donnée en fonction de l'id rentrée en paramètre
+     * @throws Exception
+     */
+    public abstract Recette getRecetteByIdWithoutIngredients(int id) throws Exception;
+
+    /**
      * Supprimer la recette dans la base de donnée
      * @param id int, l'id de la recette
      * @throws Exception

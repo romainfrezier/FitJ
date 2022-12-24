@@ -79,6 +79,24 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    public Recette getRecetteByIdWithoutIngredients(int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id", id));
+        try{
+            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            if (recetteBD.next()){
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(recetteBD.getInt("idcoach"));
+                return new Recette(recetteBD.getInt("id"),recetteBD.getString("nom"),coach);
+            }
+            else {
+                throw new DBProblemException("Aucune recette avec cet id n'existe");
+            }
+        }
+        catch(Exception e){
+            throw new DBProblemException("La sélection de la recette a échoué");
+        }
+    }
+
     public List<IsIngredient> getIngredientsFromRecette(int id) throws Exception{
         List<IsIngredient> listeAliment = new ArrayList<>();
         List<Pair<String, Object>> whereListAliment = new ArrayList<>();
@@ -92,7 +110,7 @@ public class DAORecettePostgreSQL extends DAORecette {
                 listeAliment.add(FactoryDAOPostgreSQL.getInstance().getDAOAliment().getAlimentById(alimentsBD.getInt("idaliment")));
             }
             while (recettesBD1.next()){
-                listeAliment.add(this.getRecetteById(recettesBD1.getInt("idrecette2")));
+                listeAliment.add(this.getRecetteByIdWithoutIngredients(recettesBD1.getInt("idrecette2")));
             }
             return listeAliment;
         }
@@ -164,6 +182,7 @@ public class DAORecettePostgreSQL extends DAORecette {
             return this.getRecetteById(id);
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La mise à jour de la recette a échoué");
         }
     }
@@ -208,7 +227,7 @@ public class DAORecettePostgreSQL extends DAORecette {
     }
 
     @Override
-    public void supprimerIngredient(IsIngredient ingredient, int id) throws Exception {
+    public void  supprimerIngredient(IsIngredient ingredient, int id) throws Exception {
         if (ingredient instanceof Recette){
             this.supprimerRecette((Recette)ingredient, id);
         }

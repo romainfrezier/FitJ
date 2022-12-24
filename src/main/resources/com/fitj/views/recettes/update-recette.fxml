@@ -1,38 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.recettes.ControllerModifyRecette">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.recettes.ControllerModifyRecette">
     <children>
-      <Pane layoutX="138.0" layoutY="215.0" prefHeight="285.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+      <Pane layoutX="138.0" layoutY="215.0" prefHeight="461.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
          <children>
-            <Text fill="#054371" layoutX="132.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la recette">
+            <Text fill="#054371" layoutX="124.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les ingrédients">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField fx:id="recetteNameUpdate" layoutX="132.0" layoutY="117.0" prefHeight="26.0" prefWidth="461.0" />
-         </children></Pane>
-      <Text fill="#054371" layoutX="349.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modification de la recette">
+            <TextField fx:id="recetteName" layoutX="132.0" layoutY="48.0" prefHeight="26.0" prefWidth="461.0" />
+            <ListView fx:id="listViewIngredientRecette" layoutX="74.0" layoutY="155.0" onMouseClicked="#setIngredientSelectedToDelete" prefHeight="242.0" prefWidth="232.0" />
+             <TabPane layoutX="409.0" layoutY="103.0" prefHeight="294.0" prefWidth="274.0" tabClosingPolicy="UNAVAILABLE">
+                 <tabs>
+                     <Tab text="Recettes">
+                         <content>
+                             <ScrollPane hbarPolicy="NEVER" layoutX="426.0" layoutY="140.0" prefHeight="242.0" prefWidth="254.0">
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 <ListView fx:id="listViewRecette" layoutX="74.0" layoutY="155.0" onMouseClicked="#setIngredientSelectedRecette" prefHeight="242.0" prefWidth="232.0" />
+                             </ScrollPane>
+                         </content>
+                     </Tab>
+                     <Tab text="Aliments">
+                         <content>
+                             <ScrollPane hbarPolicy="NEVER" layoutX="426.0" layoutY="165.0" prefHeight="242.0" prefWidth="254.0">
+                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 <ListView fx:id="listViewAliment" layoutX="74.0" layoutY="155.0" onMouseClicked="#setIngredientSelectedAliment" prefHeight="242.0" prefWidth="232.0" />
+                             </ScrollPane>
+                         </content>
+                     </Tab>
+                 </tabs>
+             </TabPane>
+            <Button layoutX="144.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#supprimerIngredient" prefHeight="27.0" prefWidth="92.0" text="Supprimer" />
+            <Button layoutX="516.0" layoutY="413.0" mnemonicParsing="false" onMouseClicked="#addIngredient" prefHeight="25.0" prefWidth="92.0" text="Ajouter" />
+          <AnchorPane layoutX="155.0" layoutY="141.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+            <Text layoutX="283.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la recette">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            </children>
+      </Pane>
+      <Text fill="#054371" layoutX="334.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer une nouvelle recette">
          <font>
             <Font size="34.0" />
          </font>
       </Text>
-      <Button fx:id="updateRecetteButton" layoutX="420.0" layoutY="573.0" mnemonicParsing="false" onAction="#modifyRecettet" style="-fx-background-color:  #054371;" text="Modifier la recette" textFill="WHITE">
+      <Button fx:id="updateRecetteButton" layoutX="430.0" layoutY="711.0" mnemonicParsing="false" onAction="#updateRecette" style="-fx-background-color:  #054371;" text="Modifier la recette" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
       <VBox layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
          <children>
-              <fx:include source="../../components/headers/header-admin.fxml" />
+             <fx:include source="../../components/headers/header-admin.fxml" />
          </children>
       </VBox>
-      <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
+      <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
     </children>
 </Pane>
