@@ -1,9 +1,6 @@
 package com.fitj.dao.postgresql;
 
 import com.fitj.classes.*;
-import com.fitj.dao.DAOMateriel;
-import com.fitj.dao.DAOSport;
-import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
 import com.fitj.enums.Sexe;
@@ -245,7 +242,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         List<Coach> coachs = new ArrayList<>();
         List<Client> clients = this.getAllClientWhere(whereList);
         for (Client client : clients){
-            coachs.add((Coach) client);
+            coachs.add(new Coach(client.getEmail(), client.getPseudo(), client.getPoids(), client.getPhoto(), client.getTaille(), client.getSexe(), client.getPassword(), client.getId()));
         }
         return coachs;
     }
@@ -257,7 +254,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         List<Admin> admins = new ArrayList<>();
         List<Client> clients = this.getAllClientWhere(whereList);
         for (Client client : clients){
-            admins.add((Admin) client);
+            admins.add(new Admin(client.getEmail(), client.getPseudo(), client.getPoids(), client.getPhoto(), client.getTaille(), client.getSexe(), client.getPassword(), client.getId()));
         }
         return admins;
     }

@@ -1,12 +1,10 @@
 package com.fitj.dao;
 
 import com.fitj.classes.*;
-import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAODemandePostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammePersonnalisePostgreSQL;
 import com.fitj.dao.postgresql.DAOSportPostgreSQL;
-import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -68,8 +66,8 @@ public class DAODemandePostgreSQLTest {
     @AfterAll
     public static void clean() throws Exception {
         new DAOProgrammePersonnalisePostgreSQL().supprimerProgrammePersonnalise(programmePersonnaliseBD.getId());
-        new DAOSportPostgreSQL().supprimerSport(sport.getId());
         daoDemandePostgreSQL.supprimerDemande(demande.getId());
+        new DAOSportPostgreSQL().supprimerSport(sport.getId());
     }
 
     /**
