@@ -2,7 +2,10 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
+import com.fitj.dao.postgresql.DAOProgrammeNutritionPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammePersonnalisePostgreSQL;
+import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
+import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
@@ -71,21 +74,15 @@ public class DAOProgrammePersonnalisePostgreSQLTest {
      */
     @BeforeAll
     public static void init() throws Exception {
-        try {
-            daoProgrammePersonnalisePostgreSQL = new DAOProgrammePersonnalisePostgreSQL();
-            sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getAllSport().get(0);
-            coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-            programmePersonnalise = daoProgrammePersonnalisePostgreSQL.createProgrammePersonnalise("ProgrammeMaster", "Je veux devenir superman", 1000, coach);
-            demande = FactoryDAOPostgreSQL.getInstance().getDAODemande().createDemande(12,"Je suis faible je veux devenir fort", true, true, 5, 12, sport, programmePersonnalise);
-            programmePersonnaliseDemande = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(demande.getProgrammePersonnalise().getId());
-            listeProgramme = new ArrayList<>();
-            programmeSportif = FactoryDAOPostgreSQL.getInstance().getDAOProgrammeSportif().getAllProgrammeSportif().get(0);
-            programmeNutrition = FactoryDAOPostgreSQL.getInstance().getDAOProgrammeNutrition().getAllProgrammeNutrition().get(0);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
+        daoProgrammePersonnalisePostgreSQL = new DAOProgrammePersonnalisePostgreSQL();
+        sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getAllSport().get(0);
+        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        programmePersonnalise = daoProgrammePersonnalisePostgreSQL.createProgrammePersonnalise("ProgrammeMaster", "Je veux devenir superman", 1000, coach);
+        demande = FactoryDAOPostgreSQL.getInstance().getDAODemande().createDemande(12,"Je suis faible je veux devenir fort", true, true, 5, 12, sport, programmePersonnalise);
+        programmePersonnaliseDemande = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(demande.getProgrammePersonnalise().getId());
+        listeProgramme = new ArrayList<>();
+        programmeSportif = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("ProgrammeSportif", "Je veux devenir superman", 1000, ProgrammeType.FACILE, 4, coach, new ArrayList<>());
+        programmeNutrition = new DAOProgrammeNutritionPostgreSQL().createProgrammeNutrition("ProgrammeNutrition", "Je veux devenir superman", 1000, ProgrammeType.FACILE, 4, coach, new ArrayList<>());
     }
 
     /**
@@ -96,6 +93,8 @@ public class DAOProgrammePersonnalisePostgreSQLTest {
     public static void fin() throws Exception{
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnalise.getId());
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnaliseDemande.getId());
+        new DAOProgrammeSportifPostgreSQL().supprimerProgrammeSportif(programmeSportif.getId());
+        new DAOProgrammeNutritionPostgreSQL().supprimerProgrammeNutrition(programmeNutrition.getId());
     }
 
     /**

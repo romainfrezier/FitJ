@@ -64,19 +64,6 @@ public class DAOClientPostgreSQL extends DAOClient {
         return connectedClient;
     }
 
-    /**
-     * Permet de mettre à jour les liste de sport, materiel et commande d'un client
-     *
-     * @param client Client, le client à mettre à jour
-     * @param rs     ResultSet, le résultat de la requête SQL
-     * @throws Exception si une erreur SQL survient
-     */
-    private void setClientList(Client client, ResultSet rs) throws Exception {
-        client.setListeCommande(FactoryDAO.getInstance().getDAOCommande().getCommandeByIdClient(rs.getInt("id")));
-        client.setListeMateriel(FactoryDAO.getInstance().getDAOMateriel().getMaterielByIdClient(rs.getInt("id")));
-        client.setListeSport(FactoryDAO.getInstance().getDAOSport().getSportByIdClient(rs.getInt("id")));
-    }
-
     @Override
     public Client getClientByEmail(String mail) throws Exception {
         ResultSet compte;
@@ -86,7 +73,9 @@ public class DAOClientPostgreSQL extends DAOClient {
         try {
             if (compte.next()){
                 Client client = chooseRole(compte);
-                setClientList(client, compte);
+                client.setListeCommande(new ArrayList<>());
+                client.setListeMateriel(new ArrayList<>());
+                client.setListeSport(new ArrayList<>());
                 return client;
             }
             else {
@@ -107,7 +96,9 @@ public class DAOClientPostgreSQL extends DAOClient {
         try {
             if (compte.next()){
                 Client client = chooseRole(compte);
-                setClientList(client, compte);
+                client.setListeCommande(new ArrayList<>());
+                client.setListeMateriel(new ArrayList<>());
+                client.setListeSport(new ArrayList<>());
                 return client;
             }
             else {
@@ -278,7 +269,6 @@ public class DAOClientPostgreSQL extends DAOClient {
         joinList.add(new Triple<>("clientsport","idclient", "client.id"));
         joinList.add(new Triple<>("clientmateriel","idclient", "client.id"));
         joinList.add(new Triple<>("clientavis","idclient", "client.id"));
-        joinList.add(new Triple<>("commande","idclient", "client.id"));
         try {
             ResultSet resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
             int idCurrentClient = -1;

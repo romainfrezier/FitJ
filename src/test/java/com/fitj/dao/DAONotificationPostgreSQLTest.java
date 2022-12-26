@@ -1,9 +1,8 @@
 package com.fitj.dao;
 
-import com.fitj.classes.Commande;
-import com.fitj.classes.Notification;
-import com.fitj.dao.postgresql.DAOCommandePostgreSQL;
-import com.fitj.dao.postgresql.DAONotificationPostgreSQL;
+import com.fitj.classes.*;
+import com.fitj.dao.postgresql.*;
+import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
@@ -44,7 +43,27 @@ public class DAONotificationPostgreSQLTest {
     /**
      * Objet utilisé pour les tests
      */
-    private static int idCommande;
+    private static Commande commande;
+
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Client client;
+
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Coach coach;
+
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Seance seance;
+
+    /**
+     * Objet utilisé pour les tests
+     */
+    private static Sport sport;
 
     /**
      * Méthode d'initialisation réalisée avant que tous les tests soient effectués
@@ -53,11 +72,14 @@ public class DAONotificationPostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoNotificationPostgreSQL = new DAONotificationPostgreSQL();
-        Commande commande = new DAOCommandePostgreSQL().getAllCommande().get(0);
+        client = new DAOClientPostgreSQL().getAllClient().get(0);
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
+        sport = new DAOSportPostgreSQL().createSport("Test");
+        seance = new DAOSeancePostgreSQL().createSeance("seance", "description", 1, coach, sport, new ArrayList<>());
+        commande = new DAOCommandePostgreSQL().createCommande(client.getId(), coach.getId(), seance, PaiementType.CARTE_BANCAIRE);
         notification = new Notification(1,"Votre commande est prête",commande.getClient().getId(), commande.getId());
         idClient = notification.getIdClient();
-        idCommande = notification.getIdCommande();
-        notificationBD = daoNotificationPostgreSQL.createNotification(notification.getMessage(), idClient, idCommande);
+        notificationBD = daoNotificationPostgreSQL.createNotification(notification.getMessage(), idClient, commande.getId());
     }
 
     /**
@@ -67,6 +89,9 @@ public class DAONotificationPostgreSQLTest {
     @AfterAll
     public static void clean() throws Exception {
         daoNotificationPostgreSQL.supprimerNotification(notificationBD.getId());
+        new DAOCommandePostgreSQL().deleteCommande(commande.getId());
+        new DAOSeancePostgreSQL().supprimerSeance(seance.getId());
+        new DAOSportPostgreSQL().supprimerSport(sport.getId());
     }
 
     /**
@@ -92,7 +117,7 @@ public class DAONotificationPostgreSQLTest {
      */
     @Test
     void getAllNotificationsTest() throws Exception {
-        Notification notificationBD2 = daoNotificationPostgreSQL.createNotification("Votre commande est prête", idClient, idCommande);
+        Notification notificationBD2 = daoNotificationPostgreSQL.createNotification("Votre commande est prête", idClient, commande.getId());
         int size = daoNotificationPostgreSQL.getAllNotifications().size();
         daoNotificationPostgreSQL.supprimerNotification(notificationBD2.getId());
         Assertions.assertEquals(size,daoNotificationPostgreSQL.getAllNotifications().size()+1);
@@ -116,7 +141,7 @@ public class DAONotificationPostgreSQLTest {
      */
     @Test
     void supprimerNotificationTest() throws Exception {
-        Notification notificationBD1 = daoNotificationPostgreSQL.createNotification("Votre commande est prête", idClient, idCommande);
+        Notification notificationBD1 = daoNotificationPostgreSQL.createNotification("Votre commande est prête", idClient, commande.getId());
         daoNotificationPostgreSQL.supprimerNotification(notificationBD1.getId());
         Assertions.assertThrows(DBProblemException.class, () -> daoNotificationPostgreSQL.getNotificationById(notificationBD1.getId()));
     }
@@ -148,6 +173,6 @@ public class DAONotificationPostgreSQLTest {
      */
     @Test
     void getNotificationsByIdCommandeTest() throws Exception {
-        Assertions.assertEquals(idCommande,daoNotificationPostgreSQL.getNotificationsByIdCommande(idCommande).get(0).getIdCommande());
+        Assertions.assertEquals(commande.getId(),daoNotificationPostgreSQL.getNotificationsByIdCommande(commande.getId()).get(0).getIdCommande());
     }
 }
