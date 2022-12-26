@@ -1,6 +1,9 @@
 package com.fitj.dao.postgresql;
 
 import com.fitj.classes.*;
+import com.fitj.dao.DAOMateriel;
+import com.fitj.dao.DAOSport;
+import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
 import com.fitj.enums.Sexe;
@@ -24,19 +27,6 @@ public class DAOClientPostgreSQL extends DAOClient {
         this.methodesBD = new MethodesPostgreSQL();
     }
 
-
-
-
-    /**
-     * Créer un client dans la base de donnée avec les données rentrées en paramètre
-     * @param mail     String, l'émail du client
-     * @param pseudo   String, le pseudo du client
-     * @param password String, le mot de passe rentré par le client
-     * @param poids    float, le poids du client
-     * @param taille   int, la taille du client
-     * @param photo    String, le lien de la photo du client
-     * @throws Exception si une erreur SQL survient
-     */
     @Override
     public Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
@@ -64,9 +54,9 @@ public class DAOClientPostgreSQL extends DAOClient {
      */
     private Client chooseRole(ResultSet compte) throws Exception {
         Client connectedClient;
-        if (compte.getBoolean("isAdmin")){
+        if (compte.getBoolean("isadmin")){
             connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
-        } else if (compte.getBoolean("isCoach")){
+        } else if (compte.getBoolean("iscoach")){
             connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
         } else {
             connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
@@ -75,24 +65,28 @@ public class DAOClientPostgreSQL extends DAOClient {
     }
 
     /**
-     * @param mail String, l'email du client
-     * @return un objet de type Client contenant toutes les informations du client qui contient l'email rentré en paramètre
+     * Permet de mettre à jour les liste de sport, materiel et commande d'un client
+     *
+     * @param client Client, le client à mettre à jour
+     * @param rs     ResultSet, le résultat de la requête SQL
      * @throws Exception si une erreur SQL survient
      */
+    private void setClientList(Client client, ResultSet rs) throws Exception {
+        client.setListeCommande(FactoryDAO.getInstance().getDAOCommande().getCommandeByIdClient(rs.getInt("id")));
+        client.setListeMateriel(FactoryDAO.getInstance().getDAOMateriel().getMaterielByIdClient(rs.getInt("id")));
+        client.setListeSport(FactoryDAO.getInstance().getDAOSport().getSportByIdClient(rs.getInt("id")));
+    }
+
+    @Override
     public Client getClientByEmail(String mail) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
-            if (compte.next() == true){
+            if (compte.next()){
                 Client client = chooseRole(compte);
-                client.setListeCommande(new ArrayList<>());
-                client.setListeMateriel(this.getClientMateriel(client.getId()));
-                client.setListeSport(new ArrayList<>());
-                //client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                //client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                //client.setListeSport(this.getClientSport(compte.getInt("id")));
+                setClientList(client, compte);
                 return client;
             }
             else {
@@ -104,25 +98,16 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
-    /**
-     * @param id int, l'id du client
-     * @return un objet de type Client contenant toutes les informations du client qui contient l'id rentré en paramètre
-     * @throws Exception si une erreur SQL survient
-     */
+    @Override
     public Client getClientById(int id) throws Exception {
         ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("id", id));
         compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
-            if (compte.next() == true){
+            if (compte.next()){
                 Client client = chooseRole(compte);
-                client.setListeCommande(new ArrayList<>());
-                client.setListeMateriel(this.getClientMateriel(client.getId()));
-                client.setListeSport(new ArrayList<>());
-                //client.setListeCommande(this.getClientCommandes(compte.getInt("id")));
-                //client.setListeMateriel(this.getClientMateriel(compte.getInt("id")));
-                //client.setListeSport(this.getClientSport(compte.getInt("id")));
+                setClientList(client, compte);
                 return client;
             }
             else {
@@ -134,11 +119,9 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
-    /**
-     * Supprimer le client de la base de donnée
-     * @param mail, le mail du client
-     * @throws Exception si une erreur SQL survient
-     */
+
+
+    @Override
     public void supprimerClientByMail(String mail) throws Exception{
         List<Pair<String,Object>> wherelist = new ArrayList<>();
         wherelist.add(new Pair<>("mail", mail));
@@ -150,11 +133,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
-    /**
-     * Supprimer le client de la base de donnée
-     * @param id int, l'id du client
-     * @throws Exception si une erreur SQL survient
-     */
+    @Override
     public void supprimerClientById(int id) throws Exception{
         List<Pair<String,Object>> wherelist = new ArrayList<>();
         wherelist.add(new Pair<>("id", id));
@@ -166,107 +145,73 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
-    /**
-     * Met à jour le client de la base de donnée
-     * @param mail, le mail du client
-     * @throws Exception si une erreur SQL survient
-     */
-    public Client updateClient(List<Pair<String,Object>> data, String mail) throws Exception{
+    @Override
+    public Client updateClient(List<Pair<String,Object>> data, int id) throws Exception{
         List<Pair<String,Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("mail",mail));
+        whereList.add(new Pair<>("id",id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).update(data,whereList,this.table);
-            return this.getClientByEmail(mail);
+            return this.getClientById(id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du client a échoué");
         }
     }
 
-    /**
-     * Met à jour la photo du client dans la base de donnée
-     * @param photo, la photo du client
-     * @param mail, le mail du client
-     * @throws Exception si une erreur SQL survient
-     */
     @Override
-    public Client updateClientPhoto(String photo, String mail) throws Exception {
+    public Client updateClientPhoto(String photo, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("photo",photo));
         try {
-            return this.updateClient(updateList, mail);
+            return this.updateClient(updateList, id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour de la photo du client a échoué");
         }
     }
 
-    /**
-     * Met à jour le pseudo du client dans la base de donnée
-     * @param pseudo, le pseudo du client
-     * @param mail, le mail du client
-     * @throws Exception si une erreur SQL survient
-     */
     @Override
-    public Client updateClientPseudo(String pseudo, String mail) throws Exception {
+    public Client updateClientPseudo(String pseudo, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("pseudo",pseudo));
         try {
-            return this.updateClient(updateList, mail);
+            return this.updateClient(updateList, id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du pseudo du client a échoué");
         }
     }
 
-    /**
-     * Met à jour le poids du client dans la base de donnée
-     * @param poids, le poids du client
-     * @param mail, le mail du client
-     * @throws Exception si une erreur SQL survient
-     */
     @Override
-    public Client updateClientPoids(double poids, String mail) throws Exception {
+    public Client updateClientPoids(double poids, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("poids",poids));
         try {
-            return this.updateClient(updateList, mail);
+            return this.updateClient(updateList, id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du poids du client a échoué");
         }
     }
 
-    /**
-     * Met à jour la taille du client dans la base de donnée
-     * @param taille, la taille du client
-     * @param mail, le mail du client
-     * @throws Exception si une erreur SQL survient
-     */
     @Override
-    public Client updateClientTaille(int taille, String mail) throws Exception {
+    public Client updateClientTaille(int taille, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("taille",taille));
         try {
-            return this.updateClient(updateList, mail);
+            return this.updateClient(updateList, id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour de la taille du client a échoué");
         }
     }
 
-    /**
-     * Met à jour le password du client dans la base de donnée
-     * @param password, le password du client
-     * @param mail, le mail du client
-     * @throws Exception si une erreur SQL survient
-     */
     @Override
-    public Client updateClientPassword(String password, String mail) throws Exception {
+    public Client updateClientPassword(String password, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("password",passwordAuthentication.hash(password.toCharArray())));
         try {
-            return this.updateClient(updateList, mail);
+            return this.updateClient(updateList, id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du mot de passe du client a échoué");
@@ -274,108 +219,119 @@ public class DAOClientPostgreSQL extends DAOClient {
     }
 
     @Override
-    public Client updateClientSexe(Sexe sexe, String mail) throws Exception {
-        return null;
-    }
-
-    @Override
-    public Client updateClientMail(String mail, String mail2) throws Exception {
-        return null;
-    }
-
-    /**
-     * @param id int, l'id du client
-     * @return la liste de matériel du client
-     * @throws Exception si une erreur SQL survient
-     */
-    @Override
-    public List<Materiel> getClientMateriel(int id) throws Exception {
-        List<Triple<String,String,String>> dataJoin = new ArrayList<>();
-        dataJoin.add(new Triple<>("clientMateriel", "idMateriel", "materiel.id"));
-        List<Pair<String,Object>> dataWhere = new ArrayList<>();
-        dataWhere.add(new Pair<>("clientMateriel.idClient",id));
+    public Client updateClientSexe(Sexe sexe, int id) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("sexe", Sexe.getSexe(sexe)));
         try {
-            ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Materiel");
-            List<Materiel> listeMateriel = new ArrayList<>();
-            if (result.next() == true){
-                do {
-                    listeMateriel.add(new Materiel(result.getInt("id"), result.getString("nom")));
-                }while (result.next());
-            }
-            return listeMateriel;
+            return this.updateClient(updateList, id);
         }
         catch (Exception e){
-            throw new DBProblemException("La selection du matériel du client a échoué");
+            throw new DBProblemException("La mise à jour du sexe du client a échoué");
         }
     }
 
-
-    /**
-     * @param id int, l'id du client
-     * @return la liste de commandes du client
-     * @throws Exception si une erreur SQL survient
-     */
     @Override
-    public List<Commande> getClientCommandes(int id) throws Exception {
-        List<Triple<String,String,String>> dataJoin = new ArrayList<>();
-        dataJoin.add(new Triple<>("clientCommande", "idCommande", "commande.id"));
-        List<Pair<String,Object>> dataWhere = new ArrayList<>();
-        dataWhere.add(new Pair<>("clientCommande.idClient",id));
+    public Client updateClientMail(String mail, int id) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("mail", mail));
         try {
-            ResultSet result = ((MethodesPostgreSQL)this.methodesBD).selectJoin(dataJoin,dataWhere,"Commande");
-            List<Commande> listeCommande = new ArrayList<>();
-            if (result.next() == true){
-                do {
-                    Commande commande;
-                    Coach coach = (Coach)this.getClientById(result.getInt("clientCommande.idCoach"));
-                    Client client = this.getClientById(id);
-                    if (((Integer)result.getInt("prix")) != null){
-                        //     commande = new CommandePayante();
-                    }
-                    else {
-                        //   commande = new CommandeNonPayante();
-                    }
-
-                    //listeCommande.add(new Commande(this.getClientAccount(result.getInt("clientcommande.idclient")));
-                }while (result.next());
-            }
-            return listeCommande;
+            return this.updateClient(updateList, id);
         }
         catch (Exception e){
-            throw new DBProblemException("La sélection des commandes du client a échoué");
+            throw new DBProblemException("La mise à jour du sexe du client a échoué");
         }
-
-    }
-
-    /**
-     * @param id int, l'id du client
-     * @return la liste des sports du client
-     * @throws Exception si une erreur SQL survient
-     */
-    @Override
-    public List<Sport> getClientSport(int id) throws Exception {
-        return null;
     }
 
     @Override
     public List<Client> getAllClient() throws Exception {
-        return null;
+        return this.getAllClientWhere(new ArrayList<>());
     }
 
     @Override
     public List<Coach> getAllCoach() throws Exception {
-        return null;
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("client.iscoach", "true"));
+        List<Coach> coachs = new ArrayList<>();
+        List<Client> clients = this.getAllClientWhere(whereList);
+        for (Client client : clients){
+            coachs.add((Coach) client);
+        }
+        return coachs;
     }
 
     @Override
     public List<Admin> getAllAdmin() throws Exception {
-        return null;
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("client.isadmin", "true"));
+        List<Admin> admins = new ArrayList<>();
+        List<Client> clients = this.getAllClientWhere(whereList);
+        for (Client client : clients){
+            admins.add((Admin) client);
+        }
+        return admins;
     }
 
     @Override
     public List<Client> getAllClientWhere(List<Pair<String, Object>> whereList) throws Exception {
-        return null;
+        List<Client> listClients = new ArrayList<>();
+        List<Triple<String,String,String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("clientsport","idclient", "client.id"));
+        joinList.add(new Triple<>("clientmateriel","idclient", "client.id"));
+        joinList.add(new Triple<>("clientavis","idclient", "client.id"));
+        joinList.add(new Triple<>("commande","idclient", "client.id"));
+        try {
+            ResultSet resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            int idCurrentClient = -1;
+            while(resultSet.next()){
+                if (idCurrentClient != resultSet.getInt(1)){
+                    listClients.add(new Client(resultSet.getString("mail"),resultSet.getString("pseudo"),resultSet.getDouble("poids"), resultSet.getString("photo"), resultSet.getInt("taille"), Sexe.getSexe(resultSet.getString("sexe")), resultSet.getString("password"), resultSet.getInt(1)));
+                    idCurrentClient = resultSet.getInt(1);
+                }
+            }
+            return listClients;
+        }
+        catch (Exception e){
+            throw new DBProblemException("Impossible de récupérer tous les clients");
+        }
     }
 
+    @Override
+    public Client addMaterielToClient(int idClient, int idMateriel) throws Exception {
+        List<Pair<String,Object>> insertList = new ArrayList<>();
+        insertList.add(new Pair<>("idclient",idClient));
+        insertList.add(new Pair<>("idmateriel",idMateriel));
+        ((MethodesPostgreSQL)this.methodesBD).insert(insertList,"clientmateriel");
 
+        return this.getClientById(idClient);
+    }
+
+    @Override
+    public Client deleteMaterielToClient(int idClient, int idMateriel) throws Exception {
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idclient",idClient));
+        whereList.add(new Pair<>("idmateriel",idMateriel));
+        ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "clientmateriel");
+
+        return this.getClientById(idClient);
+    }
+
+    @Override
+    public Client addSportToClient(int idClient, int idSport) throws Exception {
+        List<Pair<String,Object>> insertList = new ArrayList<>();
+        insertList.add(new Pair<>("idclient",idClient));
+        insertList.add(new Pair<>("idsport",idSport));
+        ((MethodesPostgreSQL)this.methodesBD).insert(insertList,"clientsport");
+
+        return this.getClientById(idClient);
+    }
+
+    @Override
+    public Client deleteSportToClient(int idClient, int idSport) throws Exception {
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idclient",idClient));
+        whereList.add(new Pair<>("idsport",idSport));
+        ((MethodesPostgreSQL)this.methodesBD).delete(whereList,"clientsport");
+
+        return this.getClientById(idClient);
+    }
 }
