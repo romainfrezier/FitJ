@@ -17,7 +17,7 @@ import java.util.List;
  * @see DAOMaterielPostgreSQL
  * @author Romain Frezier
  */
-public class TestDAOMaterielPostgreSQL {
+public class DAOMaterielPostgreSQLTest {
 
     /**
      * Objet Materiel
@@ -131,5 +131,13 @@ public class TestDAOMaterielPostgreSQL {
         int size = daoMaterielPostgreSQL.getAllMaterielWhere(whereList).size();
         daoMaterielPostgreSQL.supprimerMateriel(materielBD2.getId());
         Assertions.assertEquals(size, 1);
+    }
+
+    /**
+     * Test de la méthode getMaterielByIdClient
+     * @throws Exception si la requête SQL échoue
+     */
+    @Test
+    public void testGetMaterielByIdClient() throws Exception {
     }
 }

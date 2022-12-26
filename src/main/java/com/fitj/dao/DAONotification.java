@@ -66,12 +66,12 @@ public abstract class DAONotification extends DAO {
      * @return List<Notification>, toutes les notifications relatives à un utilisateur dans la base de donnée dans une List
      * @throws Exception si une erreur SQL survient
      */
-    public abstract List<Notification> getNotificationsByUser(int id) throws Exception;
+    public abstract List<Notification> getNotificationsByIdClient(int id) throws Exception;
 
     /**
      * @param id int, l'id de l'utilisateur à qui appartient la notification
      * @return List<Notification>, toutes les notifications relatives à une commande dans la base de donnée dans une List
      * @throws Exception si une erreur SQL survient
      */
-    public abstract List<Notification> getNotificationsByCommande(int id) throws Exception;
+    public abstract List<Notification> getNotificationsByIdCommande(int id) throws Exception;
 }

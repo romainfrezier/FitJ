@@ -2,8 +2,9 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
+import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammeNutritionPostgreSQL;
-import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
+import com.fitj.dao.postgresql.DAORecettePostgreSQL;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
  * @see DAOProgrammeNutritionPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOProgrammeNutritionPostgreSQL {
+public class DAOProgrammeNutritionPostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests
@@ -46,6 +46,11 @@ public class TestDAOProgrammeNutritionPostgreSQL {
     /**
      * Objet utilisé pour les tests
      */
+    private static Recette recette;
+
+    /**
+     * Objet utilisé pour les tests
+     */
     private static ArrayList<Recette> listeRecettes;
 
     /**
@@ -55,8 +60,8 @@ public class TestDAOProgrammeNutritionPostgreSQL {
     @BeforeAll
     public static void init() throws Exception {
         daoProgrammeNutritionPostgreSQL = new DAOProgrammeNutritionPostgreSQL();
-        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        Recette recette = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
+        recette = new DAORecettePostgreSQL().createRecette("ZZZZ", coach, new ArrayList<>());
         listeRecettes = new ArrayList<>();
         listeRecettes.add(recette);
         programmeNutrition = new ProgrammeNutrition(1,"Programme healthy", "Super programme perdre du poids", 680, ProgrammeType.DIFFCILE, 6, coach, listeRecettes);
@@ -70,6 +75,7 @@ public class TestDAOProgrammeNutritionPostgreSQL {
     @AfterAll
     public static void clean() throws Exception {
         daoProgrammeNutritionPostgreSQL.supprimerProgrammeNutrition(programmeBD.getId());
+        new DAORecettePostgreSQL().supprimerRecette(recette.getId());
     }
 
     /**
@@ -100,7 +106,7 @@ public class TestDAOProgrammeNutritionPostgreSQL {
     public void testProgrammeNutritionDelete() throws Exception {
         ProgrammeNutrition programmeBD1 = daoProgrammeNutritionPostgreSQL.createProgrammeNutrition(programmeNutrition.getNom(),programmeNutrition.getDescription(),programmeNutrition.getPrix(),programmeNutrition.getType(),programmeNutrition.getNbMois(),programmeNutrition.getCoach(), (ArrayList<Recette>) programmeNutrition.getListeRecette());
         daoProgrammeNutritionPostgreSQL.supprimerProgrammeNutrition(programmeBD1.getId());
-        Assertions.assertThrows(SQLException.class, () -> daoProgrammeNutritionPostgreSQL.getProgrammeNutritionId(programmeBD1.getId()));
+        Assertions.assertThrows(Exception.class, () -> daoProgrammeNutritionPostgreSQL.getProgrammeNutritionId(programmeBD1.getId()));
     }
 
     /**

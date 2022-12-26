@@ -136,5 +136,10 @@ public class DAOExercicePostgreSQL extends DAOExercice {
         }
     }
 
+    @Override
+    public List<Exercice> getAllExerciceByCoachId(int id) throws Exception {
+        return null;
+    }
+
 
 }

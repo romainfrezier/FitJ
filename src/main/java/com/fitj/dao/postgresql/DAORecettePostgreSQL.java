@@ -66,7 +66,7 @@ public class DAORecettePostgreSQL extends DAORecette {
         try{
             ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (recetteBD.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(recetteBD.getInt("idcoach"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(recetteBD.getInt("idcoach"));
                 List<IsIngredient> listeIngredients = getIngredientsFromRecette(id);
                 return new Recette(recetteBD.getInt("id"),recetteBD.getString("nom"),coach, (ArrayList)listeIngredients);
             }

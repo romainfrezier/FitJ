@@ -1,14 +1,10 @@
 package com.fitj.dao;
 
-import com.fitj.classes.Client;
-import com.fitj.classes.Commande;
-import com.fitj.classes.Materiel;
-import com.fitj.classes.Sport;
+import com.fitj.classes.*;
 import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -49,7 +45,7 @@ public abstract class DAOClient extends DAO {
      * @return un objet contenant toutes les informations du client
      * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'email rentré du client
      */
-    public abstract Client getClientAccount(String mail) throws Exception;
+    public abstract Client getClientByEmail(String mail) throws Exception;
 
 
     /**
@@ -57,7 +53,7 @@ public abstract class DAOClient extends DAO {
      * @return un objet contenant toutes les informations du client
      * @throws Exception, une exception en cas de problème lors de la requête SQL avec l'id rentré du client
      */
-    public abstract Client getClientAccount(int id) throws Exception;
+    public abstract Client getClientById(int id) throws Exception;
 
     /**
      * Supprimer le client de la base de donnée
@@ -75,80 +71,132 @@ public abstract class DAOClient extends DAO {
 
     /**
      * Met à jour le client de la base de donnée
-     * @param mail, le mail du client
-     * @throws Exception
+     * @param id int, l'id du client
+     * @param data List<Pair<String,Object>>, la liste des champs à mettre à jour
+     * @throws Exception si une erreur survient lors de la requête SQL
      */
-    public abstract Client updateClient(List<Pair<String,Object>> data, String mail) throws Exception;
+    public abstract Client updateClient(List<Pair<String,Object>> data, int id) throws Exception;
 
     /**
      * Met à jour la photo du client dans la base de donnée
      * @param photo, la photo du client
-     * @param mail, le mail du client
-     * @throws Exception
+     * @param id int, l'id du client
+     * @throws Exception si une erreur survient lors de la requête SQL
      */
-    public abstract Client updateClientPhoto(String photo, String mail) throws Exception;
+    public abstract Client updateClientPhoto(String photo, int id) throws Exception;
 
     /**
      * Met à jour le pseudo du client dans la base de donnée
      * @param pseudo, le pseudo du client
-     * @param mail, le mail du client
-     * @throws Exception
+     * @param id int, l'id du client
+     * @throws Exception si une erreur survient lors de la requête SQL
      */
-    public abstract Client updateClientPseudo(String pseudo, String mail) throws Exception;
+    public abstract Client updateClientPseudo(String pseudo, int id) throws Exception;
 
     /**
      * Met à jour le poids du client dans la base de donnée
      * @param poids, le poids du client
-     * @param mail, le mail du client
-     * @throws Exception
+     * @param id int, l'id du client
+     * @throws Exception si une erreur survient lors de la requête SQL
      */
-    public abstract Client updateClientPoids(double poids, String mail) throws Exception;
+    public abstract Client updateClientPoids(double poids, int id) throws Exception;
 
     /**
      * Met à jour la taille du client dans la base de donnée
      * @param taille, la taille du client
-     * @param mail, le mail du client
-     * @throws Exception
+     * @param id int, l'id du client
+     * @throws Exception si une erreur survient lors de la requête SQL
      */
-    public abstract Client updateClientTaille(int taille, String mail) throws Exception;
+    public abstract Client updateClientTaille(int taille, int id) throws Exception;
 
     /**
      * Met à jour le password du client dans la base de donnée
      * @param password, le password du client
-     * @param mail, le mail du client
-     * @throws Exception
+     * @param id
+     * @throws Exception si une erreur survient lors de la requête SQL
      */
-    public abstract Client updateClientPassword(String password, String mail) throws Exception;
+    public abstract Client updateClientPassword(String password, int id) throws Exception;
 
     /**
+     * Modifie le sexe du client
+     * @param sexe Sexe, le sexe du client
      * @param id int, l'id du client
-     * @return la liste de matériel du client
-     * @throws Exception
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
      */
-    public abstract List<Materiel> getClientMateriel(int id) throws Exception;
+    public abstract Client updateClientSexe(Sexe sexe, int id) throws Exception;
 
     /**
+     * Modifie le mail du client
+     * @param mail String, le mail du client
      * @param id int, l'id du client
-     * @return la liste de commandes du client
-     * @throws Exception
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
      */
-    public abstract List<Commande> getClientCommandes(int id) throws Exception;
+    public abstract Client updateClientMail(String mail, int id) throws Exception;
 
     /**
-     * @param id int, l'id du client
-     * @return la liste des sport du client
-     * @throws Exception
+     * Récupère tous les clients de la base de donnée
+     * @return List<Client>, la liste des clients
+     * @throws Exception en cas de problème lors de la requête SQL
      */
-    public abstract List<Sport> getClientSport(int id) throws Exception;
-
+    public abstract List<Client> getAllClient() throws Exception;
 
     /**
-     * @param data, la donnée que le client veut vérifier
-     * @param name, le nom de la donnée
-     * @return true si la donnée existe dans la table sinon false
-     * @throws Exception, s'il y a eu un problème lors de la requête SQL
+     * Récupère tous les coachs de la base de donnée
+     * @return List<Coach>, la liste des coachs
+     * @throws Exception en cas de problème lors de la requête SQL
      */
-    public abstract boolean verifier(Object data, String name) throws Exception;
+    public abstract List<Coach> getAllCoach() throws Exception;
 
+    /**
+     * Récupère tous les admins de la base de donnée
+     * @return List<Admin>, la liste des admins
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract List<Admin> getAllAdmin() throws Exception;
 
+    /**
+     * Récupère tous les clients en respectant certains critères
+     * @param whereList List<Pair<String,Object>>, la liste des critères
+     * @return List<Client>, la liste des clients
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract List<Client> getAllClientWhere(List<Pair<String,Object>> whereList) throws Exception;
+
+    /**
+     * Ajoute un matériel au client
+     * @param idClient int, l'id du client
+     * @param idMateriel int, l'id du matériel
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Client addMaterielToClient(int idClient, int idMateriel) throws Exception;
+
+    /**
+     * Supprime un matériel au client
+     * @param idClient int, l'id du client
+     * @param idMateriel int, l'id du matériel
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Client deleteMaterielToClient(int idClient, int idMateriel) throws Exception;
+
+    /**
+     * Ajoute un sport au client
+     * @param idClient int, l'id du client
+     * @param idSport int, l'id du sport
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Client addSportToClient(int idClient, int idSport) throws Exception;
+
+    /**
+     * Supprime un sport au client
+     * @param idClient int, l'id du client
+     * @param idSport int, l'id du sport
+     * @return Client, le client modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Client deleteSportToClient(int idClient, int idSport) throws Exception;
 }

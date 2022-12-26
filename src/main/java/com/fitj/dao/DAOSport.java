@@ -68,4 +68,11 @@ public abstract class DAOSport extends DAO {
      * @param id int, l'id du sport
      */
     public abstract Sport updateSport(List<Pair<String,Object>> updateList, int id) throws Exception;
+
+    /**
+     * @param clientId int, l'id du client pratiquant le sport
+     * @return List<Sport>, la liste des sports pratiqués par le client
+     * @throws Exception si la requête SQL ne fonctionne pas
+     */
+    public abstract List<Sport> getSportByIdClient(int clientId) throws Exception;
 }

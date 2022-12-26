@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * @see DAOAlimentPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOAlimentPostgreSQL {
+public class DAOAlimentPostgreSQLTest {
 
     /**
      * Objets utilisés pour les tests
@@ -92,7 +91,7 @@ public class TestDAOAlimentPostgreSQL {
     public void testAlimentDelete() throws Exception {
         Aliment alimentBD = daoAlimentPostgreSQL.createAliment("Framboise");
         daoAlimentPostgreSQL.supprimerAliment(alimentBD.getId());
-        Assertions.assertThrows(SQLException.class, () -> daoAlimentPostgreSQL.getAlimentById(alimentBD.getId()));
+        Assertions.assertThrows(Exception.class, () -> daoAlimentPostgreSQL.getAlimentById(alimentBD.getId()));
     }
 
 }

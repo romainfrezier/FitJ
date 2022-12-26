@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * @see DAOSportPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOSportPostgreSQL {
+public class DAOSportPostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests
@@ -82,7 +81,7 @@ public class TestDAOSportPostgreSQL {
     public void testSportDelete() throws Exception {
         Sport sport1 = daoSportPostgreSQL.createSport("Muscu");
         daoSportPostgreSQL.supprimerSport(sport1.getId());
-        Assertions.assertThrows(SQLException.class,
+        Assertions.assertThrows(Exception.class,
                 () -> daoSportPostgreSQL.getSportById(sport1.getId()));
     }
 
@@ -105,7 +104,14 @@ public class TestDAOSportPostgreSQL {
         Assertions.assertEquals(nbSportBD, daoSportPostgreSQL.getAllSport().size() + 3);
     }
 
+    /**
+     * Test de la méthode de récupération des sports d'un client par son id
+     * @throws Exception si la requête SQL échoue
+     */
+    @Test
+    public void testGetSportByClientId() throws Exception {
 
+    }
 
 
 }
