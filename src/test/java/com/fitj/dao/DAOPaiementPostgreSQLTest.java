@@ -1,13 +1,12 @@
 package com.fitj.dao;
 
-import com.fitj.classes.Client;
-import com.fitj.classes.Commande;
-import com.fitj.classes.Paiement;
+import com.fitj.classes.*;
 import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOCommandePostgreSQL;
 import com.fitj.dao.postgresql.DAOPaiementPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
 import com.fitj.enums.PaiementType;
+import com.fitj.enums.ProgrammeType;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -45,6 +44,16 @@ class DAOPaiementPostgreSQLTest {
     private static Client client;
 
     /**
+     * Instance de la classe Coach utilisée pour les tests
+     */
+    private static Coach coach;
+
+    /**
+     * Instance de la classe ProgrammeSportif utilisée pour les tests
+     */
+    private static ProgrammeSportif programmeSportif;
+
+    /**
      * Instance de la classe Commande utilisée pour les tests
      */
     private static Commande commande;
@@ -57,8 +66,10 @@ class DAOPaiementPostgreSQLTest {
     public static void init() throws Exception {
         daoPaiementPostgreSQL = new DAOPaiementPostgreSQL();
         client = new DAOClientPostgreSQL().getAllClient().get(0);
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         paiement = new Paiement(0, 10, PaiementType.CARTE_BANCAIRE);
-        commande = new DAOCommandePostgreSQL().createCommande(client.getId(), 44, new DAOProgrammeSportifPostgreSQL().getAllProgrammeSportif().get(0), PaiementType.CARTE_BANCAIRE);
+        programmeSportif = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("nom", "desc", 34, ProgrammeType.DIFFCILE, 3, coach, new ArrayList<>());
+        commande = new DAOCommandePostgreSQL().createCommande(client.getId(), coach.getId(), programmeSportif, PaiementType.CARTE_BANCAIRE);
         paiementBD = daoPaiementPostgreSQL.createPaiement(commande.getId(), 10, paiement.getType());
     }
 
@@ -70,6 +81,7 @@ class DAOPaiementPostgreSQLTest {
     public static void clean() throws Exception {
         daoPaiementPostgreSQL.deletePaiement(paiementBD.getId());
         new DAOCommandePostgreSQL().deleteCommande(commande.getId());
+        new DAOProgrammeSportifPostgreSQL().supprimerProgrammeSportif(programmeSportif.getId());
     }
 
 /**
