@@ -6,6 +6,7 @@ import com.fitj.dao.postgresql.DAOExercicePostgreSQL;
 import com.fitj.dao.postgresql.DAOSeancePostgreSQL;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
+import kotlin.Triple;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -64,7 +65,7 @@ public class DAOSeancePostgreSQLTest {
     /**
      * Objet utilisé pour les tests
      */
-    private static ArrayList<Exercice> listeExercice;
+    private static List<Triple<Exercice, Integer, Integer>> listeExercice;
 
     /**
      * Initialisation des objets utilisés pour les tests
@@ -79,8 +80,8 @@ public class DAOSeancePostgreSQLTest {
         exercice1 = daoExercicePostgreSQL.createExercice("Nom1", "desc1");
         exercice2 = daoExercicePostgreSQL.createExercice("Nom2", "desc2");
         listeExercice = new ArrayList<>();
-        listeExercice.add(exercice1);
-        listeExercice.add(exercice2);
+        listeExercice.add(new Triple<>(exercice1, 1, 2));
+        listeExercice.add(new Triple<>(exercice2, 3,2));
         seance = new Seance(1,"TestCoach", "Belle séance de sport en plein air", 100, coach,sport,listeExercice);
         seanceBD = daoSeancePostgreSQL.createSeance(seance.getNom(),seance.getDescription(),seance.getPrix(),seance.getCoach(),seance.getSport(),seance.getListeExercice());
     }
@@ -146,7 +147,7 @@ public class DAOSeancePostgreSQLTest {
     @Test
     public void testSupprimerExerciceSeance() throws Exception {
         Exercice exercice = FactoryDAOPostgreSQL.getInstance().getDAOExercice().createExercice("Exercice", "Super exo");
-        daoSeancePostgreSQL.ajouterExercice(exercice,seanceBD.getId());
+        daoSeancePostgreSQL.ajouterExercice(exercice, 3, 1, seanceBD.getId());
         int size = daoSeancePostgreSQL.getSeanceById(seanceBD.getId()).getListeExercice().size();
         daoSeancePostgreSQL.supprimerExercice(exercice,seanceBD.getId());
         Assertions.assertEquals(size, daoSeancePostgreSQL.getSeanceById(seanceBD.getId()).getListeExercice().size() + 1);
@@ -159,13 +160,10 @@ public class DAOSeancePostgreSQLTest {
     @Test
     public void testAjouterExerciceSeance() throws Exception {
         Exercice exercice = FactoryDAOPostgreSQL.getInstance().getDAOExercice().createExercice("Exercice", "Super exo");
-        daoSeancePostgreSQL.ajouterExercice(exercice,seanceBD.getId());
+        daoSeancePostgreSQL.ajouterExercice(exercice,8, 4, seanceBD.getId());
         int size = daoSeancePostgreSQL.getSeanceById(seanceBD.getId()).getListeExercice().size();
         daoSeancePostgreSQL.supprimerExercice(exercice,seanceBD.getId());
         Assertions.assertEquals(size - 1, daoSeancePostgreSQL.getSeanceById(seanceBD.getId()).getListeExercice().size());
     }
-
-
-
 
 }
