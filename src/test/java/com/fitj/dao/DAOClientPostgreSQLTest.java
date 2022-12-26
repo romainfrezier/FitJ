@@ -8,7 +8,6 @@ import com.fitj.dao.postgresql.DAOMaterielPostgreSQL;
 import com.fitj.dao.postgresql.DAOSportPostgreSQL;
 import com.fitj.dao.tool.PasswordAuthentication;
 import com.fitj.enums.Sexe;
-import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -234,9 +233,9 @@ public class DAOClientPostgreSQLTest {
 
     @Test
     void addMaterielToClient() throws Exception {
-        int size = clientBD.getListeMateriel().size();
+        int size = new DAOMaterielPostgreSQL().getMaterielByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.addMaterielToClient(clientBD.getId(), materiel.getId());
-        int newSize = clientBD.getListeMateriel().size();
+        int newSize = new DAOMaterielPostgreSQL().getMaterielByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.deleteMaterielToClient(clientBD.getId(), materiel.getId());
         Assertions.assertEquals(size + 1, newSize);
     }
@@ -244,17 +243,17 @@ public class DAOClientPostgreSQLTest {
     @Test
     void deleteMaterielToClient() throws Exception {
         clientBD = daoClientPostgreSQL.addMaterielToClient(clientBD.getId(), materiel.getId());
-        int size = clientBD.getListeMateriel().size();
+        int size = new DAOMaterielPostgreSQL().getMaterielByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.deleteMaterielToClient(clientBD.getId(), materiel.getId());
-        int newSize = clientBD.getListeMateriel().size();
+        int newSize = new DAOMaterielPostgreSQL().getMaterielByIdClient(clientBD.getId()).size();
         Assertions.assertEquals(size - 1, newSize);
     }
 
     @Test
     void addSportToClient() throws Exception {
-        int size = clientBD.getListeSport().size();
+        int size = new DAOSportPostgreSQL().getSportByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.addSportToClient(clientBD.getId(), sport.getId());
-        int newSize = clientBD.getListeSport().size();
+        int newSize = new DAOSportPostgreSQL().getSportByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.deleteSportToClient(clientBD.getId(), sport.getId());
         Assertions.assertEquals(size + 1, newSize);
     }
@@ -262,9 +261,9 @@ public class DAOClientPostgreSQLTest {
     @Test
     void deleteSportToClient() throws Exception {
         clientBD = daoClientPostgreSQL.addSportToClient(clientBD.getId(), sport.getId());
-        int size = clientBD.getListeSport().size();
+        int size = new DAOSportPostgreSQL().getSportByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.deleteSportToClient(clientBD.getId(), sport.getId());
-        int newSize = clientBD.getListeSport().size();
+        int newSize = new DAOSportPostgreSQL().getSportByIdClient(clientBD.getId()).size();
         Assertions.assertEquals(size - 1, newSize);
     }
 

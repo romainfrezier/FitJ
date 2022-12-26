@@ -2,9 +2,9 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
+import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
 import com.fitj.enums.ProgrammeType;
-import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -53,7 +53,7 @@ public class DAOProgrammeSportifPostgreSQLTest {
      */
     @BeforeAll
     public static void init() throws Exception {
-        Coach coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        Coach coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getAllSport().get(0);
 
         seance = FactoryDAOPostgreSQL.getInstance().getDAOSeance().createSeance("Seance1", "Desciption", 22, coach, sport, new ArrayList<>());

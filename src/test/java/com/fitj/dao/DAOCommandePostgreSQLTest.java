@@ -59,8 +59,8 @@ class DAOCommandePostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoCommandePostgreSQL = new DAOCommandePostgreSQL();
-        coach = (Coach) new DAOClientPostgreSQL().getClientById(44);
-        client = new DAOClientPostgreSQL().getClientById(24);
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
+        client = new DAOClientPostgreSQL().getAllClient().get(0);
         produit = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("Programme", "desc", 23, ProgrammeType.DIFFCILE,4, coach, new ArrayList<>());
         commande = new CommandePayante(client, coach, produit, 1);
         paiementType = PaiementType.CARTE_BANCAIRE;
@@ -178,20 +178,13 @@ class DAOCommandePostgreSQLTest {
     @Test
     public void deleteCommande() throws Exception {
         DAODemandePostgreSQL daoDemandePostgreSQL = new DAODemandePostgreSQL();
-
         ProgrammePersonnalise produit_pers = new DAOProgrammePersonnalisePostgreSQL().getAllProgrammePersonnalise().get(0);
         Sport sport = new DAOSportPostgreSQL().getAllSport().get(0);
         Demande demande = new DAODemandePostgreSQL().createDemande(3, "description", true, false, 3, 0, sport, produit_pers);
         Commande commandeBD_pers = daoCommandePostgreSQL.createCommande(client.getId(), coach.getId(), produit_pers, paiementType, demande);
-
-        int size = daoCommandePostgreSQL.getAllCommande().size();
-
         daoDemandePostgreSQL.supprimerDemande(demande.getId());
         daoCommandePostgreSQL.deleteCommande(commandeBD_pers.getId());
-
-        int size1 = daoCommandePostgreSQL.getAllCommande().size();
-
-        Assertions.assertEquals(size1, size - 1);
+        Assertions.assertThrows(Exception.class, () -> daoCommandePostgreSQL.getCommandeById(commandeBD_pers.getId()));
     }
 
     /**
