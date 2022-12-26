@@ -1,5 +1,7 @@
 package com.fitj.classes;
 
+import kotlin.Triple;
+
 import java.util.*;
 
 /**
@@ -10,7 +12,7 @@ import java.util.*;
  */
 public class Seance extends Produit {
 
-    private List<Exercice> listeExercice;
+    private List<Triple<Exercice, Integer, Integer>> listeExercice;
 
     private Sport sport;
 
@@ -35,7 +37,7 @@ public class Seance extends Produit {
     /**
      * Constructeur avec des exercices
      */
-    public Seance(int id, String nom, String description, double prix, Coach coach, Sport sport, ArrayList<Exercice> listeExercice) {
+    public Seance(int id, String nom, String description, double prix, Coach coach, Sport sport, List<Triple<Exercice, Integer, Integer>> listeExercice) {
         super(id, nom, description, prix, coach);
         this.listeExercice = listeExercice;
         this.sport = sport;
@@ -49,23 +51,23 @@ public class Seance extends Produit {
      * Ajoute un exercice à la séance
      * @param exercice Exercice, l'exercice à ajouter à la séance
      */
-    public void ajouterExercice(Exercice exercice){
-        this.listeExercice.add(exercice);
+    public void ajouterExercice(Exercice exercice, int nbSeries, int nbRepetitions) {
+        this.listeExercice.add(new Triple<>(exercice, nbSeries, nbRepetitions));
     }
 
     /**
      * Retire un exercice de la séance
      * @param exercice Exercice, l'exercice à retirer de la séance
      */
-    public void retirerExercice(Exercice exercice){
-        this.listeExercice.remove(exercice);
+    public void retirerExercice(Exercice exercice, int nbSeries, int nbRepetitions){
+        this.listeExercice.remove(new Triple<>(exercice, nbSeries, nbRepetitions));
     }
 
 
     /**
      * @return la liste des exercices
      */
-    public List<Exercice> getListeExercice() {
+    public List<Triple<Exercice, Integer, Integer>> getListeExercice() {
         return listeExercice;
     }
 

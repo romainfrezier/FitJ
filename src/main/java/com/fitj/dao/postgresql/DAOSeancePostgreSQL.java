@@ -42,7 +42,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             if (seance.next()){
                 Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(seance.getInt("idcoach"));
                 Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(seance.getInt("idsport"));
-                ArrayList<Exercice> listeExercice = (ArrayList<Exercice>) this.getExercices(id);
+                List<Triple<Exercice, Integer, Integer>> listeExercice = (List<Triple<Exercice, Integer, Integer>>) this.getExercices(id);
                 return new Seance(seance.getInt("id"), seance.getString("nom"), seance.getString("description"),seance.getDouble("prix"),coach,sport,listeExercice);
             }
             else {
@@ -84,16 +84,16 @@ public class DAOSeancePostgreSQL extends DAOSeance {
      * @return la liste des exercices de la séance
      * @throws Exception si la sélection des exercices a échoué
      */
-    public List<Exercice> getExercices(int id) throws Exception {
+    public List<Triple<Exercice, Integer, Integer>> getExercices(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("seanceexercice.idseance", id));
         List<Triple<String, String, String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("seanceexercice", "idexercice", "exercice.id"));
         try {
             ResultSet exerciceBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
-            List<Exercice> listeExercice = new ArrayList<>();
+            List<Triple<Exercice, Integer, Integer>> listeExercice = new ArrayList<>();
             while (exerciceBD.next()){
-                listeExercice.add(new Exercice(exerciceBD.getInt("id"),exerciceBD.getString("nom"),exerciceBD.getString("description")));
+                listeExercice.add(new Triple<>(new Exercice(exerciceBD.getInt("id"),exerciceBD.getString("nom"),exerciceBD.getString("description")),exerciceBD.getInt("nbrepetition"), exerciceBD.getInt("nbserie")));
             }
             return listeExercice;
         }
@@ -113,7 +113,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
      * @param exercices List<Exercice>, la liste des exercices de la séance
      * @throws Exception si la création de la séance a échoué
      */
-    public Seance createSeance(String nom, String description, double prix, Coach coach, Sport sport, List<Exercice> exercices) throws Exception{
+    public Seance createSeance(String nom, String description, double prix, Coach coach, Sport sport, List<Triple<Exercice, Integer, Integer>> exercices) throws Exception{
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
         listeInsert.add(new Pair<>("nom",nom));
         listeInsert.add(new Pair<>("description",description));
@@ -122,15 +122,18 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         listeInsert.add(new Pair<>("idsport",sport.getId()));
         try {
             int idSeance = ((MethodesPostgreSQL)this.methodesBD).insert(listeInsert, this.table);
-            for (Exercice exercice : exercices){
+            for (Triple<Exercice, Integer, Integer> exercice : exercices){
                 List<Pair<String,Object>> listeInsertExercice = new ArrayList<>();
-                listeInsertExercice.add(new Pair<>("idexercice",exercice.getId()));
+                listeInsertExercice.add(new Pair<>("idexercice",exercice.getFirst().getId()));
                 listeInsertExercice.add(new Pair<>("idseance",idSeance));
+                listeInsertExercice.add(new Pair<>("nbrepetition", exercice.getSecond()));
+                listeInsertExercice.add(new Pair<>("nbserie", exercice.getThird()));
                 ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertExercice, "seanceexercice");
             }
             return this.getSeanceById(idSeance);
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La création de la séance a échoué");
         }
     }
@@ -175,7 +178,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             ResultSet seancesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentSeance = -1;
             while(seancesBD.next()){
-                /**
+                /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 5 = id du coach
@@ -240,10 +243,12 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     }
 
     @Override
-    public void ajouterExercice(Exercice exercice, int id) throws Exception {
+    public void ajouterExercice(Exercice exercice, int nbrepetition, int nbserie, int id) throws Exception {
         List<Pair<String, Object>> insertList = new ArrayList<>();
         insertList.add(new Pair<>("idexercice", exercice.getId()));
         insertList.add(new Pair<>("idseance", id));
+        insertList.add(new Pair<>("nbrepetition", nbrepetition));
+        insertList.add(new Pair<>("nbserie", nbserie));
         try {
             ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "seanceexercice");
         }
