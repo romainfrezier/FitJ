@@ -104,7 +104,14 @@ public class DAOSportPostgreSQLTest {
         Assertions.assertEquals(nbSportBD, daoSportPostgreSQL.getAllSport().size() + 3);
     }
 
+    /**
+     * Test de la méthode de récupération des sports d'un client par son id
+     * @throws Exception si la requête SQL échoue
+     */
+    @Test
+    public void testGetSportByClientId() throws Exception {
 
+    }
 
 
 }

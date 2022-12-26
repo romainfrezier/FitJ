@@ -166,7 +166,12 @@ public class DAOSportPostgreSQL extends DAOSport {
         }
     }
 
-
+    @Override
+    public List<Sport> getSportByIdClient(int clientId) throws Exception {
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idclient",clientId));
+        return this.getAllSportWhere(whereList);
+    }
 
 
 }

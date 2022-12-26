@@ -132,4 +132,12 @@ public class DAOMaterielPostgreSQLTest {
         daoMaterielPostgreSQL.supprimerMateriel(materielBD2.getId());
         Assertions.assertEquals(size, 1);
     }
+
+    /**
+     * Test de la méthode getMaterielByIdClient
+     * @throws Exception si la requête SQL échoue
+     */
+    @Test
+    public void testGetMaterielByIdClient() throws Exception {
+    }
 }

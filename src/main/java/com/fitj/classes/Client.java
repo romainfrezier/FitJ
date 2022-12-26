@@ -362,4 +362,11 @@ public class Client implements ProductReceiver, NotifReceiver {
         // TODO implement here
     }
 
+    public void supprimerMateriel(Materiel materiel) {
+        this.listeMateriel.remove(materiel);
+    }
+
+    public void supprimerSport(Sport sport) {
+        this.listeSport.remove(sport);
+    }
 }
