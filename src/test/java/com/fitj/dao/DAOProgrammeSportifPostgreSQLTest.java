@@ -113,10 +113,11 @@ public class DAOProgrammeSportifPostgreSQLTest {
      */
     @Test
     public void testGetAllProgrammeSportif() throws Exception {
-        ProgrammeSportif programmeBD1 = daoProgrammeSportifPostgreSQL.createProgrammeSportif(programmeSportif.getNom(),programmeSportif.getDescription(),programmeSportif.getPrix(),programmeSportif.getType(),programmeSportif.getNbMois(),programmeSportif.getCoach(), (ArrayList<Seance>) programmeSportif.getListeSeance());
         int nbSeanceBD = daoProgrammeSportifPostgreSQL.getAllProgrammeSportif().size();
+        ProgrammeSportif programmeBD1 = daoProgrammeSportifPostgreSQL.createProgrammeSportif(programmeSportif.getNom(),programmeSportif.getDescription(),programmeSportif.getPrix(),programmeSportif.getType(),programmeSportif.getNbMois(),programmeSportif.getCoach(), (ArrayList<Seance>) programmeSportif.getListeSeance());
+        int nbSeanceBD1 = daoProgrammeSportifPostgreSQL.getAllProgrammeSportif().size();
         daoProgrammeSportifPostgreSQL.supprimerProgrammeSportif(programmeBD1.getId());
-        Assertions.assertEquals(nbSeanceBD, daoProgrammeSportifPostgreSQL.getAllProgrammeSportif().size() + 1);
+        Assertions.assertEquals(nbSeanceBD + 1, nbSeanceBD1);
     }
 
     /**
@@ -128,7 +129,8 @@ public class DAOProgrammeSportifPostgreSQLTest {
         daoProgrammeSportifPostgreSQL.ajouterSeanceProgramme(seance2,programmeBD.getId());
         int size = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
         daoProgrammeSportifPostgreSQL.supprimerSeanceProgramme(seance2,programmeBD.getId());
-        Assertions.assertEquals(size-1, programmeBD.getListeSeance().size());
+        int size1 = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
+        Assertions.assertEquals(size-1, size1);
     }
 
     /**

@@ -2,7 +2,10 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
+import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAODemandePostgreSQL;
+import com.fitj.dao.postgresql.DAOProgrammePersonnalisePostgreSQL;
+import com.fitj.dao.postgresql.DAOSportPostgreSQL;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
@@ -52,9 +55,9 @@ public class DAODemandePostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoDemandePostgreSQL = new DAODemandePostgreSQL();
-        sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getAllSport().get(0);
-        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        programmePersonnaliseBD = FactoryDAOPostgreSQL.getInstance().getDAOProgrammePersonnalise().createProgrammePersonnalise("Super programme", "Je personnalise votre programme", 680, coach);
+        sport = new DAOSportPostgreSQL().createSport("temp sport");
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
+        programmePersonnaliseBD = new DAOProgrammePersonnalisePostgreSQL().createProgrammePersonnalise("Super programme", "Je personnalise votre programme", 680, coach);
         demande = daoDemandePostgreSQL.createDemande(6,"Je suis Francis jaimerai manger plus et rester au meme poids", true, true,4, 9, sport, programmePersonnaliseBD);
     }
 
@@ -64,7 +67,8 @@ public class DAODemandePostgreSQLTest {
      */
     @AfterAll
     public static void clean() throws Exception {
-        FactoryDAOPostgreSQL.getInstance().getDAOProgrammePersonnalise().supprimerProgrammePersonnalise(programmePersonnaliseBD.getId());
+        new DAOProgrammePersonnalisePostgreSQL().supprimerProgrammePersonnalise(programmePersonnaliseBD.getId());
+        new DAOSportPostgreSQL().supprimerSport(sport.getId());
         daoDemandePostgreSQL.supprimerDemande(demande.getId());
     }
 

@@ -2,7 +2,8 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
-import com.fitj.dao.postgresql.DAOPackPostgreSQL;
+import com.fitj.dao.postgresql.*;
+import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
@@ -57,11 +58,11 @@ public class DAOPackPostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoPackPostgreSQL = new DAOPackPostgreSQL();
-        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         packBD = daoPackPostgreSQL.createPack("PackTest", "Pack de test", 0, coach);
-        programmeNutrition = FactoryDAOPostgreSQL.getInstance().getDAOProgrammeNutrition().getAllProgrammeNutrition().get(0);
-        programmePersonnalise = FactoryDAOPostgreSQL.getInstance().getDAOProgrammePersonnalise().getAllProgrammePersonnalise().get(0);
-        programmeSportif = FactoryDAOPostgreSQL.getInstance().getDAOProgrammeSportif().getAllProgrammeSportif().get(0);
+        programmeNutrition = new DAOProgrammeNutritionPostgreSQL().createProgrammeNutrition("ProgrammeNutritionTest", "Programme de test", 10, ProgrammeType.FACILE, 4, coach, new ArrayList<>());
+        programmePersonnalise = new DAOProgrammePersonnalisePostgreSQL().createProgrammePersonnalise("ProgrammePersonnaliseTest", "Programme de test", 10, coach);
+        programmeSportif = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("ProgrammeSportifTest", "Programme de test", 10, ProgrammeType.FACILE, 4, coach, new ArrayList<>());
     }
 
     /**
@@ -71,6 +72,9 @@ public class DAOPackPostgreSQLTest {
     @AfterAll
     public static void clean() throws Exception {
         daoPackPostgreSQL.deletePack(packBD.getId());
+        new DAOProgrammeNutritionPostgreSQL().supprimerProgrammeNutrition(programmeNutrition.getId());
+        new DAOProgrammePersonnalisePostgreSQL().supprimerProgrammePersonnalise(programmePersonnalise.getId());
+        new DAOProgrammeSportifPostgreSQL().supprimerProgrammeSportif(programmeSportif.getId());
     }
 
     /**

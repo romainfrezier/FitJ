@@ -2,7 +2,9 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
+import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammeNutritionPostgreSQL;
+import com.fitj.dao.postgresql.DAORecettePostgreSQL;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
@@ -44,6 +46,11 @@ public class DAOProgrammeNutritionPostgreSQLTest {
     /**
      * Objet utilisé pour les tests
      */
+    private static Recette recette;
+
+    /**
+     * Objet utilisé pour les tests
+     */
     private static ArrayList<Recette> listeRecettes;
 
     /**
@@ -53,8 +60,8 @@ public class DAOProgrammeNutritionPostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoProgrammeNutritionPostgreSQL = new DAOProgrammeNutritionPostgreSQL();
-        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
-        Recette recette = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
+        recette = new DAORecettePostgreSQL().createRecette("ZZZZ", coach, new ArrayList<>());
         listeRecettes = new ArrayList<>();
         listeRecettes.add(recette);
         programmeNutrition = new ProgrammeNutrition(1,"Programme healthy", "Super programme perdre du poids", 680, ProgrammeType.DIFFCILE, 6, coach, listeRecettes);
@@ -68,6 +75,7 @@ public class DAOProgrammeNutritionPostgreSQLTest {
     @AfterAll
     public static void clean() throws Exception {
         daoProgrammeNutritionPostgreSQL.supprimerProgrammeNutrition(programmeBD.getId());
+        new DAORecettePostgreSQL().supprimerRecette(recette.getId());
     }
 
     /**

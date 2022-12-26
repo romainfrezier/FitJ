@@ -56,7 +56,7 @@ class DAOPaiementPostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoPaiementPostgreSQL = new DAOPaiementPostgreSQL();
-        client = new DAOClientPostgreSQL().getClientById(24);
+        client = new DAOClientPostgreSQL().getAllClient().get(0);
         paiement = new Paiement(0, 10, PaiementType.CARTE_BANCAIRE);
         commande = new DAOCommandePostgreSQL().createCommande(client.getId(), 44, new DAOProgrammeSportifPostgreSQL().getAllProgrammeSportif().get(0), PaiementType.CARTE_BANCAIRE);
         paiementBD = daoPaiementPostgreSQL.createPaiement(commande.getId(), 10, paiement.getType());

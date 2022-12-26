@@ -3,6 +3,7 @@ package com.fitj.dao;
 import com.fitj.classes.*;
 import com.fitj.dao.postgresql.*;
 import com.fitj.enums.PaiementType;
+import com.fitj.enums.ProgrammeType;
 import kotlin.Pair;
 import org.junit.jupiter.api.*;
 
@@ -60,7 +61,7 @@ class DAOCommandePostgreSQLTest {
         daoCommandePostgreSQL = new DAOCommandePostgreSQL();
         coach = (Coach) new DAOClientPostgreSQL().getClientById(44);
         client = new DAOClientPostgreSQL().getClientById(24);
-        produit = new DAOProgrammeSportifPostgreSQL().getAllProgrammeSportif().get(0);
+        produit = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("Programme", "desc", 23, ProgrammeType.DIFFCILE,4, coach, new ArrayList<>());
         commande = new CommandePayante(client, coach, produit, 1);
         paiementType = PaiementType.CARTE_BANCAIRE;
         commandeBD = daoCommandePostgreSQL.createCommande(client.getId(), coach.getId(), produit, paiementType);
@@ -73,6 +74,7 @@ class DAOCommandePostgreSQLTest {
     @AfterAll
     public static void clean() throws Exception {
         daoCommandePostgreSQL.deleteCommande(commandeBD.getId());
+        new DAOProgrammeSportifPostgreSQL().supprimerProgrammeSportif(produit.getId());
     }
 
     /**
