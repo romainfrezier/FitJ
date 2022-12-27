@@ -1,12 +1,14 @@
-cloc|github.com/AlDanial/cloc v 1.96  T=0.47 s (400.3 files/s, 24341.0 lines/s)
+cloc|github.com/AlDanial/cloc v 1.96  T=0.51 s (471.9 files/s, 33088.4 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Java|161|1513|3390|5870
-FXML|24|49|0|492
+Java|171|1766|4097|7376
+XML|17|0|0|1920
+Text|21|2|0|924
+FXML|30|64|0|695
 Maven|1|4|0|97
-Markdown|1|9|0|7
+Markdown|1|10|0|10
 Bourne Shell|1|0|0|2
 --------|--------|--------|--------|--------
-SUM:|188|1575|3390|6468
+SUM:|242|1846|4097|11024

@@ -53,6 +53,14 @@ public abstract class DAOMateriel extends DAO {
 
 
     /**
+     * @param idClient int, l'id du client
+     * @return List<Materiel>, tous le materiel loué par le client dans la base de donnée dans une List
+     * @throws Exception si aucun materiel n'existe
+     */
+    public abstract List<Materiel> getMaterielByIdClient(int idClient) throws Exception;
+
+
+    /**
      * Supprime le materiel de la base de donnée
      * @param id int, l'id du materiel
      * @throws Exception si le materiel n'existe pas

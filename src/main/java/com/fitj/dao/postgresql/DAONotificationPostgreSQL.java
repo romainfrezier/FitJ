@@ -99,14 +99,14 @@ public class DAONotificationPostgreSQL extends DAONotification {
     }
 
     @Override
-    public List<Notification> getNotificationsByUser(int id) throws Exception {
+    public List<Notification> getNotificationsByIdClient(int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add( new Pair<>("idclient",id));
         return this.getAllNotificationsWhere(whereList);
     }
 
     @Override
-    public List<Notification> getNotificationsByCommande(int id) throws Exception {
+    public List<Notification> getNotificationsByIdCommande(int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add( new Pair<>("idcommande",id));
         return this.getAllNotificationsWhere(whereList);

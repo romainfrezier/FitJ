@@ -46,7 +46,7 @@ public class DAOPackPostgreSQL extends DAOPack {
             return this.getPackById(id);
         }
         catch (Exception e){
-            throw new SQLException("La mise à jour du pack a échoué");
+            throw new DBProblemException("La mise à jour du pack a échoué");
         }
     }
 
@@ -66,7 +66,7 @@ public class DAOPackPostgreSQL extends DAOPack {
             ((MethodesPostgreSQL)this.methodesBD).delete(whereList,this.table);
         }
         catch(Exception e){
-            throw new SQLException("La suppresion du pack nutrition a échoué");
+            throw new DBProblemException("La suppresion du pack a échoué");
         }
     }
 
@@ -77,16 +77,16 @@ public class DAOPackPostgreSQL extends DAOPack {
         try{
             ResultSet packBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             if (packBD.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(packBD.getInt("idcoach"));
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(packBD.getInt("idcoach"));
                 ArrayList<Produit> listeProduit = (ArrayList<Produit>) this.getAllProduitByPack(id);
                 return new Pack(packBD.getInt("id"), packBD.getString("nom"), packBD.getString("description"),packBD.getDouble("prix"),coach,listeProduit);
             }
             else {
-                throw new SQLException("Aucun pack avec cet id n'existe");
+                throw new DBProblemException("Aucun pack avec cet id n'existe");
             }
         }
         catch(Exception e){
-            throw new SQLException("La sélection du pack nutrition a échoué");
+            throw new DBProblemException("La sélection du pack a échoué");
         }
     }
 
@@ -110,14 +110,12 @@ public class DAOPackPostgreSQL extends DAOPack {
             ResultSet packBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
             int idCurrentProgramme = -1;
             while(packBD.next()){
-                /**
+                /*
                  * index 1 = id du pack
                  * index 2 = nom du pack
                  * index 6 = id du coach
                  * index 8 = nom du coach
                  */
-                System.out.println("id coach = " + packBD.getString(6));
-                System.out.println("pseudo coach = " + packBD.getString(8));
                 if (idCurrentProgramme != packBD.getInt(1)){
                     Coach coach = new Coach(packBD.getString("mail"), packBD.getString(8), packBD.getDouble("poids"), packBD.getString("photo"), packBD.getInt("taille"), Sexe.getSexe(packBD.getString("sexe")), packBD.getString("password"), packBD.getInt(6));
                     listePack.add(new Pack(packBD.getInt(1), packBD.getString(2), packBD.getString("description"), packBD.getDouble("prix"), coach));
@@ -128,7 +126,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         }
         catch (Exception e){
             e.printStackTrace();
-            throw new SQLException("Impossible de récupérer tous les packs");
+            throw new DBProblemException("Impossible de récupérer tous les packs");
         }
     }
 
@@ -152,7 +150,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new SQLException("La selection de tous les programmes nutrition du pack a échoué !");
+            throw new DBProblemException("La selection de tous les programmes nutrition du pack a échoué !");
         }
     }
 
@@ -165,7 +163,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new SQLException("La selection de tous les programmes personnalisés du pack a échoué !");
+            throw new DBProblemException("La selection de tous les programmes personnalisés du pack a échoué !");
         }
     }
 
@@ -178,7 +176,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         }
         catch (Exception e) {
             e.printStackTrace();
-            throw new SQLException("La selection de tous les programmes sportifs du pack a échoué !");
+            throw new DBProblemException("La selection de tous les programmes sportifs du pack a échoué !");
         }
     }
 
@@ -190,8 +188,7 @@ public class DAOPackPostgreSQL extends DAOPack {
             return FactoryDAOPostgreSQL.getInstance().getDAOSeance().getAllSeancesWhere(whereList);
         }
         catch (Exception e) {
-            e.printStackTrace();
-            throw new SQLException("La selection de toutes les séances du pack a échoué !");
+            throw new DBProblemException("La selection de toutes les séances du pack" + idPack + "a échoué !");
         }
     }
 
@@ -203,8 +200,7 @@ public class DAOPackPostgreSQL extends DAOPack {
             return FactoryDAOPostgreSQL.getInstance().getDAOPack().getAllPackWhere(whereList);
         }
         catch (Exception e) {
-            e.printStackTrace();
-            throw new SQLException("La selection de tous les packs dans le pack a échoué !");
+            throw new DBProblemException("La selection de tous les packs dans le pack a échoué !");
         }
     }
 
@@ -226,7 +222,7 @@ public class DAOPackPostgreSQL extends DAOPack {
             this.ajouterSeance((Seance) produit, idPack);
         }
         else {
-            throw new Exception("Le produit n'est pas reconnu !");
+            throw new DBProblemException("Le produit n'est pas reconnu !");
         }
     }
 

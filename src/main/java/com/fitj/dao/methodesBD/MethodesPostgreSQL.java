@@ -66,9 +66,9 @@ public class MethodesPostgreSQL extends MethodesBD{
             this.connect();
             String sql = "SELECT * FROM " + table + " WHERE ";
             for (Pair<String, Object> pair : data) {
-                sql += pair.getFirst() + " = " + (pair.getSecond() instanceof String ? "'" + pair.getSecond() + "'" : pair.getSecond() + " ") + "AND";
+                sql += pair.getFirst() + " = " + (pair.getSecond() instanceof String ? "'" + pair.getSecond() + "'" : pair.getSecond() + " ") + "AND ";
             }
-            sql = sql.substring(0, sql.length() - 3);
+            sql = sql.substring(0, sql.length() - 4);
             sql += ";";
             PreparedStatement query = this.getConnexion().prepareStatement(sql);
             //System.out.println(query);
@@ -118,9 +118,9 @@ public class MethodesPostgreSQL extends MethodesBD{
         sql = sql.substring(0, sql.length() - 2);
         sql += "WHERE ";
         for (Pair<String, Object> pair : dataWhere) {
-            sql += pair.getFirst() + " = " + (pair.getSecond() instanceof String ? "'" + pair.getSecond() + "'" : pair.getSecond() + " ") + "AND";
+            sql += pair.getFirst() + " = " + (pair.getSecond() instanceof String ? "'" + pair.getSecond() + "'" : pair.getSecond() + " ") + "AND ";
         }
-        sql = sql.substring(0, sql.length() - 3);
+        sql = sql.substring(0, sql.length() - 4);
         sql += ";";
         PreparedStatement query = this.getConnexion().prepareStatement(sql);
         //System.out.println(query);
@@ -200,9 +200,9 @@ public class MethodesPostgreSQL extends MethodesBD{
         if (!dataWhere.isEmpty()){
             sql += "WHERE ";
             for (Pair<String, Object> pair : dataWhere) {
-                sql += pair.getFirst() + " = " + (pair.getSecond() instanceof String ? "'" + pair.getSecond() + "'" : pair.getSecond() + " ") + "AND";
+                sql += pair.getFirst() + " = " + (pair.getSecond() instanceof String ? "'" + pair.getSecond() + "'" : pair.getSecond() + " ") + "AND ";
             }
-            sql = sql.substring(0, sql.length() - 3);
+            sql = sql.substring(0, sql.length() - 4);
         }
         sql += ";";
         PreparedStatement query = this.getConnexion().prepareStatement(sql);

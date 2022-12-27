@@ -2,9 +2,9 @@ package com.fitj.dao;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
+import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammeSportifPostgreSQL;
 import com.fitj.enums.ProgrammeType;
-import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -20,7 +20,7 @@ import java.util.List;
  * @see DAOProgrammeSportifPostgreSQL
  * @author Etienne Tillier, Romain Frezier
  */
-public class TestDAOProgrammeSportifPostgreSQL {
+public class DAOProgrammeSportifPostgreSQLTest {
 
     /**
      * Objet utilisé pour les tests
@@ -53,7 +53,7 @@ public class TestDAOProgrammeSportifPostgreSQL {
      */
     @BeforeAll
     public static void init() throws Exception {
-        Coach coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        Coach coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getAllSport().get(0);
 
         seance = FactoryDAOPostgreSQL.getInstance().getDAOSeance().createSeance("Seance1", "Desciption", 22, coach, sport, new ArrayList<>());
@@ -113,10 +113,11 @@ public class TestDAOProgrammeSportifPostgreSQL {
      */
     @Test
     public void testGetAllProgrammeSportif() throws Exception {
-        ProgrammeSportif programmeBD1 = daoProgrammeSportifPostgreSQL.createProgrammeSportif(programmeSportif.getNom(),programmeSportif.getDescription(),programmeSportif.getPrix(),programmeSportif.getType(),programmeSportif.getNbMois(),programmeSportif.getCoach(), (ArrayList<Seance>) programmeSportif.getListeSeance());
         int nbSeanceBD = daoProgrammeSportifPostgreSQL.getAllProgrammeSportif().size();
+        ProgrammeSportif programmeBD1 = daoProgrammeSportifPostgreSQL.createProgrammeSportif(programmeSportif.getNom(),programmeSportif.getDescription(),programmeSportif.getPrix(),programmeSportif.getType(),programmeSportif.getNbMois(),programmeSportif.getCoach(), (ArrayList<Seance>) programmeSportif.getListeSeance());
+        int nbSeanceBD1 = daoProgrammeSportifPostgreSQL.getAllProgrammeSportif().size();
         daoProgrammeSportifPostgreSQL.supprimerProgrammeSportif(programmeBD1.getId());
-        Assertions.assertEquals(nbSeanceBD, daoProgrammeSportifPostgreSQL.getAllProgrammeSportif().size() + 1);
+        Assertions.assertEquals(nbSeanceBD + 1, nbSeanceBD1);
     }
 
     /**
@@ -128,7 +129,8 @@ public class TestDAOProgrammeSportifPostgreSQL {
         daoProgrammeSportifPostgreSQL.ajouterSeanceProgramme(seance2,programmeBD.getId());
         int size = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
         daoProgrammeSportifPostgreSQL.supprimerSeanceProgramme(seance2,programmeBD.getId());
-        Assertions.assertEquals(size-1, programmeBD.getListeSeance().size());
+        int size1 = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
+        Assertions.assertEquals(size-1, size1);
     }
 
     /**

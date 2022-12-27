@@ -128,6 +128,13 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         }
     }
 
+    @Override
+    public List<Materiel> getMaterielByIdClient(int idClient) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idclient", idClient));
+        return this.getAllMaterielWhere(whereList);
+    }
+
 
     /**
      * Permet de supprimer un matériel de la base de donnée
