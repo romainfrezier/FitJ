@@ -1,8 +1,15 @@
 package com.fitj.dao;
 
+import com.fitj.classes.Coach;
 import com.fitj.classes.Exercice;
+import com.fitj.classes.Seance;
+import com.fitj.classes.Sport;
+import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOExercicePostgreSQL;
+import com.fitj.dao.postgresql.DAOSeancePostgreSQL;
+import com.fitj.dao.postgresql.DAOSportPostgreSQL;
 import kotlin.Pair;
+import kotlin.Triple;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,6 +33,11 @@ public class DAOExercicePostgreSQLTest {
     /**
      * Objets utilisés pour les tests
      */
+    private static Coach coach;
+
+    /**
+     * Objets utilisés pour les tests
+     */
     private static Exercice exerciceBD;
 
     /**
@@ -41,6 +53,7 @@ public class DAOExercicePostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoExercicePostgreSQL = new DAOExercicePostgreSQL();
+        coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         exercice = new Exercice(5,"Pompe", "Se mettre au sol et se relever (je suis le test)");
         exerciceBD = daoExercicePostgreSQL.createExercice(exercice.getNom(), exercice.getDescription());
     }
@@ -109,4 +122,22 @@ public class DAOExercicePostgreSQLTest {
         Assertions.assertEquals(nbExerciceBD, daoExercicePostgreSQL.getAllExercice().size() + 1);
     }
 
+    /**
+     * Test de la méthode getAllExerciceByCoachId de la classe DAOExercicePostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
+    @Test
+    public void testGetAllExerciceByCoachId() throws Exception {
+        int size = daoExercicePostgreSQL.getAllExerciceByCoachId(coach.getId()).size();
+        Exercice exercice1 = daoExercicePostgreSQL.createExercice(exercice.getNom(), exercice.getDescription());
+        Sport sport = new DAOSportPostgreSQL().getAllSport().get(0);
+        Triple<Exercice, Integer, Integer> exoSeance = new Triple<>(exercice1, 1, 1);
+        List<Triple<Exercice, Integer, Integer>> exercices = new ArrayList<>();
+        exercices.add(exoSeance);
+        Seance seance = new DAOSeancePostgreSQL().createSeance("Test", "Test", 34, coach, sport, exercices);
+        int size1 = daoExercicePostgreSQL.getAllExerciceByCoachId(coach.getId()).size();
+        new DAOSeancePostgreSQL().supprimerSeance(seance.getId());
+        daoExercicePostgreSQL.supprimerExercice(exercice1.getId());
+        Assertions.assertEquals(size + 1, size1);
+    }
 }
