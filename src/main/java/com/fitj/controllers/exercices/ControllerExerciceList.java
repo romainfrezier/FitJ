@@ -122,8 +122,8 @@ public class ControllerExerciceList extends ControllerExercice {
     }
 
     /**
-     * Methode permettant de verifier si un materiel est selectionné
-     * @throws UnselectedItemException si aucun materiel n'est selectionné
+     * Methode permettant de verifier si un exercice est selectionné
+     * @throws UnselectedItemException si aucun exercice n'est selectionné
      */
     private void checkSelected() throws UnselectedItemException {
         if (listView.getSelectionModel().getSelectedItem() == null) {

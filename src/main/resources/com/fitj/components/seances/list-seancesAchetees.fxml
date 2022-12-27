@@ -2,10 +2,12 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
 
 
-<Pane prefHeight="565.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com/fitj/controllers/seances/ControllerSeancesAchetees.java">
+<Pane prefHeight="565.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.seances.ControllerSeancesAchetees">
    <children>
-      <ListView fx:id="listView" layoutX="35.0" layoutY="33.0" prefHeight="494.0" prefWidth="867.0" />
+      <ListView fx:id="listView" layoutX="35.0" layoutY="33.0" prefHeight="477.0" prefWidth="867.0" />
+      <Text fx:id="errorText" fill="RED" layoutX="148.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
    </children>
 </Pane>

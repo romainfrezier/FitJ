@@ -78,7 +78,7 @@ public abstract class ControllerSeance extends Controller {
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
      */
-    void goToEditSeance(Control controlEl) throws BadPageException {
+    void goToUpdateSeance(Control controlEl) throws BadPageException {
         String path = "";
         String clientType = Facade.currentClient.getClass().getSimpleName();
         if (clientType.equals("Admin")) {
