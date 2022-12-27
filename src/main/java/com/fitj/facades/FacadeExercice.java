@@ -47,8 +47,7 @@ public class FacadeExercice extends Facade {
      * @throws Exception en cas d'erreur
      */
     public List<Exercice> getAllExercicesFrom(int idCoach) throws Exception {
-        // return this.daoExercice.getAllExerciceFrom(idCoach);
-        return null;
+        return this.daoExercice.getAllExerciceByCoachId(idCoach);
     }
 
     /**

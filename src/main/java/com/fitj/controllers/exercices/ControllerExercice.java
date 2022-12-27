@@ -40,7 +40,8 @@ public class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToMonEspace(Control controlEl) throws BadPageException {
-        if (exerciceFacade.currentClient.getClass().getName() == "Admin") {
+        String clientType = Facade.currentClient.getClass().getSimpleName();
+        if (clientType.equals("Admin")) {
             goToPage(controlEl, admin + "monEspace-admin.fxml", "MonEspace");
         } else {
             goToPage(controlEl, coach + "monEspace-coach.fxml", "MonEspace");
