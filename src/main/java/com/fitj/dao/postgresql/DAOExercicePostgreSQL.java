@@ -57,6 +57,7 @@ public class DAOExercicePostgreSQL extends DAOExercice {
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("exercicemateriel","idexercice", "exercice.id"));
         joinList.add(new Triple<>("seanceexercice","idexercice", "exercice.id"));
+        joinList.add(new Triple<>("seance","id", "seanceexercice.idseance"));
         try {
             ResultSet exercicesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
             int idCurrentExercice = -1;
@@ -138,7 +139,9 @@ public class DAOExercicePostgreSQL extends DAOExercice {
 
     @Override
     public List<Exercice> getAllExerciceByCoachId(int id) throws Exception {
-        return null;
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("seance.idcoach", id));
+        return this.getAllExerciceWhere(whereList);
     }
 
 

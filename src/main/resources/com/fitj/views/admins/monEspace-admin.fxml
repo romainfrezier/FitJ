@@ -58,6 +58,15 @@
                      </children></AnchorPane>
               </content>
             </Tab>
+            <Tab text="Exercices">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                      <fx:include source="../../components/exercices/list-exercice.fxml" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
             <Tab text="Sports">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" translateX="20.0">
