@@ -69,7 +69,9 @@ public class ControllerExerciceList extends ControllerExercice {
                     };
                 }
             });
-            listView.getItems().addAll(exercices);
+            for (Exercice exercice : exercices) {
+                listView.getItems().add(exercice);
+            }
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
