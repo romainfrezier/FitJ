@@ -24,7 +24,11 @@
             </Tab>
             <Tab text="Séances">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <fx:include source="../../components/seances/list-mesSeances.fxml" />
+                     </children>
+                  </AnchorPane>
                </content>
             </Tab>
             <Tab text="Recettes">
