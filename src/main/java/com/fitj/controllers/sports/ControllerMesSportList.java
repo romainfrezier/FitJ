@@ -15,7 +15,7 @@ import java.util.Optional;
 /**
  * Controller de la page sport-list-view.fxml
  * @see ControllerSport
- * @author Romain Frezier
+ * @author Paco Munarriz
  */
 public class ControllerMesSportList extends ControllerSport {
 
@@ -24,12 +24,14 @@ public class ControllerMesSportList extends ControllerSport {
     private Button addSportButton;
     @FXML
     private ListView<Sport> listView;
-    @FXML
-    private Button updateSportButton;
+
     @FXML
     private Button deleteSportbutton;
+
     @FXML
     private Text errorText;
+
+
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
@@ -39,6 +41,7 @@ public class ControllerMesSportList extends ControllerSport {
     private void initialize() {
         super.hideError(errorText);
         initializeSportList();
+
     }
 
     /**
@@ -46,7 +49,7 @@ public class ControllerMesSportList extends ControllerSport {
      */
     private void initializeSportList() {
         try {
-            List<Sport> sports = sportFacade.getAllSports();
+            List<Sport> sports = sportFacade.getSportByIdClient(clientFacade.getIdClient());
             listView.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Sport> call(ListView<Sport> param) {
@@ -75,29 +78,15 @@ public class ControllerMesSportList extends ControllerSport {
      * Methode permettant de se rendre sur la page d'ajout d'un sport
      */
     @FXML
-    private void goToAddSport() {
+    private void goToAddMySport() {
         try {
             super.hideError(errorText);
-            super.goToAddSport(addSportButton);
+            super.goToAddMySport(addSportButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
     }
 
-    /**
-     * Methode permettant de se rendre sur la page de modification d'un sport
-     */
-    @FXML
-    private void goToUpdateSport() {
-        try {
-            super.hideError(errorText);
-            checkSelected();
-            setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
-            super.goToUpdateSport(updateSportButton);
-        } catch (BadPageException | UnselectedItemException e) {
-            super.displayError(errorText, e.getMessage());
-        }
-    }
 
     /**
      * Methode permettant de supprimer un sport

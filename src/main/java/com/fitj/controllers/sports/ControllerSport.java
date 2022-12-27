@@ -44,6 +44,17 @@ public abstract class ControllerSport extends Controller {
     }
 
     /**
+     * Methode permettant de se rendre sur la page d'ajout d'un sport dans la liste des sports s'un client
+     * @param controlEl Control, élément de contrôle de la page
+     * @throws BadPageException si la vue n'existe pas
+     */
+    void goToAddMySport(Control controlEl) throws BadPageException {
+        goToPage(controlEl, sport + "add-mysport.fxml", "Ajout d'un sport");
+    }
+
+
+
+    /**
      * Methode permettant de se rendre sur la page de modification d'un sport
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas

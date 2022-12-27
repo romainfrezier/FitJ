@@ -11,5 +11,6 @@
        <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" prefHeight="470.0" prefWidth="867.0" />
        <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
        <Button fx:id="deleteMaterielbutton" layoutX="526.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteMateriel" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="140.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
    </children>
 </Pane>

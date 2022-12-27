@@ -43,4 +43,10 @@ public class FacadeSport extends Facade {
     public Sport getSportById(int idSport) throws Exception {
         return this.daoSport.getSportById(idSport);
     }
+
+    public List<Sport> getSportByIdClient(int idClient) throws Exception {
+        return this.daoSport.getSportByIdClient(idClient);
+
+    }
 }
+
