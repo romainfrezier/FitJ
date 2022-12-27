@@ -22,20 +22,14 @@ public class ControllerUpdateExercice extends ControllerExercice {
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
-     * Identifiant de l'exercice à modifier
-     */
-    private int idExerciceSelected;
-
-    /**
      * Méthode appelée lors du chargement de la page
      */
     @FXML
     private void initialize() {
         super.hideError(errorText);
         Exercice exercice = null;
-        idExerciceSelected = getIdObjectSelected();
         try {
-            exercice = exerciceFacade.getExerciceById(idExerciceSelected);
+            exercice = exerciceFacade.getExerciceById(getIdObjectSelected());
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
@@ -53,7 +47,7 @@ public class ControllerUpdateExercice extends ControllerExercice {
         super.hideError(errorText);
         try {
             if (exerciceName.getText() != null && exerciceDescription.getText() != null) {
-                exerciceFacade.updateExercice(idExerciceSelected, exerciceName.getText(), exerciceDescription.getText());
+                exerciceFacade.updateExercice(getIdObjectSelected(), exerciceName.getText(), exerciceDescription.getText());
                 super.goToMonEspace(updateExerciceButton);
             } else {
                 super.displayError(errorText, "Veuillez remplir tous les champs");
