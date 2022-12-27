@@ -12,7 +12,7 @@ import javafx.scene.control.Control;
  * @see Controller
  * @author Paul Merceur
  */
-public class ControllerExercice extends Controller {
+public abstract class ControllerExercice extends Controller {
 
     /**
      * Facade pour les exercices
@@ -54,12 +54,12 @@ public class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToAddExercice(Control controlEl) throws BadPageException {
-        String path = exercice;
+        String path;
         Client currentClient = Facade.currentClient;
         if (currentClient.getClass().getName() == "Admin") {
-            path += admin;
+            path =  exercice + admin;
         } else {
-            path += coach;
+            path = exercice + coach;
         }
         goToPage(controlEl, path + "create-exercice.fxml", "Création d'un exercice");
     }
@@ -70,12 +70,12 @@ public class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToUpdateExercice(Control controlEl) throws BadPageException {
-        String path = exercice;
+        String path;
         Client currentClient = Facade.currentClient;
         if (currentClient.getClass().getName() == "Admin") {
-            path += admin;
+            path = exercice + admin;
         } else {
-            path += coach;
+            path = exercice + coach;
         }
         goToPage(controlEl, path + "update-exercice.fxml", "Modification d'un exercice");
     }
