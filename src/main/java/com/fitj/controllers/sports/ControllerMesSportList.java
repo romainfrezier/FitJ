@@ -4,7 +4,6 @@ import com.fitj.classes.Sport;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.FacadeClient;
-import com.fitj.facades.FacadeSport;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;

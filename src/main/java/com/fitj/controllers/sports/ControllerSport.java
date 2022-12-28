@@ -44,7 +44,7 @@ public abstract class ControllerSport extends Controller {
     }
 
     /**
-     * Methode permettant de se rendre sur la page d'ajout d'un sport dans la liste des sports s'un client
+     * Methode permettant de se rendre sur la page d'ajout d'un sport dans la liste des sports d'un client
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
      */

@@ -20,7 +20,7 @@ import static com.fitj.facades.Facade.currentClient;
 /**
  * Controller de la page d'ajout d'un sport
  * @see ControllerSport
- * @author Romain Frezier
+ * @author Paco Munarriz
  */
 public class ControllerAddMesSport extends ControllerSport {
 
@@ -86,12 +86,13 @@ public class ControllerAddMesSport extends ControllerSport {
      * Méthode appelée lors du clic sur le bouton "Ajouter". Ajoute le sport
      */
     @FXML
-    private void addSport() {
+    private void AddSport() {
+        FacadeClient facadeClient = FacadeClient.getInstance();
             try {
                 hideError(errorText);
                 checkSelected();
                 setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
-                FacadeClient.getInstance().addSportToClient(currentClient.getId(),getIdObjectSelected());
+                facadeClient.addSportToClient(currentClient.getId(),getIdObjectSelected());
                 super.goToMonEspace(addSportButton);
             } catch (UnselectedItemException e) {
                 super.displayError(errorText, e.getMessage());

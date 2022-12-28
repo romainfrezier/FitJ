@@ -3,7 +3,7 @@ package com.fitj.controllers.materiels;
 import com.fitj.classes.Materiel;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
-import com.fitj.facades.FacadeMateriel;
+import com.fitj.facades.FacadeClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -11,6 +11,8 @@ import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.fitj.facades.Facade.currentClient;
 
 /**
  * Controller de la page materiel-list-view.fxml
@@ -24,12 +26,14 @@ public class ControllerMonMaterielList extends ControllerMateriel {
     private Button addMaterielButton;
     @FXML
     private ListView<Materiel> listView;
-    @FXML
-    private Button updateMaterielButton;
+
     @FXML
     private Button deleteMaterielbutton;
+
     @FXML
     private Text errorText;
+
+
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
@@ -39,14 +43,15 @@ public class ControllerMonMaterielList extends ControllerMateriel {
     private void initialize() {
         super.hideError(errorText);
         initializeMaterielList();
+
     }
 
     /**
-     * Methode permettant d'initialiser la liste des materiels
+     * Methode permettant d'initialiser la liste du materiels
      */
     private void initializeMaterielList() {
         try {
-            List<Materiel> materiels = materielFacade.getAllMateriels();
+            List<Materiel> materiels = materielFacade.getMaterielByIdClient(currentClient.getId());
             listView.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Materiel> call(ListView<Materiel> param) {
@@ -75,29 +80,15 @@ public class ControllerMonMaterielList extends ControllerMateriel {
      * Methode permettant de se rendre sur la page d'ajout d'un materiel
      */
     @FXML
-    private void goToAddMateriel() {
+    private void goToAddMyMateriel() {
         try {
             super.hideError(errorText);
-            super.goToAddMateriel(addMaterielButton);
+            super.goToAddMyMateriel(addMaterielButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
     }
 
-    /**
-     * Methode permettant de se rendre sur la page de modification d'un materiel
-     */
-    @FXML
-    private void goToUpdateMateriel() {
-        try {
-            super.hideError(errorText);
-            checkSelected();
-            setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
-            super.goToUpdateMateriel(updateMaterielButton);
-        } catch (BadPageException | UnselectedItemException e) {
-            super.displayError(errorText, e.getMessage());
-        }
-    }
 
     /**
      * Methode permettant de supprimer un materiel
@@ -136,9 +127,9 @@ public class ControllerMonMaterielList extends ControllerMateriel {
         Optional<ButtonType> option = alert.showAndWait();
 
         if (option.isPresent() && option.get() == ButtonType.OK){
-            FacadeMateriel facadeMateriel = FacadeMateriel.getInstance();
+            FacadeClient facadeClient = FacadeClient.getInstance();
             try {
-                facadeMateriel.deleteMateriel(getIdObjectSelected());
+                facadeClient.deleteMaterielToClient(currentClient.getId(), getIdObjectSelected());
                 listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
             } catch (Exception e) {
                 super.displayError(errorText, e.getMessage());

@@ -45,5 +45,9 @@ public class FacadeMateriel extends Facade {
     public Materiel getMaterielById(int idMateriel) throws Exception {
         return this.daoMateriel.getMaterielById(idMateriel);
     }
+
+    public List<Materiel> getMaterielByIdClient(int idClient) throws Exception {
+        return this.daoMateriel.getMaterielByIdClient(idClient);
+    }
 }
 
