@@ -3,6 +3,7 @@ package com.fitj.controllers.sports;
 import com.fitj.classes.Sport;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
+import com.fitj.facades.FacadeClient;
 import com.fitj.facades.FacadeSport;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,6 +12,8 @@ import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.fitj.facades.Facade.currentClient;
 
 /**
  * Controller de la page sport-list-view.fxml
@@ -49,7 +52,7 @@ public class ControllerMesSportList extends ControllerSport {
      */
     private void initializeSportList() {
         try {
-            List<Sport> sports = sportFacade.getSportByIdClient(clientFacade.getIdClient());
+            List<Sport> sports = sportFacade.getSportByIdClient(currentClient.getId());
             listView.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Sport> call(ListView<Sport> param) {
@@ -125,9 +128,9 @@ public class ControllerMesSportList extends ControllerSport {
         Optional<ButtonType> option = alert.showAndWait();
 
         if (option.isPresent() && option.get() == ButtonType.OK){
-            FacadeSport facadeSport = FacadeSport.getInstance();
+            FacadeClient facadeClient = FacadeClient.getInstance();
             try {
-                facadeSport.deleteSport(getIdObjectSelected());
+                facadeClient.deleteSportToClient(currentClient.getId(), getIdObjectSelected());
                 listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
             } catch (Exception e) {
                 super.displayError(errorText, e.getMessage());
