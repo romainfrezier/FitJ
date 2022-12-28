@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-
 <Pane prefHeight="565.0" prefWidth="936.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.seances.ControllerMesSeances">
    <children>
       <ListView fx:id="listView" layoutX="35.0" layoutY="28.0" prefHeight="442.0" prefWidth="867.0" />

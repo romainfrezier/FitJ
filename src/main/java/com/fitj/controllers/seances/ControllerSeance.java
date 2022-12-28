@@ -69,7 +69,7 @@ public abstract class ControllerSeance extends Controller {
         } else if (clientType.equals("Coach")) {
             path = seance + coach;
         }
-        goToPage(controlEl, path + "addSeance.fxml", "Ajouter une séance");
+        goToPage(controlEl, path + "create-seance.fxml", "Ajouter une séance");
     }
 
     /**
@@ -86,7 +86,7 @@ public abstract class ControllerSeance extends Controller {
         } else if (clientType.equals("Coach")) {
             path = seance + coach;
         }
-        goToPage(controlEl, path + "editSeance.fxml", "Modifier une séance");
+        goToPage(controlEl, path + "update-seance.fxml", "Modifier une séance");
     }
 
 }
