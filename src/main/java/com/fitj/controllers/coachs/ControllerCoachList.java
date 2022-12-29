@@ -1,6 +1,7 @@
-package com.fitj.controllers.admins;
+package com.fitj.controllers.coachs;
 
-import com.fitj.classes.Client;
+import com.fitj.classes.Admin;
+import com.fitj.classes.Coach;
 import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
@@ -11,21 +12,15 @@ import javafx.util.Callback;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Classe qui gère la vue de la liste des clients
- * @author Romain Frezier
- */
-public class ControllerClients extends ControllerAdmin {
+public class ControllerCoachList extends ControllerCoach {
 
     // Composants de la vue -----------------------------------------------
     @FXML
     private Button setToAdmin;
     @FXML
-    private ListView<Client> listView;
+    private Button seeMoreButton;
     @FXML
-    private Text errorMessage;
-    @FXML
-    private Button setToCoach;
+    private ListView<Coach> listView;
     @FXML
     private Text errorText;
     // --------------------------------------------------------------------
@@ -37,6 +32,9 @@ public class ControllerClients extends ControllerAdmin {
     private void initialize() {
         super.hideError(errorText);
         initializeClientList();
+        if (!(Facade.currentClient instanceof Admin)) {
+            setToAdmin.setDisable(true);
+        }
     }
 
     /**
@@ -44,13 +42,13 @@ public class ControllerClients extends ControllerAdmin {
      */
     private void initializeClientList() {
         try {
-            List<Client> clients = adminFacade.getAllClients();
+            List<Coach> coachs = coachFacade.getAllCoachs();
             listView.setCellFactory(new Callback<>() {
                 @Override
-                public ListCell<Client> call(ListView<Client> o) {
+                public ListCell<Coach> call(ListView<Coach> o) {
                     return new ListCell<>() {
                         @Override
-                        protected void updateItem(Client item, boolean empty) {
+                        protected void updateItem(Coach item, boolean empty) {
                             super.updateItem(item, empty);
                             if (item != null) {
                                 setText(item.getId() + ". " + item.getPseudo());
@@ -61,8 +59,8 @@ public class ControllerClients extends ControllerAdmin {
                     };
                 }
             });
-            for (Client client : clients) {
-                listView.getItems().add(client);
+            for (Coach coach : coachs) {
+                listView.getItems().add(coach);
             }
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
@@ -85,18 +83,11 @@ public class ControllerClients extends ControllerAdmin {
     }
 
     /**
-     * Méthode réagissant au clic sur le bouton "Nouveau coach"
+     * Méthode réagissant au clic sur le bouton "Voir plus"
      */
     @FXML
-    private void handleCoachPassage() {
-        try {
-            hideError(errorText);
-            checkSelected();
-            setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
-            showConfirmationCoachPassage();
-        } catch (UnselectedItemException e) {
-            super.displayError(errorText, e.getMessage());
-        }
+    private void handleSeeMoreButton() {
+        super.displayError(errorText, "Fonctionnalité non implémentée");
     }
 
     /**
@@ -112,27 +103,7 @@ public class ControllerClients extends ControllerAdmin {
 
         if (option.isPresent() && option.get() == ButtonType.OK){
             try {
-                Facade.currentClient = adminFacade.clientBecomeAdmin(getIdObjectSelected());
-            } catch (Exception e) {
-                super.displayError(errorText, e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Méthode permettant d'afficher une fenêtre de confirmation pour le passage en coach
-     */
-    private void showConfirmationCoachPassage() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Passage en coach");
-        alert.setHeaderText("Vous êtes sûr de vouloir rendre cet utilisateur coach ?");
-        alert.setContentText("Vous ne pourrez pas revenir en arrière");
-
-        Optional<ButtonType> option = alert.showAndWait();
-
-        if (option.isPresent() && option.get() == ButtonType.OK){
-            try {
-                Facade.currentClient = adminFacade.clientBecomeCoach(getIdObjectSelected());
+                Facade.currentClient = coachFacade.clientBecomeAdmin(getIdObjectSelected());
             } catch (Exception e) {
                 super.displayError(errorText, e.getMessage());
             }
@@ -145,7 +116,7 @@ public class ControllerClients extends ControllerAdmin {
      */
     private void checkSelected() throws UnselectedItemException {
         if (listView.getSelectionModel().getSelectedItem() == null) {
-            throw new UnselectedItemException("Vous devez selectionner un sport");
+            throw new UnselectedItemException("Vous devez sélectionner un coach");
         }
     }
 

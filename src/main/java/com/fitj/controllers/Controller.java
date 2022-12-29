@@ -65,6 +65,7 @@ public abstract class Controller {
      */
     private Scene getScene(String viewName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + viewName));
+        System.out.println("views/" + viewName);
         return new Scene(fxmlLoader.load());
     }
 
