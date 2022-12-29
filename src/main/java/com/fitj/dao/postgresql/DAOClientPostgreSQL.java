@@ -5,10 +5,12 @@ import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
 import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.Sexe;
+import com.fitj.exceptions.BannedAccountException;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -69,6 +71,9 @@ public class DAOClientPostgreSQL extends DAOClient {
             DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
             List<Map<String,Object>> result = compte.getListeData();
             if (!result.isEmpty()){
+                if ((boolean)result.get(0).get("isbanned")) {
+                    throw new BannedAccountException();
+                }
                 Client client = chooseRole(result.get(0));
                 client.setListeCommande(new ArrayList<>());
                 client.setListeMateriel(new ArrayList<>());
@@ -79,8 +84,7 @@ public class DAOClientPostgreSQL extends DAOClient {
                 throw new DBProblemException("Aucun client avec cet email n'existe");
             }
         }
-        catch (Exception e){
-            e.printStackTrace();
+        catch (SQLException e){
             throw new DBProblemException("La sélection du client a échoué");
         }
     }
@@ -93,18 +97,21 @@ public class DAOClientPostgreSQL extends DAOClient {
             DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
             List<Map<String,Object>> result = compte.getListeData();
             if (!result.isEmpty()){
-                Client client = chooseRole(result.get(0));
-                client.setListeCommande(new ArrayList<>());
-                client.setListeMateriel(new ArrayList<>());
-                client.setListeSport(new ArrayList<>());
-                return client;
+                if (!(boolean)result.get(0).get("isbanned")) {
+                    Client client = chooseRole(result.get(0));
+                    client.setListeCommande(new ArrayList<>());
+                    client.setListeMateriel(new ArrayList<>());
+                    client.setListeSport(new ArrayList<>());
+                    return client;
+                } else {
+                    throw new BannedAccountException();
+                }
             }
             else {
                 throw new DBProblemException("Aucun client avec cet id n'existe");
             }
         }
-        catch (Exception e){
-            e.printStackTrace();
+        catch (SQLException e){
             throw new DBProblemException("La sélection du client a échoué");
         }
     }

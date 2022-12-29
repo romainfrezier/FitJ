@@ -64,19 +64,22 @@ public class DAOExercicePostgreSQL extends DAOExercice {
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
             List<Map<String,Object>> listData = resultSet.getListeData();
+            List<Map<Integer,Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentExercice = -1;
             int i = 0;
             while (i < listData.size()){
                 Map<String,Object> data = listData.get(i);
-                if (idCurrentExercice != ((Long)data.get("id")).intValue()){
-                    listExercice.add(new Exercice(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String) data.get("description")));
-                    idCurrentExercice =  ((Long)data.get("id")).intValue();
+                Map<Integer,Object> dataIndex = listDataIndex.get(i);
+                if (idCurrentExercice != ((Long)dataIndex.get(1)).intValue()){
+                    listExercice.add(new Exercice(((Long)dataIndex.get(1)).intValue(), (String) dataIndex.get(2), (String) dataIndex.get(3)));
+                    idCurrentExercice =  ((Long)dataIndex.get(1)).intValue();
                 }
                 i++;
             }
             return listExercice;
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("Impossible de récupérer tous les exercices");
         }
     }
