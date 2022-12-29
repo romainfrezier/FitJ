@@ -44,6 +44,15 @@ public abstract class ControllerMateriel extends Controller {
     }
 
     /**
+     * Methode permettant de se rendre sur la page d'ajout d'un materiel dans la liste du materiels d'un client
+     * @param controlEl Control, élément de contrôle de la page
+     * @throws BadPageException si la vue n'existe pas
+     */
+    void goToAddMyMateriel(Control controlEl) throws BadPageException {
+        goToPage(controlEl, materiel + "add-mymateriel.fxml", "Ajout de materiel");
+    }
+
+    /**
      * Methode permettant de se rendre sur la page de modification d'un materiel
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas

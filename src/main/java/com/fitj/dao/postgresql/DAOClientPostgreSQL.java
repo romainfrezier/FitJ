@@ -328,4 +328,26 @@ public class DAOClientPostgreSQL extends DAOClient {
 
         return this.getClientById(idClient);
     }
+
+    @Override
+    public Coach clientBecomeCoach(int idClient) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("iscoach", "true"));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id", idClient));
+        ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, this.table);
+        return (Coach) this.getClientById(idClient);
+    }
+
+    @Override
+    public Admin clientBecomeAdmin(int idClient) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("isadmin", "true"));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id", idClient));
+        ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, this.table);
+        return (Admin) this.getClientById(idClient);
+    }
+
+
 }
