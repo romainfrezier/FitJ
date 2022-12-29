@@ -1,10 +1,8 @@
 package com.fitj.controllers.exercices;
 
-import com.fitj.classes.Client;
 import com.fitj.classes.Exercice;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
-import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeExercice;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -51,8 +49,7 @@ public class ControllerExerciceList extends ControllerExercice {
      */
     private void initializeExerciceList() {
         try {
-            Client currentClient = Facade.currentClient;
-            List<Exercice> exercices = exerciceFacade.getAllExercicesFrom(currentClient.getId());
+            List<Exercice> exercices = exerciceFacade.getAllExercices();
             listView.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Exercice> call(ListView<Exercice> param) {
@@ -92,7 +89,6 @@ public class ControllerExerciceList extends ControllerExercice {
 
     /**
      * Methode permettant de se rendre sur la page de modification d'un exercice
-     * @throws BadPageException si la vue n'existe pas
      */
     @FXML
     void goToUpdateExercice() {
@@ -101,7 +97,7 @@ public class ControllerExerciceList extends ControllerExercice {
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
             super.goToUpdateExercice(updateExerciceButton);
-        } catch (BadPageException | UnselectedItemException e) {
+        } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
     }
