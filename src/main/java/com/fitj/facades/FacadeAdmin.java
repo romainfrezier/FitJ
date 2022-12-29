@@ -35,4 +35,9 @@ public class FacadeAdmin extends Facade {
     public Coach clientBecomeCoach(int idObjectSelected) throws Exception {
         return this.daoClient.clientBecomeCoach(idObjectSelected);
     }
+
+    public Client banClient(int idObjectSelected) throws Exception {
+        Client client = this.daoClient.getClientById(idObjectSelected);
+        return this.daoClient.banClient(client);
+    }
 }

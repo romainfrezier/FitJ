@@ -15,12 +15,12 @@ public class Coach extends Client implements PaymentReceiver, DemandReceiver {
     /**
      * Default constructor
      */
-    public Coach(String email, String pseudo, double poids, String image, int taille, Sexe sexe, String password, int id) {
-        super(email,pseudo,poids,image,taille,sexe,password,id);
+    public Coach(String email, String pseudo, double poids, String image, int taille, Sexe sexe, String password, int id, boolean ban) {
+        super(email,pseudo,poids,image,taille,sexe,password,id, ban);
     }
 
-    public Coach(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel) {
-        super(email, pseudo, poids, photo, taille, sexe, password, id, listeSport, listeCommande, listeMateriel);
+    public Coach(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel, boolean ban) {
+        super(email, pseudo, poids, photo, taille, sexe, password, id, listeSport, listeCommande, listeMateriel, ban);
     }
 
     /**
