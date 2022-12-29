@@ -4,15 +4,16 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAORecette;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoWrapper;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import com.fitj.interfaces.IsIngredient;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -37,13 +38,13 @@ public class DAORecettePostgreSQL extends DAORecette {
             for (IsIngredient ingredient : ingredients){
                 List<Pair<String,Object>> listeInsertIngredient = new ArrayList<>();
                 if (ingredient instanceof Aliment){
-                    listeInsertIngredient.add(new Pair<>("idaliment",((Aliment)ingredient).getId()));
+                    listeInsertIngredient.add(new Pair<>("idaliment",(ingredient).getId()));
                     listeInsertIngredient.add(new Pair<>("idrecette",idRecette));
                     ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertIngredient, "recettealiment");
                 }
                 else if (ingredient instanceof Recette){
                     listeInsertIngredient.add(new Pair<>("idrecette1",idRecette));
-                    listeInsertIngredient.add(new Pair<>("idrecette2",((Recette)ingredient).getId()));
+                    listeInsertIngredient.add(new Pair<>("idrecette2",(ingredient).getId()));
                     ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertIngredient, "recetterecette");
                 }
                 else {
@@ -63,12 +64,14 @@ public class DAORecettePostgreSQL extends DAORecette {
     public Recette getRecetteById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        try{
-            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (recetteBD.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(recetteBD.getInt("idcoach"));
+        try {
+            DaoWrapper recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = recetteBD.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)data.get("idcoach")).intValue());
                 List<IsIngredient> listeIngredients = getIngredientsFromRecette(id);
-                return new Recette(recetteBD.getInt("id"),recetteBD.getString("nom"),coach, (ArrayList)listeIngredients);
+                return new Recette(((Long)data.get("id")).intValue(),(String)data.get("nom"),coach, (ArrayList)listeIngredients);
             }
             else {
                 throw new DBProblemException("Aucune recette avec cet id n'existe");
@@ -82,11 +85,13 @@ public class DAORecettePostgreSQL extends DAORecette {
     public Recette getRecetteByIdWithoutIngredients(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        try{
-            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (recetteBD.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientAccount(recetteBD.getInt("idcoach"));
-                return new Recette(recetteBD.getInt("id"),recetteBD.getString("nom"),coach);
+        try {
+            DaoWrapper recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = recetteBD.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)data.get("idcoach")).intValue());
+                return new Recette(((Long)data.get("id")).intValue(),(String)data.get("nom"),coach);
             }
             else {
                 throw new DBProblemException("Aucune recette avec cet id n'existe");
@@ -104,13 +109,33 @@ public class DAORecettePostgreSQL extends DAORecette {
         List<Pair<String, Object>> whereListRecette1 = new ArrayList<>();
         whereListRecette1.add(new Pair<>("idrecette1", id));
         try {
-            ResultSet alimentsBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListAliment, "recettealiment");
-            ResultSet recettesBD1 = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListRecette1, "recetterecette");
-            while (alimentsBD.next()){
-                listeAliment.add(FactoryDAOPostgreSQL.getInstance().getDAOAliment().getAlimentById(alimentsBD.getInt("idaliment")));
+            try {
+                DaoWrapper alimentsBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListAliment, "recettealiment");
+                List<Map<String,Object>> result = alimentsBD.getListeData();
+                int i = 0;
+                while (i < result.size()){
+                    Map<String, Object> data = result.get(i);
+                    listeAliment.add(FactoryDAOPostgreSQL.getInstance().getDAOAliment().getAlimentById(((Long)data.get("idaliment")).intValue()));
+                    i++;
+                }
             }
-            while (recettesBD1.next()){
-                listeAliment.add(this.getRecetteByIdWithoutIngredients(recettesBD1.getInt("idrecette2")));
+            catch (Exception e){
+                e.printStackTrace();
+                throw new DBProblemException("La sélection des ingrédients de la recette a échoué");
+            }
+            try {
+                DaoWrapper recettesBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereListRecette1, "recetterecette");
+                List<Map<String,Object>> result = recettesBD.getListeData();
+                int i = 0;
+                while (i < result.size()){
+                    Map<String, Object> data = result.get(i);
+                    listeAliment.add(getRecetteByIdWithoutIngredients(((Long)data.get("idrecette2")).intValue()));
+                    i++;
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                throw new DBProblemException("La sélection des ingrédients de la recette a échoué");
             }
             return listeAliment;
         }
@@ -156,14 +181,26 @@ public class DAORecettePostgreSQL extends DAORecette {
         joinList.add(new Triple<>("recetterecette","idrecette1", "recette.id"));
         joinList.add(new Triple<>("recettealiment","idrecette", "recette.id"));
         try {
-            ResultSet recetteBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentRecette = -1;
-            while(recetteBD.next()){
-                if (idCurrentRecette != recetteBD.getInt(1)){
-                    Coach coach = new Coach(recetteBD.getString("mail"), recetteBD.getString(6), recetteBD.getDouble("poids"), recetteBD.getString("photo"), recetteBD.getInt("taille"), Sexe.getSexe(recetteBD.getString("sexe")), recetteBD.getString("password"), recetteBD.getInt(4));
-                    listeRecettes.add(new Recette(recetteBD.getInt(1), recetteBD.getString(2), coach));
-                    idCurrentRecette = recetteBD.getInt(1);
+            int i = 0;
+            while (i < listData.size()) {
+                /*
+                 * index 1 = id de la recette
+                 * index 2 = nom de la recette
+                 * index 4 = id du coach
+                 * index 6 = nom du coach
+                 */
+                Map<String, Object> data = listData.get(i);
+                Map<Integer, Object> dataIndex = listDataIndex.get(i);
+                if (idCurrentRecette != ((Long)dataIndex.get(1)).intValue()) {
+                    Coach coach = new Coach((String) data.get("mail"), (String) dataIndex.get(6), ((Number)data.get("poids")).doubleValue(), (String) data.get("photo"), ((Long) data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String) data.get("password"), ((Long)dataIndex.get(4)).intValue());
+                    listeRecettes.add(new Recette(((Long)dataIndex.get(1)).intValue(), (String) dataIndex.get(2), coach));
+                    idCurrentRecette = ((Long)dataIndex.get(1)).intValue();
                 }
+                i++;
             }
             return listeRecettes;
         }

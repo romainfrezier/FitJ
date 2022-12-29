@@ -3,13 +3,14 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Exercice;
 import com.fitj.dao.DAOExercice;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoWrapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
@@ -32,10 +33,12 @@ public class DAOExercicePostgreSQL extends DAOExercice {
     public Exercice getExerciceById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        try {
-            ResultSet exercice = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (exercice.next()){
-                return new Exercice(exercice.getInt("id"), exercice.getString("nom"), exercice.getString("description"));
+        try{
+            DaoWrapper exerciceData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = exerciceData.getListeData();
+            if (!result.isEmpty()){
+                Map<String,Object> data = result.get(0);
+                return new Exercice(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String)data.get("description"));
             }
             else{
                 throw new DBProblemException("Aucun exercice avec cet id n'existe");
@@ -59,13 +62,17 @@ public class DAOExercicePostgreSQL extends DAOExercice {
         joinList.add(new Triple<>("seanceexercice","idexercice", "exercice.id"));
         joinList.add(new Triple<>("seance","id", "seanceexercice.idseance"));
         try {
-            ResultSet exercicesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            DaoWrapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            List<Map<String,Object>> listData = resultSet.getListeData();
             int idCurrentExercice = -1;
-            while(exercicesBD.next()){
-                if (idCurrentExercice != exercicesBD.getInt("id")){
-                    listExercice.add(new Exercice(exercicesBD.getInt("id"), exercicesBD.getString("nom"), exercicesBD.getString("description")));
-                    idCurrentExercice =  exercicesBD.getInt("id");
+            int i = 0;
+            while (i < listData.size()){
+                Map<String,Object> data = listData.get(i);
+                if (idCurrentExercice != ((Long)data.get("id")).intValue()){
+                    listExercice.add(new Exercice(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String) data.get("description")));
+                    idCurrentExercice =  ((Long)data.get("id")).intValue();
                 }
+                i++;
             }
             return listExercice;
         }

@@ -3,13 +3,14 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Paiement;
 import com.fitj.dao.DAOPaiement;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoWrapper;
 import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux paiements
@@ -50,12 +51,16 @@ public class DAOPaiementPostgreSQL extends DAOPaiement {
     public List<Paiement> getAllPaiementsWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Paiement> paiements = new ArrayList<>();
         try {
-            ResultSet paiementData = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
-            while (paiementData.next()) {
+            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            int i = 0;
+            while (i < listData.size()) {
+                Map<String, Object> data = listData.get(i);
                 paiements.add(new Paiement(
-                        paiementData.getInt("id"),
-                        paiementData.getInt("montant"),
-                        PaiementType.getPaiementType(paiementData.getString("type"))));
+                        ((Long)data.get("id")).intValue(),
+                        ((Long)data.get("montant")).intValue(),
+                        PaiementType.getPaiementType((String)data.get("type"))));
+                i++;
             }
             return paiements;
         } catch (Exception e) {

@@ -1,18 +1,18 @@
 package com.fitj.dao.postgresql;
 
-import com.fitj.classes.Seance;
-import com.fitj.classes.Sport;
+import com.fitj.classes.*;
 import com.fitj.dao.DAOSport;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoWrapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux sports
@@ -53,10 +53,12 @@ public class DAOSportPostgreSQL extends DAOSport {
     public Sport getSportById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        try{
-            ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (sportData.next()){
-                return new Sport(id, sportData.getString("nom"));
+        try {
+            DaoWrapper sportBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = sportBD.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                return new Sport(id, (String)data.get("nom"));
             }
             else {
                 throw new DBProblemException("Aucun sport avec cet id n'existe");
@@ -72,10 +74,12 @@ public class DAOSportPostgreSQL extends DAOSport {
     public Sport getSportByNom(String nom) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
-        try{
-            ResultSet sportData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (sportData.next()){
-                return new Sport(sportData.getInt("id"), sportData.getString("nom"));
+        try {
+            DaoWrapper sportBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = sportBD.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                return new Sport(((Long)data.get("id")).intValue(), (String) data.get("nom"));
             }
             else {
                 throw new DBProblemException("Aucun sport avec ce nom n'existe");
@@ -97,13 +101,18 @@ public class DAOSportPostgreSQL extends DAOSport {
         joinList.add(new Triple<>("clientsport","idsport", "sport.id"));
         joinList.add(new Triple<>("seance","idsport", "sport.id"));
         try {
-            ResultSet sportsBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentSport = -1;
-            while(sportsBD.next()){
-                if (idCurrentSport != sportsBD.getInt("id")){
-                    listeSport.add(new Sport(sportsBD.getInt("id"), sportsBD.getString("nom")));
-                    idCurrentSport = sportsBD.getInt("id");
+            int i = 0;
+            while (i < listData.size()) {
+                Map<Integer, Object> dataIndex = listDataIndex.get(i);
+                if (((Long)dataIndex.get(1)).intValue() != idCurrentSport) {
+                    idCurrentSport = ((Long)dataIndex.get(1)).intValue();
+                    listeSport.add(new Sport(idCurrentSport,(String) dataIndex.get(2)));
                 }
+                i++;
             }
             return listeSport;
         }

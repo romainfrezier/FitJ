@@ -48,6 +48,7 @@ public abstract class Controller {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/recettes/list-recette.fxml"));
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/recettes/create-recette.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/aliments/list-aliment.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setResizable(false);

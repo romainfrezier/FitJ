@@ -4,14 +4,15 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAODemande;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoWrapper;
 import com.fitj.enums.DemandeEtat;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux demandes
@@ -32,17 +33,21 @@ public class DAODemandePostgreSQL extends DAODemande {
         List<Triple<String, String, String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("programmepersonnalise", "iddemande","demande.id"));
         try{
-            ResultSet demande = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList, this.table);
-            if (demande.next()){
+            DaoWrapper demande = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList, this.table);
+            List<Map<String,Object>> result = demande.getListeData();
+            List<Map<Integer,Object>> resultIndex = demande.getListeDataIndex();
+            if (!result.isEmpty()){
+                Map<String,Object> resultSet = result.get(0);
+                Map<Integer,Object> resultSetIndex = resultIndex.get(0);
                 /*
                  * index = 1 : id de la demande
                  * index = 3 : Description de la demande
                  * index = 13 : Description du programme
                  */
-                Coach coach = (Coach)FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(demande.getInt("idcoach"));
-                ProgrammePersonnalise programmePersonnalise = new ProgrammePersonnalise(demande.getInt("idprogramme"),demande.getString("nom"),demande.getString(7), demande.getDouble("prix"), coach);
-                Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(demande.getInt("idsport"));
-                return new Demande(demande.getInt(1), demande.getInt("nbmois"), demande.getString(3),demande.getBoolean("programmesportif"),demande.getBoolean("programmenutrition"),demande.getInt("nbseancesemaine"),demande.getInt("nbrecettesemaine"),sport,programmePersonnalise, DemandeEtat.getDemandeEtat(demande.getString("etat")));
+                Coach coach = (Coach)FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)resultSet.get("idcoach")).intValue());
+                ProgrammePersonnalise programmePersonnalise = new ProgrammePersonnalise(((Long)resultSet.get("idprogramme")).intValue(),(String)resultSet.get("nom"),(String)resultSetIndex.get(7),((Number)resultSet.get("prix")).doubleValue(), coach);
+                Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(((Long)resultSet.get("idsport")).intValue());
+                return new Demande(id, ((Long)resultSet.get("nbmois")).intValue(), (String)resultSetIndex.get(3),(boolean) resultSet.get("programmesportif"),(boolean) resultSet.get("programmenutrition"),((Long)resultSet.get("nbseancesemaine")).intValue(),((Long)resultSet.get("nbrecettesemaine")).intValue(),sport,programmePersonnalise, DemandeEtat.getDemandeEtat((String)resultSet.get("etat")));
             }
             else {
                 throw new DBProblemException("Aucune demande avec cet id n'existe");
@@ -67,23 +72,29 @@ public class DAODemandePostgreSQL extends DAODemande {
         joinList.add(new Triple<>("commandedemande","iddemande", "demande.id"));
         joinList.add(new Triple<>("sport","id", "demande.idsport"));
         try {
-            ResultSet demandeBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
-            int idCurrentProgramme = -1;
-            while(demandeBD.next()){
+            DaoWrapper wrapper = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            List<Map<String,Object>> listData = wrapper.getListeData();
+            List<Map<Integer,Object>> listDataIndex = wrapper.getListeDataIndex();
+            int idCurrentDemande = -1;
+            int i = 0;
+            while (i < listData.size()){
+                Map<String,Object> data = listData.get(i);
+                Map<Integer,Object> dataIndex = listDataIndex.get(i);
                 /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 7 = id du coach
                  * index 10 = nom du coach
                  */
-                System.out.println(demandeBD.getString(3));
-                System.out.println(demandeBD.getString(8));
-                if (idCurrentProgramme != demandeBD.getInt(1)){
-                    Sport sport = new Sport(demandeBD.getInt("idsport"), demandeBD.getString(8));
-                    Demande demande = new Demande(demandeBD.getInt(1), demandeBD.getInt("nbmois"), demandeBD.getString(3), demandeBD.getBoolean("programmesportif"), demandeBD.getBoolean("programmenutrition"), demandeBD.getInt("nbseancesemaine"), demandeBD.getInt("nbrecettesemaine"), sport, DemandeEtat.getDemandeEtat(demandeBD.getString("etat")));
+                System.out.println((String) dataIndex.get(3));
+                System.out.println((String) dataIndex.get(8));
+                if (idCurrentDemande != ((Long)dataIndex.get(1)).intValue()){
+                    Sport sport = new Sport(((Long)data.get("idsport")).intValue(), (String) dataIndex.get(8));
+                    Demande demande = new Demande(((Long)dataIndex.get(1)).intValue(), ((Long)data.get("nbmois")).intValue(), (String) dataIndex.get(3), (boolean) data.get("programmesportif"), (boolean) data.get("programmenutrition"), ((Long)data.get("nbseancesemaine")).intValue(), ((Long)data.get("nbrecettesemaine")).intValue(), sport, DemandeEtat.getDemandeEtat((String) data.get("etat")));
                     listeDemande.add(demande);
-                    idCurrentProgramme = demandeBD.getInt(1);
+                    idCurrentDemande = ((Long)dataIndex.get(1)).intValue();
                 }
+                i++;
             }
             return listeDemande;
         }

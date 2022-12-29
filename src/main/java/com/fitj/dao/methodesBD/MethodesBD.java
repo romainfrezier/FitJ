@@ -1,6 +1,7 @@
 package com.fitj.dao.methodesBD;
 
 import com.fitj.dao.connexions.ConnexionBD;
+import com.fitj.exceptions.DBProblemException;
 
 import java.sql.SQLException;
 
@@ -34,7 +35,7 @@ public abstract class MethodesBD {
      * Ferme la connexion à la base de donnée
      * @throws SQLException
      */
-    public abstract void close() throws SQLException;
+    public abstract void close() throws SQLException, DBProblemException;
 
 
 

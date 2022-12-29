@@ -1,5 +1,7 @@
 package com.fitj.dao.connexions;
 
+import com.fitj.exceptions.DBProblemException;
+
 /**
  * Classe parente de toutes les connexionsBD qui permettent de se connecter à une base de donnée
  *
@@ -19,5 +21,5 @@ public abstract class ConnexionBD {
     /**
      * @return un objet permettant d'exectuer des requêtes sur la base de donnée
      */
-    public abstract Object getConnection();
+    public abstract Object getConnection() throws DBProblemException;
 }

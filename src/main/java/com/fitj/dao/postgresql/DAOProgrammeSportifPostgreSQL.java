@@ -4,16 +4,17 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOProgrammeSportif;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoWrapper;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
@@ -56,12 +57,14 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
     public ProgrammeSportif getProgrammeSportifId(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        try{
-            ResultSet programmeDB = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (programmeDB.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(programmeDB.getInt("idcoach"));
+        try {
+            DaoWrapper programmeDB = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = programmeDB.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)data.get("idcoach")).intValue());
                 ArrayList<Seance> listeSeance = (ArrayList<Seance>) this.getSeances(id);
-                return new ProgrammeSportif(programmeDB.getInt("id"), programmeDB.getString("nom"), programmeDB.getString("description"),programmeDB.getDouble("prix"),ProgrammeType.getProgrammeType(programmeDB.getString("type")), programmeDB.getInt("nbmois"),coach,listeSeance);
+                return new ProgrammeSportif(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String) data.get("description"),((Number)data.get("prix")).doubleValue(),ProgrammeType.getProgrammeType((String) data.get("type")), ((Long)data.get("nbmois")).intValue(),coach,listeSeance);
             }
             else {
                 throw new DBProblemException("Aucun programme sportif avec cet id n'existe");
@@ -122,19 +125,24 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         joinList.add(new Triple<>("avisprogrammesportif","idprogramme", "programmesportif.id"));
         joinList.add(new Triple<>("commandeprogrammesportif","idprogramme", "programmesportif.id"));
         try {
-            ResultSet programmeBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentProgramme = -1;
-            while(programmeBD.next()){
+            int i = 0;
+            while (i < listData.size()) {
                 /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 7 = id du coach
                  * index 10 = nom du coach
                  */
-                if (idCurrentProgramme != programmeBD.getInt(1)){
-                    Coach coach = new Coach(programmeBD.getString("mail"), programmeBD.getString(10), programmeBD.getDouble("poids"), programmeBD.getString("photo"), programmeBD.getInt("taille"), Sexe.getSexe(programmeBD.getString("sexe")), programmeBD.getString("password"), programmeBD.getInt(7));
-                    listeProgrammes.add(new ProgrammeSportif(programmeBD.getInt(1), programmeBD.getString(2), programmeBD.getString("description"), programmeBD.getDouble("prix"), ProgrammeType.getProgrammeType(programmeBD.getString("type")), programmeBD.getInt("nbmois"), coach));
-                    idCurrentProgramme = programmeBD.getInt(1);
+                Map<String, Object> data = listData.get(i);
+                Map<Integer, Object> dataIndex = listDataIndex.get(i);
+                if (idCurrentProgramme != ((Long)dataIndex.get(1)).intValue()) {
+                    Coach coach = new Coach((String) data.get("mail"),(String) dataIndex.get(10), ((Number)data.get("poids")).doubleValue(), (String) data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), ((Long)dataIndex.get(7)).intValue());
+                    listeProgrammes.add(new ProgrammeSportif(((Long)dataIndex.get(1)).intValue(), (String)dataIndex.get(2), (String)data.get("description"), ((Number)data.get("prix")).doubleValue(), ProgrammeType.getProgrammeType((String)data.get("type")), ((Long)data.get("nbmois")).intValue(), coach));
+                    idCurrentProgramme = ((Long)dataIndex.get(1)).intValue();
                 }
             }
             return listeProgrammes;

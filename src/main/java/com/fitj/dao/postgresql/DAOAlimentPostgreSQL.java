@@ -3,12 +3,13 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Aliment;
 import com.fitj.dao.DAOAliment;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoWrapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux aliments
@@ -41,10 +42,11 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
     public Aliment getAlimentById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        ResultSet alimentData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-        try{
-            if (alimentData.next()){
-                return new Aliment(id, alimentData.getString("nom"));
+        try {
+            DaoWrapper alimentData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = alimentData.getListeData();
+            if (!result.isEmpty()){
+                return new Aliment(id, (String)result.get(0).get("nom"));
             }
             else {
                 throw new DBProblemException("Aucun aliment avec cet id n'existe");
@@ -59,14 +61,16 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
     @Override
     public List<Aliment> getAllAliments() throws Exception {
         List<Aliment> listeAliment = new ArrayList<>();
-        ResultSet alimentsBD = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
         try {
-            while(alimentsBD.next()){
-                listeAliment.add(new Aliment(alimentsBD.getInt("id"), alimentsBD.getString("nom")));
+            DaoWrapper alimentData = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+            List<Map<String,Object>> result = alimentData.getListeData();
+            for (Map<String,Object> row : result){
+                listeAliment.add(new Aliment(((Long)row.get("id")).intValue(), (String)row.get("nom")));
             }
             return listeAliment;
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("Impossible de récupérer tous les aliments");
         }
     }
