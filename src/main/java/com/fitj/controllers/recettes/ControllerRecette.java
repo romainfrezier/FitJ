@@ -1,7 +1,9 @@
 package com.fitj.controllers.recettes;
 
+import com.fitj.classes.Admin;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeRecette;
 import javafx.scene.control.Control;
 
@@ -22,6 +24,8 @@ public abstract class ControllerRecette extends Controller {
      */
     private final String admin = "admins/";
 
+    private final String coach = "coachs/";
+
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
      */
@@ -33,7 +37,11 @@ public abstract class ControllerRecette extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToMonEspace(Control controlEl) throws BadPageException {
-        goToPage(controlEl, admin + "monEspace-admin.fxml", "MonEspace");
+        if (Facade.currentClient instanceof Admin) {
+            goToPage(controlEl, admin + "monEspace-admin.fxml", "Mon Compte");
+        } else {
+            goToPage(controlEl,  coach + "monEspace-coach.fxml", "Mon Compte");
+        }
     }
 
     /**

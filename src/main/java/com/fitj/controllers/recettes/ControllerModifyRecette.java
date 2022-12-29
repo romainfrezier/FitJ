@@ -1,14 +1,18 @@
 package com.fitj.controllers.recettes;
 
+import com.fitj.classes.Admin;
 import com.fitj.classes.Aliment;
 import com.fitj.classes.Recette;
 import com.fitj.dao.factory.FactoryDAO;
+import com.fitj.facades.Facade;
 import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -34,6 +38,11 @@ public class ControllerModifyRecette extends ControllerRecette {
 
     private Ingredient ingredientSelectedForDelete = null;
 
+    @FXML
+    private VBox headerAdmin;
+
+    @FXML
+    private VBox headerCoach;
 
     @FXML
     private ListView<Ingredient> listViewIngredientRecette;
@@ -56,6 +65,11 @@ public class ControllerModifyRecette extends ControllerRecette {
      */
     @FXML
     private void initialize() {
+        if (Facade.currentClient instanceof Admin) {
+            headerAdmin.setVisible(true);
+        } else {
+            headerCoach.setVisible(true);
+        }
         super.hideError(errorText);
         try {
             this.recette = recetteFacade.getRecetteById(getIdObjectSelected());

@@ -1,6 +1,7 @@
 package com.fitj.controllers.recettes;
 
 import com.fitj.classes.Admin;
+import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * @author Etienne Tillier
  */
 
-public class ControllerRecetteList extends ControllerRecette {
+public class ControllerMesRecettesList extends ControllerRecette {
 
     // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
@@ -36,7 +37,6 @@ public class ControllerRecetteList extends ControllerRecette {
     private Button deleteRecettebutton;
     @FXML
     private Text errorText;
-
     // ---------------------------------------------------------------------------------------------------------------
 
     /**
@@ -53,7 +53,7 @@ public class ControllerRecetteList extends ControllerRecette {
      */
     private void initializeAlimentList() {
         try {
-            List<Recette> recettes = recetteFacade.getListeRecettes();
+            List<Recette> recettes = recetteFacade.getRecetteByCoach((Coach)Facade.currentClient);
             listView.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Recette> call(ListView<Recette> param) {

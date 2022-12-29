@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerCoachMonEspace">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerCoachMonEspace">
    <children>
       <fx:include source="../../components/headers/header-coach.fxml" />
    </children>
-   <Text fx:id="coachName" layoutX="32.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AdminName" wrappingWidth="241.2509765625">
+   <Text fx:id="coachName" layoutX="32.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CoachName" wrappingWidth="241.2509765625">
       <font>
          <Font name="System Bold" size="30.0" />
       </font>
@@ -32,14 +28,9 @@
          </Tab>
          <Tab text="Recettes">
             <content>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-         </Tab>
-         <Tab text="Exercices">
-            <content>
                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                     <fx:include source="../../components/exercices/list-exercice.fxml" />
+                     <fx:include source="../../components/recettes/list-mes-recettes.fxml" />
                   </children>
                </AnchorPane>
             </content>

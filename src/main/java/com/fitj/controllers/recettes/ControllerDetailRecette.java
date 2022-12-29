@@ -1,10 +1,13 @@
 package com.fitj.controllers.recettes;
 
+import com.fitj.classes.Admin;
 import com.fitj.classes.Recette;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.Facade;
 import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -32,6 +35,12 @@ public class ControllerDetailRecette extends ControllerRecette{
     private ListView<Ingredient> listViewIngredientRecette;
 
     @FXML
+    private VBox headerAdmin;
+
+    @FXML
+    private VBox headerCoach;
+
+    @FXML
     private Text nomRecette;
 
     @FXML
@@ -47,6 +56,11 @@ public class ControllerDetailRecette extends ControllerRecette{
     @FXML
     private void initialize() {
         super.hideError(errorText);
+        if (Facade.currentClient instanceof Admin) {
+            headerAdmin.setVisible(true);
+        } else {
+            headerCoach.setVisible(true);
+        }
         detailRecetteButton.setVisible(false);
         try {
             this.recette = recetteFacade.getRecetteById(getIdObjectSelected());
