@@ -198,7 +198,7 @@ public class DAORecettePostgreSQL extends DAORecette {
                 Map<String, Object> data = listData.get(i);
                 Map<Integer, Object> dataIndex = listDataIndex.get(i);
                 if (idCurrentRecette != ((Long)dataIndex.get(1)).intValue()) {
-                    Coach coach = new Coach((String) data.get("mail"), (String) dataIndex.get(6), ((Number)data.get("poids")).doubleValue(), (String) data.get("photo"), ((Long) data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String) data.get("password"), ((Long)dataIndex.get(4)).intValue());
+                    Coach coach = new Coach((String) data.get("mail"), (String) dataIndex.get(6), ((Number)data.get("poids")).doubleValue(), (String) data.get("photo"), ((Long) data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String) data.get("password"), ((Long)dataIndex.get(4)).intValue(), (boolean) data.get("isbanned"));
                     listeRecettes.add(new Recette(((Long)dataIndex.get(1)).intValue(), (String) dataIndex.get(2), coach));
                     idCurrentRecette = ((Long)dataIndex.get(1)).intValue();
                 }

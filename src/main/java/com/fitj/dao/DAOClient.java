@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Classe parente de tous les modèles client qui permettent d'intéragir avec tout type de base de données
  * pour toutes modifications de cette dernière en rapport avec les clients
- *
  * Classe abstraite non instanciable
  *
  * @author Etienne Tillier
@@ -215,4 +214,12 @@ public abstract class DAOClient extends DAO {
      * @throws Exception en cas de problème lors de la requête SQL
      */
     public abstract Admin clientBecomeAdmin(int idClient) throws Exception;
+
+    /**
+     * Permet à un admin de ban un client
+     * @param client Client, client à bannir
+     * @return Client, le client créé
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Client banClient(Client client) throws Exception;
 }

@@ -140,7 +140,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
                 Map<String, Object> data = listData.get(i);
                 Map<Integer, Object> dataIndex = listDataIndex.get(i);
                 if (idCurrentProgramme != ((Long)dataIndex.get(1)).intValue()) {
-                    Coach coach = new Coach((String) data.get("mail"),(String) dataIndex.get(10), ((Number)data.get("poids")).doubleValue(), (String) data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), ((Long)dataIndex.get(7)).intValue());
+                    Coach coach = new Coach((String) data.get("mail"),(String) dataIndex.get(10), ((Number)data.get("poids")).doubleValue(), (String) data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), ((Long)dataIndex.get(7)).intValue(), (boolean) data.get("isbanned"));
                     listeProgrammes.add(new ProgrammeSportif(((Long)dataIndex.get(1)).intValue(), (String)dataIndex.get(2), (String)data.get("description"), ((Number)data.get("prix")).doubleValue(), ProgrammeType.getProgrammeType((String)data.get("type")), ((Long)data.get("nbmois")).intValue(), coach));
                     idCurrentProgramme = ((Long)dataIndex.get(1)).intValue();
                 }

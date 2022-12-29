@@ -125,7 +125,7 @@ public class DAOPackPostgreSQL extends DAOPack {
                 Map<String, Object> data = listData.get(i);
                 Map<Integer, Object> dataIndex = listDataIndex.get(i);
                 if (idCurrentPack != ((Long)dataIndex.get(1)).intValue()) {
-                    Coach coach = new Coach((String) data.get("mail"), (String) dataIndex.get(8), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), ((Long)dataIndex.get(6)).intValue());
+                    Coach coach = new Coach((String) data.get("mail"), (String) dataIndex.get(8), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), ((Long)dataIndex.get(6)).intValue(), (boolean) data.get("isbanned"));
                     listePack.add(new Pack(((Long)dataIndex.get(1)).intValue(), (String) dataIndex.get(2), (String) data.get("description"), ((Number)data.get("prix")).doubleValue(), coach));
                     idCurrentPack = ((Long)dataIndex.get(1)).intValue();
                 }

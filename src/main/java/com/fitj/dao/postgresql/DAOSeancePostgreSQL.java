@@ -201,7 +201,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
                 Map<String, Object> data = listData.get(i);
                 Map<Integer, Object> dataIndex = listDataIndex.get(i);
                 if (idCurrentSeance != ((Long) dataIndex.get(1)).intValue()) {
-                    Coach coach = new Coach((String)data.get("mail"), (String)dataIndex.get(9), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String)data.get("password"), ((Long) dataIndex.get(5)).intValue());
+                    Coach coach = new Coach((String)data.get("mail"), (String)dataIndex.get(9), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String)data.get("password"), ((Long) dataIndex.get(5)).intValue(), (boolean) data.get("isbanned"));
                     listeSeances.add(new Seance(((Long) dataIndex.get(1)).intValue(), (String)dataIndex.get(2), (String)data.get("description"), ((Number)data.get("prix")).doubleValue(), coach));
                     idCurrentSeance = ((Long) dataIndex.get(1)).intValue();
                 }

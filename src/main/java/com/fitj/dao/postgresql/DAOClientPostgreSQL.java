@@ -54,11 +54,11 @@ public class DAOClientPostgreSQL extends DAOClient {
     private Client chooseRole(Map<String,Object> compte){
         Client connectedClient;
         if ((Boolean)compte.get("isadmin")){
-            connectedClient = new Admin((String)compte.get("mail"), (String)compte.get("pseudo"),((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue());
+            connectedClient = new Admin((String)compte.get("mail"), (String)compte.get("pseudo"),((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
         } else if ((Boolean)compte.get("iscoach")){
-            connectedClient = new Coach((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue());
+            connectedClient = new Coach((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
         } else {
-            connectedClient = new Client((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue());
+            connectedClient = new Client((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
         }
         return connectedClient;
     }
@@ -97,15 +97,11 @@ public class DAOClientPostgreSQL extends DAOClient {
             DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
             List<Map<String,Object>> result = compte.getListeData();
             if (!result.isEmpty()){
-                if (!(boolean)result.get(0).get("isbanned")) {
-                    Client client = chooseRole(result.get(0));
-                    client.setListeCommande(new ArrayList<>());
-                    client.setListeMateriel(new ArrayList<>());
-                    client.setListeSport(new ArrayList<>());
-                    return client;
-                } else {
-                    throw new BannedAccountException();
-                }
+                Client client = chooseRole(result.get(0));
+                client.setListeCommande(new ArrayList<>());
+                client.setListeMateriel(new ArrayList<>());
+                client.setListeSport(new ArrayList<>());
+                return client;
             }
             else {
                 throw new DBProblemException("Aucun client avec cet id n'existe");
@@ -251,7 +247,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         List<Coach> coachs = new ArrayList<>();
         List<Client> clients = this.getAllClientWhere(whereList);
         for (Client client : clients){
-            coachs.add(new Coach(client.getEmail(), client.getPseudo(), client.getPoids(), client.getPhoto(), client.getTaille(), client.getSexe(), client.getPassword(), client.getId()));
+            coachs.add(new Coach(client.getEmail(), client.getPseudo(), client.getPoids(), client.getPhoto(), client.getTaille(), client.getSexe(), client.getPassword(), client.getId(), client.isBanni()));
         }
         return coachs;
     }
@@ -263,7 +259,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         List<Admin> admins = new ArrayList<>();
         List<Client> clients = this.getAllClientWhere(whereList);
         for (Client client : clients){
-            admins.add(new Admin(client.getEmail(), client.getPseudo(), client.getPoids(), client.getPhoto(), client.getTaille(), client.getSexe(), client.getPassword(), client.getId()));
+            admins.add(new Admin(client.getEmail(), client.getPseudo(), client.getPoids(), client.getPhoto(), client.getTaille(), client.getSexe(), client.getPassword(), client.getId(), client.isBanni()));
         }
         return admins;
     }
@@ -284,7 +280,7 @@ public class DAOClientPostgreSQL extends DAOClient {
                 Map<String,Object> data = listData.get(i);
                 if (idCurrentClient != ((Long)data.get("id")).intValue()){
                     idCurrentClient = ((Long)data.get("id")).intValue();
-                    Client client = new Client((String)data.get("mail"), (String)data.get("pseudo"), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient);
+                    Client client = new Client((String)data.get("mail"), (String)data.get("pseudo"), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanned"));
                     listClients.add(client);
                 }
                 i++;
@@ -354,6 +350,18 @@ public class DAOClientPostgreSQL extends DAOClient {
         whereList.add(new Pair<>("id", idClient));
         ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, this.table);
         return (Admin) this.getClientById(idClient);
+    }
+
+    @Override
+    public Client banClient(Client client) throws Exception {
+        client.setBanni();
+        boolean isBan = client.isBanni();
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("isbanned", isBan));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id", client.getId()));
+        ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, this.table);
+        return this.getClientById(client.getId());
     }
 
 

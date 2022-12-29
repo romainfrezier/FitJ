@@ -28,8 +28,12 @@ public class ControllerAdminClients extends ControllerAdmin {
     @FXML
     private Button setToAdmin;
     @FXML
+    private Button banButton;
+    @FXML
     private Text errorText;
     // --------------------------------------------------------------------
+
+    private List<Client> clients;
 
     /**
      * Méthode appelée lors du chargement de la page
@@ -45,7 +49,7 @@ public class ControllerAdminClients extends ControllerAdmin {
      */
     private void initializeClientList() {
         try {
-            List<Client> clients = adminFacade.getAllClients();
+            clients = adminFacade.getAllClients();
             listView.setCellFactory(new Callback<>() {
                 @Override
                 public ListCell<Client> call(ListView<Client> o) {
@@ -53,8 +57,12 @@ public class ControllerAdminClients extends ControllerAdmin {
                         @Override
                         protected void updateItem(Client item, boolean empty) {
                             super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getId() + ". " + item.getPseudo());
+                            if (item != null ) {
+                                String text = item.getId() + ". " + item.getPseudo();
+                                if (item.isBanni()) {
+                                    text += " (Banni)";
+                                }
+                                setText(text);
                             } else {
                                 setText("");
                             }
@@ -159,4 +167,62 @@ public class ControllerAdminClients extends ControllerAdmin {
     }
 
 
+    @FXML
+    private void handleBan() {
+        try {
+            hideError(errorText);
+            checkSelected();
+            showConfirmationBan();
+        } catch (UnselectedItemException e) {
+            super.displayError(errorText, e.getMessage());
+        }
+    }
+
+    private void showConfirmationBan() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bannir ce client");
+        alert.setHeaderText("Vous êtes sûr de vouloir bannir cet utilisateur ?");
+        alert.setContentText("Vous pourrez modifier ça plus tard");
+
+        Optional<ButtonType> option = alert.showAndWait();
+
+        if (option.isPresent() && option.get() == ButtonType.OK){
+            try {
+                Client clientBan = adminFacade.banClient(getIdObjectSelected());
+                listView.getItems().set(listView.getSelectionModel().getSelectedIndex(), clientBan);
+                listView.refresh();
+                Optional<Client> result = clients.stream()
+                        .filter(client -> client.getId() == getIdObjectSelected())
+                        .findFirst();
+                if (result.isPresent()){
+                    Client client = result.get();
+                    client.setBanni();
+                    clients.set(clients.indexOf(client), client);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                super.displayError(errorText, e.getMessage());
+            }
+        }
+    }
+
+    public void setTextBanButton() {
+        super.hideError(errorText);
+        setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
+        try {
+            Optional<Client> result = clients.stream()
+                    .filter(client -> client.getId() == getIdObjectSelected())
+                    .findFirst();
+            if (result.isPresent()){
+                Client client = result.get();
+                if (client.isBanni()){
+                    banButton.setText("Débannir");
+                } else {
+                    banButton.setText("Bannir");
+                }
+            }
+        } catch (Exception e) {
+            super.displayError(errorText, e.getMessage());
+        }
+    }
 }

@@ -77,9 +77,14 @@ public class Client implements ProductReceiver, NotifReceiver {
     private List<Materiel> listeMateriel;
 
     /**
+     * Si vrai, le client est banni
+     */
+    private boolean banni;
+
+    /**
      * Default constructor
      */
-    public Client(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id) {
+    public Client(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, boolean ban) {
         this.id = id;
         this.email = email;
         this.pseudo = pseudo;
@@ -92,12 +97,13 @@ public class Client implements ProductReceiver, NotifReceiver {
         this.listeSport = new ArrayList<>();
         this.listeCommande = new ArrayList<>();
         this.listeMateriel = new ArrayList<>();
+        this.banni = ban;
     }
 
     /**
      * Constructeur avec les données du client
      */
-    public Client(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel) {
+    public Client(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel, boolean ban) {
         this.id = id;
         this.email = email;
         this.pseudo = pseudo;
@@ -107,6 +113,7 @@ public class Client implements ProductReceiver, NotifReceiver {
         this.sexe = sexe;
         this.password = password;
         this.facadeClient = FacadeClient.getInstance();
+        this.banni = ban;
         this.listeSport = listeSport;
         this.listeCommande = listeCommande;
         this.listeMateriel = listeMateriel;
@@ -301,6 +308,20 @@ public class Client implements ProductReceiver, NotifReceiver {
      */
     public void setListeMateriel(List<Materiel> listeMateriel) {
         this.listeMateriel = listeMateriel;
+    }
+
+    /**
+     * @return boolean, true si le client est banni, false sinon
+     */
+    public boolean isBanni() {
+        return banni;
+    }
+
+    /**
+     * Set l'attribut banni du client
+     */
+    public void setBanni() {
+        this.banni = !this.banni;
     }
 
     /**
