@@ -45,10 +45,7 @@ public abstract class Controller {
      * @throws IOException si la vue n'existe pas
      */
     public static void startAppFX(Stage stage) throws IOException {
-        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/recettes/list-recette.fxml"));
-        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/recettes/create-recette.fxml"));
-        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/aliments/list-aliment.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setResizable(false);
@@ -65,7 +62,6 @@ public abstract class Controller {
      */
     private Scene getScene(String viewName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + viewName));
-        System.out.println("views/" + viewName);
         return new Scene(fxmlLoader.load());
     }
 
