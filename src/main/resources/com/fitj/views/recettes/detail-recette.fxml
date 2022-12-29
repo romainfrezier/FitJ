@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.recettes.ControllerDetailRecette">
+    <children>
+        <Pane layoutX="139.0" layoutY="213.0" prefHeight="461.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+            <children>
+                <Text fill="#054371" layoutX="296.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les ingrédients">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+                <ListView fx:id="listViewIngredientRecette" layoutX="182.0" layoutY="134.0" onMouseClicked="#handlerViewIngredient" prefHeight="263.0" prefWidth="366.0" />
+                <Button fx:id="detailRecetteButton" layoutX="317.0" layoutY="412.0" mnemonicParsing="false" onAction="#goToDetailRecette" prefHeight="27.0" prefWidth="92.0" text="Voir" />
+                <AnchorPane layoutX="278.0" layoutY="171.0" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                <Text fx:id="nomRecette" layoutX="283.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la recette">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+            </children>
+        </Pane>
+        <Text fill="#054371" layoutX="360.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Détail de la recette">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Text>
+        <VBox layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
+            <children>
+                <fx:include source="../../components/headers/header-admin.fxml" />
+            </children>
+        </VBox>
+        <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
+      <Button fx:id="updateRecetteButton" layoutX="335.0" layoutY="711.0" mnemonicParsing="false" onAction="#updateRecette" prefHeight="43.0" prefWidth="114.0" text="Modifier" />
+      <Button fx:id="deleteRecetteButton" layoutX="585.0" layoutY="711.0" mnemonicParsing="false" onAction="#deleteRecette" prefHeight="43.0" prefWidth="114.0" text="Supprimer" />
+    </children>
+</Pane>

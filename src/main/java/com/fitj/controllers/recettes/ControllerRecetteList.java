@@ -22,6 +22,9 @@ public class ControllerRecetteList extends ControllerRecette {
     // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private Button addRecetteButton;
+
+    @FXML
+    private Button detailRecetteButton;
     @FXML
     private ListView<Recette> listView;
     @FXML
@@ -103,6 +106,22 @@ public class ControllerRecetteList extends ControllerRecette {
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
             super.goToUpdateRecette(updateRecetteButton);
+        } catch (BadPageException | UnselectedItemException e) {
+            e.printStackTrace();
+            super.displayError(errorText, e.getMessage());
+        }
+    }
+
+    /**
+     * Methode permettant de se rendre sur la page de modification d'une recette
+     */
+    @FXML
+    private void goToDetailRecette() {
+        try {
+            super.hideError(errorText);
+            checkSelected();
+            setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
+            super.goToDetailRecette(detailRecetteButton);
         } catch (BadPageException | UnselectedItemException e) {
             e.printStackTrace();
             super.displayError(errorText, e.getMessage());

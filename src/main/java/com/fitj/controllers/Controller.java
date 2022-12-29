@@ -45,8 +45,8 @@ public abstract class Controller {
      * @throws IOException si la vue n'existe pas
      */
     public static void startAppFX(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
-        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/recettes/list-recette.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/users/visitor-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/recettes/list-recette.fxml"));
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/recettes/create-recette.fxml"));
         //FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("components/aliments/list-aliment.fxml"));
         Parent root = fxmlLoader.load();
