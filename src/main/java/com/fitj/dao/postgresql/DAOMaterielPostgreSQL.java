@@ -3,13 +3,14 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Materiel;
 import com.fitj.dao.DAOMateriel;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'interagir avec la base de données PostgreSQL pour ce qui fait référence aux matériels
@@ -53,9 +54,11 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try{
-            ResultSet materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (materielData.next()){
-                return new Materiel(id, materielData.getString("nom"));
+            DaoMapper materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = materielData.getListeData();
+            if (!result.isEmpty()){
+                Map<String,Object> data = result.get(0);
+                return new Materiel(id, (String)data.get("nom"));
             }
             else{
                 throw new DBProblemException("Le matériel n'existe pas");
@@ -76,10 +79,12 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
     public Materiel getMaterielByNom(String nom) throws DBProblemException {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
-        try{
-            ResultSet materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (materielData.next()){
-                return new Materiel(materielData.getInt("id"), nom);
+        try {
+            DaoMapper materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = materielData.getListeData();
+            if (!result.isEmpty()){
+                Map<String,Object> data = result.get(0);
+                return new Materiel(((Long)data.get("id")).intValue(), nom);
             }
             else{
                 throw new DBProblemException("Le matériel n'existe pas");
@@ -113,13 +118,17 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         joinList.add(new Triple<>("clientmateriel", "idmateriel", "materiel.id"));
         joinList.add(new Triple<>("exercicemateriel", "idmateriel", "materiel.id"));
         try {
-            ResultSet materielData = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
             int idCurrentMateriel = -1;
-            while (materielData.next()){
-                if (materielData.getInt("id") != idCurrentMateriel){
-                    idCurrentMateriel = materielData.getInt("id");
-                    listeMateriel.add(new Materiel(idCurrentMateriel, materielData.getString("nom")));
+            int i = 0;
+            while (i < listData.size()) {
+                Map<String, Object> data = listData.get(i);
+                if (((Long)data.get("id")).intValue() != idCurrentMateriel) {
+                    idCurrentMateriel = ((Long)data.get("id")).intValue();
+                    listeMateriel.add(new Materiel(idCurrentMateriel, (String) data.get("nom")));
                 }
+                i++;
             }
             return listeMateriel;
         }
@@ -128,7 +137,7 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         }
     }
 
-    @Override
+        @Override
     public List<Materiel> getMaterielByIdClient(int idClient) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idclient", idClient));

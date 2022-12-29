@@ -72,6 +72,14 @@ public class ControllerAlimentList extends ControllerAliment {
     }
 
     /**
+     * Méthode appelée lors du clic sur un aliment de la liste
+     */
+    @FXML
+    private void selectItem(){
+        setObjectSelected(listView.getSelectionModel().getSelectedItem());
+    }
+
+    /**
      * Methode permettant de se rendre sur la page d'ajout d'un aliment
      */
     @FXML

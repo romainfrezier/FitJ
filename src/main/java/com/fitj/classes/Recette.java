@@ -1,6 +1,6 @@
 package com.fitj.classes;
 
-import com.fitj.interfaces.IsIngredient;
+import com.fitj.interfaces.Ingredient;
 
 import java.util.*;
 
@@ -9,12 +9,12 @@ import java.util.*;
  * @see ProgrammeNutrition
  * @author Paul Merceur, Etienne Tillier
  */
-public class Recette implements IsIngredient {
+public class Recette implements Ingredient {
 
     /**
      * La liste des ingrédients
      */
-    private List<IsIngredient> ingredients;
+    private List<Ingredient> ingredients;
 
 
     /**
@@ -42,10 +42,11 @@ public class Recette implements IsIngredient {
         this.ingredients = new ArrayList<>();
     }
 
+
     /**
      * Constructeur avec recette remplie d'ingrédients
      */
-    public Recette(int id, String nom, Coach coach, ArrayList<IsIngredient> ingredients) {
+    public Recette(int id, String nom, Coach coach, ArrayList<Ingredient> ingredients) {
         this.id = id;
         this.nom = nom;
         this.coach = coach;
@@ -56,7 +57,7 @@ public class Recette implements IsIngredient {
      * Ajoute un ingrédient à la recette
      * @param ingredient isIngredient, l'ingrédient à ajouter à la recette
      */
-    public void ajouterIngredient(IsIngredient ingredient){
+    public void ajouterIngredient(Ingredient ingredient){
         this.ingredients.add(ingredient);
     }
 
@@ -64,14 +65,14 @@ public class Recette implements IsIngredient {
      * Retire un ingrédient de la recette
      * @param ingredient isIngredient, l'ingrédient à retirer de la recette
      */
-    public void retirerIngredient(IsIngredient ingredient){
+    public void retirerIngredient(Ingredient ingredient){
         this.ingredients.remove(ingredient);
     }
 
     /**
      * @return la liste des ingrédients de la recette
      */
-    public List<IsIngredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
@@ -100,7 +101,7 @@ public class Recette implements IsIngredient {
      * Set la liste des ingrédients de la recette
      * @param ingredients List<isIngredient>, la liste des ingrédients
      */
-    public void setIngredients(List<IsIngredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

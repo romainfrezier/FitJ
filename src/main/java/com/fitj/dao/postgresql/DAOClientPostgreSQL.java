@@ -3,14 +3,15 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux clients
@@ -47,29 +48,28 @@ public class DAOClientPostgreSQL extends DAOClient {
      * Fais le choix du role du client entre client, coach ou admin
      * @param compte ResultSet, le résultat de la requête SQL
      * @return Client, le client avec le bon role correspondant au résultat de la requête SQL
-     * @throws Exception si une erreur SQL survient
      */
-    private Client chooseRole(ResultSet compte) throws Exception {
+    private Client chooseRole(Map<String,Object> compte){
         Client connectedClient;
-        if (compte.getBoolean("isadmin")){
-            connectedClient = new Admin(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
-        } else if (compte.getBoolean("iscoach")){
-            connectedClient = new Coach(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+        if ((Boolean)compte.get("isadmin")){
+            connectedClient = new Admin((String)compte.get("mail"), (String)compte.get("pseudo"),((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue());
+        } else if ((Boolean)compte.get("iscoach")){
+            connectedClient = new Coach((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue());
         } else {
-            connectedClient = new Client(compte.getString("mail"), compte.getString("pseudo"), compte.getDouble("poids"), compte.getString("photo"), compte.getInt("taille"), Sexe.getSexe(compte.getString("sexe")), compte.getString("password"), compte.getInt("id"));
+            connectedClient = new Client((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue());
         }
         return connectedClient;
     }
 
     @Override
     public Client getClientByEmail(String mail) throws Exception {
-        ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
-        compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
         try {
-            if (compte.next()){
-                Client client = chooseRole(compte);
+            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+            List<Map<String,Object>> result = compte.getListeData();
+            if (!result.isEmpty()){
+                Client client = chooseRole(result.get(0));
                 client.setListeCommande(new ArrayList<>());
                 client.setListeMateriel(new ArrayList<>());
                 client.setListeSport(new ArrayList<>());
@@ -80,19 +80,20 @@ public class DAOClientPostgreSQL extends DAOClient {
             }
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La sélection du client a échoué");
         }
     }
 
     @Override
     public Client getClientById(int id) throws Exception {
-        ResultSet compte;
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("id", id));
-        compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
-        try {
-            if (compte.next()){
-                Client client = chooseRole(compte);
+        try{
+            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+            List<Map<String,Object>> result = compte.getListeData();
+            if (!result.isEmpty()){
+                Client client = chooseRole(result.get(0));
                 client.setListeCommande(new ArrayList<>());
                 client.setListeMateriel(new ArrayList<>());
                 client.setListeSport(new ArrayList<>());
@@ -103,6 +104,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             }
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La sélection du client a échoué");
         }
     }
@@ -267,13 +269,18 @@ public class DAOClientPostgreSQL extends DAOClient {
         joinList.add(new Triple<>("clientmateriel","idclient", "client.id"));
         joinList.add(new Triple<>("clientavis","idclient", "client.id"));
         try {
-            ResultSet resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            List<Map<String,Object>> listData = resultSet.getListeData();
             int idCurrentClient = -1;
-            while(resultSet.next()){
-                if (idCurrentClient != resultSet.getInt(1)){
-                    listClients.add(new Client(resultSet.getString("mail"),resultSet.getString("pseudo"),resultSet.getDouble("poids"), resultSet.getString("photo"), resultSet.getInt("taille"), Sexe.getSexe(resultSet.getString("sexe")), resultSet.getString("password"), resultSet.getInt(1)));
-                    idCurrentClient = resultSet.getInt(1);
+            int i = 0;
+            while (i < listData.size()){
+                Map<String,Object> data = listData.get(i);
+                if (idCurrentClient != ((Long)data.get("id")).intValue()){
+                    idCurrentClient = ((Long)data.get("id")).intValue();
+                    Client client = new Client((String)data.get("mail"), (String)data.get("pseudo"), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient);
+                    listClients.add(client);
                 }
+                i++;
             }
             return listClients;
         }

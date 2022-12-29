@@ -4,15 +4,16 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOCommande;
 import com.fitj.dao.DAOPaiement;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux commandes
@@ -260,25 +261,31 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         joinList.add(new Triple<>("commandeprogrammepersonnalise","idcommande","commande.id"));
         joinList.add(new Triple<>("commandedemande","idcommande","commande.id"));
         try {
-            ResultSet commandeData = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
-            while (commandeData.next()) {
-                if (commandeData.getObject(5) != null || commandeData.getObject(7) != null || commandeData.getObject(9) != null || commandeData.getObject(11) != null || commandeData.getObject(13) != null) {
-                    Produit produit = getTypeProduit(commandeData);
-                    Client client = new DAOClientPostgreSQL().getClientById(commandeData.getInt("idclient"));
-                    Coach coach = (Coach) new DAOClientPostgreSQL().getClientById(commandeData.getInt("idcoach"));
+            DaoMapper commandeData = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            List<Map<String, Object>> listeData = commandeData.getListeData();
+            List<Map<Integer,Object>> listeDataIndex = commandeData.getListeDataIndex();
+            int i = 0;
+            while (i < listeData.size()){
+                Map<String,Object> data = listeData.get(i);
+                Map<Integer,Object> dataIndex = listeDataIndex.get(i);
+                if (dataIndex.get(5) != null || dataIndex.get(7) != null || dataIndex.get(9) != null || dataIndex.get(11) != null || dataIndex.get(13) != null) {
+                    Produit produit = getTypeProduit(dataIndex);
+                    Client client = new DAOClientPostgreSQL().getClientById(((Long)data.get("idclient")).intValue());
+                    Coach coach = (Coach) new DAOClientPostgreSQL().getClientById(((Long)data.get("idcoach")).intValue());
                     Commande commande;
                     if (produit instanceof ProgrammePersonnalise) {
-                        Demande demande = new DAODemandePostgreSQL().getDemandeById(commandeData.getInt("iddemande"));
-                        commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"), demande);
+                        Demande demande = new DAODemandePostgreSQL().getDemandeById(((Long)data.get("iddemande")).intValue());
+                        commande = new CommandePayante(client, coach, produit, ((Long)data.get("id")).intValue(), demande);
                     } else {
                         if (produit.getPrix() == 0) {
-                            commande = new CommandeNonPayante(client, coach, produit, commandeData.getInt("id"));
+                            commande = new CommandeNonPayante(client, coach, produit, ((Long)data.get("id")).intValue());
                         } else {
-                            commande = new CommandePayante(client, coach, produit, commandeData.getInt("id"));
+                            commande = new CommandePayante(client, coach, produit, ((Long)data.get("id")).intValue());
                         }
                     }
                     listeCommande.add(commande);
                 }
+                i++;
             }
             return listeCommande;
         } catch (Exception e) {
@@ -293,22 +300,22 @@ public class DAOCommandePostgreSQL extends DAOCommande {
      * @return Produit, le produit associé à la commande
      * @throws Exception si une erreur SQL survient
      */
-    private Produit getTypeProduit(ResultSet commandeData) throws Exception {
-        System.out.println(commandeData.getObject(5));
-        System.out.println(commandeData.getObject(7));
-        System.out.println(commandeData.getObject(9));
-        System.out.println(commandeData.getObject(11));
-        System.out.println(commandeData.getObject(13));
-        if (commandeData.getObject(5) != null) {
-            return new Pack(commandeData.getInt(5));
-        } else if (commandeData.getObject(7) != null) {
-            return new Seance(commandeData.getInt(7));
-        } else if (commandeData.getObject(9) != null) {
-            return new ProgrammeSportif(commandeData.getInt(9));
-        } else if (commandeData.getObject(11) != null) {
-            return new ProgrammeNutrition(commandeData.getInt(11));
-        } else if (commandeData.getObject(13) != null) {
-            return new ProgrammePersonnalise(commandeData.getInt(13));
+    private Produit getTypeProduit(Map<Integer,Object> commandeData) throws Exception {
+        System.out.println(commandeData.get(5));
+        System.out.println(commandeData.get(7));
+        System.out.println(commandeData.get(9));
+        System.out.println(commandeData.get(11));
+        System.out.println(commandeData.get(13));
+        if (commandeData.get(5) != null) {
+            return new Pack(((Long)commandeData.get(5)).intValue());
+        } else if (commandeData.get(7) != null) {
+            return new Seance(((Long)commandeData.get(7)).intValue());
+        } else if (commandeData.get(9) != null) {
+            return new ProgrammeSportif(((Long)commandeData.get(9)).intValue());
+        } else if (commandeData.get(11) != null) {
+            return new ProgrammeNutrition(((Long)commandeData.get(11)).intValue());
+        } else if (commandeData.get(13) != null) {
+            return new ProgrammePersonnalise(((Long)commandeData.get(13)).intValue());
         } else {
             throw new DBProblemException("Le produit n'existe pas");
         }

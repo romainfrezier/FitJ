@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.postgresql.DAORecettePostgreSQL;
 import com.fitj.enums.Sexe;
-import com.fitj.interfaces.IsIngredient;
+import com.fitj.interfaces.Ingredient;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -49,7 +49,7 @@ public class DAORecettePostgreSQLTest {
     /**
      * Objet utilisé pour les tests
      */
-    public static ArrayList<IsIngredient> ingredients;
+    public static ArrayList<Ingredient> ingredients;
 
     /**
      * Initialisation des objets utilisés pour les tests
@@ -125,7 +125,7 @@ public class DAORecettePostgreSQLTest {
      */
     @Test
     public void testRecetteDansRecette() throws Exception{
-        ArrayList<IsIngredient> newIngredients = new ArrayList<>();
+        ArrayList<Ingredient> newIngredients = new ArrayList<>();
         newIngredients.add(aliment);
         newIngredients.add(recetteBD);
         Recette newRecette = daoRecettePostgreSQL.createRecette("Gros gateau", coach, newIngredients);

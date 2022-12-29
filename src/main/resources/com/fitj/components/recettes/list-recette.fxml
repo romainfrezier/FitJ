@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.recettes.ControllerRecetteList">
+   <children>
+       <Button fx:id="addRecetteButton" layoutX="392.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToAddRecette" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
+       <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItem" prefHeight="470.0" prefWidth="867.0" />
+       <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
+       <Button fx:id="updateRecetteButton" layoutX="257.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToUpdateRecette" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
+       <Button fx:id="deleteRecetteButton" layoutX="526.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteRecette" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="130.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+   </children>
+</Pane>

@@ -1,9 +1,11 @@
 package com.fitj.dao.connexions;
 
+import com.fitj.exceptions.DBProblemException;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
@@ -18,32 +20,50 @@ public class ConnexionPostgreSQL extends ConnexionBD {
      */
     private Connection connection;
 
-    Dotenv dotenv = Dotenv.load();
+    private static HikariDataSource dataSource;
+
+
+    static Dotenv dotenv = Dotenv.load();
 
     /**
      * Nom d'utilisateur pour se connecter à la base de donnée
      */
-    private String user = dotenv.get("DATABASE_USER");
+    private static final String user = dotenv.get("DATABASE_USER");
 
     /**
      * Mot de passe pour se connecter à la base de donnée
      */
-    private String password = dotenv.get("DATABASE_PASSWORD");
+    private static final String password = dotenv.get("DATABASE_PASSWORD");
 
     /**
      * Port pour se connecter à la base de donnée
      */
-    private String port = dotenv.get("DATABASE_PORT");
+    private static final String port = dotenv.get("DATABASE_PORT");
 
     /**
      * Hote pour se connecter à la base de donnée
      */
-    private String hostname = (!dotenv.get("DATABASE_HOSTNAME").equals("localhost") ? dotenv.get("DATABASE_HOSTNAME") + ":" + port : dotenv.get("DATABASE_HOSTNAME"));
+    private static final String hostname = (!dotenv.get("DATABASE_HOSTNAME").equals("localhost") ? dotenv.get("DATABASE_HOSTNAME") + ":" + port : dotenv.get("DATABASE_HOSTNAME"));
 
     /**
      * Url final pour se connecter à la base de donnée
      */
-    private String url = "jdbc:postgresql://" + hostname + "/" + dotenv.get("DATABASE_NAME");
+    private static final String url = "jdbc:postgresql://" + hostname + "/" + dotenv.get("DATABASE_NAME");
+
+    static HikariConfig config = new HikariConfig();
+
+
+    static {
+        config.setJdbcUrl(url);
+        config.setUsername(user);
+        config.setPassword(password);
+        config.setMaximumPoolSize(50);
+        config.setMinimumIdle(5);
+        config.setConnectionTimeout(30000);
+        config.setMaxLifetime(600000);
+        config.setIdleTimeout(300000);
+        dataSource = new HikariDataSource(config);
+    }
 
 
     /**
@@ -53,8 +73,7 @@ public class ConnexionPostgreSQL extends ConnexionBD {
     @Override
     public Connection connection() {
         try {
-            this.connection = DriverManager.getConnection(url,user,password);
-            return connection;
+            return this.dataSource.getConnection();
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -67,8 +86,15 @@ public class ConnexionPostgreSQL extends ConnexionBD {
      * @return un objet connection pour se connecter à la base de donnée PostgreSQL
      */
     @Override
-    public Connection getConnection() {
-        return connection;
+    public Connection getConnection() throws DBProblemException {
+        try {
+            return this.dataSource.getConnection();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            throw new DBProblemException("Problème de connexion à la base de donnée");
+        }
+
     }
 
     /**

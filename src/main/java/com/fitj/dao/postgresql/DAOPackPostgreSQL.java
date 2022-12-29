@@ -4,15 +4,16 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOPack;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DAOPackPostgreSQL extends DAOPack {
 
@@ -74,12 +75,14 @@ public class DAOPackPostgreSQL extends DAOPack {
     public Pack getPackById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        try{
-            ResultSet packBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (packBD.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(packBD.getInt("idcoach"));
+        try {
+            DaoMapper packBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = packBD.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)data.get("idcoach")).intValue());
                 ArrayList<Produit> listeProduit = (ArrayList<Produit>) this.getAllProduitByPack(id);
-                return new Pack(packBD.getInt("id"), packBD.getString("nom"), packBD.getString("description"),packBD.getDouble("prix"),coach,listeProduit);
+                return new Pack(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String) data.get("description"),((Number) data.get("prix")).doubleValue(),coach,listeProduit);
             }
             else {
                 throw new DBProblemException("Aucun pack avec cet id n'existe");
@@ -107,20 +110,26 @@ public class DAOPackPostgreSQL extends DAOPack {
         joinList.add(new Triple<>("avispack","idpack", "pack.id"));
         joinList.add(new Triple<>("commandepack","idpack", "pack.id"));
         try {
-            ResultSet packBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
-            int idCurrentProgramme = -1;
-            while(packBD.next()){
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
+            int idCurrentPack = -1;
+            int i = 0;
+            while (i < listData.size()) {
                 /*
                  * index 1 = id du pack
                  * index 2 = nom du pack
                  * index 6 = id du coach
                  * index 8 = nom du coach
                  */
-                if (idCurrentProgramme != packBD.getInt(1)){
-                    Coach coach = new Coach(packBD.getString("mail"), packBD.getString(8), packBD.getDouble("poids"), packBD.getString("photo"), packBD.getInt("taille"), Sexe.getSexe(packBD.getString("sexe")), packBD.getString("password"), packBD.getInt(6));
-                    listePack.add(new Pack(packBD.getInt(1), packBD.getString(2), packBD.getString("description"), packBD.getDouble("prix"), coach));
-                    idCurrentProgramme = packBD.getInt(1);
+                Map<String, Object> data = listData.get(i);
+                Map<Integer, Object> dataIndex = listDataIndex.get(i);
+                if (idCurrentPack != ((Long)dataIndex.get(1)).intValue()) {
+                    Coach coach = new Coach((String) data.get("mail"), (String) dataIndex.get(8), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), ((Long)dataIndex.get(6)).intValue());
+                    listePack.add(new Pack(((Long)dataIndex.get(1)).intValue(), (String) dataIndex.get(2), (String) data.get("description"), ((Number)data.get("prix")).doubleValue(), coach));
+                    idCurrentPack = ((Long)dataIndex.get(1)).intValue();
                 }
+                i++;
             }
             return listePack;
         }

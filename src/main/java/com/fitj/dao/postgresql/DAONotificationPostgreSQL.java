@@ -3,12 +3,13 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Notification;
 import com.fitj.dao.DAONotification;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe permettant d'interagir avec la base de données PostgreSQL pour les notifications
@@ -44,11 +45,14 @@ public class DAONotificationPostgreSQL extends DAONotification {
     public Notification getNotificationById(int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add( new Pair<>("id",id));
-        try {
-            ResultSet notificationData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (notificationData.next()) {
-                return new Notification(id, notificationData.getString("message"), notificationData.getInt("idclient"), notificationData.getInt("idcommande"));
-            } else {
+        try{
+            DaoMapper notificationData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = notificationData.getListeData();
+            if (!result.isEmpty()){
+                Map<String,Object> data = result.get(0);
+                return new Notification(id, (String)data.get("message"), ((Long)data.get("idclient")).intValue(), ((Long)data.get("idcommande")).intValue());
+            }
+            else {
                 throw new DBProblemException("Aucune notification ne correspond à l'id rentré en paramètre");
             }
         } catch (Exception e) {
@@ -65,9 +69,13 @@ public class DAONotificationPostgreSQL extends DAONotification {
     public List<Notification> getAllNotificationsWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Notification> notificationsList = new ArrayList<>();
         try {
-            ResultSet notificationsData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            while (notificationsData.next()) {
-                notificationsList.add(new Notification(notificationsData.getInt("id"), notificationsData.getString("message"), notificationsData.getInt("idclient"), notificationsData.getInt("idcommande")));
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            int i = 0;
+            while (i < listData.size()) {
+                Map<String, Object> data = listData.get(i);
+                notificationsList.add(new Notification(((Long)data.get("id")).intValue(), (String) data.get("message"), ((Long)data.get("idclient")).intValue(), ((Long)data.get("idcommande")).intValue()));
+                i++;
             }
             return notificationsList;
         } catch (Exception e) {

@@ -1,22 +1,19 @@
-package com.fitj.controllers.coachs;
+package com.fitj.controllers.clients;
 
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
 /**
- * Controller pour la page d'accueil du coach
- * @see ControllerCoach
+ * Controller pour la page d'accueil du client
+ * @see ControllerClient
  * @author Romain Frezier
  */
-public class ControllerMonEspace extends ControllerCoach {
+public class ControllerClientMonEspace extends ControllerClient {
 
     // Composants FXML-----------------------------------------------------------------------------------------------
     @FXML
-    private Text coachName;
-    @FXML
-    private ProgressBar coachGrade;
+    private Text clientName;
     // --------------------------------------------------------------------------------------------------------------
 
     /**
@@ -24,6 +21,6 @@ public class ControllerMonEspace extends ControllerCoach {
      */
     @FXML
     public void initialize(){
-        coachName.setText(Facade.currentClient.getPseudo());
+        clientName.setText(Facade.currentClient.getPseudo());
     }
 }

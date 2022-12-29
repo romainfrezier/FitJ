@@ -1,20 +1,21 @@
 package com.fitj.dao.postgresql;
 
-import com.fitj.classes.Coach;
-import com.fitj.classes.Exercice;
-import com.fitj.classes.Seance;
-import com.fitj.classes.Sport;
+import com.fitj.classes.*;
 import com.fitj.dao.DAOSeance;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
+import com.fitj.dao.tool.DaoMapper;
+
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
+
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux séances
@@ -37,13 +38,15 @@ public class DAOSeancePostgreSQL extends DAOSeance {
     public Seance getSeanceById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
-        try{
-            ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (seance.next()){
-                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(seance.getInt("idcoach"));
-                Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(seance.getInt("idsport"));
-                List<Triple<Exercice, Integer, Integer>> listeExercice = (List<Triple<Exercice, Integer, Integer>>) this.getExercices(id);
-                return new Seance(seance.getInt("id"), seance.getString("nom"), seance.getString("description"),seance.getDouble("prix"),coach,sport,listeExercice);
+        try {
+            DaoMapper seanceBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = seanceBD.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)data.get("idcoach")).intValue());
+                Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(((Long)data.get("idsport")).intValue());
+                List<Triple<Exercice, Integer, Integer>> listeExercice = this.getExercices(id);
+                return new Seance(((Long)data.get("id")).intValue(), (String)data.get("nom"), (String)data.get("description"),((Number)data.get("prix")).doubleValue(),coach,sport,listeExercice);
             }
             else {
                 throw new DBProblemException("Aucune séance avec cet id n'existe");
@@ -64,9 +67,11 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
         try {
-            ResultSet seance = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
-            if (seance.next()){
-                return seance.getInt("id");
+            DaoMapper seanceBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String,Object>> result = seanceBD.getListeData();
+            if (!result.isEmpty()) {
+                Map<String, Object> data = result.get(0);
+                return ((Long) data.get("id")).intValue();
             }
             else {
                 throw new DBProblemException("Il n'y a pas de séance avec ce nom");
@@ -90,10 +95,13 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Triple<String, String, String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("seanceexercice", "idexercice", "exercice.id"));
         try {
-            ResultSet exerciceBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
+            DaoMapper resultSet =((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            int i = 0;
             List<Triple<Exercice, Integer, Integer>> listeExercice = new ArrayList<>();
-            while (exerciceBD.next()){
-                listeExercice.add(new Triple<>(new Exercice(exerciceBD.getInt("id"),exerciceBD.getString("nom"),exerciceBD.getString("description")),exerciceBD.getInt("nbrepetition"), exerciceBD.getInt("nbserie")));
+            while (i < listData.size()) {
+                Map<String, Object> data = listData.get(i);
+                listeExercice.add(new Triple<>(new Exercice(((Long)data.get("id")).intValue(),(String) data.get("nom"),(String)data.get("description")),((Long)data.get("nbrepetition")).intValue(), ((Long)data.get("nbserie")).intValue()));
             }
             return listeExercice;
         }
@@ -148,10 +156,13 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idsport",idSport));
         try {
-            ResultSet seancesData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            int i = 0;
             List<Seance> listeSeances = new ArrayList<>();
-            while (seancesData.next()){
-                listeSeances.add(this.getSeanceById(seancesData.getInt("id")));
+            while (i < listData.size()) {
+                Map<String, Object> data = listData.get(i);
+                listeSeances.add(this.getSeanceById(((Long)data.get("id")).intValue()));
             }
             return listeSeances;
         }
@@ -175,21 +186,28 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         joinList.add(new Triple<>("avisseance","idseance", "seance.id"));
         joinList.add(new Triple<>("commandeseance","idseance", "seance.id"));
         try {
-            ResultSet seancesBD = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            List<Map<String, Object>> listData = resultSet.getListeData();
+            List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentSeance = -1;
-            while(seancesBD.next()){
+            int i = 0;
+            while (i < listData.size()) {
                 /*
                  * index 1 = id de la séance
                  * index 2 = nom de la séance
                  * index 5 = id du coach
                  * index 9 = nom du coach
                  */
-                if (idCurrentSeance != seancesBD.getInt(1)){
-                    Coach coach = new Coach(seancesBD.getString("mail"), seancesBD.getString(9), seancesBD.getDouble("poids"), seancesBD.getString("photo"), seancesBD.getInt("taille"), Sexe.getSexe(seancesBD.getString("sexe")), seancesBD.getString("password"), seancesBD.getInt(5));
-                    listeSeances.add(new Seance(seancesBD.getInt(1), seancesBD.getString(2), seancesBD.getString("description"), seancesBD.getDouble("prix"), coach));
-                    idCurrentSeance = seancesBD.getInt(1);
+                Map<String, Object> data = listData.get(i);
+                Map<Integer, Object> dataIndex = listDataIndex.get(i);
+                if (idCurrentSeance != ((Long) dataIndex.get(1)).intValue()) {
+                    Coach coach = new Coach((String)data.get("mail"), (String)dataIndex.get(9), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String)data.get("password"), ((Long) dataIndex.get(5)).intValue());
+                    listeSeances.add(new Seance(((Long) dataIndex.get(1)).intValue(), (String)dataIndex.get(2), (String)data.get("description"), ((Number)data.get("prix")).doubleValue(), coach));
+                    idCurrentSeance = ((Long) dataIndex.get(1)).intValue();
                 }
+                i++;
             }
+
             return listeSeances;
         }
         catch (Exception e){

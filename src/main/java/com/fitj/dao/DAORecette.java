@@ -1,11 +1,9 @@
 package com.fitj.dao;
 
 
-import com.fitj.classes.Aliment;
 import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
-import com.fitj.classes.Seance;
-import com.fitj.interfaces.IsIngredient;
+import com.fitj.interfaces.Ingredient;
 import kotlin.Pair;
 
 import java.util.List;
@@ -30,7 +28,7 @@ public abstract class DAORecette extends DAO {
      * @return la recette créée
      * @throws Exception
      */
-    public abstract Recette createRecette(String nom, Coach coach, List<IsIngredient> aliments) throws Exception;
+    public abstract Recette createRecette(String nom, Coach coach, List<Ingredient> aliments) throws Exception;
 
     /**
      * @param id int, l'id de la recette
@@ -38,6 +36,13 @@ public abstract class DAORecette extends DAO {
      * @throws Exception
      */
     public abstract Recette getRecetteById(int id) throws Exception;
+
+    /**
+     * @param id int, l'id de la recette
+     * @return la recette cherchée en base de donnée en fonction de l'id rentrée en paramètre
+     * @throws Exception
+     */
+    public abstract Recette getRecetteByIdWithoutIngredients(int id) throws Exception;
 
     /**
      * Supprimer la recette dans la base de donnée
@@ -74,7 +79,7 @@ public abstract class DAORecette extends DAO {
      * @param id int, l'id de la recette
      * @throws Exception
      */
-    public abstract void ajouterIngredient(IsIngredient ingredient, int id) throws Exception;
+    public abstract void ajouterIngredient(Ingredient ingredient, int id) throws Exception;
 
     /**
      * Supprimer un ingrédient de la recette
@@ -82,6 +87,6 @@ public abstract class DAORecette extends DAO {
      * @param id int, l'id de la recette
      * @throws Exception
      */
-    public abstract void supprimerIngredient(IsIngredient ingredient, int id) throws Exception;
+    public abstract void supprimerIngredient(Ingredient ingredient, int id) throws Exception;
 
 }

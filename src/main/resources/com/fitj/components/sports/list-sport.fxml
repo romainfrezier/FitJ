@@ -8,7 +8,7 @@
 <Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.sports.ControllerSportList">
    <children>
        <Button fx:id="addSportButton" layoutX="392.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToAddSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
-       <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" prefHeight="470.0" prefWidth="867.0" />
+       <ListView fx:id="listView" onMouseClicked="#selectItem" layoutX="17.0" layoutY="25.0" prefHeight="470.0" prefWidth="867.0" />
        <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
        <Button fx:id="updateSportButton" layoutX="257.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToUpdateSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
        <Button fx:id="deleteSportbutton" layoutX="526.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteSport" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
