@@ -3,7 +3,7 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Paiement;
 import com.fitj.dao.DAOPaiement;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
@@ -51,7 +51,7 @@ public class DAOPaiementPostgreSQL extends DAOPaiement {
     public List<Paiement> getAllPaiementsWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Paiement> paiements = new ArrayList<>();
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
             int i = 0;
             while (i < listData.size()) {

@@ -1,7 +1,7 @@
 package com.fitj.dao.methodesBD;
 
 import com.fitj.dao.connexions.ConnexionPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
@@ -42,13 +42,13 @@ public class MethodesPostgreSQL extends MethodesBD{
      * @param table le nom de la table
      * @return un objet de type ResultSet qui donne à accès à chaque tuple présent dans la table
      */
-    public DaoWrapper selectAll(String table) throws DBProblemException {
+    public DaoMapper selectAll(String table) throws DBProblemException {
         try {
             try(Connection connection = this.getConnexion()) {
                 String sql = "SELECT * FROM " + table + ";";
                 try (PreparedStatement query = connection.prepareStatement(sql)) {
                     ResultSet result = query.executeQuery();
-                    return new DaoWrapper(result);
+                    return new DaoMapper(result);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -64,7 +64,7 @@ public class MethodesPostgreSQL extends MethodesBD{
      * @param table String, le nom de la table
      * @return un objet de type ResultSet pour chaque tuple correspondant à la clause where
      */
-    public DaoWrapper selectWhere(List<Pair<String,Object>> data, String table) throws DBProblemException, InterruptedException, SQLException {
+    public DaoMapper selectWhere(List<Pair<String,Object>> data, String table) throws DBProblemException, InterruptedException, SQLException {
         try {
             try(Connection connection = this.getConnexion()){
                 String sql = "SELECT * FROM " + table + " WHERE ";
@@ -76,7 +76,7 @@ public class MethodesPostgreSQL extends MethodesBD{
                 try(PreparedStatement query = connection.prepareStatement(sql)){
                     //System.out.println(query);
                     ResultSet result = query.executeQuery();
-                    return new DaoWrapper(result);
+                    return new DaoMapper(result);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -201,7 +201,7 @@ public class MethodesPostgreSQL extends MethodesBD{
         List<Pair<String,Object>> list = new ArrayList<>();
         list.add(new Pair<String,Object>(name,data));
         try {
-            DaoWrapper result = this.selectWhere(list, table);
+            DaoMapper result = this.selectWhere(list, table);
             if (!result.getListeData().isEmpty()) {
                 return true;
             } else {
@@ -221,7 +221,7 @@ public class MethodesPostgreSQL extends MethodesBD{
      * @return un objet de type ResultSet contenant tous les tuples de la jointure
      * @throws DBProblemException si la requête ne peut pas être effectuée
      */
-    public DaoWrapper selectJoin(List<Triple<String,String,String>> dataJoin, List<Pair<String,Object>> dataWhere, String table) throws DBProblemException {
+    public DaoMapper selectJoin(List<Triple<String,String,String>> dataJoin, List<Pair<String,Object>> dataWhere, String table) throws DBProblemException {
         try {
             try (Connection connection = this.getConnexion()) {
                 String sql = "SELECT * FROM " + table + " ";
@@ -239,7 +239,7 @@ public class MethodesPostgreSQL extends MethodesBD{
                 try (PreparedStatement query = connection.prepareStatement(sql)) {
                     //System.out.println(query);
                     ResultSet result = query.executeQuery();
-                    return new DaoWrapper(result);
+                    return new DaoMapper(result);
                 }
             }
         }

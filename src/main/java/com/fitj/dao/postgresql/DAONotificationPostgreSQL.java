@@ -3,7 +3,7 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Notification;
 import com.fitj.dao.DAONotification;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 
@@ -46,7 +46,7 @@ public class DAONotificationPostgreSQL extends DAONotification {
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add( new Pair<>("id",id));
         try{
-            DaoWrapper notificationData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper notificationData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = notificationData.getListeData();
             if (!result.isEmpty()){
                 Map<String,Object> data = result.get(0);
@@ -69,7 +69,7 @@ public class DAONotificationPostgreSQL extends DAONotification {
     public List<Notification> getAllNotificationsWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Notification> notificationsList = new ArrayList<>();
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
             int i = 0;
             while (i < listData.size()) {

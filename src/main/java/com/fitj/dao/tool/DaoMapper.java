@@ -4,14 +4,14 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.*;
 
-public class DaoWrapper {
+public class DaoMapper {
 
     private List<Map<String,Object>> listeData;
 
     private List<Map<Integer,Object>> listeDataIndex;
 
 
-    public DaoWrapper(ResultSet resultSet) throws Exception {
+    public DaoMapper(ResultSet resultSet) throws Exception {
         ResultSetMetaData rsmd = resultSet.getMetaData();
         int columnCount = rsmd.getColumnCount();
         this.listeData = new ArrayList<>();

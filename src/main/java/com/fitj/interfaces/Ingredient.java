@@ -1,6 +1,6 @@
 package com.fitj.interfaces;
 
-public interface IsIngredient {
+public interface Ingredient {
 
     String getNom();
 

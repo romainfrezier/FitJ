@@ -3,7 +3,7 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Aliment;
 import com.fitj.dao.DAOAliment;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 
@@ -43,7 +43,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
-            DaoWrapper alimentData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper alimentData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = alimentData.getListeData();
             if (!result.isEmpty()){
                 return new Aliment(id, (String)result.get(0).get("nom"));
@@ -62,7 +62,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
     public List<Aliment> getAllAliments() throws Exception {
         List<Aliment> listeAliment = new ArrayList<>();
         try {
-            DaoWrapper alimentData = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
+            DaoMapper alimentData = ((MethodesPostgreSQL)this.methodesBD).selectAll(this.table);
             List<Map<String,Object>> result = alimentData.getListeData();
             for (Map<String,Object> row : result){
                 listeAliment.add(new Aliment(((Long)row.get("id")).intValue(), (String)row.get("nom")));

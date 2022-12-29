@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Controller de la page list-recette-view.fxml
  * @see ControllerRecette
- * @author Paco Munarriz
+ * @author Etienne Tillier
  */
 
 public class ControllerRecetteList extends ControllerRecette {

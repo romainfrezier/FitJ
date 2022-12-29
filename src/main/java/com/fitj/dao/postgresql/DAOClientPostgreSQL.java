@@ -3,7 +3,7 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
@@ -66,7 +66,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
         try {
-            DaoWrapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
             List<Map<String,Object>> result = compte.getListeData();
             if (!result.isEmpty()){
                 Client client = chooseRole(result.get(0));
@@ -90,7 +90,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("id", id));
         try{
-            DaoWrapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
             List<Map<String,Object>> result = compte.getListeData();
             if (!result.isEmpty()){
                 Client client = chooseRole(result.get(0));
@@ -269,7 +269,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         joinList.add(new Triple<>("clientmateriel","idclient", "client.id"));
         joinList.add(new Triple<>("clientavis","idclient", "client.id"));
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
             List<Map<String,Object>> listData = resultSet.getListeData();
             int idCurrentClient = -1;
             int i = 0;

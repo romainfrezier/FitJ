@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOSeance;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
@@ -39,7 +39,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
-            DaoWrapper seanceBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper seanceBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = seanceBD.getListeData();
             if (!result.isEmpty()) {
                 Map<String, Object> data = result.get(0);
@@ -67,7 +67,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
         try {
-            DaoWrapper seanceBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper seanceBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = seanceBD.getListeData();
             if (!result.isEmpty()) {
                 Map<String, Object> data = result.get(0);
@@ -95,7 +95,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Triple<String, String, String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("seanceexercice", "idexercice", "exercice.id"));
         try {
-            DaoWrapper resultSet =((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
+            DaoMapper resultSet =((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
             List<Map<String, Object>> listData = resultSet.getListeData();
             int i = 0;
             List<Triple<Exercice, Integer, Integer>> listeExercice = new ArrayList<>();
@@ -156,7 +156,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idsport",idSport));
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
             int i = 0;
             List<Seance> listeSeances = new ArrayList<>();
@@ -186,7 +186,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         joinList.add(new Triple<>("avisseance","idseance", "seance.id"));
         joinList.add(new Triple<>("commandeseance","idseance", "seance.id"));
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
             List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentSeance = -1;

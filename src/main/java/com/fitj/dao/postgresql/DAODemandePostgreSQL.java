@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAODemande;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.DemandeEtat;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
@@ -33,7 +33,7 @@ public class DAODemandePostgreSQL extends DAODemande {
         List<Triple<String, String, String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("programmepersonnalise", "iddemande","demande.id"));
         try{
-            DaoWrapper demande = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList, this.table);
+            DaoMapper demande = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList, this.table);
             List<Map<String,Object>> result = demande.getListeData();
             List<Map<Integer,Object>> resultIndex = demande.getListeDataIndex();
             if (!result.isEmpty()){
@@ -72,7 +72,7 @@ public class DAODemandePostgreSQL extends DAODemande {
         joinList.add(new Triple<>("commandedemande","iddemande", "demande.id"));
         joinList.add(new Triple<>("sport","id", "demande.idsport"));
         try {
-            DaoWrapper wrapper = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            DaoMapper wrapper = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
             List<Map<String,Object>> listData = wrapper.getListeData();
             List<Map<Integer,Object>> listDataIndex = wrapper.getListeDataIndex();
             int idCurrentDemande = -1;

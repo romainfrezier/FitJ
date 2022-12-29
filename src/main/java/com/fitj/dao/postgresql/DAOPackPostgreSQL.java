@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOPack;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
@@ -76,7 +76,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
-            DaoWrapper packBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper packBD = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = packBD.getListeData();
             if (!result.isEmpty()) {
                 Map<String, Object> data = result.get(0);
@@ -110,7 +110,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         joinList.add(new Triple<>("avispack","idpack", "pack.id"));
         joinList.add(new Triple<>("commandepack","idpack", "pack.id"));
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
             List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentPack = -1;

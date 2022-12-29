@@ -3,7 +3,7 @@ package com.fitj.controllers.recettes;
 import com.fitj.classes.Aliment;
 import com.fitj.classes.Recette;
 import com.fitj.dao.factory.FactoryDAO;
-import com.fitj.interfaces.IsIngredient;
+import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -14,12 +14,11 @@ import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Controller de la page de modification de la recette
  * @see ControllerRecette
- * @author Paco Munarriz
+ * @author Etienne Tillier
  */
 public class ControllerModifyRecette extends ControllerRecette {
 
@@ -31,13 +30,13 @@ public class ControllerModifyRecette extends ControllerRecette {
     @FXML
     private Text errorText;
 
-    private IsIngredient ingredientSelected = null;
+    private Ingredient ingredientSelected = null;
 
-    private IsIngredient ingredientSelectedForDelete = null;
+    private Ingredient ingredientSelectedForDelete = null;
 
 
     @FXML
-    private ListView<IsIngredient> listViewIngredientRecette;
+    private ListView<Ingredient> listViewIngredientRecette;
 
     @FXML
     private ListView<Aliment> listViewAliment;
@@ -47,7 +46,7 @@ public class ControllerModifyRecette extends ControllerRecette {
 
     private Recette recette;
 
-    private List<IsIngredient> listeIngredients = new ArrayList<>();
+    private List<Ingredient> listeIngredients = new ArrayList<>();
 
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -81,10 +80,10 @@ public class ControllerModifyRecette extends ControllerRecette {
         try {
             listViewIngredientRecette.setCellFactory(new Callback<>() {
                 @Override
-                public ListCell<IsIngredient> call(ListView<IsIngredient> param) {
+                public ListCell<Ingredient> call(ListView<Ingredient> param) {
                     return new ListCell<>() {
                         @Override
-                        protected void updateItem(IsIngredient item, boolean empty) {
+                        protected void updateItem(Ingredient item, boolean empty) {
                             super.updateItem(item, empty);
                             if (item != null) {
                                 setText(item.getNom());
@@ -95,7 +94,7 @@ public class ControllerModifyRecette extends ControllerRecette {
                     };
                 }
             });
-            for (IsIngredient ingredient : listeIngredients) {
+            for (Ingredient ingredient : listeIngredients) {
                 listViewIngredientRecette.getItems().add(ingredient);
             }
         } catch (Exception e) {
@@ -164,7 +163,7 @@ public class ControllerModifyRecette extends ControllerRecette {
      */
     @FXML
     private void addIngredient() {
-        if (ingredientSelected != null && ingredientSelected instanceof IsIngredient) {
+        if (ingredientSelected != null && ingredientSelected instanceof Ingredient) {
             listeIngredients.add(ingredientSelected);
             ingredientSelected = null;
             initializeIngredientList();
@@ -191,30 +190,23 @@ public class ControllerModifyRecette extends ControllerRecette {
     private void updateRecette() {
         try {
             hideError(errorText);
-            List<IsIngredient> ingredientsEnMoin = recette.getIngredients().stream().filter(ingredient -> !listeIngredients.contains(ingredient)).toList();
-            for (IsIngredient ingredient : ingredientsEnMoin) {
-                new Thread(() -> {
-                    try {
-                        System.out.println("Suppression de l'ingrédient " + ingredient.getNom());
-                        recetteFacade.removeIngredientFromRecette(recette.getId(), ingredient);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        displayError(errorText, e.getMessage());
-                    }
-                }).start();
+            List<Ingredient> ingredientsEnMoin = recette.getIngredients().stream().filter(ingredient -> !listeIngredients.contains(ingredient)).toList();
+            for (Ingredient ingredient : ingredientsEnMoin) {
+                try {
+                    recetteFacade.removeIngredientFromRecette(recette.getId(), ingredient);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    displayError(errorText, e.getMessage());
+                }
             }
-            List<IsIngredient> ingredientsEnPlus = listeIngredients.stream().filter(ingredient -> !recette.getIngredients().contains(ingredient)).toList();
-            for (IsIngredient ingredient : ingredientsEnPlus) {
-                System.out.println("ouii add");
-                new Thread(() -> {
-                    try {
-                        System.out.println("Ajout de l'ingrédient " + ingredient.getNom());
-                        recetteFacade.addIngredientToRecette(recette.getId(), ingredient);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        displayError(errorText, e.getMessage());
-                    }
-                }).start();
+            List<Ingredient> ingredientsEnPlus = listeIngredients.stream().filter(ingredient -> !recette.getIngredients().contains(ingredient)).toList();
+            for (Ingredient ingredient : ingredientsEnPlus) {
+                try {
+                    recetteFacade.addIngredientToRecette(recette.getId(), ingredient);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    displayError(errorText, e.getMessage());
+                }
             }
             recetteFacade.updateRecette(recette.getId(), recetteName.getText());
             super.goToMonEspace(updateRecetteButton);
@@ -224,7 +216,7 @@ public class ControllerModifyRecette extends ControllerRecette {
         }
     }
 
-    public IsIngredient getIngredientSelectedToDelete() {
+    public Ingredient getIngredientSelectedToDelete() {
         return ingredientSelected;
     }
 

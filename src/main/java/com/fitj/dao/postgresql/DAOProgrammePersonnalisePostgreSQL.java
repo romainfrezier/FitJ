@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOProgrammePersonnalise;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
@@ -69,7 +69,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
-            DaoWrapper programmeDB = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper programmeDB = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = programmeDB.getListeData();
             if (!result.isEmpty()) {
                 Map<String, Object> data = result.get(0);
@@ -139,7 +139,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         joinList.add(new Triple<>("commandeprogrammepersonnalise","idprogramme", "programmepersonnalise.id"));
         joinList.add(new Triple<>("packprogrammepersonnalise","idprogramme", "programmepersonnalise.id"));
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
             List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int idCurrentProgramme = -1;

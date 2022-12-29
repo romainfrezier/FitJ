@@ -7,6 +7,8 @@ import javafx.scene.control.Control;
 
 /**
  * Controller générique des pages recettes
+ *
+ * @author Etienne Tillier
  */
 public abstract class ControllerRecette extends Controller {
 

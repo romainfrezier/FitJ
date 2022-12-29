@@ -4,7 +4,7 @@ import com.fitj.classes.Aliment;
 import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.dao.factory.FactoryDAO;
-import com.fitj.interfaces.IsIngredient;
+import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller de la page d'ajout d'un aliment
+ * Controller de la page d'ajout d'une recette
  * @see ControllerRecette
- * @author Paco Munarriz
+ * @author Etienne Tillier
  */
 public class ControllerAddRecette extends ControllerRecette {
 
@@ -31,13 +31,13 @@ public class ControllerAddRecette extends ControllerRecette {
     @FXML
     private Text errorText;
 
-    private IsIngredient ingredientSelected = null;
+    private Ingredient ingredientSelected = null;
 
-    private IsIngredient ingredientSelectedForDelete = null;
+    private Ingredient ingredientSelectedForDelete = null;
 
 
     @FXML
-    private ListView<IsIngredient> listViewIngredientRecette;
+    private ListView<Ingredient> listViewIngredientRecette;
 
     @FXML
     private ListView<Aliment> listViewAliment;
@@ -45,7 +45,7 @@ public class ControllerAddRecette extends ControllerRecette {
     @FXML
     private ListView<Recette> listViewRecette;
 
-    private List<IsIngredient> listeIngredients = new ArrayList<>();
+    private List<Ingredient> listeIngredients = new ArrayList<>();
 
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -70,10 +70,10 @@ public class ControllerAddRecette extends ControllerRecette {
         try {
             listViewIngredientRecette.setCellFactory(new Callback<>() {
                 @Override
-                public ListCell<IsIngredient> call(ListView<IsIngredient> param) {
+                public ListCell<Ingredient> call(ListView<Ingredient> param) {
                     return new ListCell<>() {
                         @Override
-                        protected void updateItem(IsIngredient item, boolean empty) {
+                        protected void updateItem(Ingredient item, boolean empty) {
                             super.updateItem(item, empty);
                             if (item != null) {
                                 setText(item.getNom());
@@ -84,7 +84,7 @@ public class ControllerAddRecette extends ControllerRecette {
                     };
                 }
             });
-            for (IsIngredient ingredient : listeIngredients) {
+            for (Ingredient ingredient : listeIngredients) {
                 listViewIngredientRecette.getItems().add(ingredient);
             }
         } catch (Exception e) {
@@ -153,7 +153,7 @@ public class ControllerAddRecette extends ControllerRecette {
      */
     @FXML
     private void addIngredient() {
-        if (ingredientSelected != null && ingredientSelected instanceof IsIngredient) {
+        if (ingredientSelected != null && ingredientSelected instanceof Ingredient) {
             listeIngredients.add(ingredientSelected);
             ingredientSelected = null;
             initializeIngredientList();
@@ -187,7 +187,7 @@ public class ControllerAddRecette extends ControllerRecette {
         }
     }
 
-    public IsIngredient getIngredientSelectedToDelete() {
+    public Ingredient getIngredientSelectedToDelete() {
         return ingredientSelected;
     }
 

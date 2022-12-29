@@ -3,7 +3,7 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Materiel;
 import com.fitj.dao.DAOMateriel;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoWrapper;
+import com.fitj.dao.tool.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
@@ -54,7 +54,7 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try{
-            DaoWrapper materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = materielData.getListeData();
             if (!result.isEmpty()){
                 Map<String,Object> data = result.get(0);
@@ -80,7 +80,7 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("nom", nom));
         try {
-            DaoWrapper materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
+            DaoMapper materielData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, this.table);
             List<Map<String,Object>> result = materielData.getListeData();
             if (!result.isEmpty()){
                 Map<String,Object> data = result.get(0);
@@ -118,7 +118,7 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         joinList.add(new Triple<>("clientmateriel", "idmateriel", "materiel.id"));
         joinList.add(new Triple<>("exercicemateriel", "idmateriel", "materiel.id"));
         try {
-            DaoWrapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
+            DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
             int idCurrentMateriel = -1;
             int i = 0;

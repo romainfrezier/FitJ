@@ -33,9 +33,9 @@ public abstract class MethodesBD {
 
     /**
      * Ferme la connexion à la base de donnée
-     * @throws SQLException
+     * @throws Exception
      */
-    public abstract void close() throws SQLException, DBProblemException;
+    public abstract void close() throws Exception;
 
 
 
