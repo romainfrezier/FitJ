@@ -74,6 +74,13 @@ public abstract class DAORecette extends DAO {
     public abstract Recette updateRecette(List<Pair<String, Object>> updateList, int id) throws Exception;
 
     /**
+     * @param idCoach int, l'id du coach
+     * @return la liste de toutes les recettes présente dans la base de donnée pour le coach
+     * @throws Exception si la requête échoue
+     */
+    public abstract List<Recette> getAllRecettesByCoach(int idCoach) throws Exception;
+
+    /**
      * Ajoute un ingrédient à la recette
      * @param ingredient IsIngredient, l'ingrédient à ajouter à la recette
      * @param id int, l'id de la recette

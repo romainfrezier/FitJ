@@ -28,9 +28,14 @@
                 <Font size="34.0" />
             </font>
         </Text>
-        <VBox layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
+        <VBox fx:id="headerAdmin" visible="false" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
             <children>
-                <fx:include source="../../components/headers/header-admin.fxml" />
+                <fx:include source="../../components/headers/header-admin.fxml"/>
+            </children>
+        </VBox>
+        <VBox fx:id="headerCoach" visible="false" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
+            <children>
+                <fx:include source="../../components/headers/header-coach.fxml"/>
             </children>
         </VBox>
         <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />

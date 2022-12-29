@@ -174,6 +174,8 @@ public class DAORecettePostgreSQL extends DAORecette {
         return this.getAllRecettesWhere(new ArrayList<>());
     }
 
+
+
     @Override
     public List<Recette> getAllRecettesWhere(List<Pair<String,Object>> whereList) throws Exception {
         List<Recette> listeRecettes = new ArrayList<>();
@@ -224,6 +226,13 @@ public class DAORecettePostgreSQL extends DAORecette {
             e.printStackTrace();
             throw new DBProblemException("La mise à jour de la recette a échoué");
         }
+    }
+
+    @Override
+    public List<Recette> getAllRecettesByCoach(int idCoach) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("recette.idcoach",idCoach));
+        return this.getAllRecettesWhere(whereList);
     }
 
     @Override
