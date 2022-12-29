@@ -35,7 +35,7 @@ public abstract class DAOClient extends DAO {
      * @param poids float,  le poids du client
      * @param taille int, la taille du client
      * @param photo String, le lien de la photo du client
-     * @throws Exception
+     * @throws Exception si une erreur survient lors de la création du client
      */
     public abstract Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception;
 
@@ -58,14 +58,14 @@ public abstract class DAOClient extends DAO {
     /**
      * Supprimer le client de la base de donnée
      * @param mail, le mail du client
-     * @throws Exception
+     * @throws Exception si une erreur survient lors de la suppression du client
      */
     public abstract void supprimerClientByMail(String mail) throws Exception;
 
     /**
      * Supprimer le client de la base de donnée
      * @param id int, l'id du client
-     * @throws Exception
+     * @throws Exception si une erreur survient lors de la suppression du client
      */
     public abstract void supprimerClientById(int id) throws Exception;
 
@@ -112,7 +112,7 @@ public abstract class DAOClient extends DAO {
     /**
      * Met à jour le password du client dans la base de donnée
      * @param password, le password du client
-     * @param id
+     * @param id int, l'id du client
      * @throws Exception si une erreur survient lors de la requête SQL
      */
     public abstract Client updateClientPassword(String password, int id) throws Exception;
@@ -199,4 +199,20 @@ public abstract class DAOClient extends DAO {
      * @throws Exception en cas de problème lors de la requête SQL
      */
     public abstract Client deleteSportToClient(int idClient, int idSport) throws Exception;
+
+    /**
+     * Permet à un client de devenir coach
+     * @param idClient int, l'id du client
+     * @return Coach, le coach créé
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Coach clientBecomeCoach(int idClient) throws Exception;
+
+    /**
+     * Permet à un client de devenir admin
+     * @param idClient int, l'id du client
+     * @return Admin, le coach créé
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Admin clientBecomeAdmin(int idClient) throws Exception;
 }

@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.admins.ControllerClients">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <fx:include source="../../components/headers/header-admin.fxml" />
+      <AnchorPane layoutX="49.0" layoutY="143.0" prefHeight="599.0" prefWidth="902.0">
+         <children>
+            <fx:include source="../../components/clients/list-client.fxml" />
+         </children>
+      </AnchorPane>
+      <Text fill="#054371" layoutX="356.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste de tous les clients">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

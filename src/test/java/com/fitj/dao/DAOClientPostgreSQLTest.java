@@ -267,4 +267,21 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size - 1, newSize);
     }
 
+    @Test
+    void testClientToCoach() throws Exception {
+        int size = daoClientPostgreSQL.getAllCoach().size();
+        daoClientPostgreSQL.clientBecomeCoach(clientBD.getId());
+        int newSize = daoClientPostgreSQL.getAllCoach().size();
+        daoClientPostgreSQL.clientBecomeCoach(clientBD.getId());
+        Assertions.assertEquals(size + 1, newSize);
+    }
+
+    @Test
+    void testClientToAdmin() throws Exception {
+        int size = daoClientPostgreSQL.getAllAdmin().size();
+        daoClientPostgreSQL.clientBecomeAdmin(clientBD.getId());
+        int newSize = daoClientPostgreSQL.getAllAdmin().size();
+        daoClientPostgreSQL.clientBecomeAdmin(clientBD.getId());
+        Assertions.assertEquals(size + 1, newSize);
+    }
 }
