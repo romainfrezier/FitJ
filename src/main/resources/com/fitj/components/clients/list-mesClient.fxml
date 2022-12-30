@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane prefHeight="674.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerCoachMesClients">
+   <children>
+       <ListView fx:id="listView" layoutX="17.0" layoutY="112.0" onMouseClicked="#selectClient" prefHeight="470.0" prefWidth="867.0" />
+       <Button fx:id="seeMoreButton" layoutX="392.0" layoutY="629.0" mnemonicParsing="false" onAction="#handleSeeMoreButton" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Voir plus" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="130.0" layoutY="613.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+      <Text fill="#054371" layoutX="223.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mes clients" textAlignment="CENTER" wrappingWidth="455.21630859375">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Pane fx:id="detailClient" layoutX="18.0" layoutY="113.0" prefHeight="470.0" prefWidth="867.0" visible="false">
+         <children>
+            <Button fx:id="seeLessButton" layoutX="835.0" layoutY="14.0" mnemonicParsing="false" onAction="#hideDetail" prefHeight="17.0" prefWidth="17.0" style="-fx-background-color: red; -fx-background-radius: 40px;" text="X" textFill="WHITE">
+               <font>
+                  <Font size="9.0" />
+               </font>
+            </Button>
+            <Text fx:id="clientName" fill="#054371" layoutX="30.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Client Name">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
+            <Line endX="697.5" layoutX="131.0" layoutY="59.0" startX="-100.0" stroke="#054371" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="31.0" layoutX="30.0" layoutY="92.0" stroke="#054371" strokeType="INSIDE" width="245.0" />
+            <Text fill="#054371" layoutX="41.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poids                                             kg" wrappingWidth="223.66943359375">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="31.0" layoutX="296.0" layoutY="92.0" stroke="#054371" strokeType="INSIDE" width="245.0" />
+            <Text fill="#054371" layoutX="307.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taille                                             cm" wrappingWidth="223.66943359375">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text fx:id="poidsClient" fill="#054371" layoutX="193.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="poids" wrappingWidth="45.66943359375">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text fx:id="tailleClient" fill="#054371" layoutX="456.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="taille" wrappingWidth="45.66943359375">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <ListView fx:id="sportList" layoutX="31.0" layoutY="187.0" prefHeight="251.0" prefWidth="245.0" />
+            <ListView fx:id="materielList" layoutX="296.0" layoutY="187.0" prefHeight="251.0" prefWidth="245.0" />
+            <ImageView fx:id="clientImage" fitHeight="150.0" fitWidth="150.0" layoutX="629.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fill="#054371" layoutX="114.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ses sports" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#054371" layoutX="372.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Son matériel" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</Pane>

@@ -1,6 +1,7 @@
 package com.fitj.facades;
 
 import com.fitj.classes.Admin;
+import com.fitj.classes.Client;
 import com.fitj.classes.Coach;
 import com.fitj.dao.DAOClient;
 import com.fitj.dao.factory.FactoryDAO;
@@ -28,5 +29,9 @@ public class FacadeCoach extends Facade {
 
     public Admin clientBecomeAdmin(int idObjectSelected) throws Exception {
         return this.daoClient.clientBecomeAdmin(idObjectSelected);
+    }
+
+    public List<Client> getAllClientsForACoach(int coachId) throws Exception {
+        return this.daoClient.getAllClientForACoach(coachId);
     }
 }

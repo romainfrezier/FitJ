@@ -46,7 +46,7 @@ public class ControllerSportList extends ControllerSport {
     private void initializeSportList() {
         try {
             List<Sport> sports = sportFacade.getAllSports();
-            listView.setCellFactory(new Callback<>() {
+            super.initializeList(listView, sports, new Callback<ListView<Sport>, ListCell<Sport>>() {
                 @Override
                 public ListCell<Sport> call(ListView<Sport> param) {
                     return new ListCell<>() {
@@ -62,21 +62,17 @@ public class ControllerSportList extends ControllerSport {
                     };
                 }
             });
-            for (Sport sport : sports) {
-                listView.getItems().add(sport);
-            }
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
     }
-
 
     /**
      * Méthode appelée lors du clic sur un sport de la liste
      */
     @FXML
     private void selectItem(){
-        setObjectSelected(listView.getSelectionModel().getSelectedItem());
+        setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
     }
 
     /**
@@ -115,7 +111,6 @@ public class ControllerSportList extends ControllerSport {
         try {
             hideError(errorText);
             checkSelected();
-            setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
             showConfirmationDeleteSport();
         } catch (UnselectedItemException e) {
             super.displayError(errorText, e.getMessage());

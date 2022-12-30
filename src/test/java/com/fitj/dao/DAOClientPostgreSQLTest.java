@@ -68,7 +68,7 @@ public class DAOClientPostgreSQLTest {
         daoClientPostgreSQL = new DAOClientPostgreSQL();
         daoMaterielPostgreSQL = new DAOMaterielPostgreSQL();
         daoSportPostgreSQL = new DAOSportPostgreSQL();
-        client = new Client("test@gmail.com","Antoine",77,"testimage.com",178, Sexe.HOMME,"123456", 2);
+        client = new Client("test@gmail.com","Antoine",77,"testimage.com",178, Sexe.HOMME,"123456", 2, false);
         clientBD = daoClientPostgreSQL.createClient(client.getEmail(), client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         materiel = daoMaterielPostgreSQL.createMateriel("Mon nouveau super matos");
         sport = daoSportPostgreSQL.createSport("Mon nouveau super sport");
@@ -284,4 +284,12 @@ public class DAOClientPostgreSQLTest {
         daoClientPostgreSQL.clientBecomeAdmin(clientBD.getId());
         Assertions.assertEquals(size + 1, newSize);
     }
+
+    @Test
+    void testGetAllClientForACoach() throws Exception {
+        Client coach = daoClientPostgreSQL.getClientById(203);
+        int size = daoClientPostgreSQL.getAllClientForACoach(coach.getId()).size();
+        Assertions.assertTrue(size > 0);
+    }
+
 }
