@@ -62,13 +62,14 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
                 Map<String, Object> data = result.get(0);
                 Coach coach = (Coach) FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)data.get("idcoach")).intValue());
                 ArrayList<Recette> listeRecette = (ArrayList<Recette>) this.getRecettes(id);
-                return new ProgrammeNutrition(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String)data.get("description"),((Number)data.get("prix")).doubleValue(),ProgrammeType.getProgrammeType((String) data.get("type")), ((Long)data.get("nbmois")).intValue(),coach,listeRecette);
+                return new ProgrammeNutrition(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String)data.get("description"),((Number)data.get("prix")).doubleValue(),ProgrammeType.getProgrammeType((String) data.get("type")), ((Number)data.get("nbmois")).intValue(),coach,listeRecette);
             }
             else {
                 throw new DBProblemException("Aucune programme nutrition avec cet id n'existe");
             }
         }
         catch(Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La sélection de du programme nutrition a échoué");
         }
     }

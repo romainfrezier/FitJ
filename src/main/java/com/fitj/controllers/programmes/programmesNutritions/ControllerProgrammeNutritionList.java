@@ -116,7 +116,7 @@ public class ControllerProgrammeNutritionList extends ControllerProgrammeNutriti
             super.hideError(errorText);
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
-            super.goToDetailRecette(detailProgrammeNutritionButton);
+            super.goToDetailProgrammeNutrition(detailProgrammeNutritionButton);
         } catch (BadPageException | UnselectedItemException e) {
             e.printStackTrace();
             super.displayError(errorText, e.getMessage());

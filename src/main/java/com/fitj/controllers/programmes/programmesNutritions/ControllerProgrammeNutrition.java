@@ -23,7 +23,7 @@ public abstract class ControllerProgrammeNutrition extends Controller {
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
      */
-    private final String programmeNutrition = "programmes/programmeNutrition/";
+    private final String programmeNutrition = "programmes/programmesNutritions/";
 
     /**
      * Methode permettant de se rendre sur la page mon espace
@@ -58,8 +58,17 @@ public abstract class ControllerProgrammeNutrition extends Controller {
      * @param controlEl Control, élément de contrôle de la page
      * @throws BadPageException si la vue n'existe pas
      */
+    void goToDetailProgrammeNutrition(Control controlEl) throws BadPageException {
+        goToPage(controlEl, programmeNutrition + "detail-programmeNutrition.fxml", "Détail d'un programme nutrition");
+    }
+
+    /**
+     * Methode permettant de se rendre sur la page de détail d'une recette
+     * @param controlEl Control, élément de contrôle de la page
+     * @throws BadPageException si la vue n'existe pas
+     */
     void goToDetailRecette(Control controlEl) throws BadPageException {
-        goToPage(controlEl, programmeNutrition + "detail-programmeNutrition.fxml", "Détail d'une programme nutrition");
+        goToPage(controlEl, "recettes/" + "detail-recette.fxml", "Détail d'une recette");
     }
 
 }
