@@ -68,7 +68,7 @@ class DAOPaiementPostgreSQLTest {
         client = new DAOClientPostgreSQL().getAllClient().get(0);
         coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         paiement = new Paiement(0, 10, PaiementType.CARTE_BANCAIRE);
-        programmeSportif = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("nom", "desc", 34, ProgrammeType.DIFFCILE, 3, coach, new ArrayList<>());
+        programmeSportif = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("nom", "desc", 34, ProgrammeType.DIFFICILE, 3, coach, new ArrayList<>());
         commande = new DAOCommandePostgreSQL().createCommande(client.getId(), coach.getId(), programmeSportif, PaiementType.CARTE_BANCAIRE);
         paiementBD = daoPaiementPostgreSQL.createPaiement(commande.getId(), 10, paiement.getType());
     }

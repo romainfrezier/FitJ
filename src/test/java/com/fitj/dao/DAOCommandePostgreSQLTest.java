@@ -61,7 +61,7 @@ class DAOCommandePostgreSQLTest {
         daoCommandePostgreSQL = new DAOCommandePostgreSQL();
         coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         client = new DAOClientPostgreSQL().getAllClient().get(0);
-        produit = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("Programme", "desc", 23, ProgrammeType.DIFFCILE,4, coach, new ArrayList<>());
+        produit = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("Programme", "desc", 23, ProgrammeType.DIFFICILE,4, coach, new ArrayList<>());
         commande = new CommandePayante(client, coach, produit, 1);
         paiementType = PaiementType.CARTE_BANCAIRE;
         commandeBD = daoCommandePostgreSQL.createCommande(client.getId(), coach.getId(), produit, paiementType);

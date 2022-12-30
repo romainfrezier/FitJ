@@ -3,7 +3,7 @@ package com.fitj.enums;
 public enum ProgrammeType {
     FACILE,
     MOYEN,
-    DIFFCILE,
+    DIFFICILE,
     INCONNU;
 
 
@@ -15,7 +15,7 @@ public enum ProgrammeType {
             return MOYEN;
         }
         else if (programmeType.equalsIgnoreCase("difficile")){
-            return DIFFCILE;
+            return DIFFICILE;
         }
         else {
             return INCONNU;
@@ -29,7 +29,7 @@ public enum ProgrammeType {
         else if (programmeType == MOYEN){
             return "moyen";
         }
-        else if (programmeType == DIFFCILE){
+        else if (programmeType == DIFFICILE){
             return "difficile";
         }
         else {

@@ -64,8 +64,10 @@ public class ControllerDetailRecette extends ControllerRecette{
         detailRecetteButton.setVisible(false);
         try {
             this.recette = recetteFacade.getRecetteById(getIdObjectSelected());
+            checkCurrentCoach();
             this.listeIngredients.addAll(recette.getIngredients());
             this.nomRecette.setText(this.recette.getNom());
+
         }
         catch (Exception e){
             super.displayError(errorText, e.getMessage());
@@ -73,6 +75,13 @@ public class ControllerDetailRecette extends ControllerRecette{
         setObjectSelected(null);
         initializeIngredientList();
 
+    }
+
+    public void checkCurrentCoach(){
+        if (!(Facade.currentClient instanceof Admin) && this.recette.getCoach().getId() != Facade.currentClient.getId()){
+            updateRecetteButton.setVisible(false);
+            deleteRecetteButton.setVisible(false);
+        }
     }
 
     /**
