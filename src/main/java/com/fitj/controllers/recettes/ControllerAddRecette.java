@@ -5,13 +5,11 @@ import com.fitj.classes.Aliment;
 import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.dao.factory.FactoryDAO;
+import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
 import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -26,7 +24,6 @@ import java.util.List;
  */
 public class ControllerAddRecette extends ControllerRecette {
 
-    // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private TextField recetteName;
     @FXML
