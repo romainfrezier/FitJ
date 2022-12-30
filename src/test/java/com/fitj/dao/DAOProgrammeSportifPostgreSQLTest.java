@@ -92,9 +92,9 @@ public class DAOProgrammeSportifPostgreSQLTest {
     @Test
     public void testProgrammeSportifUpdate() throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
-        updateList.add(new Pair<>("type",ProgrammeType.getProgrammeType(ProgrammeType.DIFFCILE)));
+        updateList.add(new Pair<>("type",ProgrammeType.getProgrammeType(ProgrammeType.DIFFICILE)));
         programmeBD = daoProgrammeSportifPostgreSQL.updateProgrammeSportif(updateList,programmeBD.getId());
-        Assertions.assertEquals(programmeBD.getType(), ProgrammeType.DIFFCILE);
+        Assertions.assertEquals(programmeBD.getType(), ProgrammeType.DIFFICILE);
     }
 
     /**

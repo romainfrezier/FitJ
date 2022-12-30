@@ -109,7 +109,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         typeProgrammeNutrition.getItems().clear();
         typeProgrammeNutrition.getItems().add(ProgrammeType.FACILE.toString());
         typeProgrammeNutrition.getItems().add(ProgrammeType.MOYEN.toString());
-        typeProgrammeNutrition.getItems().add(ProgrammeType.DIFFCILE.toString());
+        typeProgrammeNutrition.getItems().add(ProgrammeType.DIFFICILE.toString());
         try {
             typeProgrammeNutrition.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
                 @Override
@@ -231,7 +231,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
                 hideError(errorText);
                 facadeProgrammeNutrition.createProgrammeNutrition(nomProgrammeNutrition.getText(),
                                                                     descriptionProgramme.getText(),
-                                                                    prixProgrammeNutrition.getValue(),
+                                                                    (int) prixProgrammeNutrition.getValue(),
                                                                     ProgrammeType.getProgrammeType(typeProgrammeNutrition.getValue()),
                                                                     (int) nbMoisProgrammeNutrition.getValue(),
                                                                     (Coach)Facade.currentClient,

@@ -64,7 +64,7 @@ public class DAOProgrammeNutritionPostgreSQLTest {
         recette = new DAORecettePostgreSQL().createRecette("ZZZZ", coach, new ArrayList<>());
         listeRecettes = new ArrayList<>();
         listeRecettes.add(recette);
-        programmeNutrition = new ProgrammeNutrition(1,"Programme healthy", "Super programme perdre du poids", 680, ProgrammeType.DIFFCILE, 6, coach, listeRecettes);
+        programmeNutrition = new ProgrammeNutrition(1,"Programme healthy", "Super programme perdre du poids", 680, ProgrammeType.DIFFICILE, 6, coach, listeRecettes);
         programmeBD = daoProgrammeNutritionPostgreSQL.createProgrammeNutrition(programmeNutrition.getNom(),programmeNutrition.getDescription(),programmeNutrition.getPrix(),programmeNutrition.getType(),programmeNutrition.getNbMois(),programmeNutrition.getCoach(), (ArrayList<Recette>) programmeNutrition.getListeRecette());
     }
 

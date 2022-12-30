@@ -14,6 +14,8 @@ import kotlin.Triple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
@@ -193,29 +195,31 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
 
     @Override
     public void ajouterRecetteProgramme(Recette recette, int id) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idrecette", recette.getId()));
-        insertList.add(new Pair<>("idprogramme", id));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "programmenutritionrecette");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout de la recette dans ce programme nutrition a échoué");
-        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            try {
+                List<Pair<String, Object>> insertList = new ArrayList<>();
+                insertList.add(new Pair<>("idrecette", recette.getId()));
+                insertList.add(new Pair<>("idprogramme", id));
+                ((MethodesPostgreSQL) this.methodesBD).insert(insertList, "programmenutritionrecette");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void supprimerRecetteProgramme(Recette recette, int id) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idrecette", recette.getId()));
-        whereList.add(new Pair<>("idprogramme", id));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "programmenutritionrecette");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("La suppression de la recette dans ce programme nutrition a échoué");
-        }
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
+            List<Pair<String, Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("idrecette", recette.getId()));
+            whereList.add(new Pair<>("idprogramme", id));
+            try {
+                ((MethodesPostgreSQL) this.methodesBD).delete(whereList, "programmenutritionrecette");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
