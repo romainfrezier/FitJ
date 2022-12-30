@@ -94,6 +94,7 @@ public abstract class Controller {
      */
     public <T> void initializeList(ListView<T> listView, List<T> items, Callback<ListView<T>, ListCell<T>> cellFactory) {
         listView.setCellFactory(cellFactory);
+        // TODO : ajouter un is instance of pour plus généraliser
         for (T item : items) {
             listView.getItems().add(item);
         }

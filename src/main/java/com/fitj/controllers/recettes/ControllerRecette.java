@@ -1,11 +1,19 @@
 package com.fitj.controllers.recettes;
 
 import com.fitj.classes.Admin;
+import com.fitj.classes.Aliment;
+import com.fitj.classes.Recette;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeRecette;
+import com.fitj.interfaces.Ingredient;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.util.Callback;
+
+import java.util.List;
 
 /**
  * Controller générique des pages recettes
@@ -71,5 +79,60 @@ public abstract class ControllerRecette extends Controller {
         goToPage(controlEl, recette + "detail-recette.fxml", "Détail d'une recette");
     }
 
+    void initializeRecetteList(ListView<Recette> listView, List<Recette> recettes) {
+        super.initializeList(listView, recettes, new Callback<ListView<Recette>, ListCell<Recette>>() {
+            @Override
+            public ListCell<Recette> call(ListView<Recette> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(Recette item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
 
+    void initializeAlimentList(ListView<Aliment> listView, List<Aliment> aliments) {
+        super.initializeList(listView, aliments, new Callback<ListView<Aliment>, ListCell<Aliment>>() {
+            @Override
+            public ListCell<Aliment> call(ListView<Aliment> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(Aliment item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    void initializeIngredientList(ListView<Ingredient> listView, List<Ingredient> ingredients) {
+        super.initializeList(listView, ingredients, new Callback<ListView<Ingredient>, ListCell<Ingredient>>() {
+            @Override
+            public ListCell<Ingredient> call(ListView<Ingredient> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(Ingredient item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
 }
