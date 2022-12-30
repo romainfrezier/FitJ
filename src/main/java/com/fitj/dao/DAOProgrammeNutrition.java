@@ -34,6 +34,25 @@ public abstract class DAOProgrammeNutrition extends DAO{
     public abstract ProgrammeNutrition getProgrammeNutritionId(int id) throws Exception;
 
     /**
+     * @param coachId int, l'id du coach
+     * @return la liste des programmes nutrition du coach
+     * @throws Exception si le coach n'existe pas
+     */
+    public abstract List<ProgrammeNutrition> getProgrammeNutritionByCoach(int coachId) throws Exception;
+
+    /**
+     * @param idProgramme int, l'id du programme à modifier
+     * @param nom String, le nouveau nom du programme
+     * @param description String, la nouvelle description du programme
+     * @param prix double, le nouveau prix du programme
+     * @param type ProgrammeType, le nouveau type du programme
+     * @param nbMois int, le nouveau nombre de mois du programme
+     * @return le ProgrammeNutrition modifié
+     * @throws Exception
+     */
+    public abstract ProgrammeNutrition updateProgrammeNutrition(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception;
+
+    /**
      * @param updateList List<Pair<String,Object>>, la liste des objet à modifié dans la table pour le programme nutrition
      * @param id int, l'id du programme
      * @return le ProgrammeNutrition modifié dans la base de donnée

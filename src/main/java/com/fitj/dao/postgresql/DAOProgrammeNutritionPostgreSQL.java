@@ -73,6 +73,32 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    @Override
+    public List<ProgrammeNutrition> getProgrammeNutritionByCoach(int coachId) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("programmenutrition.idcoach",coachId));
+        return this.getAllProgrammeNutritionWhere(whereList);
+    }
+
+    @Override
+    public ProgrammeNutrition updateProgrammeNutrition(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception {
+        List<Pair<String,Object>> listeUpdate = new ArrayList<>();
+        listeUpdate.add(new Pair<>("nom",nom));
+        listeUpdate.add(new Pair<>("description",description));
+        listeUpdate.add(new Pair<>("prix",prix));
+        listeUpdate.add(new Pair<>("type",ProgrammeType.getProgrammeType(type)));
+        listeUpdate.add(new Pair<>("nbMois",nbMois));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",idProgramme));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(listeUpdate, whereList, this.table);
+            return this.getProgrammeNutritionId(idProgramme);
+        }
+        catch (Exception e){
+            throw new DBProblemException("La mise à jour du programme nutrition a échoué");
+        }
+    }
+
     public List<Recette> getRecettes(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("programmenutritionrecette.idprogramme", id));
@@ -149,10 +175,10 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
                  */
                 Map<String, Object> data = listData.get(i);
                 Map<Integer, Object> dataIndex = listDataIndex.get(i);
-                if (idCurrentProgramme != ((Long)dataIndex.get(1)).intValue()) {
-                    Coach coach = new Coach((String)data.get("mail"), (String)dataIndex.get(10), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String) data.get("password"), ((Long)dataIndex.get(7)).intValue(), (boolean) data.get("isbanned"));
-                    listeProgrammes.add(new ProgrammeNutrition(((Long)dataIndex.get(1)).intValue(), (String)dataIndex.get(2), (String) data.get("description"), ((Number)data.get("prix")).doubleValue(), ProgrammeType.getProgrammeType((String)data.get("type")), ((Long)data.get("nbmois")).intValue(), coach));
-                    idCurrentProgramme = ((Long)dataIndex.get(1)).intValue();
+                if (idCurrentProgramme != ((Number)dataIndex.get(1)).intValue()) {
+                    Coach coach = new Coach((String)data.get("mail"), (String)dataIndex.get(10), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String) data.get("sexe")), (String) data.get("password"), ((Number)dataIndex.get(7)).intValue(), (boolean) data.get("isbanned"));
+                    listeProgrammes.add(new ProgrammeNutrition(((Number)dataIndex.get(1)).intValue(), (String)dataIndex.get(2), (String) data.get("description"), ((Number)data.get("prix")).doubleValue(), ProgrammeType.getProgrammeType((String)data.get("type")), ((Number)data.get("nbmois")).intValue(), coach));
+                    idCurrentProgramme = ((Number)dataIndex.get(1)).intValue();
                 }
                 i++;
             }
