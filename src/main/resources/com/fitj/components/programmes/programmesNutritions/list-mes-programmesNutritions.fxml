@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.programmes.programmesNutritions.ControllerMesProgrammesNutritionsList">
+    <children>
+        <Button fx:id="addProgrammeNutritionButton" layoutX="394.0" layoutY="494.0" mnemonicParsing="false" onAction="#goToAddProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
+        <ListView fx:id="listView" layoutX="18.0" layoutY="24.0" onMouseClicked="#selectItem" prefHeight="423.0" prefWidth="867.0" />
+        <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
+        <Button fx:id="updateProgrammeNutritionButton" layoutX="259.0" layoutY="494.0" mnemonicParsing="false" onAction="#goToUpdateProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
+        <Button fx:id="deleteProgrammeNutritionButton" layoutX="528.0" layoutY="494.0" mnemonicParsing="false" onAction="#deleteProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
+        <Text fx:id="errorText" fill="RED" layoutX="132.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+        <Button fx:id="detailProgrammeNutritionButton" layoutX="88.0" layoutY="495.0" mnemonicParsing="false" onAction="#goToDetailProgrammeNutrition" text="Voir" />
+    </children>
+</Pane>

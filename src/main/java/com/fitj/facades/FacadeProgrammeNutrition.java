@@ -116,4 +116,8 @@ public class FacadeProgrammeNutrition extends Facade{
         this.programmeNutritionDAO.ajouterRecetteProgramme(recette, idProgrammeNutrition);
     }
 
+    public List<ProgrammeNutrition> getAllProgrammesNutritionsByClient(int idClient) throws Exception{
+        return this.programmeNutritionDAO.getAllProgrammesNutritionsByClient(idClient);
+    }
+
 }

@@ -6,12 +6,12 @@
 
 <Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.programmes.programmesNutritions.ControllerProgrammeNutritionList">
     <children>
-        <Button fx:id="addProgrammeNutritionButton" layoutX="392.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToAddProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
-        <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItem" prefHeight="470.0" prefWidth="867.0" />
+        <Button fx:id="addProgrammeNutritionButton" layoutX="391.0" layoutY="495.0" mnemonicParsing="false" onAction="#goToAddProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
+        <ListView fx:id="listView" layoutX="17.0" layoutY="30.0" onMouseClicked="#selectItem" prefHeight="416.0" prefWidth="867.0" />
         <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
-        <Button fx:id="updateProgrammeNutritionButton" layoutX="257.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToUpdateProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
-        <Button fx:id="deleteProgrammeNutritionButton" layoutX="526.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
-        <Text fx:id="errorText" fill="RED" layoutX="130.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
-        <Button fx:id="detailProgrammeNutritionButton" layoutX="86.0" layoutY="547.0" mnemonicParsing="false" onAction="#goToDetailProgrammeNutrition" text="Voir" />
+        <Button fx:id="updateProgrammeNutritionButton" layoutX="256.0" layoutY="495.0" mnemonicParsing="false" onAction="#goToUpdateProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
+        <Button fx:id="deleteProgrammeNutritionButton" layoutX="525.0" layoutY="495.0" mnemonicParsing="false" onAction="#deleteProgrammeNutrition" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
+        <Text fx:id="errorText" fill="RED" layoutX="129.0" layoutY="479.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+        <Button fx:id="detailProgrammeNutritionButton" layoutX="85.0" layoutY="496.0" mnemonicParsing="false" onAction="#goToDetailProgrammeNutrition" text="Voir" />
     </children>
 </Pane>

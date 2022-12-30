@@ -103,6 +103,13 @@ public abstract class DAOProgrammeNutrition extends DAO{
      */
     public abstract void supprimerRecetteProgramme(Recette recette, int id) throws Exception;
 
+    /**
+     * @param idClient int, l'id du client
+     * @return la liste des programmes nutrition du client
+     * @throws Exception si le client n'existe pas
+     */
+    public abstract List<ProgrammeNutrition> getAllProgrammesNutritionsByClient(int idClient) throws Exception;
+
 
 
 

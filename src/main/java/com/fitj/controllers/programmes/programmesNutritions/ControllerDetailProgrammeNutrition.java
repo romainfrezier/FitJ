@@ -75,6 +75,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
         detailProgrammeNutritionButton.setVisible(false);
         try {
             this.programmeNutrition = facadeProgrammeNutrition.getProgrammeNutritionById(getIdObjectSelected());
+            checkCurrentCoach();
             this.listeRecettes.addAll(programmeNutrition.getListeRecette());
             this.nomProgrammeNutrition.setText(this.programmeNutrition.getNom());
             this.nomCoach.setText(this.programmeNutrition.getCoach().getPseudo());
@@ -118,6 +119,13 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             }
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
+        }
+    }
+
+    public void checkCurrentCoach(){
+        if (!(Facade.currentClient instanceof Admin) && this.programmeNutrition.getCoach().getId() != Facade.currentClient.getId()){
+            updateProgrammeNutritionButton.setVisible(false);
+            deleteProgrammeNutritionButton.setVisible(false);
         }
     }
 

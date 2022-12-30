@@ -163,6 +163,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         joinList.add(new Triple<>("programmesportseance","idprogramme", "programmenutrition.id"));
         joinList.add(new Triple<>("avisprogrammesportif","idprogramme", "programmenutrition.id"));
         joinList.add(new Triple<>("commandeprogrammenutrition","idprogramme", "programmenutrition.id"));
+        joinList.add(new Triple<>("commande","id", "commandeprogrammenutrition.idcommande"));
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
@@ -221,5 +222,12 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public List<ProgrammeNutrition> getAllProgrammesNutritionsByClient(int idClient) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idclient",idClient));
+        return this.getAllProgrammeNutritionWhere(whereList);
     }
 }

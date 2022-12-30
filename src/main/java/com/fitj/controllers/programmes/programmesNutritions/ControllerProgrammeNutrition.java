@@ -1,7 +1,9 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
+import com.fitj.classes.Admin;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeProgrammeNutrition;
 import javafx.scene.control.Control;
 
@@ -21,6 +23,11 @@ public abstract class ControllerProgrammeNutrition extends Controller {
     private final String admin = "admins/";
 
     /**
+     * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux coachs
+     */
+    private final String coach = "coachs/";
+
+    /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
      */
     private final String programmeNutrition = "programmes/programmesNutritions/";
@@ -31,7 +38,11 @@ public abstract class ControllerProgrammeNutrition extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToMonEspace(Control controlEl) throws BadPageException {
-        goToPage(controlEl, admin + "monEspace-admin.fxml", "MonEspace");
+        if (Facade.currentClient instanceof Admin) {
+            goToPage(controlEl, admin + "monEspace-admin.fxml", "Mon Compte");
+        } else {
+            goToPage(controlEl,  coach + "monEspace-coach.fxml", "Mon Compte");
+        }
     }
 
     /**
