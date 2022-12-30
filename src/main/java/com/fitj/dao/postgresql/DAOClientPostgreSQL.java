@@ -364,5 +364,37 @@ public class DAOClientPostgreSQL extends DAOClient {
         return this.getClientById(client.getId());
     }
 
+    @Override
+    public List<Client> getAllClientForACoach(int coachId) throws Exception {
+        List<Client> clients = new ArrayList<>();
+        List<Triple<String,String,String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("commande","idclient", "client.id"));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idcoach", coachId));
+        try {
+            DaoMapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
+            List<Map<String,Object>> listData = resultSet.getListeData();
+            int idCurrentClient = -1;
+            int i = 0;
+            while (i < listData.size()){
+                Map<String,Object> data = listData.get(i);
+                if (idCurrentClient != ((Long)data.get("id")).intValue()){
+                    idCurrentClient = ((Long)data.get("id")).intValue();
+                    Client client = new Client((String)data.get("mail"), (String)data.get("pseudo"), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanned"));
+                    List<Materiel> materiels = new DAOMaterielPostgreSQL().getMaterielByIdClient(client.getId());
+                    List<Sport> sports = new DAOSportPostgreSQL().getSportByIdClient(client.getId());
+                    client.setListeMateriel(materiels);
+                    client.setListeSport(sports);
+                    clients.add(client);
+                }
+                i++;
+            }
+            return clients;
+        }
+        catch (Exception e){
+            throw new DBProblemException("Impossible de récupérer tous les clients du coach");
+        }
+    }
+
 
 }

@@ -222,4 +222,12 @@ public abstract class DAOClient extends DAO {
      * @throws Exception en cas de problème lors de la requête SQL
      */
     public abstract Client banClient(Client client) throws Exception;
+
+    /**
+     * Permet de récupérer tous les clients d'un coach
+     * @param coachId int, l'id du coach
+     * @return List<Client>, la liste des clients du coach
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract List<Client> getAllClientForACoach(int coachId) throws Exception;
 }

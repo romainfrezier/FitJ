@@ -6,9 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -16,6 +21,16 @@ import java.io.IOException;
  * @author Romain Frezier
  */
 public abstract class Controller {
+
+    /**
+     * Attribut permettant de stocker l'identifiant d'un objet selectionné dans une liste
+     */
+    private static int idObjectSelected;
+
+    /**
+     * Attribut permettant de stocker l'objet selectionné dans une liste
+     */
+    private static Object objectSelected;
 
     /**
      * Methode pour changer de page à partir d'un élément de contrôle de la page
@@ -69,15 +84,20 @@ public abstract class Controller {
         return new Scene(fxmlLoader.load());
     }
 
-    /**
-     * Attribut permettant de stocker l'identifiant d'un objet selectionné dans une liste
-     */
-    private static int idObjectSelected;
 
     /**
-     * Attribut permettant de stocker l'objet selectionné dans une liste
+     * Méthode pour initialiser une liste de cellules
+     * @param listView ListView, la liste à initialiser
+     * @param items List, la liste d'objets à afficher
+     * @param cellFactory Callback, la factory de cellule
+     * @param <T> Type de l'objet à afficher
      */
-    private static Object objectSelected;
+    public <T> void initializeList(ListView<T> listView, List<T> items, Callback<ListView<T>, ListCell<T>> cellFactory) {
+        listView.setCellFactory(cellFactory);
+        for (T item : items) {
+            listView.getItems().add(item);
+        }
+    }
 
     /**
      * Getter pour l'objet selectionné dans une liste
