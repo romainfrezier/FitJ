@@ -22,7 +22,7 @@ public class ClientTest {
      */
     @BeforeAll
     public static void init(){
-        client = new Client("test@gmail.com","Joe", 56, "monimage.com", 178, Sexe.HOMME, "123456",1);
+        client = new Client("test@gmail.com","Joe", 56, "monimage.com", 178, Sexe.HOMME, "123456",1, false);
     }
 
     /**
