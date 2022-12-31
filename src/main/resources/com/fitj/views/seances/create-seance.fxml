@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.seances.ControllerAddSeance">
+    <children>
+        <Pane layoutX="139.0" layoutY="211.0" prefHeight="461.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+            <children>
+                <Text fill="#054371" layoutX="124.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les exercices">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="nomSeance" layoutX="132.0" layoutY="48.0" prefHeight="26.0" prefWidth="461.0" />
+                <ListView fx:id="listViewExerciceSeance" layoutX="74.0" layoutY="110.0" onMouseClicked="#setExerciceSelectedToDelete" prefHeight="150.0" prefWidth="232.0" />
+                <TabPane layoutX="409.0" layoutY="88.0" prefHeight="171.0" prefWidth="274.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Exercices">
+                            <content>
+                                <ScrollPane hbarPolicy="NEVER" layoutX="426.0" layoutY="140.0" maxHeight="-Infinity" prefHeight="139.0" prefWidth="274.0">
+                                    <content>
+                                        <ListView fx:id="listViewExercice" onMouseClicked="#setExerciceSelected" prefHeight="126.0" prefWidth="232.0" />
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <Button fx:id="deleteExerciceButton" layoutX="144.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#supprimerExercice" prefHeight="27.0" prefWidth="92.0" text="Supprimer" />
+                <Button fx:id="addExerciceButton" layoutX="500.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#addExercice" prefHeight="25.0" prefWidth="92.0" text="Ajouter" />
+                <Text layoutX="283.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la séance">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+                <TextArea fx:id="descriptionSeance" layoutX="33.0" layoutY="360.0" prefHeight="86.0" prefWidth="315.0" />
+                <Text layoutX="33.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                <Text layoutX="502.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" />
+                <Slider fx:id="prixSeance" layoutX="476.0" layoutY="398.0" max="2000.0" onMouseReleased="#updateMontantSeance" showTickLabels="true" />
+                <Text fx:id="montantSeance" layoutX="556.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="montant" />
+            <Spinner fx:id="nbSerieModifButton" layoutX="78.0" layoutY="285.0" onKeyPressed="#updateExercice" prefHeight="25.0" prefWidth="92.0" />
+            <Spinner fx:id="nbRepetModifButton" layoutX="214.0" layoutY="285.0" onKeyPressed="#updateExercice" prefHeight="25.0" prefWidth="92.0" />
+            <Spinner fx:id="nbSerieButton" layoutX="409.0" layoutY="285.0" prefHeight="25.0" prefWidth="92.0" />
+            <Spinner fx:id="nbRepetButton" layoutX="595.0" layoutY="285.0" prefHeight="25.0" prefWidth="92.0" />
+            <Text layoutX="78.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Séries" />
+            <Text layoutX="214.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre répétitions" />
+            <Text layoutX="409.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Séries" />
+            <Text layoutX="595.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre répétitions" />
+            <ComboBox fx:id="sportSeance" layoutX="17.0" layoutY="49.0" prefHeight="25.0" prefWidth="92.0" promptText="Sport" />
+            </children>
+        </Pane>
+        <Text fill="#054371" layoutX="305.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer une nouvelle séance">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Text>
+        <Button fx:id="addSeance" layoutX="420.0" layoutY="702.0" mnemonicParsing="false" onAction="#addSeance" style="-fx-background-color:  #054371;" text="Créer la séance" textFill="WHITE">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Button>
+        <VBox fx:id="headerAdmin" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
+            <children>
+                <fx:include source="../../components/headers/header-admin.fxml" />
+            </children>
+        </VBox>
+        <VBox fx:id="headerCoach" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
+            <children>
+                <fx:include source="../../components/headers/header-coach.fxml" />
+            </children>
+        </VBox>
+        <Text fx:id="errorText" fill="RED" layoutX="138.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
+    </children>
+</Pane>

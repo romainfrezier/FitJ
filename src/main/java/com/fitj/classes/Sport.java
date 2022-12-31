@@ -56,4 +56,8 @@ public class Sport {
     public String getNom() {
         return nom;
     }
+
+    public String toString() {
+        return nom;
+    }
 }

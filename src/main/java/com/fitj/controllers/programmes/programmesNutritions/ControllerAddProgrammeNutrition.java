@@ -99,7 +99,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         setObjectSelected(null);
         initializeDifficulteProgramme();
         initializeRecetteList();
-        initializeRecetteList();
+        initializeRecetteProgrammeNutritionList();
     }
 
     /**
