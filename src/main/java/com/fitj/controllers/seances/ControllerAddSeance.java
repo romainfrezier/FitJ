@@ -27,7 +27,8 @@ public class ControllerAddSeance extends ControllerSeance{
     // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private TextField nomSeance;
-
+    @FXML
+    private Button deleteExerciceButton;
     @FXML
     private ComboBox<Sport> sportSeance;
 
@@ -139,6 +140,7 @@ public class ControllerAddSeance extends ControllerSeance{
         nbRepetModifButton.setVisible(display);
         nbSerieModifButton.setVisible(display);
         updateExerciceButton.setVisible(display);
+        deleteExerciceButton.setVisible(display);
         nbRepetUpdateTxt.setVisible(display);
         nbSerieUpdateTxt.setVisible(display);
     }
