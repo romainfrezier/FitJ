@@ -111,6 +111,20 @@ public class DAOSeancePostgreSQL extends DAOSeance {
 
     }
 
+    @Override
+    public List<Seance> getAllSeancesFromClient(int idClient) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idclient",idClient));
+        return getAllSeancesWhere(whereList);
+    }
+
+    @Override
+    public List<Seance> getAllSeancesFromCoach(int idCoach) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("seance.idcoach",idCoach));
+        return getAllSeancesWhere(whereList);
+    }
+
     /**
      * Créer une séance dans la base de donnée
      * @param nom String, le nom de la séance
@@ -185,6 +199,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         joinList.add(new Triple<>("seanceexercice","idseance", "seance.id"));
         joinList.add(new Triple<>("avisseance","idseance", "seance.id"));
         joinList.add(new Triple<>("commandeseance","idseance", "seance.id"));
+        joinList.add(new Triple<>("commande","id", "commandeseance.idcommande"));
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();

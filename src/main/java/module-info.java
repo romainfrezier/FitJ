@@ -20,6 +20,7 @@ module com.fitj {
     opens com.fitj.controllers.recettes to javafx.fxml;
     opens com.fitj.controllers.exercices to javafx.fxml;
     opens com.fitj.controllers.programmes.programmesNutritions to javafx.fxml;
+    opens com.fitj.controllers.seances to javafx.fxml;
 
     opens com.fitj.classes to javafx.base;
 }

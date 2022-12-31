@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.seances.ControllerMesSeanceList">
+    <children>
+        <Button fx:id="addSeanceButton" layoutX="391.0" layoutY="528.0" mnemonicParsing="false" onAction="#goToAddSeance" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
+        <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItem" prefHeight="450.0" prefWidth="867.0" />
+        <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
+        <Button fx:id="updateSeanceButton" layoutX="256.0" layoutY="528.0" mnemonicParsing="false" onAction="#goToUpdateSeance" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Modifier" textFill="WHITE" />
+        <Button fx:id="deleteSeanceButton" layoutX="525.0" layoutY="528.0" mnemonicParsing="false" onAction="#deleteSeance" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
+        <Text fx:id="errorText" fill="RED" layoutX="129.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+        <Button fx:id="detailSeanceButton" layoutX="91.0" layoutY="529.0" mnemonicParsing="false" onAction="#goToDetailSeance" text="Voir" />
+    </children>
+</Pane>

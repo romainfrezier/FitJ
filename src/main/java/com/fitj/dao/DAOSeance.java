@@ -103,4 +103,20 @@ public abstract class DAOSeance extends DAO {
      * @throws Exception si la séance n'existe pas
      */
     public abstract  List<Triple<Exercice, Integer, Integer>> getExercices(int id) throws Exception;
+
+    /**
+     * Méthode permettant de récupérer toutes les séances d'un client
+     * @param idClient l'id du client
+     * @return List<Seance>, la liste des séances
+     * @throws Exception en cas d'erreur
+     */
+    public abstract List<Seance> getAllSeancesFromClient(int idClient) throws Exception;
+
+    /**
+     * Méthode permettant de récupérer toutes les séances d'un coach
+     * @param idCoach l'id du coach
+     * @return List<Seance>, la liste des séances
+     * @throws Exception en cas d'erreur
+     */
+    public abstract List<Seance> getAllSeancesFromCoach(int idCoach) throws Exception;
 }
