@@ -16,8 +16,12 @@ import kotlin.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller de la page d'ajout d'une séance
+ * @see ControllerSeance
+ * @author Etienne Tillier, Romain Frezier
+ */
 public class ControllerAddSeance extends ControllerSeance{
-
 
 
     // Composants FXML -----------------------------------------------------------------------------------------------
@@ -26,6 +30,9 @@ public class ControllerAddSeance extends ControllerSeance{
 
     @FXML
     private ComboBox<Sport> sportSeance;
+
+    @FXML
+    private Text montantSeance;
 
     @FXML
     private TextArea descriptionSeance;
@@ -55,12 +62,8 @@ public class ControllerAddSeance extends ControllerSeance{
     @FXML
     private Button addSeance;
 
-
     @FXML
     private Text errorText;
-
-    @FXML
-    private Text montantSeancee;
 
     private Exercice exerciceSelected = null;
 
@@ -107,23 +110,15 @@ public class ControllerAddSeance extends ControllerSeance{
             initializeExerciceList();
             initializeSportList();
             initializeExerciceSeanceList();
-            SpinnerValueFactory.IntegerSpinnerValueFactory valueFactorySerie = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 6,1);
-
-            SpinnerValueFactory.IntegerSpinnerValueFactory valueFactoryRepet = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20,1);
-            nbSerieModifButton = new Spinner<>(valueFactorySerie);
-            nbRepetModifButton = new Spinner<>(valueFactoryRepet);
-            nbRepetButton = new Spinner<>(valueFactoryRepet);
-            nbSerieButton = new Spinner<>(valueFactorySerie);
-            nbSerieModifButton.setEditable(true);
-            nbRepetModifButton.setEditable(true);
-            nbSerieButton.setEditable(true);
-            nbRepetButton.setEditable(true);
-
-            nbSerieModifButton.valueProperty().addListener((observableValue, oldValue, newValue) -> handleSpin(observableValue, oldValue, newValue, this.nbSerieModifButton));
-            nbRepetModifButton.valueProperty().addListener((observableValue, oldValue, newValue) -> handleSpin(observableValue, oldValue, newValue, this.nbRepetModifButton));
-            nbSerieButton.valueProperty().addListener((observableValue, oldValue, newValue) -> handleSpin(observableValue, oldValue, newValue, this.nbSerieButton));
-            nbRepetButton.valueProperty().addListener((observableValue, oldValue, newValue) -> handleSpin(observableValue, oldValue, newValue, this.nbRepetButton));
-
+            SpinnerValueFactory<Integer> valueFactorySerie = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 6,1);
+            SpinnerValueFactory<Integer> valueFactoryRepet = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20,1);
+            SpinnerValueFactory<Integer> valueFactoryModifSerie = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 6,1);
+            SpinnerValueFactory<Integer> valueFactoryModifRepet = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20,1);
+            nbSerieButton.setValueFactory(valueFactorySerie);
+            nbRepetButton.setValueFactory(valueFactoryRepet);
+            nbSerieModifButton.setValueFactory(valueFactoryModifSerie);
+            nbRepetModifButton.setValueFactory(valueFactoryModifRepet);
+            montantSeance.setText(prixSeance.getValue() + " €");
         }
         catch (Exception e) {
             super.displayError(errorText, e.getMessage());
@@ -131,18 +126,6 @@ public class ControllerAddSeance extends ControllerSeance{
         }
 
     }
-
-    private void handleSpin(ObservableValue<?> observableValue, Number oldValue, Number newValue, Spinner spinner) {
-        try {
-            if (newValue == null) {
-                spinner.getValueFactory().setValue((int)oldValue);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
 
     /**
      * Methode permettant d'initialiser la liste des exercices
@@ -328,7 +311,7 @@ public class ControllerAddSeance extends ControllerSeance{
 
     @FXML
     public void updateMontantSeance(){
-        montantSeancee.setText(String.valueOf((int)prixSeance.getValue()));
+        montantSeance.setText((int) prixSeance.getValue() + " €");
     }
 
     public Triple<Exercice, Integer, Integer> getExerciceSelectedToDelete() {
@@ -338,6 +321,10 @@ public class ControllerAddSeance extends ControllerSeance{
     @FXML
     public void setExerciceSelectedToDelete() {
         this.exerciceSelectedForDelete = listViewExerciceSeance.getSelectionModel().getSelectedItem();
+        if (this.exerciceSelectedForDelete != null) {
+            nbSerieModifButton.getValueFactory().setValue(this.exerciceSelectedForDelete.getSecond());
+            nbRepetModifButton.getValueFactory().setValue(this.exerciceSelectedForDelete.getThird());
+        }
         nbRepetModifButton.setVisible(true);
         nbSerieModifButton.setVisible(true);
     }

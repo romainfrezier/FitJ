@@ -1,4 +1,4 @@
-package com.fitj.dao.tool;
+package com.fitj.dao.tools;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

@@ -15,19 +15,11 @@
                 </Text>
                 <TextField fx:id="nomSeance" layoutX="132.0" layoutY="48.0" prefHeight="26.0" prefWidth="461.0" />
                 <ListView fx:id="listViewExerciceSeance" layoutX="74.0" layoutY="110.0" onMouseClicked="#setExerciceSelectedToDelete" prefHeight="150.0" prefWidth="232.0" />
-                <TabPane layoutX="409.0" layoutY="88.0" prefHeight="171.0" prefWidth="274.0" tabClosingPolicy="UNAVAILABLE">
-                    <tabs>
-                        <Tab text="Exercices">
-                            <content>
-                                <ScrollPane hbarPolicy="NEVER" layoutX="426.0" layoutY="140.0" maxHeight="-Infinity" prefHeight="139.0" prefWidth="274.0">
-                                    <content>
-                                        <ListView fx:id="listViewExercice" onMouseClicked="#setExerciceSelected" prefHeight="126.0" prefWidth="232.0" />
-                                    </content>
-                                </ScrollPane>
-                            </content>
-                        </Tab>
-                    </tabs>
-                </TabPane>
+                <AnchorPane layoutX="409.0" layoutY="88.0" prefHeight="171.0" prefWidth="274.0">
+                      <children>
+                          <ListView fx:id="listViewExercice" onMouseClicked="#setExerciceSelected" prefHeight="126.0" prefWidth="232.0" />
+                      </children>
+                </AnchorPane>
                 <Button fx:id="deleteExerciceButton" layoutX="144.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#supprimerExercice" prefHeight="27.0" prefWidth="92.0" text="Supprimer" />
                 <Button fx:id="addExerciceButton" layoutX="500.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#addExercice" prefHeight="25.0" prefWidth="92.0" text="Ajouter" />
                 <Text layoutX="283.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la séance">

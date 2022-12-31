@@ -1,4 +1,4 @@
-package com.fitj.dao.tool;
+package com.fitj.dao.tools;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
