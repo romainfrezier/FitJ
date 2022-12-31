@@ -89,4 +89,5 @@ public abstract class ControllerSeance extends Controller {
         goToPage(controlEl, path + "update-seance.fxml", "Modifier une séance");
     }
 
+
 }

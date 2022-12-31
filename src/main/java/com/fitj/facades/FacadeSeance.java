@@ -117,4 +117,35 @@ public class FacadeSeance extends Facade {
     public void deleteSeance(int id) throws Exception {
         this.daoSeance.supprimerSeance(id);
     }
+
+    /**
+     * Méthode permettant d'ajouter un exercice à une séance
+     * @param exercice Exercice, exercice à ajouter
+     * @param nbrepetition int, le nombre de répétition de l'exercice
+     * @param nbserie int, le nombre de série de l'exercice
+     * @param id int, l'id de la séance
+     */
+    public void addExerciceToSeance(Exercice exercice, int nbrepetition, int nbserie, int id) throws Exception {
+        this.daoSeance.ajouterExercice(exercice, nbrepetition, nbserie, id);
+    }
+
+    /**
+     * Méthode permettant de supprimer un exercice d'une séance
+     * @param exercice Exercice, exercice à supprimer
+     * @param id int, l'id de la séance
+     */
+    public void deleteExerciceFromSeance(Exercice exercice, int id) throws Exception {
+        this.daoSeance.supprimerExercice(exercice, id);
+    }
+
+    /**
+     * Méthode permettant de récupérer les exercices d'une séance
+     * @param id int, l'id de la séance
+     * @return List<Triple<Exercice, Integer, Integer>>, la liste des exercices de la séance avec leur nombre de séries et de répétitions
+     * @throws Exception en cas d'erreur
+     */
+    public List<Triple<Exercice, Integer, Integer>> getExercices(int id) throws Exception {
+        return this.daoSeance.getExercices(id);
+    }
+
 }

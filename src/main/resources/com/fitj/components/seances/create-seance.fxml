@@ -1,5 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane prefHeight="746.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.seances.ControllerAddSeance" />
+
+<Pane prefHeight="746.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.seances.ControllerAddSeance">
+   <children>
+      <TextField fx:id="seanceName" alignment="CENTER" layoutX="353.0" layoutY="40.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" text="Nom de la séance">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </TextField>
+      <Pane layoutX="86.0" layoutY="410.0" prefHeight="235.0" prefWidth="830.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+         <children>
+            <TextArea fx:id="seanceDescription" layoutX="22.0" layoutY="39.0" prefHeight="173.0" prefWidth="785.0">
+               <padding>
+                  <Insets bottom="2.0" top="2.0" />
+               </padding>
+            </TextArea>
+            <Text fill="#054371" layoutX="22.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane layoutX="86.0" layoutY="121.0" prefHeight="271.0" prefWidth="830.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+         <children>
+            <Text fill="#054371" layoutX="64.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exercices disponibles">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ListView fx:id="listExercicesDispo" layoutX="37.0" layoutY="41.0" prefHeight="182.0" prefWidth="217.0" style="-fx-border-color: #054371;" />
+            <Button fx:id="addExerciceButton" layoutX="113.0" layoutY="231.0" mnemonicParsing="false" onAction="#addExercice" prefHeight="26.0" prefWidth="64.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Button fx:id="addSeanceButton" layoutX="422.0" layoutY="673.0" mnemonicParsing="false" onAction="#addSeance" style="-fx-background-color:  #054371;" text="Créer la séance" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Text fx:id="errorText" fill="RED" layoutX="658.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="304.0" />
+      <MenuButton fx:id="sportDropdown" layoutX="136.0" layoutY="50.0" mnemonicParsing="false" style="-fx-background-color: lightgrey; -fx-border-color: #054371;" text="Sélectionner Sport" />
+   </children>
+</Pane>
