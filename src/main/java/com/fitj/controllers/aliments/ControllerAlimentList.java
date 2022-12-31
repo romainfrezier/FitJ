@@ -7,7 +7,6 @@ import com.fitj.facades.FacadeAliment;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,25 +46,7 @@ public class ControllerAlimentList extends ControllerAliment {
     private void initializeAlimentList() {
         try {
             List<Aliment> aliments = alimentFacade.getAllAliments();
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Aliment> call(ListView<Aliment> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Aliment item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Aliment aliment : aliments) {
-                listView.getItems().add(aliment);
-            }
+            super.initializeAlimentList(listView, aliments);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

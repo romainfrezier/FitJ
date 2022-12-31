@@ -5,13 +5,11 @@ import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
-import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,25 +96,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     private void initializeIngredientList() {
         listViewRecetteProgrammeNutrition.getItems().clear();
         try {
-            listViewRecetteProgrammeNutrition.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Recette> call(ListView<Recette> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Recette item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Recette recette : listeRecettes) {
-                listViewRecetteProgrammeNutrition.getItems().add(recette);
-            }
+            super.initializeRecetteList(listViewRecetteProgrammeNutrition, listeRecettes);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

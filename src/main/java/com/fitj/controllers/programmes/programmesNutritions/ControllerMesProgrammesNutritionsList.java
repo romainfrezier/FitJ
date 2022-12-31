@@ -8,7 +8,6 @@ import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,25 +47,7 @@ public class ControllerMesProgrammesNutritionsList extends ControllerProgrammeNu
         try {
 
             List<ProgrammeNutrition> programmeNutritions = facadeProgrammeNutrition.getProgrammeNutritionByCoach((Coach)Facade.currentClient);
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<ProgrammeNutrition> call(ListView<ProgrammeNutrition> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(ProgrammeNutrition item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (ProgrammeNutrition programmeNutrition : programmeNutritions) {
-                listView.getItems().add(programmeNutrition);
-            }
+            super.initializeProgrammeNutritionList(listView, programmeNutritions);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

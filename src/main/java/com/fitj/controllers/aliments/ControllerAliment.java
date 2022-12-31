@@ -1,9 +1,15 @@
 package com.fitj.controllers.aliments;
 
+import com.fitj.classes.Aliment;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeAliment;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.util.Callback;
+
+import java.util.List;
 
 /**
  * Controller générique des pages aliment
@@ -50,5 +56,24 @@ public abstract class ControllerAliment extends Controller {
      */
     void goToUpdateAliment(Control controlEl) throws BadPageException {
         goToPage(controlEl, aliment + "update-aliment.fxml", "Modification d'un aliment");
+    }
+
+    void initializeAlimentList(ListView<Aliment> listView, List<Aliment> items) {
+        super.initializeList(listView, items, new Callback<>() {
+            @Override
+            public ListCell<Aliment> call(ListView<Aliment> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(Aliment item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
     }
 }

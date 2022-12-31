@@ -1,13 +1,11 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
 import com.fitj.classes.ProgrammeNutrition;
-import com.fitj.classes.Recette;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,25 +43,7 @@ public class ControllerProgrammeNutritionList extends ControllerProgrammeNutriti
     private void initializeProgrammeNutritionList() {
         try {
             List<ProgrammeNutrition> programmeNutritions = facadeProgrammeNutrition.getListeProgrammeNutrition();
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<ProgrammeNutrition> call(ListView<ProgrammeNutrition> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(ProgrammeNutrition item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (ProgrammeNutrition programmeNutrition : programmeNutritions) {
-                listView.getItems().add(programmeNutrition);
-            }
+            super.initializeProgrammeNutritionList(listView, programmeNutritions);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

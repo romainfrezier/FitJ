@@ -89,12 +89,11 @@ public abstract class Controller {
      * Méthode pour initialiser une liste de cellules
      * @param listView ListView, la liste à initialiser
      * @param items List, la liste d'objets à afficher
-     * @param cellFactory Callback, la factory de cellule
      * @param <T> Type de l'objet à afficher
      */
     public <T> void initializeList(ListView<T> listView, List<T> items, Callback<ListView<T>, ListCell<T>> cellFactory) {
+        listView.getItems().clear();
         listView.setCellFactory(cellFactory);
-        // TODO : ajouter un is instance of pour plus généraliser
         for (T item : items) {
             listView.getItems().add(item);
         }

@@ -7,7 +7,6 @@ import com.fitj.facades.FacadeExercice;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,25 +49,7 @@ public class ControllerExerciceList extends ControllerExercice {
     private void initializeExerciceList() {
         try {
             List<Exercice> exercices = exerciceFacade.getAllExercices();
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Exercice> call(ListView<Exercice> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Exercice item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Exercice exercice : exercices) {
-                listView.getItems().add(exercice);
-            }
+            initializeExerciceList(listView, exercices);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

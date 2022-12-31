@@ -1,9 +1,15 @@
 package com.fitj.controllers.materiels;
 
+import com.fitj.classes.Materiel;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeMateriel;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.util.Callback;
+
+import java.util.List;
 
 /**
  * Controller générique des pages materiel
@@ -59,6 +65,25 @@ public abstract class ControllerMateriel extends Controller {
      */
     void goToUpdateMateriel(Control controlEl) throws BadPageException {
         goToPage(controlEl, materiel + "update-materiel.fxml", "Modification d'un materiel");
+    }
+
+    void initializeMaterielList(ListView<Materiel> listView, List<Materiel> items) {
+        super.initializeList(listView, items, new Callback<>() {
+            @Override
+            public ListCell<Materiel> call(ListView<Materiel> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(Materiel item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
     }
 }
 

@@ -1,4 +1,4 @@
-package com.fitj.classes;
+package com.fitj.dao.tool;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -7,9 +7,9 @@ import java.util.List;
 
 /**
  * Classe fournissant une méthode statique pour récupérer les noms des paramètres d'une méthode.
- * @author Paul Merceur
+ * @author Etienne Tillier
  */
-public class Tool {
+public final class GetParams {
 
     /**
      * Récupère la liste des noms des paramètres d'une méthode

@@ -7,7 +7,6 @@ import com.fitj.facades.FacadeClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,25 +51,7 @@ public class ControllerMonMaterielList extends ControllerMateriel {
     private void initializeMaterielList() {
         try {
             List<Materiel> materiels = materielFacade.getMaterielByIdClient(currentClient.getId());
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Materiel> call(ListView<Materiel> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Materiel item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Materiel materiel : materiels) {
-                listView.getItems().add(materiel);
-            }
+            super.initializeMaterielList(listView, materiels);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

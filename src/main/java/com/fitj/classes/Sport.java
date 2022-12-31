@@ -1,10 +1,8 @@
 package com.fitj.classes;
 
-import java.util.*;
-
 /**
  * Cette classe représente un Sport
- * @author Paul Merceur, Etienne Tillier
+ * @author Paul Merceur, Etienne Tillier, Romain Frezier
  */
 public class Sport {
 
