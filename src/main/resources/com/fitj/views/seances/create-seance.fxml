@@ -20,7 +20,7 @@
                           <ListView fx:id="listViewExercice" onMouseClicked="#setExerciceSelected" prefHeight="126.0" prefWidth="232.0" />
                       </children>
                 </AnchorPane>
-                <Button fx:id="deleteExerciceButton" layoutX="144.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#supprimerExercice" prefHeight="27.0" prefWidth="92.0" text="Supprimer" />
+                <Button fx:id="deleteExerciceButton" layoutX="78.0" layoutY="320.0" mnemonicParsing="false" onMouseClicked="#supprimerExercice" prefHeight="27.0" prefWidth="92.0" text="Supprimer" />
                 <Button fx:id="addExerciceButton" layoutX="500.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#addExercice" prefHeight="25.0" prefWidth="92.0" text="Ajouter" />
                 <Text layoutX="283.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la séance">
                     <font>
@@ -30,17 +30,18 @@
                 <TextArea fx:id="descriptionSeance" layoutX="33.0" layoutY="360.0" prefHeight="86.0" prefWidth="315.0" />
                 <Text layoutX="33.0" layoutY="356.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
                 <Text layoutX="502.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" />
-                <Slider fx:id="prixSeance" layoutX="476.0" layoutY="398.0" max="2000.0" onMouseReleased="#updateMontantSeance" showTickLabels="true" />
+                <Slider fx:id="prixSeance" layoutX="476.0" layoutY="398.0" max="200.0" onMouseReleased="#updateMontantSeance" showTickLabels="true" />
                 <Text fx:id="montantSeance" layoutX="556.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="montant" />
             <Spinner fx:id="nbSerieModifButton" layoutX="78.0" layoutY="285.0" onKeyPressed="#updateExercice" prefHeight="25.0" prefWidth="92.0" />
             <Spinner fx:id="nbRepetModifButton" layoutX="214.0" layoutY="285.0" onKeyPressed="#updateExercice" prefHeight="25.0" prefWidth="92.0" />
             <Spinner fx:id="nbSerieButton" layoutX="409.0" layoutY="285.0" prefHeight="25.0" prefWidth="92.0" />
             <Spinner fx:id="nbRepetButton" layoutX="595.0" layoutY="285.0" prefHeight="25.0" prefWidth="92.0" />
-            <Text layoutX="78.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Séries" />
-            <Text layoutX="214.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre répétitions" />
+            <Text fx:id="nbSerieUpdateTxt" layoutX="78.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Séries" />
+            <Text fx:id="nbRepetUpdateTxt" layoutX="214.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre répétitions" />
             <Text layoutX="409.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre Séries" />
             <Text layoutX="595.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre répétitions" />
             <ComboBox fx:id="sportSeance" layoutX="17.0" layoutY="49.0" prefHeight="25.0" prefWidth="92.0" promptText="Sport" />
+            <Button fx:id="updateExerciceButton" layoutX="211.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#updateExercice" prefHeight="25.0" prefWidth="92.0" text="Modifier" />
             </children>
         </Pane>
         <Text fill="#054371" layoutX="305.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer une nouvelle séance">

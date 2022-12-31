@@ -63,7 +63,17 @@ public class ControllerAddSeance extends ControllerSeance{
     private Button addSeance;
 
     @FXML
+    private Button updateExerciceButton;
+
+    @FXML
     private Text errorText;
+
+    @FXML
+    private Text nbRepetUpdateTxt;
+
+    @FXML
+    private Text nbSerieUpdateTxt;
+
 
     private Exercice exerciceSelected = null;
 
@@ -97,8 +107,7 @@ public class ControllerAddSeance extends ControllerSeance{
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        nbRepetModifButton.setVisible(false);
-        nbSerieModifButton.setVisible(false);
+        updateButtonExerciceDisplay(false);
         if (Facade.currentClient instanceof Admin) {
             headerAdmin.setVisible(true);
         } else {
@@ -125,6 +134,13 @@ public class ControllerAddSeance extends ControllerSeance{
             e.printStackTrace();
         }
 
+    }
+    public void updateButtonExerciceDisplay(boolean display) {
+        nbRepetModifButton.setVisible(display);
+        nbSerieModifButton.setVisible(display);
+        updateExerciceButton.setVisible(display);
+        nbRepetUpdateTxt.setVisible(display);
+        nbSerieUpdateTxt.setVisible(display);
     }
 
     /**
@@ -216,6 +232,7 @@ public class ControllerAddSeance extends ControllerSeance{
             if (nbSerieModifButton.getValue() > 0 && nbRepetModifButton.getValue() > 0) {
                 listeExerciceSeance.remove(exerciceSelectedForDelete);
                 listeExerciceSeance.add(new Triple<>(exerciceSelectedForDelete.getFirst(), nbSerieModifButton.getValue(), nbRepetModifButton.getValue()));
+                updateButtonExerciceDisplay(false);
                 initializeExerciceSeanceList();
             }
             else {
@@ -325,8 +342,7 @@ public class ControllerAddSeance extends ControllerSeance{
             nbSerieModifButton.getValueFactory().setValue(this.exerciceSelectedForDelete.getSecond());
             nbRepetModifButton.getValueFactory().setValue(this.exerciceSelectedForDelete.getThird());
         }
-        nbRepetModifButton.setVisible(true);
-        nbSerieModifButton.setVisible(true);
+        updateButtonExerciceDisplay(true);
     }
 
     @FXML

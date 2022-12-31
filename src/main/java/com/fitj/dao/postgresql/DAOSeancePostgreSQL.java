@@ -53,6 +53,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             }
         }
         catch(Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La sélection de la séance a échoué");
         }
 
@@ -97,15 +98,26 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         try {
             DaoMapper resultSet =((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
             List<Map<String, Object>> listData = resultSet.getListeData();
+            List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int i = 0;
             List<Triple<Exercice, Integer, Integer>> listeExercice = new ArrayList<>();
+            int currentExerciceId = -1;
+            Map<String, Object> data;
+            Map<Integer, Object> dataIndex;
             while (i < listData.size()) {
-                Map<String, Object> data = listData.get(i);
-                listeExercice.add(new Triple<>(new Exercice(((Long)data.get("id")).intValue(),(String) data.get("nom"),(String)data.get("description")),((Long)data.get("nbrepetition")).intValue(), ((Long)data.get("nbserie")).intValue()));
+                data = listData.get(i);
+                dataIndex = listDataIndex.get(i);
+                if (((Long)data.get("id")).intValue() != currentExerciceId) {
+                    currentExerciceId = ((Long)data.get("id")).intValue();
+                    Exercice exercice =  new Exercice(currentExerciceId,(String) data.get("nom"),(String)data.get("description"));
+                    listeExercice.add(new Triple<>(exercice, ((Number)dataIndex.get(6)).intValue(), ((Number)dataIndex.get(7)).intValue()));
+                }
+                i++;
             }
             return listeExercice;
         }
         catch (Exception e) {
+            e.printStackTrace();
             throw new DBProblemException("La selection de tous les exercices de la séance a échoué !");
         }
 
