@@ -69,22 +69,7 @@ public class ControllerCoachMesClients extends ControllerCoach {
     private void initializeClientList() {
         try {
             clients = coachFacade.getAllClientsForACoach(Facade.currentClient.getId());
-            super.initializeList(listView, clients, new Callback<ListView<Client>, ListCell<Client>>() {
-                @Override
-                public ListCell<Client> call(ListView<Client> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Client item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getPseudo());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
+            super.initializeClientList(listView, clients);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

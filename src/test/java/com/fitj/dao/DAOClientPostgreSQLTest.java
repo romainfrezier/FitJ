@@ -125,7 +125,7 @@ public class DAOClientPostgreSQLTest {
      * @throws Exception si la requête SQL échoue
      */
     @Test
-    void testGetClientByEmail() throws Exception {
+    public void testGetClientByEmail() throws Exception {
         Assertions.assertEquals(daoClientPostgreSQL.getClientByEmail(clientBD.getEmail()).getEmail(), clientBD.getEmail());
     }
 
@@ -134,7 +134,7 @@ public class DAOClientPostgreSQLTest {
      * @throws Exception si la requête SQL échoue
      */
     @Test
-    void tesGetClientById() throws Exception {
+    public void tesGetClientById() throws Exception {
         Assertions.assertEquals(daoClientPostgreSQL.getClientById(clientBD.getId()).getId(), clientBD.getId());
     }
 
@@ -143,64 +143,92 @@ public class DAOClientPostgreSQLTest {
      * @throws Exception si la requête SQL échoue
      */
     @Test
-    void testSupprimerClientById() throws Exception {
+    public void testSupprimerClientById() throws Exception {
         Client newClient = daoClientPostgreSQL.createClient("totototo@gmail.coiiii", client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         daoClientPostgreSQL.supprimerClientById(newClient.getId());
         Assertions.assertThrows(Exception.class, () -> daoClientPostgreSQL.getClientById(newClient.getId()));
     }
 
     @Test
-    void updateClientPhoto() throws Exception {
+    public void testUpdateClientPhoto() throws Exception {
         String newPhoto = "newPhotoUpdated.jpg";
         clientBD =  daoClientPostgreSQL.updateClientPhoto(newPhoto, clientBD.getId());
         Assertions.assertEquals(clientBD.getPhoto(), newPhoto);
     }
 
+    /**
+     * Test de la méthode updateClientPseudo de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void updateClientPseudo() throws Exception {
+    public void testUpdateClientPseudo() throws Exception {
         String newPseudo = "Mon nouveau super pseudo";
         clientBD =  daoClientPostgreSQL.updateClientPseudo(newPseudo, clientBD.getId());
         Assertions.assertEquals(clientBD.getPseudo(), newPseudo);
     }
 
+    /**
+     * Test de la méthode updateClientPoids de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void updateClientPoids() throws Exception {
+    public void testUpdateClientPoids() throws Exception {
         double newPoids = 180.5;
         clientBD =  daoClientPostgreSQL.updateClientPoids(newPoids, clientBD.getId());
         Assertions.assertEquals(clientBD.getPoids(), newPoids);
     }
 
+    /**
+     * Test de la méthode updateClientTaille de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void updateClientTaille() throws Exception {
+    public void testUpdateClientTaille() throws Exception {
         int newTaille = 300;
         clientBD =  daoClientPostgreSQL.updateClientTaille(newTaille, clientBD.getId());
         Assertions.assertEquals(clientBD.getTaille(), newTaille);
     }
 
+    /**
+     * Test de la méthode updateClientPassword de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void updateClientPassword() throws Exception {
+    public void testUpdateClientPassword() throws Exception {
         String newPassword = "newPassword";
         clientBD =  daoClientPostgreSQL.updateClientPassword(newPassword, clientBD.getId());
         PasswordAuthentication passwordAuthentication = new PasswordAuthentication();
         Assertions.assertTrue(passwordAuthentication.authenticate(newPassword.toCharArray(), clientBD.getPassword()));
     }
 
+    /**
+     * Test de la méthode updateClientSexe de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void updateClientSexe() throws Exception {
+    public void testUpdateClientSexe() throws Exception {
         Sexe newSexe = Sexe.INCONNU;
         clientBD =  daoClientPostgreSQL.updateClientSexe(newSexe, clientBD.getId());
         Assertions.assertEquals(clientBD.getSexe(), newSexe);
     }
 
+    /**
+     * Test de la méthode updateClientMail de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void updateClientMail() throws Exception {
+    public void testUpdateClientMail() throws Exception {
         String newMail = "mon super nouveau mail";
         clientBD =  daoClientPostgreSQL.updateClientMail(newMail, clientBD.getId());
         Assertions.assertEquals(clientBD.getEmail(), newMail);
     }
 
+    /**
+     * Test de la méthode getAllClient de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void getAllClient() throws Exception {
+    public void testGetAllClient() throws Exception {
         int size = daoClientPostgreSQL.getAllClient().size();
         Client newClient = daoClientPostgreSQL.createClient("totototo@gmail.coiiii", client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         int newSize = daoClientPostgreSQL.getAllClient().size();
@@ -208,20 +236,32 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size + 1, newSize);
     }
 
+    /**
+     * Test de la méthode getAllCoach de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void getAllCoach() throws Exception {
+    public void testGetAllCoach() throws Exception {
         int size = daoClientPostgreSQL.getAllCoach().size();
         Assertions.assertTrue(size > 0);
     }
 
+    /**
+     * Test de la méthode getAllAdmin de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void getAllAdmin() throws Exception {
+    public void testGetAllAdmin() throws Exception {
         int size = daoClientPostgreSQL.getAllAdmin().size();
         Assertions.assertTrue(size > 0);
     }
 
+    /**
+     * Test de la méthode getAllClientWhere de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void getAllClientWhere() throws Exception {
+    public void testGetAllClientWhere() throws Exception {
         Client newClient = daoClientPostgreSQL.createClient("totototo@gmail.coiiii", client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("client.id", newClient.getId()));
@@ -231,8 +271,12 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(result, newClient.getId());
     }
 
+    /**
+     * Test de la méthode addMaterielToClient de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void addMaterielToClient() throws Exception {
+    public void testAddMaterielToClient() throws Exception {
         int size = new DAOMaterielPostgreSQL().getMaterielByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.addMaterielToClient(clientBD.getId(), materiel.getId());
         int newSize = new DAOMaterielPostgreSQL().getMaterielByIdClient(clientBD.getId()).size();
@@ -240,8 +284,12 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size + 1, newSize);
     }
 
+    /**
+     * Test de la méthode deleteMaterielToClient de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void deleteMaterielToClient() throws Exception {
+    public void testDeleteMaterielToClient() throws Exception {
         clientBD = daoClientPostgreSQL.addMaterielToClient(clientBD.getId(), materiel.getId());
         int size = new DAOMaterielPostgreSQL().getMaterielByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.deleteMaterielToClient(clientBD.getId(), materiel.getId());
@@ -249,8 +297,12 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size - 1, newSize);
     }
 
+    /**
+     * Test de la méthode addSportToClient de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void addSportToClient() throws Exception {
+    public void testAddSportToClient() throws Exception {
         int size = new DAOSportPostgreSQL().getSportByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.addSportToClient(clientBD.getId(), sport.getId());
         int newSize = new DAOSportPostgreSQL().getSportByIdClient(clientBD.getId()).size();
@@ -258,8 +310,12 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size + 1, newSize);
     }
 
+    /**
+     * Test de la méthode deleteSportToClient de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void deleteSportToClient() throws Exception {
+    public void testDeleteSportToClient() throws Exception {
         clientBD = daoClientPostgreSQL.addSportToClient(clientBD.getId(), sport.getId());
         int size = new DAOSportPostgreSQL().getSportByIdClient(clientBD.getId()).size();
         clientBD = daoClientPostgreSQL.deleteSportToClient(clientBD.getId(), sport.getId());
@@ -267,8 +323,12 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size - 1, newSize);
     }
 
+    /**
+     * Test de la méthode clientBecomeCoach de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void testClientToCoach() throws Exception {
+    public void testClientToCoach() throws Exception {
         int size = daoClientPostgreSQL.getAllCoach().size();
         daoClientPostgreSQL.clientBecomeCoach(clientBD.getId());
         int newSize = daoClientPostgreSQL.getAllCoach().size();
@@ -276,8 +336,12 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size + 1, newSize);
     }
 
+    /**
+     * Test de la méthode clientBecomeAdmin de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void testClientToAdmin() throws Exception {
+    public void testClientToAdmin() throws Exception {
         int size = daoClientPostgreSQL.getAllAdmin().size();
         daoClientPostgreSQL.clientBecomeAdmin(clientBD.getId());
         int newSize = daoClientPostgreSQL.getAllAdmin().size();
@@ -285,8 +349,12 @@ public class DAOClientPostgreSQLTest {
         Assertions.assertEquals(size + 1, newSize);
     }
 
+    /**
+     * Test de la méthode getAllClientForACoach de la classe DAOClientPostgreSQL
+     * @throws Exception si la requête SQL échoue
+     */
     @Test
-    void testGetAllClientForACoach() throws Exception {
+    public void testGetAllClientForACoach() throws Exception {
         Client coach = daoClientPostgreSQL.getClientById(203);
         int size = daoClientPostgreSQL.getAllClientForACoach(coach.getId()).size();
         Assertions.assertTrue(size > 0);

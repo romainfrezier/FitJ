@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Une classe qui représente un administrateur.
  * Un administrateur est Coach qui a des droits supplémentaires.
- * @author Paco Munarriz
+ * @author Paco Munarriz, Etienne Tillier, Romain Frezier
  */
 public class Admin extends Coach {
 

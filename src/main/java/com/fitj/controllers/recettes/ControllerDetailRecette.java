@@ -2,14 +2,12 @@ package com.fitj.controllers.recettes;
 
 import com.fitj.classes.Admin;
 import com.fitj.classes.Recette;
-import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,25 +88,7 @@ public class ControllerDetailRecette extends ControllerRecette{
     private void initializeIngredientList() {
         listViewIngredientRecette.getItems().clear();
         try {
-            listViewIngredientRecette.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Ingredient> call(ListView<Ingredient> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Ingredient item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Ingredient ingredient : listeIngredients) {
-                listViewIngredientRecette.getItems().add(ingredient);
-            }
+            super.initializeIngredientList(listViewIngredientRecette, listeIngredients);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

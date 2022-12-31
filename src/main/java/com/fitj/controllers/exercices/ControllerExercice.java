@@ -1,16 +1,23 @@
 package com.fitj.controllers.exercices;
 
+import com.fitj.classes.Admin;
 import com.fitj.classes.Client;
+import com.fitj.classes.Exercice;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeExercice;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.util.Callback;
+
+import java.util.List;
 
 /**
  * Controller générique des pages exercices
  * @see Controller
- * @author Paul Merceur
+ * @author Paul Merceur, Romain Frezier
  */
 public abstract class ControllerExercice extends Controller {
 
@@ -56,7 +63,7 @@ public abstract class ControllerExercice extends Controller {
     void goToAddExercice(Control controlEl) throws BadPageException {
         String path;
         Client currentClient = Facade.currentClient;
-        if (currentClient.getClass().getName() == "Admin") {
+        if (currentClient instanceof Admin) {
             path =  exercice + admin;
         } else {
             path = exercice + coach;
@@ -72,7 +79,7 @@ public abstract class ControllerExercice extends Controller {
     void goToUpdateExercice(Control controlEl) throws BadPageException {
         String path;
         Client currentClient = Facade.currentClient;
-        if (currentClient.getClass().getName() == "Admin") {
+        if (currentClient instanceof Admin) {
             path = exercice + admin;
         } else {
             path = exercice + coach;
@@ -80,4 +87,22 @@ public abstract class ControllerExercice extends Controller {
         goToPage(controlEl, path + "update-exercice.fxml", "Modification d'un exercice");
     }
 
+    void initializeExerciceList(ListView<Exercice> listView, List<Exercice> items) {
+        super.initializeList(listView, items, new Callback<>() {
+            @Override
+            public ListCell<Exercice> call(ListView<Exercice> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(Exercice item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
 }

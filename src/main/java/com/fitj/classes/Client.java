@@ -9,8 +9,7 @@ import java.util.*;
 
 /**
  * Une classe qui représente un client.
- * @author Paco Munarriz
- *
+ * @author Paco Munarriz, Etienne Tillier, Romain Frezier
  */
 public class Client implements ProductReceiver, NotifReceiver {
 

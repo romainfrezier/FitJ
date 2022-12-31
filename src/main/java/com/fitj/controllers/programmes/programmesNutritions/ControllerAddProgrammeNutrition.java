@@ -1,13 +1,11 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
 import com.fitj.classes.Admin;
-import com.fitj.classes.Aliment;
 import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
-import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -15,7 +13,6 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutrition {
 
@@ -130,7 +127,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
             e.printStackTrace();
             super.displayError(errorText, "Erreur lors de l'initialisation de la liste des difficultés");
         }
-    };
+    }
 
 
     /**
@@ -140,25 +137,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         listViewRecette.getItems().clear();
         try {
             listeRecettes = (ArrayList<Recette>) FactoryDAO.getInstance().getDAORecette().getAllRecettes();
-            listViewRecette.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Recette> call(ListView<Recette> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Recette item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Recette recette : listeRecettes) {
-                listViewRecette.getItems().add(recette);
-            }
+            initializeRecetteList(listViewRecette, listeRecettes);
         } catch (Exception e) {
             e.printStackTrace();
             super.displayError(errorText, e.getMessage());
@@ -172,25 +151,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
     private void initializeRecetteProgrammeNutritionList() {
         try {
             listViewRecetteProgrammeNutrition.getItems().clear();
-            listViewRecetteProgrammeNutrition.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Recette> call(ListView<Recette> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Recette item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Recette recette : listeRecetteProgrammeNutrition) {
-                listViewRecetteProgrammeNutrition.getItems().add(recette);
-            }
+            initializeRecetteList(listViewRecetteProgrammeNutrition, listeRecetteProgrammeNutrition);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
