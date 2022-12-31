@@ -1,5 +1,6 @@
 package com.fitj.controllers.exercices;
 
+import com.fitj.classes.Admin;
 import com.fitj.classes.Client;
 import com.fitj.classes.Exercice;
 import com.fitj.controllers.Controller;
@@ -62,7 +63,7 @@ public abstract class ControllerExercice extends Controller {
     void goToAddExercice(Control controlEl) throws BadPageException {
         String path;
         Client currentClient = Facade.currentClient;
-        if (currentClient.getClass().getName().equals("Admin")) {
+        if (currentClient instanceof Admin) {
             path =  exercice + admin;
         } else {
             path = exercice + coach;
@@ -78,7 +79,7 @@ public abstract class ControllerExercice extends Controller {
     void goToUpdateExercice(Control controlEl) throws BadPageException {
         String path;
         Client currentClient = Facade.currentClient;
-        if (currentClient.getClass().getName().equals("Admin")) {
+        if (currentClient instanceof Admin) {
             path = exercice + admin;
         } else {
             path = exercice + coach;
