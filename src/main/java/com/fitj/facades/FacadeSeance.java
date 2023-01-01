@@ -89,7 +89,6 @@ public class FacadeSeance extends Facade {
      * @param prix double, le prix de la séance
      * @param coach Coach, le coach de la séance
      * @param sport Sport, le sport de la séance
-     * @param exercices List<Triple<Exercice, Integer, Integer>>, la liste des exercices de la séance avec leur nombre de séries et de répétitions
      * @throws Exception en cas d'erreur
      */
     public void updateSeance(int id, String nom, String description, double prix, Coach coach, Sport sport) throws Exception {
