@@ -10,5 +10,6 @@
          <children>
             <fx:include source="../../components/coachs/list-coach.fxml" />
          </children>
-      </AnchorPane>   </children>
+      </AnchorPane>
+   </children>
 </Pane>

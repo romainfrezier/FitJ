@@ -3,7 +3,7 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.Aliment;
 import com.fitj.dao.DAOAliment;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoMapper;
+import com.fitj.dao.tools.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 

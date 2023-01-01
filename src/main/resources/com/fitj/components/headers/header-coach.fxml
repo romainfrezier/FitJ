@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.headers.ControllerHeaderCoach">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.headers.ControllerHeaderCoach">
     <children>
         <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../../../../img/logo.png" />
             </image>
         </ImageView>
-        <Button fx:id="monCompte" layoutX="888.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMonCompte" style="-fx-background-color: #054371;" text="MON COMPTE" textFill="WHITE" />
-        <Button fx:id="coachs" layoutX="808.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToCoachs" style="-fx-background-color: #054371;" text="COACHS" textFill="WHITE" />
-        <Button fx:id="monEspace" layoutX="601.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMonEspace" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="MON ESPACE" textFill="WHITE" />
-        <Button fx:id="shop" layoutX="731.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToShop" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #054371;" text="SHOP" textFill="WHITE" />
-        <Button fx:id="mesClients" layoutX="473.0" layoutY="15.0" mnemonicParsing="false" onAction="#goToMesClients" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="MES CLIENTS" textFill="WHITE" />
-      <Text fx:id="errorText" fill="RED" layoutX="145.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="287.2275390625" />
+        <Button fx:id="monCompte" layoutX="877.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToMonCompte" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="MON COMPTE" textFill="WHITE" />
+        <Button fx:id="coachs" layoutX="766.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToCoachs" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="COACHS" textFill="WHITE" />
+        <Button fx:id="monEspace" layoutX="527.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToMonEspace" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="MON ESPACE" textFill="WHITE" />
+        <Button fx:id="shop" layoutX="655.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToShop" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="SHOP" textFill="WHITE" />
+        <Button fx:id="mesClients" layoutX="401.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToMesClients" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="MES CLIENTS" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="58.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="344.2275390625" />
       <ImageView fx:id="notifIcon" fitHeight="32.0" fitWidth="36.0" layoutX="79.0" layoutY="12.0" onMouseClicked="#goToNotification" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../img/notifications_icon.png" />

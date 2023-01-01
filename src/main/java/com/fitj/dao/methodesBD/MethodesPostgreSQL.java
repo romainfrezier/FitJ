@@ -1,7 +1,7 @@
 package com.fitj.dao.methodesBD;
 
 import com.fitj.dao.connexions.ConnexionPostgreSQL;
-import com.fitj.dao.tool.DaoMapper;
+import com.fitj.dao.tools.DaoMapper;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;

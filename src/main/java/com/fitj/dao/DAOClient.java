@@ -1,7 +1,7 @@
 package com.fitj.dao;
 
 import com.fitj.classes.*;
-import com.fitj.dao.tool.PasswordAuthentication;
+import com.fitj.dao.tools.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 

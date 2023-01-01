@@ -31,7 +31,7 @@ public class ControllerMesRecettesList extends ControllerRecette {
     @FXML
     private Button updateRecetteButton;
     @FXML
-    private Button deleteRecettebutton;
+    private Button deleteRecetteButton;
     @FXML
     private Text errorText;
     // ---------------------------------------------------------------------------------------------------------------

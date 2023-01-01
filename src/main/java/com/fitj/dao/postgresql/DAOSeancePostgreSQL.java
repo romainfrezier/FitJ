@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOSeance;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoMapper;
+import com.fitj.dao.tools.DaoMapper;
 
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
@@ -53,6 +53,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
             }
         }
         catch(Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La sélection de la séance a échoué");
         }
 
@@ -97,18 +98,43 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         try {
             DaoMapper resultSet =((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,"exercice");
             List<Map<String, Object>> listData = resultSet.getListeData();
+            List<Map<Integer, Object>> listDataIndex = resultSet.getListeDataIndex();
             int i = 0;
             List<Triple<Exercice, Integer, Integer>> listeExercice = new ArrayList<>();
+            int currentExerciceId = -1;
+            Map<String, Object> data;
+            Map<Integer, Object> dataIndex;
             while (i < listData.size()) {
-                Map<String, Object> data = listData.get(i);
-                listeExercice.add(new Triple<>(new Exercice(((Long)data.get("id")).intValue(),(String) data.get("nom"),(String)data.get("description")),((Long)data.get("nbrepetition")).intValue(), ((Long)data.get("nbserie")).intValue()));
+                data = listData.get(i);
+                dataIndex = listDataIndex.get(i);
+                if (((Long)data.get("id")).intValue() != currentExerciceId) {
+                    currentExerciceId = ((Long)data.get("id")).intValue();
+                    Exercice exercice =  new Exercice(currentExerciceId,(String) data.get("nom"),(String)data.get("description"));
+                    listeExercice.add(new Triple<>(exercice, ((Number)dataIndex.get(6)).intValue(), ((Number)dataIndex.get(7)).intValue()));
+                }
+                i++;
             }
             return listeExercice;
         }
         catch (Exception e) {
+            e.printStackTrace();
             throw new DBProblemException("La selection de tous les exercices de la séance a échoué !");
         }
 
+    }
+
+    @Override
+    public List<Seance> getAllSeancesFromClient(int idClient) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idclient",idClient));
+        return getAllSeancesWhere(whereList);
+    }
+
+    @Override
+    public List<Seance> getAllSeancesFromCoach(int idCoach) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("seance.idcoach",idCoach));
+        return getAllSeancesWhere(whereList);
     }
 
     /**
@@ -185,6 +211,7 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         joinList.add(new Triple<>("seanceexercice","idseance", "seance.id"));
         joinList.add(new Triple<>("avisseance","idseance", "seance.id"));
         joinList.add(new Triple<>("commandeseance","idseance", "seance.id"));
+        joinList.add(new Triple<>("commande","id", "commandeseance.idcommande"));
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();

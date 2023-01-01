@@ -22,7 +22,7 @@ public class ControllerProgrammeNutritionList extends ControllerProgrammeNutriti
     @FXML
     private Button updateProgrammeNutritionButton;
     @FXML
-    private Button deleteProgrammeNutritionbutton;
+    private Button deleteProgrammeNutritionButton;
     @FXML
     private Text errorText;
 
