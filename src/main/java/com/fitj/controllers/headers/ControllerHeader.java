@@ -67,4 +67,13 @@ public abstract class ControllerHeader extends Controller {
     void goToShop(Control controlEl) throws BadPageException {
         goToPage(controlEl, path + "s/shop-" +  path + ".fxml", "Shop");
     }
+
+    /**
+     * Methode permettant de se rendre sur la page des notifications et des commandes
+     * @param controlEl Control, élément de contrôle de la page
+     * @throws BadPageException si la vue n'existe pas
+     */
+    void goToNotification(Control controlEl) throws BadPageException {
+        goToPage(controlEl, path + "s/notifications-" +  path + ".fxml", "Notifications & Commandes");
+    }
 }

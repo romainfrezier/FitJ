@@ -3,6 +3,8 @@ package com.fitj.controllers.headers;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 /**
@@ -28,6 +30,8 @@ public class ControllerHeaderClient extends ControllerHeader {
     private Button shop;
     @FXML
     private Text errorText;
+    @FXML
+    private ImageView notifIcon;
     // --------------------------------------------------------------
 
     /**
@@ -90,5 +94,18 @@ public class ControllerHeaderClient extends ControllerHeader {
             super.displayError(errorText, e.getMessage());
         }
 
+    }
+
+    /**
+     * Methode permettant de se rendre sur la page des notifications et des commandes
+     */
+    @FXML
+    private void goToNotification() {
+        try{
+            super.hideError(errorText);
+            super.goToNotification(shop); // Shop est sur la même page que l'icône des notifications
+        } catch (BadPageException e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 }
