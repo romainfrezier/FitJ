@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAORecette;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoMapper;
+import com.fitj.dao.tools.DaoMapper;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import com.fitj.interfaces.Ingredient;

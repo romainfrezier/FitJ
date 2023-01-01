@@ -78,7 +78,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             this.nomProgrammeNutrition.setText(this.programmeNutrition.getNom());
             this.nomCoach.setText(this.programmeNutrition.getCoach().getPseudo());
             this.programmeType.setText(ProgrammeType.getProgrammeType(this.programmeNutrition.getType()));
-            this.nbMoisProgramme.setText(String.valueOf(this.programmeNutrition.getNbMois()));
+            this.nbMoisProgramme.setText(this.programmeNutrition.getNbMois() + " mois");
             this.descriptionProgramme.getChildren().add(new Text(this.programmeNutrition.getDescription()));
         }
         catch (Exception e){

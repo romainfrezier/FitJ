@@ -3,7 +3,7 @@ package com.fitj.dao.postgresql;
 import com.fitj.classes.*;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.DAOClient;
-import com.fitj.dao.tool.DaoMapper;
+import com.fitj.dao.tools.DaoMapper;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.BannedAccountException;
 import com.fitj.exceptions.DBProblemException;

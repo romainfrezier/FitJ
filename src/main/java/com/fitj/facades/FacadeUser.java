@@ -3,7 +3,7 @@ package com.fitj.facades;
 import com.fitj.classes.Client;
 import com.fitj.dao.DAOClient;
 import com.fitj.dao.factory.FactoryDAO;
-import com.fitj.dao.tool.PasswordAuthentication;
+import com.fitj.dao.tools.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.UsedEmailException;
 import com.fitj.exceptions.UsedPseudoException;

@@ -7,23 +7,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.aliments.ControllerAddAliment">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.aliments.ControllerAddAliment">
     <children>
-      <Pane layoutX="138.0" layoutY="215.0" prefHeight="285.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+      <Pane layoutX="141.0" layoutY="258.0" prefHeight="285.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
          <children>
-            <Text fill="#054371" layoutX="132.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de l'aliment">
+            <Text fill="#054371" layoutX="132.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de l'aliment">
                <font>
-                  <Font size="20.0" />
+                  <Font size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="alimentName" layoutX="132.0" layoutY="117.0" prefHeight="26.0" prefWidth="461.0" />
+            <TextField fx:id="alimentName" layoutX="132.0" layoutY="130.0" prefHeight="26.0" prefWidth="461.0" styleClass="emptyRectangle" />
          </children></Pane>
-      <Text fill="#054371" layoutX="334.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un nouveau aliment">
+      <Text fill="#054371" layoutX="322.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un nouveau aliment">
          <font>
             <Font size="34.0" />
          </font>
       </Text>
-      <Button fx:id="addAlimentButton" layoutX="430.0" layoutY="571.0" mnemonicParsing="false" onAction="#addAliment" style="-fx-background-color:  #054371;" text="Créer l'aliment" textFill="WHITE">
+      <Button fx:id="addAlimentButton" layoutX="450.0" layoutY="610.0" mnemonicParsing="false" onAction="#addAliment" styleClass="buttonBlue" text="Créer l'aliment" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
@@ -33,6 +33,6 @@
              <fx:include source="../../components/headers/header-admin.fxml" />
          </children>
       </VBox>
-      <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
+      <Text fx:id="errorText" fill="RED" layoutX="141.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
     </children>
 </Pane>

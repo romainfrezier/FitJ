@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.admins.ControllerAdminClients">
+<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.admins.ControllerAdminClients">
    <children>
-       <Button fx:id="setToAdmin" layoutX="528.0" layoutY="546.0" mnemonicParsing="false" onAction="#handleAdminPassage" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Nouvel admin" textFill="WHITE" />
-       <ListView fx:id="listView" onMouseClicked="#setTextBanButton" layoutX="17.0" layoutY="25.0" prefHeight="470.0" prefWidth="867.0" />
-       <Button fx:id="setToCoach" layoutX="259.0" layoutY="546.0" mnemonicParsing="false" onAction="#handleCoachPassage" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Nouveau coach" textFill="WHITE" />
-      <Text fx:id="errorText" fill="RED" layoutX="130.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
-      <Button fx:id="banButton" layoutX="393.0" layoutY="546.0" mnemonicParsing="false" onAction="#handleBan" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Bannir" textFill="WHITE" />
+       <Button fx:id="setToAdmin" layoutX="527.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleAdminPassage" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Nouvel admin" textFill="WHITE" />
+       <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#setTextBanButton" prefHeight="470.0" prefWidth="867.0" styleClass="emptyRectangle" />
+       <Button fx:id="setToCoach" layoutX="258.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleCoachPassage" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Nouveau coach" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="129.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+      <Button fx:id="banButton" layoutX="392.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleBan" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Bannir" textFill="WHITE" />
    </children>
 </Pane>

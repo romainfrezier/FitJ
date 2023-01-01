@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
  */
 public class ControllerRegister extends ControllerUser {
 
+
     // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private TextField mail;
@@ -26,6 +27,10 @@ public class ControllerRegister extends ControllerUser {
     private Slider poidsSlider;
     @FXML
     private Slider tailleSlider;
+    @FXML
+    private Text poidsValue;
+    @FXML
+    private Text tailleValue;
 
     @FXML
     private ToggleGroup sex;
@@ -94,7 +99,7 @@ public class ControllerRegister extends ControllerUser {
     private void goToLogin() {
         try {
             super.hideError(errorText);
-            super.goToPage(registerButton, "views/users/login-view.fxml", "Connexion");
+            super.goToPage(registerButton, "users/login-view.fxml", "Connexion");
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
@@ -140,5 +145,15 @@ public class ControllerRegister extends ControllerUser {
     private Sexe getSexFromToggleGroup(){
         RadioButton selectedButton = (RadioButton)sex.getSelectedToggle();
         return Sexe.getSexe(selectedButton.getText());
+    }
+
+    @FXML
+    private void updateTailleValue() {
+        this.tailleValue.setText((int) tailleSlider.getValue() + " cm");
+    }
+
+    @FXML
+    private void updatePoidsValue() {
+        this.poidsValue.setText((int) poidsSlider.getValue() + " kg");
     }
 }

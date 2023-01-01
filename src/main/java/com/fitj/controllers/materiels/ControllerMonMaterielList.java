@@ -27,7 +27,7 @@ public class ControllerMonMaterielList extends ControllerMateriel {
     private ListView<Materiel> listView;
 
     @FXML
-    private Button deleteMaterielbutton;
+    private Button deleteMaterielButton;
 
     @FXML
     private Text errorText;
