@@ -8,27 +8,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<Pane prefHeight="746.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.exercices.ControllerUpdateExercice">
+<Pane prefHeight="746.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.exercices.ControllerUpdateExercice">
    <children>
       <Pane layoutX="158.0" layoutY="171.0" prefHeight="449.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
          <children>
-            <Text fill="#054371" layoutX="132.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de l'exercice">
+            <Text fill="#054371" layoutX="132.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de l'exercice">
                <font>
-                  <Font size="20.0" />
+                  <Font size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="exerciceName" layoutX="132.0" layoutY="70.0" prefHeight="26.0" prefWidth="461.0">
+            <TextField fx:id="exerciceName" layoutX="132.0" layoutY="70.0" prefHeight="26.0" prefWidth="461.0" styleClass="emptyRectangle">
                <padding>
                   <Insets top="0.5" />
                </padding>
             </TextField>
-            <Text fill="#054371" layoutX="132.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+            <Text fill="#054371" layoutX="132.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
                <font>
-                  <Font size="20.0" />
+                  <Font size="16.0" />
                </font>
             </Text>
-            <TextArea fx:id="exerciceDescription" layoutX="132.0" layoutY="147.0" prefHeight="265.0" prefWidth="461.0">
+            <TextArea fx:id="exerciceDescription" layoutX="132.0" layoutY="147.0" prefHeight="265.0" prefWidth="461.0" styleClass="emptyRectangle">
                <padding>
                   <Insets bottom="2.0" top="2.0" />
                </padding>
@@ -40,7 +39,7 @@
             <Font size="34.0" />
          </font>
       </Text>
-      <Button fx:id="updateExerciceButton" layoutX="478.0" layoutY="661.0" mnemonicParsing="false" onAction="#updateExercice" style="-fx-background-color:  #054371;" text="Valider" textFill="WHITE">
+      <Button fx:id="updateExerciceButton" layoutX="478.0" layoutY="661.0" mnemonicParsing="false" onAction="#updateExercice" style="-fx-background-color:  #054371;" styleClass="buttonBlue" text="Valider" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

@@ -1,6 +1,5 @@
 package com.fitj.controllers.recettes;
 
-import com.fitj.classes.Admin;
 import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.exceptions.BadPageException;
@@ -8,7 +7,6 @@ import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -34,7 +32,7 @@ public class ControllerMesRecettesList extends ControllerRecette {
     @FXML
     private Button updateRecetteButton;
     @FXML
-    private Button deleteRecettebutton;
+    private Button deleteRecetteButton;
     @FXML
     private Text errorText;
     // ---------------------------------------------------------------------------------------------------------------

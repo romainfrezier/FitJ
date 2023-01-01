@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.clients.ControllerClientMonEspace">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.clients.ControllerClientMonEspace">
    <children>
       <fx:include source="../../components/headers/header-client.fxml" />
-      <Text fx:id="clientName" layoutX="32.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ClientName" wrappingWidth="241.2509765625">
+      <Text fx:id="clientName" fill="#054371" layoutX="32.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ClientName" wrappingWidth="241.2509765625">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Text>
-      <TabPane layoutX="23.0" layoutY="133.0" prefHeight="627.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="23.0" layoutY="133.0" prefHeight="627.0" prefWidth="936.0" styleClass="emptyRectangle" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab text="Programmes">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <TabPane prefHeight="602.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
                         <tabs>
                            <Tab text="Programmes Sportifs">

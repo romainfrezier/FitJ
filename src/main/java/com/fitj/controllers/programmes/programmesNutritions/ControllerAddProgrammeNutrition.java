@@ -1,13 +1,11 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
 import com.fitj.classes.Admin;
-import com.fitj.classes.Aliment;
 import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
-import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -15,10 +13,8 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutrition {
-
 
 
 
@@ -29,7 +25,8 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
     @FXML
     private TextArea descriptionProgramme;
 
-
+    @FXML
+    private  Text nbMoisValue;
 
     @FXML
     private Slider prixProgrammeNutrition;
@@ -130,7 +127,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
             e.printStackTrace();
             super.displayError(errorText, "Erreur lors de l'initialisation de la liste des difficultés");
         }
-    };
+    }
 
 
     /**
@@ -267,22 +264,23 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         return true;
     }
 
-    public void updateMontantProgramme(){
-        montantProgramme.setText(String.valueOf((int)prixProgrammeNutrition.getValue()));
-    }
-
-    public Recette getRecetteSelectedToDelete() {
-        return recetteSelectedForDelete;
+    @FXML
+    private void updateMontantProgramme(){
+        montantProgramme.setText((int) prixProgrammeNutrition.getValue() + " €");
     }
 
     @FXML
-    public void setRecetteSelectedToDelete() {
+    private void setRecetteSelectedToDelete() {
         this.recetteSelectedForDelete = listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem();
     }
 
     @FXML
-    public void setRecetteSelected() {
+    private void setRecetteSelected() {
         this.recetteSelected = listViewRecette.getSelectionModel().getSelectedItem();
     }
 
+    @FXML
+    private void updateMoisValue() {
+        this.nbMoisValue.setText((int) nbMoisProgrammeNutrition.getValue() + " mois");
+    }
 }

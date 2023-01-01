@@ -5,7 +5,6 @@ import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
-import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -80,7 +79,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             this.nomProgrammeNutrition.setText(this.programmeNutrition.getNom());
             this.nomCoach.setText(this.programmeNutrition.getCoach().getPseudo());
             this.programmeType.setText(ProgrammeType.getProgrammeType(this.programmeNutrition.getType()));
-            this.nbMoisProgramme.setText(String.valueOf(this.programmeNutrition.getNbMois()));
+            this.nbMoisProgramme.setText(this.programmeNutrition.getNbMois() + " mois");
             this.descriptionProgramme.getChildren().add(new Text(this.programmeNutrition.getDescription()));
         }
         catch (Exception e){

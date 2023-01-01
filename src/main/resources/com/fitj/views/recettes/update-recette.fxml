@@ -19,7 +19,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="recetteName" layoutX="132.0" layoutY="48.0" prefHeight="26.0" prefWidth="461.0" />
+            <TextField fx:id="recetteName" layoutX="132.0" layoutY="48.0" prefHeight="26.0" prefWidth="461.0" styleClass="emptyRectangle" />
             <ListView fx:id="listViewIngredientRecette" layoutX="74.0" layoutY="116.0" onMouseClicked="#setIngredientSelectedToDelete" prefHeight="281.0" prefWidth="232.0" styleClass="emptyRectangle" />
              <TabPane layoutX="409.0" layoutY="116.0" prefHeight="281.0" prefWidth="274.0" style="-fx-background-color: transparent;" tabClosingPolicy="UNAVAILABLE">
                  <tabs>

@@ -15,7 +15,8 @@ import java.util.Optional;
 public class ControllerMesSeanceList extends ControllerSeance{
 
 
-
+    @FXML
+    private Button deleteSeanceButton;
     @FXML
     private Button addSeanceButton;
 

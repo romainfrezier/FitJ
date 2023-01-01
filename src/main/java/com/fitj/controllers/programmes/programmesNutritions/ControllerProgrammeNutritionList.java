@@ -1,7 +1,6 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
 import com.fitj.classes.ProgrammeNutrition;
-import com.fitj.classes.Recette;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
 import javafx.fxml.FXML;
@@ -24,7 +23,7 @@ public class ControllerProgrammeNutritionList extends ControllerProgrammeNutriti
     @FXML
     private Button updateProgrammeNutritionButton;
     @FXML
-    private Button deleteProgrammeNutritionbutton;
+    private Button deleteProgrammeNutritionButton;
     @FXML
     private Text errorText;
 

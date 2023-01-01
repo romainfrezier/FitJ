@@ -1,6 +1,5 @@
 package com.fitj.controllers.seances;
 
-import com.fitj.classes.Recette;
 import com.fitj.classes.Seance;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
@@ -15,7 +14,8 @@ import java.util.Optional;
 public class ControllerSeanceList extends ControllerSeance{
 
 
-
+    @FXML
+    private Button deleteSeanceButton;
     @FXML
     private Button addSeanceButton;
 
