@@ -7,7 +7,6 @@ import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,25 +42,7 @@ public class ControllerCoachList extends ControllerCoach {
     private void initializeClientList() {
         try {
             List<Coach> coachs = coachFacade.getAllCoachs();
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Coach> call(ListView<Coach> o) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Coach item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getId() + ". " + item.getPseudo());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Coach coach : coachs) {
-                listView.getItems().add(coach);
-            }
+            initializeCoachList(listView, coachs);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

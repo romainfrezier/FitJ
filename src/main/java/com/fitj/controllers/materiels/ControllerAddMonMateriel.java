@@ -5,10 +5,8 @@ import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.FacadeClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 
@@ -45,25 +43,7 @@ public class ControllerAddMonMateriel extends ControllerMateriel {
     private void initializeMaterielList() {
         try {
             List<Materiel> materiels = materielFacade.getAllMateriels();
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Materiel> call(ListView<Materiel> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Materiel item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Materiel materiel : materiels) {
-                listView.getItems().add(materiel);
-            }
+            super.initializeMaterielList(listView, materiels);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

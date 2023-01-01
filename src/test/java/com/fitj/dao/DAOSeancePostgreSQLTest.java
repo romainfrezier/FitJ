@@ -75,7 +75,7 @@ public class DAOSeancePostgreSQLTest {
     public static void init() throws Exception {
         daoSeancePostgreSQL = new DAOSeancePostgreSQL();
         daoExercicePostgreSQL = new DAOExercicePostgreSQL();
-        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44, false);
         sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportByNom("Foot");
         exercice1 = daoExercicePostgreSQL.createExercice("Nom1", "desc1");
         exercice2 = daoExercicePostgreSQL.createExercice("Nom2", "desc2");

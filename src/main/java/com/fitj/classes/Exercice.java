@@ -1,10 +1,8 @@
 package com.fitj.classes;
 
-import java.util.*;
-
 /**
  * Classe qui représente un exercice.
- * @author Paco Munarriz, Etienne Tillier
+ * @author Paco Munarriz, Etienne Tillier, Romain Frezier
  */
 public class Exercice {
 

@@ -4,11 +4,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.*;
 
-public class DaoMapper {
+public final class DaoMapper {
 
-    private List<Map<String,Object>> listeData;
+    private final List<Map<String,Object>> listeData;
 
-    private List<Map<Integer,Object>> listeDataIndex;
+    private final List<Map<Integer,Object>> listeDataIndex;
 
 
     public DaoMapper(ResultSet resultSet) throws Exception {

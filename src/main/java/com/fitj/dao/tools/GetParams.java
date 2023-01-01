@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Classe fournissant une méthode statique pour récupérer les noms des paramètres d'une méthode.
- * @author Paul Merceur
+ * @author Etienne Tillier
  */
 public final class GetParams {
 

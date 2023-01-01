@@ -1,10 +1,8 @@
 package com.fitj.classes;
 
-import java.util.*;
-
 /**
  * Classe qui représente un matériel.
- * @author Paco Munarriz
+ * @author Paco Munarriz, Etienne Tillier, Romain Frezier
  */
 public class Materiel {
 

@@ -9,6 +9,7 @@ import java.util.*;
 /**
  * Une classe qui représente un coach.
  * Un coach est un utilisateur qui peut proposer des produits.
+ * @author Etienne Tillier, Romain Frezier
  */
 public class Coach extends Client implements PaymentReceiver, DemandReceiver {
 

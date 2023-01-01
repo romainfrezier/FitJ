@@ -6,7 +6,6 @@ import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,29 +49,7 @@ public class ControllerAdminClients extends ControllerAdmin {
     private void initializeClientList() {
         try {
             clients = adminFacade.getAllClients();
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Client> call(ListView<Client> o) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Client item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null ) {
-                                String text = item.getId() + ". " + item.getPseudo();
-                                if (item.isBanni()) {
-                                    text += " (Banni)";
-                                }
-                                setText(text);
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Client client : clients) {
-                listView.getItems().add(client);
-            }
+            super.initializeClientList(listView, clients);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

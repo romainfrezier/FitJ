@@ -150,28 +150,9 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
      * Methode permettant d'initialiser la liste des recettes
      */
     private void initializeRecetteList()  {
-        listViewRecette.getItems().clear();
         try {
             listeRecettes = (ArrayList<Recette>) FactoryDAO.getInstance().getDAORecette().getAllRecettes();
-            listViewRecette.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Recette> call(ListView<Recette> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Recette item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Recette recette : listeRecettes) {
-                listViewRecette.getItems().add(recette);
-            }
+            super.initializeRecetteList(listViewRecette, listeRecettes);
         } catch (Exception e) {
             e.printStackTrace();
             super.displayError(errorText, e.getMessage());
@@ -184,26 +165,7 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
      */
     private void initializeRecetteProgrammeNutritionList() {
         try {
-            listViewRecetteProgrammeNutrition.getItems().clear();
-            listViewRecetteProgrammeNutrition.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Recette> call(ListView<Recette> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Recette item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Recette recette : listeRecetteProgrammeNutrition) {
-                listViewRecetteProgrammeNutrition.getItems().add(recette);
-            }
+            initializeRecetteList(listViewRecetteProgrammeNutrition, listeRecetteProgrammeNutrition);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

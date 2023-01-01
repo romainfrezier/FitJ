@@ -1,9 +1,16 @@
 package com.fitj.controllers.sports;
 
+import com.fitj.classes.Sport;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.FacadeSport;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.util.Callback;
+
+import java.util.List;
+
 
 /**
  * Controller générique des pages sport
@@ -61,5 +68,24 @@ public abstract class ControllerSport extends Controller {
      */
     void goToUpdateSport(Control controlEl) throws BadPageException {
         goToPage(controlEl, sport + "update-sport.fxml", "Modification d'un sport");
+    }
+
+     void initializeSportList(ListView<Sport> listView, List<Sport> sports) {
+        super.initializeList(listView, sports, new Callback<ListView<Sport>, ListCell<Sport>>() {
+            @Override
+            public ListCell<Sport> call(ListView<Sport> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(Sport item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
     }
 }

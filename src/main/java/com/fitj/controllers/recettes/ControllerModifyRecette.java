@@ -8,13 +8,10 @@ import com.fitj.facades.Facade;
 import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,25 +89,7 @@ public class ControllerModifyRecette extends ControllerRecette {
     private void initializeIngredientList() {
         listViewIngredientRecette.getItems().clear();
         try {
-            listViewIngredientRecette.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Ingredient> call(ListView<Ingredient> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Ingredient item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Ingredient ingredient : listeIngredients) {
-                listViewIngredientRecette.getItems().add(ingredient);
-            }
+            super.initializeIngredientList(listViewIngredientRecette, listeIngredients);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
@@ -120,25 +99,7 @@ public class ControllerModifyRecette extends ControllerRecette {
         try {
             listViewAliment.getItems().clear();
             List<Aliment> aliments = FactoryDAO.getInstance().getDAOAliment().getAllAliments();
-            listViewAliment.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Aliment> call(ListView<Aliment> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Aliment item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Aliment aliment : aliments) {
-                listViewAliment.getItems().add(aliment);
-            }
+            super.initializeAlimentList(listViewAliment, aliments);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
@@ -148,25 +109,7 @@ public class ControllerModifyRecette extends ControllerRecette {
         try {
             listViewRecette.getItems().clear();
             List<Recette> listeRecettes = FactoryDAO.getInstance().getDAORecette().getAllRecettes();
-            listViewRecette.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Recette> call(ListView<Recette> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Recette item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Recette recette : listeRecettes) {
-                listViewRecette.getItems().add(recette);
-            }
+            super.initializeRecetteList(listViewRecette, listeRecettes);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

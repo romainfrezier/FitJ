@@ -1,15 +1,12 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
-import com.fitj.classes.Coach;
 import com.fitj.classes.ProgrammeNutrition;
-import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 
@@ -40,25 +37,7 @@ public class ControllerMesProframmeNutritionAchatList extends ControllerProgramm
     private void initializeProgrammeNutritionList() {
         try {
             List<ProgrammeNutrition> programmeNutritions = facadeProgrammeNutrition.getAllProgrammesNutritionsByClient(Facade.currentClient.getId());
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<ProgrammeNutrition> call(ListView<ProgrammeNutrition> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(ProgrammeNutrition item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (ProgrammeNutrition programmeNutrition : programmeNutritions) {
-                listView.getItems().add(programmeNutrition);
-            }
+            super.initializeProgrammeNutritionList(listView, programmeNutritions);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

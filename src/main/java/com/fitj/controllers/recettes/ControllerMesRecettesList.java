@@ -8,7 +8,6 @@ import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,34 +42,16 @@ public class ControllerMesRecettesList extends ControllerRecette {
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        initializeAlimentList();
+        initializeRecetteList();
     }
 
     /**
      * Methode permettant d'initialiser la liste des recettes
      */
-    private void initializeAlimentList() {
+    private void initializeRecetteList() {
         try {
             List<Recette> recettes = recetteFacade.getRecetteByCoach((Coach)Facade.currentClient);
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Recette> call(ListView<Recette> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Recette item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Recette recette : recettes) {
-                listView.getItems().add(recette);
-            }
+            super.initializeRecetteList(listView, recettes);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
