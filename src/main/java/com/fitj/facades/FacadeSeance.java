@@ -92,14 +92,13 @@ public class FacadeSeance extends Facade {
      * @param exercices List<Triple<Exercice, Integer, Integer>>, la liste des exercices de la séance avec leur nombre de séries et de répétitions
      * @throws Exception en cas d'erreur
      */
-    public void updateSeance(int id, String nom, String description, double prix, Coach coach, Sport sport, List<Triple<Exercice, Integer, Integer>> exercices) throws Exception {
+    public void updateSeance(int id, String nom, String description, double prix, Coach coach, Sport sport) throws Exception {
         List<Pair<String, Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("nom", nom));
         updateList.add(new Pair<>("description", description));
         updateList.add(new Pair<>("prix", prix));
-        updateList.add(new Pair<>("coach", coach));
-        updateList.add(new Pair<>("sport", sport));
-        updateList.add(new Pair<>("exercices", exercices));
+        updateList.add(new Pair<>("idcoach", coach.getId()));
+        updateList.add(new Pair<>("idsport", sport.getId()));
         this.daoSeance.updateSeance(updateList, id);
     }
 
