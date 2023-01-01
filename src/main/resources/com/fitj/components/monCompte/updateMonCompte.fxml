@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerUpload">
+   <children>
+      <ImageView fx:id="image" fitHeight="198.0" fitWidth="257.0" layoutX="36.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <TextArea fx:id="pseudo" layoutX="376.0" layoutY="53.0" prefHeight="40.0" prefWidth="200.0" text="Nom du compte" />
+      <TextArea fx:id="password" layoutX="376.0" layoutY="126.0" prefHeight="40.0" prefWidth="200.0" text="Mot de passe" />
+      <TextArea fx:id="mail" layoutX="376.0" layoutY="209.0" prefHeight="40.0" prefWidth="426.0" text="mail" />
+      <Button fx:id="mailUpdate" layoutX="815.0" layoutY="208.0" mnemonicParsing="false" onAction="#mailUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="passwodUpdate" layoutX="591.0" layoutY="125.0" mnemonicParsing="false" onAction="#passwodUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="nameUpdate" layoutX="591.0" layoutY="52.0" mnemonicParsing="false" onAction="#nameUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="imageUpdate" layoutX="293.0" layoutY="208.0" mnemonicParsing="false" onAction="#imageUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="valider" layoutX="397.0" layoutY="329.0" mnemonicParsing="false" onAction="#valider" prefHeight="43.0" prefWidth="118.0" style="-fx-background-color:  #054371;" text="VALIDER" textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

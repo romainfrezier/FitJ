@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="96.0" prefWidth="928.0" style="-fx-background-color: #e1e1e1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteClient">
    <children>
-      <ImageView fitHeight="70.0" fitWidth="80.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="129.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nom" wrappingWidth="149.33670043945312">
+      <ImageView fx:id="image" fitHeight="198.0" fitWidth="257.0" layoutX="36.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <TextArea fx:id="pseudo" layoutX="334.0" layoutY="129.0" prefHeight="40.0" prefWidth="200.0" text="Nom du compte" />
+      <Text fill="#054371" layoutX="334.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MON COMPTE" wrappingWidth="445.3367004394531">
          <font>
-            <Font size="34.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="303.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="prenom" wrappingWidth="149.33670043945312">
+      <TextArea fx:id="password" layoutX="557.0" layoutY="129.0" prefHeight="40.0" prefWidth="200.0" text="Mot de passe" />
+      <TextArea fx:id="mail" layoutX="334.0" layoutY="189.0" prefHeight="40.0" prefWidth="426.0" text="mail" />
+      <Button fx:id="UpdateButton" layoutX="613.0" layoutY="340.0" mnemonicParsing="false" onAction="#goToUpload" style="-fx-background-color:  #054371;" text="Mettre à jour" textFill="WHITE">
          <font>
-            <Font size="34.0" />
+            <Font size="20.0" />
          </font>
-      </Text>
-      <Text layoutX="474.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="poid" wrappingWidth="149.33670043945312">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Text>
+      </Button>
+      <Text fx:id="errorText" fill="RED" layoutX="344.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="425.9999999999999" />
    </children>
-</AnchorPane>
+</Pane>

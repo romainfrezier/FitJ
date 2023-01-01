@@ -3,10 +3,15 @@ package com.fitj.controllers.sports;
 import com.fitj.classes.Sport;
 import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.FacadeClient;
+import com.fitj.facades.FacadeSport;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.util.List;
 
@@ -43,7 +48,25 @@ public class ControllerAddMesSport extends ControllerSport {
     private void initializeSportList() {
         try {
             List<Sport> sports = sportFacade.getAllSports();
-            super.initializeSportList(listView, sports);
+            listView.setCellFactory(new Callback<>() {
+                @Override
+                public ListCell<Sport> call(ListView<Sport> param) {
+                    return new ListCell<>() {
+                        @Override
+                        protected void updateItem(Sport item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item.getNom());
+                            } else {
+                                setText("");
+                            }
+                        }
+                    };
+                }
+            });
+            for (Sport sport : sports) {
+                listView.getItems().add(sport);
+            }
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }
