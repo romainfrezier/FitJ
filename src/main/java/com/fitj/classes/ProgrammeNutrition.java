@@ -33,8 +33,8 @@ public class ProgrammeNutrition extends Programme {
         super(idProduit);
     }
 
-    public ProgrammeNutrition(int idProduit, String nom) {
-        super(idProduit, nom);
+    public ProgrammeNutrition(int idProduit, String nom, String description, double prix) {
+        super(idProduit, nom, description, prix);
     }
 
     /**

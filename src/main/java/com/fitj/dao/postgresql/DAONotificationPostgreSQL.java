@@ -8,6 +8,7 @@ import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class DAONotificationPostgreSQL extends DAONotification {
             List<Map<String,Object>> result = notificationData.getListeData();
             if (!result.isEmpty()){
                 Map<String,Object> data = result.get(0);
-                return new Notification(id, (String)data.get("message"), ((Long)data.get("idclient")).intValue(), ((Long)data.get("idcommande")).intValue());
+                return new Notification(id, (String)data.get("message"), ((Long)data.get("idclient")).intValue(), ((Long)data.get("idcommande")).intValue(), (Date)data.get("date"));
             }
             else {
                 throw new DBProblemException("Aucune notification ne correspond à l'id rentré en paramètre");
@@ -74,7 +75,7 @@ public class DAONotificationPostgreSQL extends DAONotification {
             int i = 0;
             while (i < listData.size()) {
                 Map<String, Object> data = listData.get(i);
-                notificationsList.add(new Notification(((Long)data.get("id")).intValue(), (String) data.get("message"), ((Long)data.get("idclient")).intValue(), ((Long)data.get("idcommande")).intValue()));
+                notificationsList.add(new Notification(((Long)data.get("id")).intValue(), (String) data.get("message"), ((Long)data.get("idclient")).intValue(), ((Long)data.get("idcommande")).intValue(), (Date)data.get("date")));
                 i++;
             }
             return notificationsList;

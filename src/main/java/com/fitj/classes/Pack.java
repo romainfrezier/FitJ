@@ -30,8 +30,8 @@ public class Pack extends Produit {
         super(idpack);
     }
 
-    public Pack(int idpack, String nom) {
-        super(idpack, nom);
+    public Pack(int idpack, String nom, String description, double prix) {
+        super(idpack, nom, description, prix);
     }
 
     /**

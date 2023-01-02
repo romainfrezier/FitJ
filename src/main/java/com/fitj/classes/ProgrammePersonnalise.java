@@ -61,8 +61,9 @@ public class ProgrammePersonnalise extends Service {
         super(idProduit);
     }
 
-    public ProgrammePersonnalise(int idProduit, String nom) {
-        super(idProduit, nom);
+    public ProgrammePersonnalise(int idProduit, String nom, String description, double prix, Demande demande) {
+        super(idProduit, nom, description, prix);
+        this.demande = demande;
     }
 
     /**

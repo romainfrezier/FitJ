@@ -246,4 +246,12 @@ public class Demande {
         this.etat = etat;
     }
 
+    /**
+     * @return la demande sous forme de String
+     */
+    @Override
+    public String toString() {
+        return "La demande " + id + " concerne le sport " + sport.getNom() + " et a pour description : " + description + ".\nLa durée du programme est de " + nbMois + " mois.\nLe programme est composé de " + nbSeanceSemaine + " séances par semaine et de " + nbRecetteSemaine + " recettes par semaine.\n";
+    }
+
 }

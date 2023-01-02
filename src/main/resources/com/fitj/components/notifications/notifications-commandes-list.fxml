@@ -27,7 +27,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="commandesListView" layoutX="11.0" layoutY="12.0" prefHeight="521.0" prefWidth="869.0" styleClass="emptyRectangle" />
+                        <ListView fx:id="commandesListView" onMouseClicked="#handleClickListCommande" layoutX="11.0" layoutY="12.0" prefHeight="521.0" prefWidth="869.0" styleClass="emptyRectangle" />
                         <Button fx:id="seeMoreButton" layoutX="396.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleSeeMoreButton" styleClass="buttonBlue" text="Voir plus" />
                         <Text fx:id="errorTextCommandes" fill="RED" layoutX="159.0" layoutY="557.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="573.21630859375" />
                      </children>

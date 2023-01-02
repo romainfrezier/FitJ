@@ -35,8 +35,8 @@ public abstract class Programme extends Produit {
         super(idProduit);
     }
 
-    public Programme(int idProduit, String nom) {
-        super(idProduit, nom);
+    public Programme(int idProduit, String nom, String description, double prix) {
+        super(idProduit, nom, description, prix);
     }
 
     /**

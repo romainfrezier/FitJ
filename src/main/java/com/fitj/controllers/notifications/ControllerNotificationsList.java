@@ -3,12 +3,17 @@ package com.fitj.controllers.notifications;
 import com.fitj.classes.Coach;
 import com.fitj.classes.Commande;
 import com.fitj.classes.Notification;
+import com.fitj.comparators.CommandeComparator;
+import com.fitj.comparators.NotificationComparator;
+import com.fitj.controllers.commandes.ControllerCommandeDetail;
 import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -44,6 +49,7 @@ public class ControllerNotificationsList extends ControllerNotifications {
             } else {
                 commandes = facadeCommande.getAllCommandesByIdClient(Facade.currentClient.getId());
             }
+            commandes.sort(new CommandeComparator());
             super.initializeList(commandesListView, commandes, new Callback<ListView<Commande>, ListCell<Commande>>() {
                 @Override
                 public ListCell<Commande> call(ListView<Commande> param) {
@@ -71,6 +77,7 @@ public class ControllerNotificationsList extends ControllerNotifications {
     private void initializeNotifications() {
         try {
             List<Notification> notifications = facadeNotification.getAllNotificationsByIdClient(Facade.currentClient.getId());
+            notifications.sort(new NotificationComparator());
             super.initializeList(notificationsListView, notifications, new Callback<ListView<Notification>, ListCell<Notification>>() {
                 @Override
                 public ListCell<Notification> call(ListView<Notification> param) {
@@ -93,7 +100,7 @@ public class ControllerNotificationsList extends ControllerNotifications {
     @FXML
     private void deleteNotification() {
         try {
-            checkSelected();
+            checkSelectedNotification();
             Notification notification = notificationsListView.getSelectionModel().getSelectedItem();
             facadeNotification.deleteNotification(notification);
             notificationsListView.getItems().remove(notification);
@@ -102,16 +109,31 @@ public class ControllerNotificationsList extends ControllerNotifications {
         }
     }
 
-
+    @FXML
+    private void handleClickListCommande() {
+        setIdObjectSelected(commandesListView.getSelectionModel().getSelectedItem().getId());
+    }
 
     @FXML
     private void handleSeeMoreButton() {
-        super.displayError(errorTextCommandes, "Not implemented yet");
+        try {
+            checkSelectedCommande();
+            goToPage(seeMoreButton, "commandes/detail-commande.fxml", "Détail de la commande");
+        } catch (Exception e) {
+            e.printStackTrace();
+            super.displayError(errorTextCommandes, e.getMessage());
+        }
     }
 
-    private void checkSelected() throws UnselectedItemException {
+    private void checkSelectedNotification() throws UnselectedItemException {
         if (notificationsListView.getSelectionModel().getSelectedItem() == null) {
             throw new UnselectedItemException("Vous devez sélectionner une notification");
+        }
+    }
+
+    private void checkSelectedCommande() throws UnselectedItemException {
+        if (commandesListView.getSelectionModel().getSelectedItem() == null) {
+            throw new UnselectedItemException("Vous devez sélectionner une commande");
         }
     }
 }

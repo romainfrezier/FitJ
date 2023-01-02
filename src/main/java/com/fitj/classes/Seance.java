@@ -47,8 +47,8 @@ public class Seance extends Produit {
         super(idseance);
     }
 
-    public Seance(int idseance, String nom) {
-        super(idseance, nom);
+    public Seance(int idseance, String nom, String description, double prix) {
+        super(idseance, nom, description, prix);
     }
 
     /**

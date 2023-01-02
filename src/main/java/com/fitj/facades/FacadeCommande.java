@@ -33,4 +33,8 @@ public class FacadeCommande extends Facade {
     public List<Commande> getAllCommandesByIdCoach(int coachId) throws Exception {
         return this.daoCommande.getCommandeByIdCoach(coachId);
     }
+
+    public Commande getCommandeById(int idObjectSelected) throws Exception {
+        return this.daoCommande.getCommandeById(idObjectSelected);
+    }
 }

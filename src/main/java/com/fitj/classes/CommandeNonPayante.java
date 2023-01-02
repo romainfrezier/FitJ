@@ -11,8 +11,8 @@ public class CommandeNonPayante extends Commande {
     /**
      * Constructeur par défaut
      */
-    public CommandeNonPayante(Client client, Coach coach, Produit produit, int id) {
-        super(client, coach, produit, id);
+    public CommandeNonPayante(Client client, Coach coach, Produit produit, int id, Date date) {
+        super(client, coach, produit, id, date);
     }
 
 
