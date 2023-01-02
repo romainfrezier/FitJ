@@ -6,7 +6,7 @@ import com.fitj.classes.Sport;
 import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOMaterielPostgreSQL;
 import com.fitj.dao.postgresql.DAOSportPostgreSQL;
-import com.fitj.dao.tool.PasswordAuthentication;
+import com.fitj.dao.tools.PasswordAuthentication;
 import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;

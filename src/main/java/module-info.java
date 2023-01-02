@@ -4,6 +4,8 @@ module com.fitj {
     requires java.sql;
     requires io.github.cdimascio.dotenv.java;
     requires kotlin.stdlib;
+    requires com.zaxxer.hikari;
+    requires org.slf4j;
 
     exports com.fitj;
 
@@ -15,7 +17,11 @@ module com.fitj {
     opens com.fitj.controllers.headers to javafx.fxml;
     opens com.fitj.controllers.materiels to javafx.fxml;
     opens com.fitj.controllers.aliments to javafx.fxml;
+    opens com.fitj.controllers.recettes to javafx.fxml;
     opens com.fitj.controllers.exercices to javafx.fxml;
+    opens com.fitj.controllers.programmes.programmesNutritions to javafx.fxml;
+    opens com.fitj.controllers.seances to javafx.fxml;
 
     opens com.fitj.classes to javafx.base;
+    opens com.fitj.dao.tools to javafx.base;
 }

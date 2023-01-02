@@ -4,7 +4,7 @@ import com.fitj.classes.*;
 import com.fitj.dao.DAOCommande;
 import com.fitj.dao.DAOPaiement;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.dao.tool.DaoMapper;
+import com.fitj.dao.tools.DaoMapper;
 import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;

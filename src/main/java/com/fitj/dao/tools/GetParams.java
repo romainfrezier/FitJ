@@ -1,4 +1,4 @@
-package com.fitj.dao.tool;
+package com.fitj.dao.tools;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;

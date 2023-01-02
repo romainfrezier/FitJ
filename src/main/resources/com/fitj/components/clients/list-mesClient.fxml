@@ -9,11 +9,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="674.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerCoachMesClients">
+<Pane prefHeight="674.0" prefWidth="900.0" scaleShape="false" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerCoachMesClients">
    <children>
-       <ListView fx:id="listView" layoutX="17.0" layoutY="112.0" onMouseClicked="#selectClient" prefHeight="470.0" prefWidth="867.0" />
-       <Button fx:id="seeMoreButton" layoutX="392.0" layoutY="629.0" mnemonicParsing="false" onAction="#handleSeeMoreButton" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Voir plus" textFill="WHITE" />
-      <Text fx:id="errorText" fill="RED" layoutX="130.0" layoutY="613.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+       <ListView fx:id="listView" layoutX="17.0" layoutY="112.0" onMouseClicked="#selectClient" prefHeight="470.0" prefWidth="867.0" styleClass="emptyRectangle" />
+       <Button fx:id="seeMoreButton" layoutX="394.0" layoutY="619.0" mnemonicParsing="false" onAction="#handleSeeMoreButton" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Voir plus" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="130.0" layoutY="604.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
       <Text fill="#054371" layoutX="223.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mes clients" textAlignment="CENTER" wrappingWidth="455.21630859375">
          <font>
             <Font size="30.0" />

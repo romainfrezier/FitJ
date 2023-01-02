@@ -5,12 +5,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.materiels.ControllerMonMaterielList">
+<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.materiels.ControllerMonMaterielList">
    <children>
-       <Button fx:id="addMaterielButton" layoutX="259.0" layoutY="546.0" mnemonicParsing="false" onAction="#goToAddMyMateriel" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="+" textFill="WHITE" />
-       <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" prefHeight="470.0" prefWidth="867.0" />
-       <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
-       <Button fx:id="deleteMaterielbutton" layoutX="526.0" layoutY="546.0" mnemonicParsing="false" onAction="#deleteMateriel" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" text="Supprimer" textFill="WHITE" />
-      <Text fx:id="errorText" fill="RED" layoutX="140.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+       <Button fx:id="addMaterielButton" layoutX="322.0" layoutY="511.0" mnemonicParsing="false" onAction="#goToAddMyMateriel" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Ajouter" textFill="WHITE" />
+       <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" prefHeight="448.0" prefWidth="867.0" styleClass="emptyRectangle" />
+       <Button fx:id="deleteMaterielButton" layoutX="463.0" layoutY="511.0" mnemonicParsing="false" onAction="#deleteMateriel" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Supprimer" textFill="WHITE" />
+      <Text fx:id="errorText" fill="RED" layoutX="129.0" layoutY="499.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
    </children>
 </Pane>

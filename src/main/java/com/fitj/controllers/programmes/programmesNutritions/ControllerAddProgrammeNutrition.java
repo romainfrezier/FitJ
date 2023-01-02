@@ -18,7 +18,6 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
 
 
 
-
     // Composants FXML -----------------------------------------------------------------------------------------------
     @FXML
     private TextField nomProgrammeNutrition;
@@ -26,7 +25,8 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
     @FXML
     private TextArea descriptionProgramme;
 
-
+    @FXML
+    private  Text nbMoisValue;
 
     @FXML
     private Slider prixProgrammeNutrition;
@@ -96,7 +96,7 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         setObjectSelected(null);
         initializeDifficulteProgramme();
         initializeRecetteList();
-        initializeRecetteList();
+        initializeRecetteProgrammeNutritionList();
     }
 
     /**
@@ -228,22 +228,23 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         return true;
     }
 
-    public void updateMontantProgramme(){
-        montantProgramme.setText(String.valueOf((int)prixProgrammeNutrition.getValue()));
-    }
-
-    public Recette getRecetteSelectedToDelete() {
-        return recetteSelectedForDelete;
+    @FXML
+    private void updateMontantProgramme(){
+        montantProgramme.setText((int) prixProgrammeNutrition.getValue() + " €");
     }
 
     @FXML
-    public void setRecetteSelectedToDelete() {
+    private void setRecetteSelectedToDelete() {
         this.recetteSelectedForDelete = listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem();
     }
 
     @FXML
-    public void setRecetteSelected() {
+    private void setRecetteSelected() {
         this.recetteSelected = listViewRecette.getSelectionModel().getSelectedItem();
     }
 
+    @FXML
+    private void updateMoisValue() {
+        this.nbMoisValue.setText((int) nbMoisProgrammeNutrition.getValue() + " mois");
+    }
 }

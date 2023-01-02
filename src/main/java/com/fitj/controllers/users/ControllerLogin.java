@@ -104,7 +104,7 @@ public class ControllerLogin extends ControllerUser {
     private void goToRegister() {
         try {
             super.hideError(errorText);
-            super.goToPage(registerButton, "views/users/register-view.fxml", "Inscription");
+            super.goToPage(registerButton, "users/register-view.fxml", "Inscription");
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
