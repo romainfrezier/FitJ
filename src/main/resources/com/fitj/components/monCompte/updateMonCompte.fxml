@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerUpload">
+<Pane prefHeight="371.0" prefWidth="351.0" style="-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-radius: 10px; -fx-background-radius: 10px;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerUpload">
    <children>
-      <ImageView fx:id="image" fitHeight="198.0" fitWidth="257.0" layoutX="36.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
-      <TextArea fx:id="pseudo" layoutX="376.0" layoutY="53.0" prefHeight="40.0" prefWidth="200.0" text="Nom du compte" />
-      <TextArea fx:id="password" layoutX="376.0" layoutY="126.0" prefHeight="40.0" prefWidth="200.0" text="Mot de passe" />
-      <TextArea fx:id="mail" layoutX="376.0" layoutY="209.0" prefHeight="40.0" prefWidth="426.0" text="mail" />
-      <Button fx:id="mailUpdate" layoutX="815.0" layoutY="208.0" mnemonicParsing="false" onAction="#mailUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
+      <TextField fx:id="mail" layoutX="59.0" layoutY="39.0" prefHeight="25.0" prefWidth="234.0" styleClass="emptyRectangle" />
+      <Text fill="#054371" layoutX="59.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse mail" wrappingWidth="92.13671875" />
+      <Text fill="#054371" layoutX="59.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="92.13671875" />
+      <TextField fx:id="pseudo" layoutX="59.0" layoutY="88.0" prefHeight="25.0" prefWidth="234.0" styleClass="emptyRectangle" />
+      <Text fx:id="errorText" fill="RED" layoutX="30.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="292.0" />
+      <Text fill="#054371" layoutX="59.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" wrappingWidth="92.13671875" />
+      <Text fill="#054371" layoutX="59.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmation de mot de passe" wrappingWidth="170.5367431640625" />
+      <Text fx:id="poidsValue" fill="#054371" layoutX="240.0" layoutY="132.0" style="-fx-background-color: transparent;" textAlignment="RIGHT" wrappingWidth="52.68798828125">
          <font>
-            <Font size="20.0" />
+            <Font size="10.0" />
          </font>
-      </Button>
-      <Button fx:id="passwodUpdate" layoutX="591.0" layoutY="125.0" mnemonicParsing="false" onAction="#passwodUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
+      </Text>
+      <Text fx:id="tailleValue" fill="#054371" layoutX="240.0" layoutY="198.0" style="-fx-background-color: transparent;" textAlignment="RIGHT" wrappingWidth="52.68798828125">
          <font>
-            <Font size="20.0" />
+            <Font size="10.0" />
          </font>
-      </Button>
-      <Button fx:id="nameUpdate" layoutX="591.0" layoutY="52.0" mnemonicParsing="false" onAction="#nameUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
+      </Text>
+      <PasswordField fx:id="password" layoutX="59.0" layoutY="196.0" prefHeight="26.0" prefWidth="234.0" styleClass="emptyRectangle" />
+      <PasswordField fx:id="passwordConfirm" layoutX="59.0" layoutY="248.0" prefHeight="26.0" prefWidth="234.0" styleClass="emptyRectangle" />
+      <TextField fx:id="image" layoutX="58.0" layoutY="145.0" prefHeight="26.0" prefWidth="234.0" styleClass="emptyRectangle" />
+      <Text fill="#054371" layoutX="59.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lien de la photo de profil" wrappingWidth="170.5367431640625" />
+      <Text fx:id="errorText1" fill="RED" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="351.0" />
+      <Button fx:id="updateButton" layoutX="117.0" layoutY="313.0" mnemonicParsing="false" onAction="#Update" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: red;" text="Mettre à jour" textFill="WHITE">
          <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Button fx:id="imageUpdate" layoutX="293.0" layoutY="208.0" mnemonicParsing="false" onAction="#imageUpdate" prefHeight="43.0" prefWidth="65.0" style="-fx-background-color:  #054371;" text="MAJ" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <Button fx:id="valider" layoutX="397.0" layoutY="329.0" mnemonicParsing="false" onAction="#valider" prefHeight="43.0" prefWidth="118.0" style="-fx-background-color:  #054371;" text="VALIDER" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Button>
    </children>

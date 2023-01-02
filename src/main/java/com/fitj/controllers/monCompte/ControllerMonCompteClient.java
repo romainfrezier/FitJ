@@ -12,11 +12,11 @@ import static com.fitj.facades.Facade.currentClient;
 
 public class ControllerMonCompteClient extends ControllerMonCompte {
     @FXML
-    private TextArea pseudo;
+    private Text pseudo;
     @FXML
-    private TextArea password;
+    private Text password;
     @FXML
-    private TextArea mail;
+    private Text mail;
     @FXML
     private ImageView image;
     @FXML
@@ -37,10 +37,10 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
     }
 
     @FXML
-    private void goToUpload() {
+    private void goToUpdate() {
         try {
             super.hideError(errorText);
-            super.goToUpload(UpdateButton);
+            super.goToUpdate(UpdateButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }

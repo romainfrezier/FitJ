@@ -3,7 +3,6 @@ package com.fitj.controllers.monCompte;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -11,13 +10,13 @@ import static com.fitj.facades.Facade.currentClient;
 
 public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
-    private TextArea pseudo;
+    private Text pseudo;
     @FXML
-    private TextArea password;
+    private Text password;
     @FXML
-    private TextArea mail;
+    private Text mail;
     @FXML
-    private TextArea Solde;
+    private Text Solde;
     @FXML
     private ImageView image;
     @FXML
@@ -28,7 +27,7 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        //change les valeurs des textArea
+        //change les valeurs des text
         pseudo.setText(currentClient.getPseudo());
         password.setText(currentClient.getPassword());
         mail.setText(currentClient.getEmail());
@@ -38,10 +37,10 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     }
 
     @FXML
-    private void goToUpload() {
+    private void goToUpdate() {
         try {
             super.hideError(errorText);
-            super.goToUpload(UpdateButton);
+            super.goToUpdate(UpdateButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }

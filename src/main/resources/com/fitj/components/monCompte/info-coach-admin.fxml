@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteCoachAdmin">
+<Pane prefHeight="339.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteClient">
    <children>
-      <ImageView fx:id="image" fitHeight="198.0" fitWidth="257.0" layoutX="30.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" />
-      <TextArea fx:id="pseudo" layoutX="334.0" layoutY="101.0" prefHeight="40.0" prefWidth="200.0" text="Nom du compte" />
-      <Text fill="#054371" layoutX="334.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MON COMPTE" wrappingWidth="445.3367004394531">
+      <ImageView fx:id="image" fitHeight="198.0" fitWidth="257.0" layoutX="36.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fill="#054371" layoutX="334.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MON COMPTE" wrappingWidth="445.3367004394531">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <TextArea fx:id="password" layoutX="547.0" layoutY="101.0" prefHeight="40.0" prefWidth="316.0" text="Mot de passe" />
-      <TextArea fx:id="mail" layoutX="334.0" layoutY="174.0" prefHeight="40.0" prefWidth="529.0" text="Mail" />
-      <Button fx:id="UpdateButton" layoutX="613.0" layoutY="340.0" mnemonicParsing="false" onAction="#goToUpload" style="-fx-background-color:  #054371;" text="Mettre à jour" textFill="WHITE">
+      <Button fx:id="UpdateButton" layoutX="613.0" layoutY="379.0" mnemonicParsing="false" onAction="#goToUpdate" style="-fx-background-color:  #054371;" text="Mettre à jour" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <TextArea fx:id="Solde" layoutX="334.0" layoutY="237.0" prefHeight="40.0" prefWidth="200.0" text="Solde" />
-      <Text fx:id="errorText" fill="RED" layoutX="334.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="425.9999999999999" />
+      <Text fx:id="errorText" fill="RED" layoutX="334.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="425.9999999999999" />
+      <Text fill="#054371" layoutX="557.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" wrappingWidth="92.13671875" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="333.0" layoutY="126.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="206.0" />
+      <Text fill="#054371" layoutX="334.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse mail" wrappingWidth="92.13671875" />
+      <Text fill="#054371" layoutX="334.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="92.13671875" />
+      <Text fx:id="pseudo" fill="#054371" layoutX="339.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="193.20001220703125" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="333.0" layoutY="197.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="475.0" />
+      <Text fx:id="mail" fill="#054371" layoutX="339.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mail" wrappingWidth="415.60003662109375" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="557.0" layoutY="126.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="250.0" />
+      <Text fx:id="password" fill="#054371" layoutX="563.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password" wrappingWidth="193.20001220703125" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="333.0" layoutY="273.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="206.0" />
+      <Text fill="#054371" layoutX="334.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="92.13671875" />
+      <Text fx:id="solde" fill="#054371" layoutX="339.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="193.20001220703125" />
    </children>
 </Pane>
