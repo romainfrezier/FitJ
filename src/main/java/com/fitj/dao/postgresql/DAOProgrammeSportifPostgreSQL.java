@@ -89,6 +89,25 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
     }
 
     @Override
+    public ProgrammeSportif updateProgrammeSportif(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception {
+        List<Pair<String,Object>> listeUpdate = new ArrayList<>();
+        listeUpdate.add(new Pair<>("nom",nom));
+        listeUpdate.add(new Pair<>("description",description));
+        listeUpdate.add(new Pair<>("prix",prix));
+        listeUpdate.add(new Pair<>("type",ProgrammeType.getProgrammeType(type)));
+        listeUpdate.add(new Pair<>("nbMois",nbMois));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",idProgramme));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(listeUpdate, whereList, this.table);
+            return this.getProgrammeSportifId(idProgramme);
+        }
+        catch (Exception e){
+            throw new DBProblemException("La mise à jour du programme sportif a échoué");
+        }
+    }
+
+    @Override
     public void supprimerProgrammeSportif(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id",id));
@@ -190,5 +209,19 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
             e.printStackTrace();
             throw new DBProblemException("La suppression de la séance dans ce programme sportif a échoué");
         }
+    }
+
+    @Override
+    public List<ProgrammeSportif> getAllProgrammeSportifByCoach(int idCoach) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("programmesportif.idcoach",idCoach));
+        return this.getAllProgrammeSportifWhere(whereList);
+    }
+
+    @Override
+    public List<ProgrammeSportif> getAllProgrammeSportifByClient(int idClient) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idclient",idClient));
+        return this.getAllProgrammeSportifWhere(whereList);
     }
 }
