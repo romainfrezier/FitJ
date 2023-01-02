@@ -61,6 +61,10 @@ public class ProgrammePersonnalise extends Service {
         super(idProduit);
     }
 
+    public ProgrammePersonnalise(int idProduit, String nom) {
+        super(idProduit, nom);
+    }
+
     /**
      * Set la demande du programme
      * @param demande Demande, la demande du programme
