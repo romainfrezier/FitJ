@@ -1,6 +1,7 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
 import com.fitj.classes.Admin;
+import com.fitj.classes.Coach;
 import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.enums.ProgrammeType;
@@ -47,6 +48,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     private VBox headerAdmin;
 
     @FXML
+    private VBox headerClient;
+
+    @FXML
     private VBox headerCoach;
 
     @FXML
@@ -67,8 +71,11 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
         super.hideError(errorText);
         if (Facade.currentClient instanceof Admin) {
             headerAdmin.setVisible(true);
-        } else {
+        } else if (Facade.currentClient instanceof Coach){
             headerCoach.setVisible(true);
+        }
+        else {
+            headerClient.setVisible(true);
         }
         detailProgrammeNutritionButton.setVisible(false);
         try {
