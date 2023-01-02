@@ -232,10 +232,12 @@ public class ControllerAddSeance extends ControllerSeance{
     public void updateExercice(){
         if (exerciceSelectedForDelete != null){
             if (nbSerieModifButton.getValue() > 0 && nbRepetModifButton.getValue() > 0) {
-                listeExerciceSeance.remove(exerciceSelectedForDelete);
-                listeExerciceSeance.add(new Triple<>(exerciceSelectedForDelete.getFirst(), nbSerieModifButton.getValue(), nbRepetModifButton.getValue()));
-                updateButtonExerciceDisplay(false);
-                initializeExerciceSeanceList();
+                int index = listeExerciceSeance.indexOf(exerciceSelectedForDelete);
+                if (index >= 0){
+                    listeExerciceSeance.set(index, new Triple<>(exerciceSelectedForDelete.getFirst(), nbSerieModifButton.getValue(), nbRepetModifButton.getValue()));
+                    initializeExerciceSeanceList();
+                    updateButtonExerciceDisplay(false);
+                }
             }
             else {
                 super.displayError(errorText, "Le nombre de séries et de répétitions doit être supérieur à 0");
@@ -244,6 +246,7 @@ public class ControllerAddSeance extends ControllerSeance{
             super.displayError(errorText, "Aucun exercice sélectionné");
         }
     }
+
 
     /**
      * Initialise la liste des sports pour la comboBox

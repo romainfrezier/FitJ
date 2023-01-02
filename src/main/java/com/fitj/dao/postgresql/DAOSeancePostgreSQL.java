@@ -16,6 +16,8 @@ import kotlin.Triple;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux séances
@@ -289,30 +291,33 @@ public class DAOSeancePostgreSQL extends DAOSeance {
 
     @Override
     public void ajouterExercice(Exercice exercice, int nbrepetition, int nbserie, int id) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idexercice", exercice.getId()));
-        insertList.add(new Pair<>("idseance", id));
-        insertList.add(new Pair<>("nbrepetition", nbrepetition));
-        insertList.add(new Pair<>("nbserie", nbserie));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "seanceexercice");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout de l'exercice dans cette séance a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            try {
+                List<Pair<String, Object>> insertList = new ArrayList<>();
+                insertList.add(new Pair<>("idexercice", exercice.getId()));
+                insertList.add(new Pair<>("idseance", id));
+                insertList.add(new Pair<>("nbrepetition", nbrepetition));
+                insertList.add(new Pair<>("nbserie", nbserie));
+                ((MethodesPostgreSQL) this.methodesBD).insert(insertList, "seanceexercice");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void supprimerExercice(Exercice exercice, int id) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idexercice", exercice.getId()));
-        whereList.add(new Pair<>("idseance", id));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "seanceexercice");
-        }
-        catch (Exception e){
-            throw new DBProblemException("La suppression de l'exercice dans cette séance a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            try {
+                List<Pair<String, Object>> whereList = new ArrayList<>();
+                whereList.add(new Pair<>("idexercice", exercice.getId()));
+                whereList.add(new Pair<>("idseance", id));
+                ((MethodesPostgreSQL) this.methodesBD).delete(whereList, "seanceexercice");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

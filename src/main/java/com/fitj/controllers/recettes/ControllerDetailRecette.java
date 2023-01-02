@@ -1,6 +1,7 @@
 package com.fitj.controllers.recettes;
 
 import com.fitj.classes.Admin;
+import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.facades.Facade;
 import com.fitj.interfaces.Ingredient;
@@ -39,6 +40,9 @@ public class ControllerDetailRecette extends ControllerRecette{
     private VBox headerCoach;
 
     @FXML
+    private VBox headerClient;
+
+    @FXML
     private Text nomRecette;
 
     @FXML
@@ -56,8 +60,11 @@ public class ControllerDetailRecette extends ControllerRecette{
         super.hideError(errorText);
         if (Facade.currentClient instanceof Admin) {
             headerAdmin.setVisible(true);
-        } else {
+        } else if (Facade.currentClient instanceof Coach){
             headerCoach.setVisible(true);
+        }
+        else {
+            headerClient.setVisible(true);
         }
         detailRecetteButton.setVisible(false);
         try {
