@@ -271,6 +271,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         joinList.add(new Triple<>("clientsport","idclient", "client.id"));
         joinList.add(new Triple<>("clientmateriel","idclient", "client.id"));
         joinList.add(new Triple<>("clientavis","idclient", "client.id"));
+        joinList.add(new Triple<>("solde","idcoach", "client.id"));
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList,whereList,this.table);
             List<Map<String,Object>> listData = resultSet.getListeData();
@@ -280,8 +281,19 @@ public class DAOClientPostgreSQL extends DAOClient {
                 Map<String,Object> data = listData.get(i);
                 if (idCurrentClient != ((Long)data.get("id")).intValue()){
                     idCurrentClient = ((Long)data.get("id")).intValue();
-                    Client client = new Client((String)data.get("mail"), (String)data.get("pseudo"), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanned"));
-                    listClients.add(client);
+                    if ((boolean)data.get("isadmin")){
+                        Admin admin = new Admin((String)data.get("mail"), (String)data.get("pseudo"), (double)data.get("poids"), (String)data.get("photo"), (int)data.get("taille"), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanni"));
+                        admin.setSolde((double)data.get("montant"));
+                        listClients.add(admin);
+                    }
+                    else if ((boolean)data.get("iscoach")){
+                        Coach coach = new Coach((String)data.get("mail"), (String)data.get("pseudo"), (double)data.get("poids"), (String)data.get("photo"), (int)data.get("taille"), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanni"));
+                        coach.setSolde((double)data.get("montant"));
+                        listClients.add(coach);
+                    }
+                    else {
+                        listClients.add(new Client((String)data.get("mail"), (String)data.get("pseudo"), (double)data.get("poids"), (String)data.get("photo"), (int)data.get("taille"), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanni")));
+                    }
                 }
                 i++;
             }
@@ -339,17 +351,25 @@ public class DAOClientPostgreSQL extends DAOClient {
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", idClient));
         ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, this.table);
+        List<Pair<String,Object>> data = new ArrayList<>();
+        data.add(new Pair<>("idcoach", idClient));
+        ((MethodesPostgreSQL)this.methodesBD).insert(data, "solde");
         return (Coach) this.getClientById(idClient);
     }
 
     @Override
-    public Admin clientBecomeAdmin(int idClient) throws Exception {
-        List<Pair<String,Object>> updateList = new ArrayList<>();
-        updateList.add(new Pair<>("isadmin", "true"));
-        List<Pair<String,Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("id", idClient));
-        ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, this.table);
-        return (Admin) this.getClientById(idClient);
+    public Admin coachBecomeAdmin(int idClient) throws Exception {
+        if (this.getClientById(idClient) instanceof Coach){
+            List<Pair<String,Object>> updateList = new ArrayList<>();
+            updateList.add(new Pair<>("isadmin", "true"));
+            List<Pair<String,Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("id", idClient));
+            ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, this.table);
+            return (Admin) this.getClientById(idClient);
+        } else {
+            throw new DBProblemException("Le client doit être un coach pour devenir admin");
+        }
+
     }
 
     @Override
@@ -393,6 +413,33 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
         catch (Exception e){
             throw new DBProblemException("Impossible de récupérer tous les clients du coach");
+        }
+    }
+
+    @Override
+    public Coach resetSoldeCoach(int coachId) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("solde", 0));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idcoach", coachId));
+        ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, "solde");
+        return (Coach) this.getClientById(coachId);
+    }
+
+    @Override
+    public Coach incrementeSoldeCoach(int coachId, int solde) throws Exception {
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idcoach", coachId));
+        DaoMapper soldeData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, "solde");
+        List<Map<String,Object>> result = soldeData.getListeData();
+        if (!result.isEmpty()){
+            double soldeActuel = (double)result.get(0).get("montant");
+            List<Pair<String,Object>> updateList = new ArrayList<>();
+            updateList.add(new Pair<>("solde", soldeActuel + solde));
+            ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, "solde");
+            return (Coach) this.getClientById(coachId);
+        } else {
+            throw new DBProblemException("Un problème est survenu lors de l'incrémentation du solde du coach");
         }
     }
 

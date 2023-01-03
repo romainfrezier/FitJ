@@ -14,6 +14,11 @@ import java.util.*;
 public class Coach extends Client implements PaymentReceiver, DemandReceiver {
 
     /**
+     * Le solde du coach
+     */
+    private double solde;
+
+    /**
      * Default constructor
      */
     public Coach(String email, String pseudo, double poids, String image, int taille, Sexe sexe, String password, int id, boolean ban) {
@@ -42,5 +47,13 @@ public class Coach extends Client implements PaymentReceiver, DemandReceiver {
     @Override
     public void receive(Paiement content) {
 
+    }
+
+    public double getSolde() {
+        return solde;
+    }
+
+    public void setSolde(double solde) {
+        this.solde = solde;
     }
 }

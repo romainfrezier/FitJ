@@ -18,7 +18,7 @@ public class Admin extends Coach {
         super(email,pseudo,poids,image,taille,sexe,password,id, ban);
     }
 
-    public Admin(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel, boolean ban) {
+    public Admin(String email, String pseudo, double poids, String photo, int taille, Sexe sexe, String password, int id, ArrayList<Sport> listeSport, ArrayList<Commande> listeCommande, ArrayList<Materiel> listeMateriel, boolean ban, double solde) {
         super(email, pseudo, poids, photo, taille, sexe, password, id, listeSport, listeCommande, listeMateriel, ban);
     }
 
