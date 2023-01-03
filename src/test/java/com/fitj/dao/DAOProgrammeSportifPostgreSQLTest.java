@@ -105,7 +105,7 @@ public class DAOProgrammeSportifPostgreSQLTest {
     public void testProgrammeSportifDelete() throws Exception {
         ProgrammeSportif programmeBD1 = daoProgrammeSportifPostgreSQL.createProgrammeSportif(programmeSportif.getNom(),programmeSportif.getDescription(),programmeSportif.getPrix(),programmeSportif.getType(),programmeSportif.getNbMois(),programmeSportif.getCoach(), (ArrayList<Seance>) programmeSportif.getListeSeance());
         daoProgrammeSportifPostgreSQL.supprimerProgrammeSportif(programmeBD1.getId());
-        Assertions.assertThrows(SQLException.class, () -> daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD1.getId()));
+        Assertions.assertThrows(SQLException.class, () -> daoProgrammeSportifPostgreSQL.getProgrammeSportifById(programmeBD1.getId()));
     }
 
     /**
@@ -127,9 +127,9 @@ public class DAOProgrammeSportifPostgreSQLTest {
     @Test
     public void testSupprimerSeanceProgrammeSportif() throws Exception {
         daoProgrammeSportifPostgreSQL.ajouterSeanceProgramme(seance2,programmeBD.getId());
-        int size = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
+        int size = daoProgrammeSportifPostgreSQL.getProgrammeSportifById(programmeBD.getId()).getListeSeance().size();
         daoProgrammeSportifPostgreSQL.supprimerSeanceProgramme(seance2,programmeBD.getId());
-        int size1 = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
+        int size1 = daoProgrammeSportifPostgreSQL.getProgrammeSportifById(programmeBD.getId()).getListeSeance().size();
         Assertions.assertEquals(size-1, size1);
     }
 
@@ -140,7 +140,7 @@ public class DAOProgrammeSportifPostgreSQLTest {
     @Test
     public void testAjouterSeanceProgrammeSportif() throws Exception {
         daoProgrammeSportifPostgreSQL.ajouterSeanceProgramme(seance2,programmeBD.getId());
-        int size = daoProgrammeSportifPostgreSQL.getProgrammeSportifId(programmeBD.getId()).getListeSeance().size();
+        int size = daoProgrammeSportifPostgreSQL.getProgrammeSportifById(programmeBD.getId()).getListeSeance().size();
         daoProgrammeSportifPostgreSQL.supprimerSeanceProgramme(seance2,programmeBD.getId());
         Assertions.assertEquals(size, programmeBD.getListeSeance().size() + 1);
     }

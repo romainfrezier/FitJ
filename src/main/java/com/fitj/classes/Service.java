@@ -20,7 +20,7 @@ public abstract class Service extends Produit {
         super(idService);
     }
 
-    public Service(int idProduit, String nom, String description, double prix) {
-        super(idProduit, nom, description, prix);
+    public Service(int idProduit, String nom) {
+        super(idProduit, nom);
     }
 }

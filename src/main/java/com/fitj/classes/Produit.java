@@ -53,11 +53,9 @@ public abstract class Produit implements Sendable, CommentReceiver {
         this.id = id;
     }
 
-    public Produit(int id, String nom, String description, double prix) {
+    public Produit(int id, String nom) {
         this.id = id;
         this.nom = nom;
-        this.description = description;
-        this.prix = prix;
     }
 
     /**

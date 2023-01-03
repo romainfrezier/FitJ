@@ -33,8 +33,8 @@ public class ProgrammeSportif extends Programme {
         super(idProduit);
     }
 
-    public ProgrammeSportif(int idProduit, String nom, String description, double prix) {
-        super(idProduit, nom, description, prix);
+    public ProgrammeSportif(int idProduit, String nom) {
+        super(idProduit, nom);
     }
 
     /**

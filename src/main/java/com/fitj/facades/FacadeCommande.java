@@ -1,6 +1,6 @@
 package com.fitj.facades;
 
-import com.fitj.classes.Commande;
+import com.fitj.classes.*;
 import com.fitj.dao.DAOCommande;
 import com.fitj.dao.factory.FactoryDAO;
 
@@ -36,5 +36,21 @@ public class FacadeCommande extends Facade {
 
     public Commande getCommandeById(int idObjectSelected) throws Exception {
         return this.daoCommande.getCommandeById(idObjectSelected);
+    }
+
+    public Produit getProduitById(Produit produit) throws Exception {
+        if (produit instanceof Pack) {
+            return FactoryDAO.getInstance().getDAOPack().getPackById(produit.getId());
+        } else if (produit instanceof ProgrammePersonnalise) {
+            return FactoryDAO.getInstance().getDAOProgrammePersonnalise().getProgrammePersonnaliseById(produit.getId());
+        } else if (produit instanceof ProgrammeSportif) {
+            return FactoryDAO.getInstance().getDAOProgrammeSportif().getProgrammeSportifById(produit.getId());
+        } else if (produit instanceof Seance) {
+            return FactoryDAO.getInstance().getDAOSeance().getSeanceById(produit.getId());
+        } else if (produit instanceof ProgrammeNutrition) {
+            return FactoryDAO.getInstance().getDAOProgrammeNutrition().getProgrammeNutritionById(produit.getId());
+        } else {
+            return null;
+        }
     }
 }

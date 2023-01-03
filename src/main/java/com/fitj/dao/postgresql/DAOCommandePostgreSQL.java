@@ -330,17 +330,17 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         index 43 : nom programmepersonnalise
          */
         if (commandeData.get(6) != null) {
-            return new Pack(((Long)commandeData.get(6)).intValue(), (String)commandeData.get(18), (String)commandeData.get(19),(double)commandeData.get(20));
+            return new Pack(((Long)commandeData.get(6)).intValue(), (String)commandeData.get(18));
         } else if (commandeData.get(8) != null) {
-            return new Seance(((Long)commandeData.get(8)).intValue(), (String)commandeData.get(23), (String)commandeData.get(24), (double) commandeData.get(25));
+            return new Seance(((Long)commandeData.get(8)).intValue(), (String)commandeData.get(23));
         } else if (commandeData.get(10) != null) {
-            return new ProgrammeSportif(((Long)commandeData.get(10)).intValue(), (String)commandeData.get(29), (String)commandeData.get(30), (double)commandeData.get(31));
+            return new ProgrammeSportif(((Long)commandeData.get(10)).intValue(), (String)commandeData.get(29));
         } else if (commandeData.get(12) != null) {
-            return new ProgrammeNutrition(((Long)commandeData.get(12)).intValue(), (String)commandeData.get(36), (String)commandeData.get(37), (double)commandeData.get(38));
+            return new ProgrammeNutrition(((Long)commandeData.get(12)).intValue(), (String)commandeData.get(36));
         } else if (commandeData.get(14) != null) {
             Sport sport = new Sport(((Long)commandeData.get(58)).intValue(), (String)commandeData.get(59));
             Demande demande = new Demande(((Long)commandeData.get(48)).intValue(),((Long)commandeData.get(49)).intValue(),(String)commandeData.get(50),(boolean)commandeData.get(51), (boolean) commandeData.get(52),((Long)commandeData.get(53)).intValue(),((Long)commandeData.get(54)).intValue(),sport, DemandeEtat.getDemandeEtat((String)commandeData.get(57)));
-            return new ProgrammePersonnalise(((Long)commandeData.get(14)).intValue(), (String)commandeData.get(43), (String)commandeData.get(44), (double)commandeData.get(45), demande);
+            return new ProgrammePersonnalise(((Long)commandeData.get(14)).intValue(), (String)commandeData.get(43), demande);
         } else {
             throw new DBProblemException("Le produit n'existe pas");
         }

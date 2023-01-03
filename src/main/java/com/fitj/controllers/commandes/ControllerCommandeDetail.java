@@ -1,18 +1,31 @@
 package com.fitj.controllers.commandes;
 
-import com.fitj.classes.Coach;
-import com.fitj.classes.Commande;
-import com.fitj.classes.ProgrammePersonnalise;
+import com.fitj.classes.*;
+import com.fitj.enums.DemandeEtat;
 import com.fitj.facades.Facade;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 public class ControllerCommandeDetail extends ControllerCommande{
 
+    @FXML
+    private Text sportLabel;
+    @FXML
+    private Rectangle sportCase;
+    @FXML
+    private Button voirDestinataire;
+    @FXML
+    private Button voirProduit;
+    @FXML
+    private Text destinataire;
+    @FXML
+    private Text sport;
     @FXML
     private Text demandeLabel;
     @FXML
@@ -44,23 +57,35 @@ public class ControllerCommandeDetail extends ControllerCommande{
         super.hideError(errorText);
         try {
             Commande commande = facadeCommande.getCommandeById(getIdObjectSelected());
+            Produit produit = facadeCommande.getProduitById(commande.getProduit());
+            Client client = commande.getClient();
+            Coach coach = commande.getCoach();
             titleText.setText("Détail de la commande n°" + commande.getId());
-            nomProduit.setText(commande.getProduit().getNom());
-            prixProduit.setText(commande.getProduit().getPrix() + "€");
-            descriptionProduit.getChildren().add(new Text(commande.getProduit().getDescription()));
-            if (commande.getProduit() instanceof ProgrammePersonnalise) {
+            nomProduit.setText(produit.getNom());
+            prixProduit.setText(produit.getPrix() + "€");
+            descriptionProduit.getChildren().add(new Text(produit.getDescription()));
+            if (commande.getDemande() != null) {
                 demandeProduit.getChildren().add(new Text(commande.getDemande().toString()));
+                sport.setText(commande.getDemande().getSport().getNom());
+                if (commande.getDemande().getEtat() != DemandeEtat.EN_ATTENTE) {
+                    repondreButton.setVisible(false);
+                }
             } else {
                 demandeProduit.setVisible(false);
                 demandeLabel.setVisible(false);
+                repondreButton.setVisible(false);
+                sport.setVisible(false);
+                sportCase.setVisible(false);
+                sportLabel.setVisible(false);
             }
             if (!(Facade.currentClient instanceof Coach)) {
                 headerClient.setVisible(false);
                 repondreButton.setVisible(false);
+                destinataire.setText(coach.getPseudo());
             } else {
                 headerCoach.setVisible(false);
+                destinataire.setText(client.getPseudo());
             }
-            // TODO: Afficher le boutons répondre que si le client est un coach et que l'état de la commande est en attente
         } catch (Exception e) {
             e.printStackTrace();
             displayError(errorText, e.getMessage());
@@ -84,6 +109,19 @@ public class ControllerCommandeDetail extends ControllerCommande{
 
     @FXML
     private void repondre() {
+        // TODO emmener vers la page de création de programme personnalisé
+        displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
+    }
+
+    @FXML
+    private void voirProduit() {
+        // TODO emmener vers la page de détail du produit
+        displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
+    }
+
+    @FXML
+    private void voirDestinaire() {
+        // TODO emmener vers la page de détail du client ou du coach
         displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
     }
 }
