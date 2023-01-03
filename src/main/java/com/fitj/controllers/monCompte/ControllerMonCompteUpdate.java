@@ -1,7 +1,5 @@
 package com.fitj.controllers.monCompte;
 
-import com.fitj.facades.FacadeClient;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,7 +7,7 @@ import javafx.scene.text.Text;
 
 import static com.fitj.facades.Facade.currentClient;
 
-public class ControllerUpdate extends ControllerMonCompte {
+public class ControllerMonCompteUpdate extends ControllerMonCompte {
 
     @FXML
     private TextField pseudo;
@@ -18,7 +16,7 @@ public class ControllerUpdate extends ControllerMonCompte {
     @FXML
     private TextField image;
     @FXML
-    private Button UpdateButton;
+    private Button updateButton;
     @FXML
     private Text errorText;
 
@@ -34,19 +32,20 @@ public class ControllerUpdate extends ControllerMonCompte {
 
     // @FXML
      @FXML
-     private void Update() throws Exception {
+     private void update() throws Exception {
          super.hideError(errorText);
-         if (!pseudo.getText().isEmpty()) {
-             clientFacade.updateClientPseudo(pseudo.getText(), currentClient.getId());
+         try {
+             if (pseudo.getText().isEmpty() || mail.getText().isEmpty() || image.getText().isEmpty()) {
+                super.displayError(errorText, "Veuillez remplir tous les champs");
+             } else {
+                 currentClient.setPseudo(pseudo.getText());
+                 currentClient.setEmail(mail.getText());
+                 currentClient.setPhoto(image.getText());
+                 super.displayError(errorText, "Informations modifiées");
+             }
+         } catch (Exception e) {
+             super.displayError(errorText, e.getMessage());
+
          }
-         if (!mail.getText().isEmpty()){
-             clientFacade.updateClientMail(mail.getText(), currentClient.getId());
-         }
-        if (!image.getText().isEmpty()) {
-            clientFacade.updateClientPhoto(image.getText(), currentClient.getId());
-        }
-        super.displayError(errorText, "Informations modifiées");
      }
-
-
 }

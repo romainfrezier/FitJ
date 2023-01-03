@@ -15,7 +15,7 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Button fx:id="UpdateButton" layoutX="755.0" layoutY="364.0" mnemonicParsing="false" onAction="#goToUpdate" style="-fx-background-color:  #054371;" text="Mettre à jour" textFill="WHITE">
+      <Button fx:id="updateButton" layoutX="755.0" layoutY="364.0" mnemonicParsing="false" onAction="#goToUpdate" style="-fx-background-color:  #054371;" text="Mettre à jour" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
@@ -30,7 +30,7 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="570.0" layoutY="125.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="121.0" />
       <Text fill="#054371" layoutX="571.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="92.13671875" />
       <Text fx:id="solde" fill="#054371" layoutX="580.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="103.5999755859375" />
-      <Button fx:id="UpdatePasswordButton" layoutX="482.0" layoutY="364.0" mnemonicParsing="false" onAction="#goToUpdatePassword" style="-fx-background-color:  #054371;" text="Changer de mot de passe" textFill="WHITE">
+      <Button fx:id="updatePasswordButton" layoutX="482.0" layoutY="364.0" mnemonicParsing="false" onAction="#goToUpdatePassword" style="-fx-background-color:  #054371;" text="Changer de mot de passe" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>

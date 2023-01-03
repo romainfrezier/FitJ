@@ -25,8 +25,6 @@ public abstract class ControllerMonCompte extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToUpdate(Control controlEl) throws BadPageException {
-        //print 2
-        System.out.println("2");
         goToPage(controlEl, monCompte + "update-monCompte.fxml", "Update");
     }
 

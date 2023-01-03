@@ -48,25 +48,7 @@ public class ControllerAddMesSport extends ControllerSport {
     private void initializeSportList() {
         try {
             List<Sport> sports = sportFacade.getAllSports();
-            listView.setCellFactory(new Callback<>() {
-                @Override
-                public ListCell<Sport> call(ListView<Sport> param) {
-                    return new ListCell<>() {
-                        @Override
-                        protected void updateItem(Sport item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item != null) {
-                                setText(item.getNom());
-                            } else {
-                                setText("");
-                            }
-                        }
-                    };
-                }
-            });
-            for (Sport sport : sports) {
-                listView.getItems().add(sport);
-            }
+            super.initializeSportList(listView, sports);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
         }

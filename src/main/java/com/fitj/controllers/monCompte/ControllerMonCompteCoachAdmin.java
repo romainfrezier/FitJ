@@ -18,9 +18,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
     private ImageView image;
     @FXML
-    private Button UpdateButton;
+    private Button updateButton;
     @FXML
-    private Button UpdatePasswordButton;
+    private Button updatePasswordButton;
     @FXML
     private Text errorText;
 
@@ -39,7 +39,7 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     private void goToUpdate() {
         try {
             super.hideError(errorText);
-            super.goToUpdate(UpdateButton);
+            super.goToUpdate(updateButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
@@ -49,7 +49,7 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     private void goToUpdatePassword() {
         try {
             super.hideError(errorText);
-            super.goToUpdatePassword(UpdatePasswordButton);
+            super.goToUpdatePassword(updatePasswordButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }

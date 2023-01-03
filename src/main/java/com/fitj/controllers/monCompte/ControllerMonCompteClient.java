@@ -1,10 +1,8 @@
 package com.fitj.controllers.monCompte;
 
-import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -18,11 +16,11 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
     @FXML
     private ImageView image;
     @FXML
-    private Button UpdateButton;
+    private Button updateButton;
     @FXML
     private Text errorText;
     @FXML
-    private Button UpdatePasswordButton;
+    private Button updatePasswordButton;
 
 
     @FXML
@@ -38,7 +36,7 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
     private void goToUpdate() {
         try {
             super.hideError(errorText);
-            super.goToUpdate(UpdateButton);
+            super.goToUpdate(updateButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
@@ -48,7 +46,7 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
     private void goToUpdatePassword() {
         try {
             super.hideError(errorText);
-            super.goToUpdatePassword(UpdatePasswordButton);
+            super.goToUpdatePassword(updatePasswordButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
