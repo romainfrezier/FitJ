@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.fitj.views.programmes.ProgrammesSportifs.CreateProgrammeSportif"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.programmes.programmesSportifs.ControllerAddProgrammeSportif">
+    <children>
+        <Pane layoutX="138.0" layoutY="215.0" prefHeight="495.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="65.0" layoutX="376.0" layoutY="322.0" stroke="#054371" strokeType="INSIDE" width="315.0">
+                    <styleClass>
+                        <String fx:value="rectangleShape" />
+                    </styleClass></Rectangle>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="65.0" layoutX="376.0" layoutY="408.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="315.0">
+                    <styleClass>
+                        <String fx:value="rectangleShape" />
+                    </styleClass>
+                </Rectangle>
+                <Text fill="#054371" layoutX="40.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les séances du programmes">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="nomProgrammeSportif" layoutX="231.0" layoutY="46.0" prefHeight="28.0" prefWidth="461.0" styleClass="emptyRectangle" />
+                <ListView fx:id="listViewSeanceProgrammeSportif" layoutX="40.0" layoutY="111.0" onMouseClicked="#setSeanceSelectedToDelete" prefHeight="150.0" prefWidth="315.0" styleClass="emptyRectangle" />
+                <ListView fx:id="listViewSeance" layoutX="376.0" layoutY="111.0" onMouseClicked="#setSeanceSelected" prefHeight="150.0" prefWidth="315.0" styleClass="emptyRectangle" />
+                <Button layoutX="144.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#supprimerSeance" prefHeight="27.0" prefWidth="92.0" styleClass="buttonBlue" text="Supprimer" textFill="WHITE" />
+                <Button layoutX="487.0" layoutY="267.0" mnemonicParsing="false" onMouseClicked="#addSeance" prefHeight="25.0" prefWidth="92.0" styleClass="buttonBlue" text="Ajouter" textFill="WHITE" />
+                <Text fill="#054371" layoutX="231.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du programme sportif">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <TextArea fx:id="descriptionProgramme" layoutX="40.0" layoutY="323.0" prefHeight="150.0" prefWidth="315.0" styleClass="emptyRectangle" />
+                <Text fill="#054371" layoutX="40.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                <Text fill="#054371" layoutX="376.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Durée en mois" />
+                <Text fill="#054371" layoutX="376.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" />
+                <ComboBox fx:id="typeProgrammeSportif" layoutX="40.0" layoutY="46.0" prefWidth="150.0" promptText="Difficulté" styleClass="emptyRectangle" />
+                <Slider fx:id="nbMoisProgrammeSportif" layoutX="396.0" layoutY="424.0" majorTickUnit="1.0" max="12.0" min="1.0" minorTickCount="1" onMouseReleased="#updateMoisValue" prefHeight="33.0" prefWidth="271.0" showTickLabels="true" value="6.0" />
+                <Slider fx:id="prixProgrammeSportif" layoutX="396.0" layoutY="339.0" max="2000.0" onMouseReleased="#updateMontantProgramme" prefHeight="33.0" prefWidth="271.0" showTickLabels="true" />
+                <Text fx:id="montantProgramme" fill="RED" layoutX="613.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="montant" textAlignment="RIGHT" wrappingWidth="77.90478515625" />
+                <Text fill="#054371" layoutX="376.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les séances disponibles">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <Text fx:id="nbMoisValue" fill="RED" layoutX="614.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mois" textAlignment="RIGHT" wrappingWidth="77.90478515625" />
+            </children>
+        </Pane>
+        <Text fill="#054371" layoutX="227.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un nouveau programme sportif">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Text>
+        <Button fx:id="addProgrammeSportif" layoutX="408.0" layoutY="725.0" mnemonicParsing="false" onAction="#addProgrammeSportif" styleClass="buttonBlue" text="Créer le programme sportif" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <VBox fx:id="headerAdmin" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
+            <children>
+                <fx:include source="../../../components/headers/header-admin.fxml" />
+            </children>
+        </VBox>
+        <VBox fx:id="headerCoach" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
+            <children>
+                <fx:include source="../../../components/headers/header-coach.fxml" />
+            </children>
+        </VBox>
+        <Text fx:id="errorText" fill="RED" layoutX="137.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
+    </children>
+</Pane>

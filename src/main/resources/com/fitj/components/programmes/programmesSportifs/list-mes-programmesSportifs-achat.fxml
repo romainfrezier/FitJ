@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.fitj.components.programmes.programmesSportifs.ListMesProgrammesSportifsAchat"
-            prefHeight="400.0" prefWidth="600.0">
+<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.programmes.programmesSportifs.ControllerMesProgrammesSportifsAchat">
+    <children>
+        <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItem" prefHeight="450.0" prefWidth="867.0" styleClass="emptyRectangle" />
+        <Text fx:id="errorText" fill="RED" layoutX="128.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+        <Button fx:id="detailProgrammeSportifButton" layoutX="205.0" layoutY="519.0" mnemonicParsing="false" onAction="#goToDetailProgrammeSportif" styleClass="buttonBlue" text="Voir" />
+    </children>
+</Pane>
 
-</AnchorPane>

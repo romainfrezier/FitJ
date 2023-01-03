@@ -56,7 +56,7 @@ public class FacadeProgrammeSportif extends Facade{
      * @throws Exception
      */
     public ProgrammeSportif getProgrammeSportifById(int idProgramme) throws Exception{
-        return this.programmeSportifDAO.getProgrammeSportifId(idProgramme);
+        return this.programmeSportifDAO.getProgrammeSportifById(idProgramme);
     }
 
     /**
@@ -64,7 +64,7 @@ public class FacadeProgrammeSportif extends Facade{
      * @return la liste des programmes sportifs créées par le coach
      * @throws Exception
      */
-    public List<ProgrammeSportif> getProgrammeSportifnByCoach(Coach coach) throws Exception{
+    public List<ProgrammeSportif> getProgrammeSportifByCoach(Coach coach) throws Exception{
         return programmeSportifDAO.getAllProgrammeSportifByCoach(coach.getId());
     }
 
@@ -103,7 +103,7 @@ public class FacadeProgrammeSportif extends Facade{
     /**
      * Supprime une séance d'un programme sportif
      * @param idProgrammeNutrition l'id du programme sportif à récupérer
-     * @param recette la recette à ajouter au programme sportif
+     * @param seance la recette à ajouter au programme sportif
      * @throws Exception si la recette est déjà dans le programme sportif
      */
     public void removeSeanceFromProgrammeSportif(int idProgrammeNutrition, Seance seance) throws Exception{
@@ -114,7 +114,7 @@ public class FacadeProgrammeSportif extends Facade{
     /**
      * Ajoute une séance à un programme sportif
      * @param idProgrammeNutrition l'id du programme sportif à récupérer
-     * @param recette la recette à ajouter au programme sportif
+     * @param seance la recette à ajouter au programme sportif
      * @throws Exception si la recette est déjà dans le programme sportif
      */
     public void addSeanceToProgrammeSportif(int idProgrammeNutrition, Seance seance) throws Exception{

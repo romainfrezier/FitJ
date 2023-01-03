@@ -89,7 +89,7 @@ public abstract class ControllerProgrammeSportif extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToDetailSeance(Control controlEl) throws BadPageException {
-        goToPage(controlEl, "seance/" + "detail-seance.fxml", "Détail d'une séance");
+        goToPage(controlEl, "seances/" + "detail-seance.fxml", "Détail d'une séance");
     }
 
     void initializeProgrammeSportifList(ListView<ProgrammeSportif> listView, List<ProgrammeSportif> items) {
