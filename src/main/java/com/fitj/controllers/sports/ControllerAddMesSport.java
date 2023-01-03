@@ -3,10 +3,15 @@ package com.fitj.controllers.sports;
 import com.fitj.classes.Sport;
 import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.FacadeClient;
+import com.fitj.facades.FacadeSport;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.util.List;
 

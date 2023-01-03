@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteClient">
+<Pane prefHeight="339.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteCoachAdmin">
    <children>
       <ImageView fx:id="image" fitHeight="198.0" fitWidth="257.0" layoutX="36.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
       <Text fill="#054371" layoutX="334.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MON COMPTE" wrappingWidth="445.3367004394531">
@@ -15,7 +15,7 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Button fx:id="updateButton" layoutX="760.0" layoutY="331.0" mnemonicParsing="false" onAction="#goToUpdate" style="-fx-background-color:  #054371;" text="Mettre à jour" textFill="WHITE">
+      <Button fx:id="updateButton" layoutX="755.0" layoutY="364.0" mnemonicParsing="false" onAction="#goToUpdate" style="-fx-background-color:  #054371;" text="Mettre à jour" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
@@ -25,9 +25,12 @@
       <Text fill="#054371" layoutX="334.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse mail" wrappingWidth="92.13671875" />
       <Text fill="#054371" layoutX="334.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="92.13671875" />
       <Text fx:id="pseudo" fill="#054371" layoutX="339.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" wrappingWidth="193.20001220703125" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="333.0" layoutY="197.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="474.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="333.0" layoutY="197.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="475.0" />
       <Text fx:id="mail" fill="#054371" layoutX="339.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mail" wrappingWidth="415.60003662109375" />
-      <Button fx:id="updatePasswordButton" layoutX="491.0" layoutY="331.0" mnemonicParsing="false" onAction="#goToUpdatePassword" style="-fx-background-color:  #054371;" text="Changer de mot de passe" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7fbff" height="40.0" layoutX="570.0" layoutY="125.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="121.0" />
+      <Text fill="#054371" layoutX="571.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="92.13671875" />
+      <Text fx:id="solde" fill="#054371" layoutX="580.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solde" wrappingWidth="103.5999755859375" />
+      <Button fx:id="updatePasswordButton" layoutX="482.0" layoutY="364.0" mnemonicParsing="false" onAction="#goToUpdatePassword" style="-fx-background-color:  #054371;" text="Changer de mot de passe" textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
