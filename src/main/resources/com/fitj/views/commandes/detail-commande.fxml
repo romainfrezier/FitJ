@@ -24,7 +24,7 @@
                 <Text fx:id="nomProduit" fill="#054371" layoutX="22.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du produit" wrappingWidth="418.5" />
                 <Text fx:id="prixProduit" fill="#054371" layoutX="473.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix €" textAlignment="RIGHT" wrappingWidth="85.21630859375" />
                 <TextFlow fx:id="descriptionProduit" layoutX="15.0" layoutY="272.0" prefHeight="132.0" prefWidth="908.0" styleClass="emptyRectangle" />
-                <TextFlow fx:id="demandeProduit" layoutX="19.0" layoutY="443.0" prefHeight="132.0" prefWidth="729.0" styleClass="emptyRectangle" />
+                <TextFlow fx:id="demandeProduit" layoutX="17.0" layoutY="443.0" prefHeight="132.0" prefWidth="731.0" styleClass="emptyRectangle" />
                 <Text fill="#054371" layoutX="16.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
                 <Text fx:id="demandeLabel" fill="#054371" layoutX="18.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demande" />
                 <Button fx:id="retourButton" layoutX="423.0" layoutY="616.0" mnemonicParsing="false" onAction="#goBack" styleClass="buttonBlue" text="&lt;&lt; Retour" />

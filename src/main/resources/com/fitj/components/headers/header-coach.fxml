@@ -24,5 +24,10 @@
             <Image url="@../../../../img/notifications_icon.png" />
          </image>
       </ImageView>
+        <ImageView fx:id="newNotifIcon" fitHeight="32.0" fitWidth="36.0" layoutX="79.0" layoutY="12.0" onMouseClicked="#goToNotification" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../../../../img/new_notifications_icon.png" />
+            </image>
+        </ImageView>
     </children>
 </Pane>

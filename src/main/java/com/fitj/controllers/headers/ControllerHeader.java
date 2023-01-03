@@ -2,6 +2,7 @@ package com.fitj.controllers.headers;
 
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.FacadeNotification;
 import javafx.scene.control.Control;
 
 /**
@@ -10,6 +11,11 @@ import javafx.scene.control.Control;
  * @author Romain Frezier
  */
 public abstract class ControllerHeader extends Controller {
+
+    /**
+     * Facade pour les notifications
+     */
+    FacadeNotification facadeNotification = FacadeNotification.getInstance();
 
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux clients avec un certain role

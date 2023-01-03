@@ -79,11 +79,11 @@ public class ControllerCommandeDetail extends ControllerCommande{
                 sportLabel.setVisible(false);
             }
             if (!(Facade.currentClient instanceof Coach)) {
-                headerClient.setVisible(false);
+                headerCoach.setVisible(false);
                 repondreButton.setVisible(false);
                 destinataire.setText(coach.getPseudo());
             } else {
-                headerCoach.setVisible(false);
+                headerClient.setVisible(false);
                 destinataire.setText(client.getPseudo());
             }
         } catch (Exception e) {
