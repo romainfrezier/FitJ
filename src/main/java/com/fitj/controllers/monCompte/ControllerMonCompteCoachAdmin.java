@@ -1,14 +1,21 @@
 package com.fitj.controllers.monCompte;
 
+import com.fitj.classes.Coach;
 import com.fitj.exceptions.BadPageException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 import static com.fitj.facades.Facade.currentClient;
 
 public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
+    @FXML
+    private Text solde;
+    @FXML
+    private Button retirer;
     @FXML
     private Text pseudo;
     @FXML
@@ -30,9 +37,10 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
         //change les valeurs des text
         pseudo.setText(currentClient.getPseudo());
         mail.setText(currentClient.getEmail());
-        //Solde.setText(currentClient.getSolde());
+        // solde.setText(((Coach)currentClient).getSolde() + " €");
         //change l'image a partir d'un lien
-        //image.setImage(currentClient.getPhoto());
+        Image img = new Image(currentClient.getPhoto());
+        image.setImage(img);
     }
 
     @FXML
@@ -56,5 +64,8 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     }
 
 
-
+    @FXML
+    private void handleRetirerButton() {
+        displayError(errorText, "Fontionnalité non disponible");
+    }
 }

@@ -1,9 +1,13 @@
 package com.fitj.controllers.monCompte;
 
+import com.fitj.classes.Admin;
+import com.fitj.classes.Coach;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeClient;
 import com.fitj.facades.FacadeMateriel;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 
 /**
@@ -31,6 +35,17 @@ public abstract class ControllerMonCompte extends Controller {
     void goToUpdatePassword(Control controlEl) throws BadPageException {
         goToPage(controlEl, monCompte + "update-password.fxml", "UpdatePassword");
     }
+
+    protected void goToMonCompte(Control controlEl) throws BadPageException {
+        if (Facade.currentClient instanceof Admin) {
+            goToPage(controlEl, "admins/monCompte-admin.fxml", "Mon Compte");
+        } else if (Facade.currentClient instanceof Coach) {
+            goToPage(controlEl, "coachs/monCompte-coach.fxml", "Mon Compte");
+        } else {
+            goToPage(controlEl, "clients/monCompte-client.fxml", "Mon Compte");
+        }
+    }
+
 }
 
 

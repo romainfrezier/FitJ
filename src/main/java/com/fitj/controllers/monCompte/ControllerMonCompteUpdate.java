@@ -30,9 +30,8 @@ public class ControllerMonCompteUpdate extends ControllerMonCompte {
 
     }
 
-    // @FXML
      @FXML
-     private void update() throws Exception {
+     private void update() {
          super.hideError(errorText);
          try {
              if (pseudo.getText().isEmpty() || mail.getText().isEmpty() || image.getText().isEmpty()) {
@@ -41,11 +40,10 @@ public class ControllerMonCompteUpdate extends ControllerMonCompte {
                  currentClient.setPseudo(pseudo.getText());
                  currentClient.setEmail(mail.getText());
                  currentClient.setPhoto(image.getText());
-                 super.displayError(errorText, "Informations modifiées");
+                 super.goToMonCompte(updateButton);
              }
          } catch (Exception e) {
              super.displayError(errorText, e.getMessage());
-
          }
      }
 }
