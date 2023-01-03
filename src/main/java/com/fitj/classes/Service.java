@@ -19,4 +19,8 @@ public abstract class Service extends Produit {
     public Service(int idService) {
         super(idService);
     }
+
+    public Service(int idProduit, String nom) {
+        super(idProduit, nom);
+    }
 }

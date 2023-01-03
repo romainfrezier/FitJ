@@ -76,10 +76,10 @@ public class DAOProgrammePersonnalisePostgreSQLTest {
     public static void init() throws Exception {
         daoProgrammePersonnalisePostgreSQL = new DAOProgrammePersonnalisePostgreSQL();
         sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getAllSport().get(0);
-        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44,false);
         programmePersonnalise = daoProgrammePersonnalisePostgreSQL.createProgrammePersonnalise("ProgrammeMaster", "Je veux devenir superman", 1000, coach);
         demande = FactoryDAOPostgreSQL.getInstance().getDAODemande().createDemande(12,"Je suis faible je veux devenir fort", true, true, 5, 12, sport, programmePersonnalise);
-        programmePersonnaliseDemande = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(demande.getProgrammePersonnalise().getId());
+        programmePersonnaliseDemande = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseById(demande.getProgrammePersonnalise().getId());
         listeProgramme = new ArrayList<>();
         programmeSportif = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("ProgrammeSportif", "Je veux devenir superman", 1000, ProgrammeType.FACILE, 4, coach, new ArrayList<>());
         programmeNutrition = new DAOProgrammeNutritionPostgreSQL().createProgrammeNutrition("ProgrammeNutrition", "Je veux devenir superman", 1000, ProgrammeType.FACILE, 4, coach, new ArrayList<>());
@@ -133,7 +133,7 @@ public class DAOProgrammePersonnalisePostgreSQLTest {
     public void testProgrammePersonnaliseDelete() throws Exception {
         ProgrammePersonnalise programmePersonnalise = daoProgrammePersonnalisePostgreSQL.createProgrammePersonnalise("ProgrammeMaster", "Je veux devenir superman", 1000, coach);
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammePersonnalise(programmePersonnalise.getId());
-        Assertions.assertThrows(Exception.class, () -> daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnalise.getId()));
+        Assertions.assertThrows(Exception.class, () -> daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseById(programmePersonnalise.getId()));
     }
 
     /**
@@ -155,9 +155,9 @@ public class DAOProgrammePersonnalisePostgreSQLTest {
     @Test
     public void testSupprimerProgrammeProgrammePersonnalise() throws Exception {
         daoProgrammePersonnalisePostgreSQL.ajouterProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
-        ProgrammePersonnalise programmePersonnalise1 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
+        ProgrammePersonnalise programmePersonnalise1 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseById(programmePersonnaliseDemande.getId());
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
-        ProgrammePersonnalise programmePersonnalise2 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
+        ProgrammePersonnalise programmePersonnalise2 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseById(programmePersonnaliseDemande.getId());
         Assertions.assertEquals(programmePersonnalise1.getListeProgrammes().size(), programmePersonnalise2.getListeProgrammes().size() + 1);
     }
 
@@ -169,10 +169,10 @@ public class DAOProgrammePersonnalisePostgreSQLTest {
     public void testAjouterProgrammeProgrammePersonnalise() throws Exception {
         daoProgrammePersonnalisePostgreSQL.ajouterProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
         daoProgrammePersonnalisePostgreSQL.ajouterProgrammeProgrammePersonnalise(programmeSportif,programmePersonnaliseDemande.getId());
-        ProgrammePersonnalise programmePersonnalise1 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
+        ProgrammePersonnalise programmePersonnalise1 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseById(programmePersonnaliseDemande.getId());
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammeProgrammePersonnalise(programmeNutrition,programmePersonnaliseDemande.getId());
         daoProgrammePersonnalisePostgreSQL.supprimerProgrammeProgrammePersonnalise(programmeSportif,programmePersonnaliseDemande.getId());
-        ProgrammePersonnalise programmePersonnalise2 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseId(programmePersonnaliseDemande.getId());
+        ProgrammePersonnalise programmePersonnalise2 = daoProgrammePersonnalisePostgreSQL.getProgrammePersonnaliseById(programmePersonnaliseDemande.getId());
         Assertions.assertEquals(programmePersonnalise2.getListeProgrammes().size(), programmePersonnalise1.getListeProgrammes().size() - 2);
     }
 

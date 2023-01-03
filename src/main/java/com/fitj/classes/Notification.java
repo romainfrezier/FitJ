@@ -30,11 +30,17 @@ public class Notification implements Sendable {
      */
     private int idCommande;
 
-    public Notification(int id, String message, int idClient, int idCommande) {
+    /**
+     * Date de la notification
+     */
+    private Date date;
+
+    public Notification(int id, String message, int idClient, int idCommande, Date date) {
         this.id = id;
         this.message = message;
         this.idClient = idClient;
         this.idCommande = idCommande;
+        this.date = date;
     }
 
     /**
@@ -75,5 +81,13 @@ public class Notification implements Sendable {
 
     public void setIdCommande(int idCommande) {
         this.idCommande = idCommande;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

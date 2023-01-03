@@ -31,7 +31,7 @@ public abstract class DAOProgrammeSportif extends DAO{
      * @return le ProgrammeSportif récupéré dans la base de donnée
      * @throws Exception
      */
-    public abstract ProgrammeSportif getProgrammeSportifId(int id) throws Exception;
+    public abstract ProgrammeSportif getProgrammeSportifById(int id) throws Exception;
 
     /**
      * @param updateList List<Pair<String,Object>>, la liste des objet à modifié dans la table pour le programme sportif

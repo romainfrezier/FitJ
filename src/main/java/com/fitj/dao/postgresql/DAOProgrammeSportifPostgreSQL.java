@@ -45,7 +45,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
                 listeInsertSeance.add(new Pair<>("idseance",seance.getId()));
                 ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertSeance, "programmesportseance");
             }
-            return this.getProgrammeSportifId(idProgramme);
+            return this.getProgrammeSportifById(idProgramme);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
     }
 
     @Override
-    public ProgrammeSportif getProgrammeSportifId(int id) throws Exception {
+    public ProgrammeSportif getProgrammeSportifById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
@@ -81,7 +81,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         whereList.add(new Pair<>("id",id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).update(updateList,whereList,this.table);
-            return this.getProgrammeSportifId(id);
+            return this.getProgrammeSportifById(id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du programme sportif a échoué");

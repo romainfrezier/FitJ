@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.commandes.ControllerCommandeDetail">
+    <children>
+        <AnchorPane layoutX="41.0" layoutY="87.0" prefHeight="676.0" prefWidth="938.0" styleClass="emptyRectangle">
+            <children>
+                <Text fx:id="titleText" fill="#054371" layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande n°X " wrappingWidth="462.21630859375">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <Line endX="808.5" layoutX="115.0" layoutY="37.0" startX="-100.0" stroke="#054371" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="14.0" layoutY="98.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangleShape" width="559.0" />
+                <Text fx:id="nomProduit" fill="#054371" layoutX="22.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du produit" wrappingWidth="418.5" />
+                <Text fx:id="prixProduit" fill="#054371" layoutX="473.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix €" textAlignment="RIGHT" wrappingWidth="85.21630859375" />
+                <TextFlow fx:id="descriptionProduit" layoutX="15.0" layoutY="272.0" prefHeight="132.0" prefWidth="908.0" styleClass="emptyRectangle" />
+                <TextFlow fx:id="demandeProduit" layoutX="17.0" layoutY="443.0" prefHeight="132.0" prefWidth="731.0" styleClass="emptyRectangle" />
+                <Text fill="#054371" layoutX="16.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                <Text fx:id="demandeLabel" fill="#054371" layoutX="18.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Demande" />
+                <Button fx:id="retourButton" layoutX="423.0" layoutY="616.0" mnemonicParsing="false" onAction="#goBack" styleClass="buttonBlue" text="&lt;&lt; Retour" />
+                <Button fx:id="repondreButton" layoutX="824.0" layoutY="616.0" mnemonicParsing="false" onAction="#repondre" styleClass="buttonRed" text="Répondre" />
+                <Text fx:id="errorText" fill="RED" layoutX="540.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="RIGHT" wrappingWidth="383.21630859375" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="75.0" layoutX="584.0" layoutY="98.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangleShape" width="336.0" />
+            <Rectangle fx:id="sportCase" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="132.0" layoutX="758.0" layoutY="443.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangleShape" width="166.0" />
+            <Text fx:id="destinataire" fill="#054371" layoutX="592.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coach/Client" />
+            <Text fx:id="sport" fill="#054371" layoutX="769.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sport" />
+            <Text fx:id="sportLabel" fill="#054371" layoutX="758.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sport" />
+            <Text fill="#054371" layoutX="585.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destinataire" />
+            <Text fill="#054371" layoutX="15.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produit" />
+            <Button fx:id="voirProduit" layoutX="14.0" layoutY="181.0" mnemonicParsing="false" onAction="#voirProduit" styleClass="buttonBlue" text="Voir" />
+            <Button fx:id="voirDestinataire" layoutX="583.0" layoutY="181.0" mnemonicParsing="false" onAction="#voirDestinaire" styleClass="buttonBlue" text="Voir" />
+            </children>
+        </AnchorPane>
+        <VBox fx:id="headerCoach" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
+            <children>
+                <fx:include source="../../components/headers/header-coach.fxml" />
+            </children>
+        </VBox>
+        <VBox fx:id="headerClient" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
+            <children>
+                <fx:include source="../../components/headers/header-client.fxml" />
+            </children>
+        </VBox>
+    </children>
+</Pane>

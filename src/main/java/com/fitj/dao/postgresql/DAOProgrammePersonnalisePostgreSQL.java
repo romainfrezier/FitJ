@@ -56,7 +56,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
 
         try {
             int idProgramme = ((MethodesPostgreSQL)this.methodesBD).insert(listeInsert, this.table);
-            return this.getProgrammePersonnaliseId(idProgramme);
+            return this.getProgrammePersonnaliseById(idProgramme);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -65,7 +65,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
     }
 
     @Override
-    public ProgrammePersonnalise getProgrammePersonnaliseId(int id) throws Exception {
+    public ProgrammePersonnalise getProgrammePersonnaliseById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
@@ -93,7 +93,7 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         whereList.add(new Pair<>("id",id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).update(updateList,whereList,this.table);
-            return this.getProgrammePersonnaliseId(id);
+            return this.getProgrammePersonnaliseById(id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du programme personnalisé a échoué");

@@ -5,6 +5,7 @@ import com.fitj.dao.DAOCommande;
 import com.fitj.dao.DAOPaiement;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.tools.DaoMapper;
+import com.fitj.enums.DemandeEtat;
 import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
@@ -12,6 +13,7 @@ import kotlin.Triple;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -207,7 +209,7 @@ public class DAOCommandePostgreSQL extends DAOCommande {
     @Override
     public Commande getCommandeById(int id) throws Exception {
         List<Pair<String, Object>> listeWhere = new ArrayList<>();
-        listeWhere.add(new Pair<>("id", id));
+        listeWhere.add(new Pair<>("commande.id", id));
         return getAllCommandeWhere(listeWhere).get(0);
     }
 
@@ -260,6 +262,13 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         joinList.add(new Triple<>("commandeprogrammenutrition","idcommande","commande.id"));
         joinList.add(new Triple<>("commandeprogrammepersonnalise","idcommande","commande.id"));
         joinList.add(new Triple<>("commandedemande","idcommande","commande.id"));
+        joinList.add(new Triple<>("pack","id","commandepack.idpack"));
+        joinList.add(new Triple<>("seance","id","commandeseance.idseance"));
+        joinList.add(new Triple<>("programmesportif","id","commandeprogrammesportif.idprogramme"));
+        joinList.add(new Triple<>("programmenutrition","id","commandeprogrammenutrition.idprogramme"));
+        joinList.add(new Triple<>("programmepersonnalise","id","commandeprogrammepersonnalise.idprogramme"));
+        joinList.add(new Triple<>("demande","id","commandedemande.iddemande"));
+        joinList.add(new Triple<>("sport","id","demande.idsport"));
         try {
             DaoMapper commandeData = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listeData = commandeData.getListeData();
@@ -268,19 +277,26 @@ public class DAOCommandePostgreSQL extends DAOCommande {
             while (i < listeData.size()){
                 Map<String,Object> data = listeData.get(i);
                 Map<Integer,Object> dataIndex = listeDataIndex.get(i);
-                if (dataIndex.get(5) != null || dataIndex.get(7) != null || dataIndex.get(9) != null || dataIndex.get(11) != null || dataIndex.get(13) != null) {
+                /*
+                index 6 : idpack
+                index 8 : idseance
+                index 10 : idprogrammesportif
+                index 12 : idprogrammenutrition
+                index 14 : idprogrammepersonnalise
+                 */
+                if (dataIndex.get(6) != null || dataIndex.get(8) != null || dataIndex.get(10) != null || dataIndex.get(12) != null || dataIndex.get(14) != null) {
                     Produit produit = getTypeProduit(dataIndex);
-                    Client client = new DAOClientPostgreSQL().getClientById(((Long)data.get("idclient")).intValue());
-                    Coach coach = (Coach) new DAOClientPostgreSQL().getClientById(((Long)data.get("idcoach")).intValue());
+                    Client client = new DAOClientPostgreSQL().getClientById(((Long)dataIndex.get(2)).intValue()); // index 2 = idclient
+                    Coach coach = (Coach) new DAOClientPostgreSQL().getClientById(((Long)dataIndex.get(3)).intValue()); // index 3 = idcoach
                     Commande commande;
                     if (produit instanceof ProgrammePersonnalise) {
                         Demande demande = new DAODemandePostgreSQL().getDemandeById(((Long)data.get("iddemande")).intValue());
-                        commande = new CommandePayante(client, coach, produit, ((Long)data.get("id")).intValue(), demande);
+                        commande = new CommandePayante(client, coach, produit, ((Long)dataIndex.get(1)).intValue(), (Date)dataIndex.get(4), demande); // index 1 = idcommande
                     } else {
                         if (produit.getPrix() == 0) {
-                            commande = new CommandeNonPayante(client, coach, produit, ((Long)data.get("id")).intValue());
+                            commande = new CommandeNonPayante(client, coach, produit, ((Long)dataIndex.get(1)).intValue(), (Date)dataIndex.get(4)); // index 1 = idcommande
                         } else {
-                            commande = new CommandePayante(client, coach, produit, ((Long)data.get("id")).intValue());
+                            commande = new CommandePayante(client, coach, produit, ((Long)dataIndex.get(1)).intValue(), (Date)dataIndex.get(4)); // index 1 = idcommande
                         }
                     }
                     listeCommande.add(commande);
@@ -301,21 +317,30 @@ public class DAOCommandePostgreSQL extends DAOCommande {
      * @throws Exception si une erreur SQL survient
      */
     private Produit getTypeProduit(Map<Integer,Object> commandeData) throws Exception {
-        System.out.println(commandeData.get(5));
-        System.out.println(commandeData.get(7));
-        System.out.println(commandeData.get(9));
-        System.out.println(commandeData.get(11));
-        System.out.println(commandeData.get(13));
-        if (commandeData.get(5) != null) {
-            return new Pack(((Long)commandeData.get(5)).intValue());
-        } else if (commandeData.get(7) != null) {
-            return new Seance(((Long)commandeData.get(7)).intValue());
-        } else if (commandeData.get(9) != null) {
-            return new ProgrammeSportif(((Long)commandeData.get(9)).intValue());
-        } else if (commandeData.get(11) != null) {
-            return new ProgrammeNutrition(((Long)commandeData.get(11)).intValue());
-        } else if (commandeData.get(13) != null) {
-            return new ProgrammePersonnalise(((Long)commandeData.get(13)).intValue());
+        /*
+        index 6 : idpack
+        index 8 : idseance
+        index 10 : idprogrammesportif
+        index 12 : idprogrammenutrition
+        index 14 : idprogrammepersonnalise
+        index 18 : nom pack
+        index 23 : nom seance
+        index 29 : nom programmesportif
+        index 36 : nom programmenutrition
+        index 43 : nom programmepersonnalise
+         */
+        if (commandeData.get(6) != null) {
+            return new Pack(((Long)commandeData.get(6)).intValue(), (String)commandeData.get(18));
+        } else if (commandeData.get(8) != null) {
+            return new Seance(((Long)commandeData.get(8)).intValue(), (String)commandeData.get(23));
+        } else if (commandeData.get(10) != null) {
+            return new ProgrammeSportif(((Long)commandeData.get(10)).intValue(), (String)commandeData.get(29));
+        } else if (commandeData.get(12) != null) {
+            return new ProgrammeNutrition(((Long)commandeData.get(12)).intValue(), (String)commandeData.get(36));
+        } else if (commandeData.get(14) != null) {
+            Sport sport = new Sport(((Long)commandeData.get(58)).intValue(), (String)commandeData.get(59));
+            Demande demande = new Demande(((Long)commandeData.get(48)).intValue(),((Long)commandeData.get(49)).intValue(),(String)commandeData.get(50),(boolean)commandeData.get(51), (boolean) commandeData.get(52),((Long)commandeData.get(53)).intValue(),((Long)commandeData.get(54)).intValue(),sport, DemandeEtat.getDemandeEtat((String)commandeData.get(57)));
+            return new ProgrammePersonnalise(((Long)commandeData.get(14)).intValue(), (String)commandeData.get(43), demande);
         } else {
             throw new DBProblemException("Le produit n'existe pas");
         }

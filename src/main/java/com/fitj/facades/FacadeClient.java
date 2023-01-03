@@ -1,5 +1,6 @@
 package com.fitj.facades;
 
+import com.fitj.classes.Client;
 import com.fitj.dao.DAOClient;
 import com.fitj.dao.factory.FactoryDAO;
 
@@ -36,6 +37,24 @@ public class FacadeClient extends Facade {
         this.daoClient.addMaterielToClient(idClient, idMateriel);
     }
 
+    public void updateClientPhoto(String photo, int idClient) throws Exception {
+        this.daoClient.updateClientPhoto(photo, idClient);
+    }
+
+    public void updateClientPseudo(String pseudo, int id) throws Exception{
+        this.daoClient.updateClientPseudo(pseudo, id);
+    }
+
+    public void updateClientPassword(String password, int id) throws Exception{
+        this.daoClient.updateClientPassword(password, id);
+    }
+
+    public void updateClientMail(String mail, int id) throws Exception{
+        this.daoClient.updateClientMail(mail, id);
+    }
 
 
+    public Client getClientById(int idObjectSelected) throws Exception {
+        return this.daoClient.getClientById(idObjectSelected);
+    }
 }

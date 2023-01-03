@@ -23,6 +23,11 @@ import java.util.List;
 public abstract class Controller {
 
     /**
+     * Previous page name
+     */
+    private static String previousPageName;
+
+    /**
      * Attribut permettant de stocker l'identifiant d'un objet selectionné dans une liste
      */
     private static int idObjectSelected;
@@ -146,5 +151,13 @@ public abstract class Controller {
      */
     public void hideError(Text textEl) {
         textEl.setText("");
+    }
+
+    public String getPreviousPageName() {
+        return previousPageName;
+    }
+
+    public static void setPreviousPageName(String previousPageName) {
+        Controller.previousPageName = previousPageName;
     }
 }

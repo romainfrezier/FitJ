@@ -51,7 +51,7 @@ public class FacadeProgrammeNutrition extends Facade{
      * @throws Exception
      */
     public ProgrammeNutrition getProgrammeNutritionById(int idProgramme) throws Exception{
-        return this.programmeNutritionDAO.getProgrammeNutritionId(idProgramme);
+        return this.programmeNutritionDAO.getProgrammeNutritionById(idProgramme);
     }
 
     /**

@@ -6,7 +6,6 @@ import com.fitj.dao.postgresql.DAOClientPostgreSQL;
 import com.fitj.dao.postgresql.DAOProgrammeNutritionPostgreSQL;
 import com.fitj.dao.postgresql.DAORecettePostgreSQL;
 import com.fitj.enums.ProgrammeType;
-import com.fitj.enums.Sexe;
 import kotlin.Pair;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -106,7 +105,7 @@ public class DAOProgrammeNutritionPostgreSQLTest {
     public void testProgrammeNutritionDelete() throws Exception {
         ProgrammeNutrition programmeBD1 = daoProgrammeNutritionPostgreSQL.createProgrammeNutrition(programmeNutrition.getNom(),programmeNutrition.getDescription(),programmeNutrition.getPrix(),programmeNutrition.getType(),programmeNutrition.getNbMois(),programmeNutrition.getCoach(), (ArrayList<Recette>) programmeNutrition.getListeRecette());
         daoProgrammeNutritionPostgreSQL.supprimerProgrammeNutrition(programmeBD1.getId());
-        Assertions.assertThrows(Exception.class, () -> daoProgrammeNutritionPostgreSQL.getProgrammeNutritionId(programmeBD1.getId()));
+        Assertions.assertThrows(Exception.class, () -> daoProgrammeNutritionPostgreSQL.getProgrammeNutritionById(programmeBD1.getId()));
     }
 
     /**
@@ -131,7 +130,7 @@ public class DAOProgrammeNutritionPostgreSQLTest {
         Recette recette = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
         daoProgrammeNutritionPostgreSQL.ajouterRecetteProgramme(recette,programmeBD.getId());
         daoProgrammeNutritionPostgreSQL.supprimerRecetteProgramme(recette,programmeBD.getId());
-        ProgrammeNutrition programmeNutrition1 = daoProgrammeNutritionPostgreSQL.getProgrammeNutritionId(programmeBD.getId());
+        ProgrammeNutrition programmeNutrition1 = daoProgrammeNutritionPostgreSQL.getProgrammeNutritionById(programmeBD.getId());
         daoProgrammeNutritionPostgreSQL.supprimerProgrammeNutrition(programmeBD.getId());
         Assertions.assertTrue(programmeNutrition1.getListeRecette().isEmpty());
     }
@@ -145,7 +144,7 @@ public class DAOProgrammeNutritionPostgreSQLTest {
         ProgrammeNutrition programmeBD = daoProgrammeNutritionPostgreSQL.createProgrammeNutrition(programmeNutrition.getNom(),programmeNutrition.getDescription(),programmeNutrition.getPrix(),programmeNutrition.getType(),programmeNutrition.getNbMois(),programmeNutrition.getCoach(), new ArrayList<>());
         Recette recette = FactoryDAOPostgreSQL.getInstance().getDAORecette().getAllRecettes().get(0);
         daoProgrammeNutritionPostgreSQL.ajouterRecetteProgramme(recette,programmeBD.getId());
-        ProgrammeNutrition programmeNutrition1 = daoProgrammeNutritionPostgreSQL.getProgrammeNutritionId(programmeBD.getId());
+        ProgrammeNutrition programmeNutrition1 = daoProgrammeNutritionPostgreSQL.getProgrammeNutritionById(programmeBD.getId());
         daoProgrammeNutritionPostgreSQL.supprimerProgrammeNutrition(programmeBD.getId());
         Assertions.assertTrue(programmeBD.getListeRecette().isEmpty() && programmeNutrition1.getListeRecette().size() == 1);
     }
