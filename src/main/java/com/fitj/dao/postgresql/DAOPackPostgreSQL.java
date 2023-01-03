@@ -397,5 +397,12 @@ public class DAOPackPostgreSQL extends DAOPack {
         }
     }
 
+    @Override
+    public List<Pack> getAllPackByCoach(int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("idcoach", id));
+        return this.getAllPackWhere(whereList);
+    }
+
 
 }

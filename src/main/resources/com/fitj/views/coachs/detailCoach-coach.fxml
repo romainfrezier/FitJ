@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerCoachDetail">
+    <children>
+        <AnchorPane fx:id="headerCoach" visible="false">
+            <children>
+                <fx:include source="../../components/headers/header-coach.fxml" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="headerClient" visible="false">
+            <children>
+                <fx:include source="../../components/headers/header-client.fxml" />
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="headerAdmin" visible="false">
+            <children>
+                <fx:include source="../../components/headers/header-admin.fxml" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="71.0" layoutY="140.0" prefHeight="520.0" prefWidth="859.0" styleClass="emptyRectangle">
+            <children>
+                <Text fx:id="coachName" fill="#054371" layoutX="30.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Coach Name" wrappingWidth="264.11328125">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                </Text>
+                <Line endX="697.5" layoutX="131.0" layoutY="59.0" startX="-100.0" stroke="#054371" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="31.0" layoutX="30.0" layoutY="92.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="245.0" />
+                <Text fill="#054371" layoutX="41.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poids                                             kg" wrappingWidth="223.66943359375">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Text>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="31.0" layoutX="296.0" layoutY="92.0" stroke="#054371" strokeType="INSIDE" styleClass="rectangleShape" width="245.0" />
+                <Text fill="#054371" layoutX="307.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taille                                             cm" wrappingWidth="223.66943359375">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Text>
+                <Text fx:id="poidsCoach" fill="#054371" layoutX="193.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="poids" wrappingWidth="45.66943359375">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Text>
+                <Text fx:id="tailleCoach" fill="#054371" layoutX="456.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="taille" wrappingWidth="45.66943359375">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Text>
+                <ListView fx:id="sportList" layoutX="30.0" layoutY="213.0" prefHeight="251.0" prefWidth="245.0" styleClass="emptyRectangle" />
+                <ImageView fx:id="coachImage" fitHeight="146.0" fitWidth="146.0" layoutX="682.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" />
+                <Text fill="#054371" layoutX="30.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ses sports" textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <Text fill="#054371" layoutX="293.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ses produits" textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <Text fx:id="errorText" fill="RED" layoutX="461.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Text" textAlignment="RIGHT" wrappingWidth="367.21630859375" />
+                <Button fx:id="goBackButton" layoutX="380.0" layoutY="476.0" mnemonicParsing="false" onAction="#goBack" styleClass="buttonBlue" text="&lt;&lt; Retour" />
+                <TabPane layoutX="293.0" layoutY="213.0" prefHeight="251.0" prefWidth="537.0" styleClass="emptyRectangle" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Seances">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <ListView fx:id="seanceList" layoutX="14.0" layoutY="9.0" prefHeight="200.0" prefWidth="514.0" styleClass="emptyRectangle" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Programmes Sportifs">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <ListView fx:id="sportifList" layoutX="10.0" layoutY="9.0" prefHeight="200.0" prefWidth="514.0" styleClass="emptyRectangle" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Programmes Nutritions">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <ListView fx:id="nutritionList" layoutX="10.0" layoutY="9.0" prefHeight="200.0" prefWidth="514.0" styleClass="emptyRectangle" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Pack">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <ListView fx:id="packList" layoutX="10.0" layoutY="9.0" prefHeight="200.0" prefWidth="514.0" styleClass="emptyRectangle" />
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </AnchorPane>
+
+    </children>
+</Pane>

@@ -48,6 +48,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
     private Button repondreButton;
 
     private Client client;
+    private Coach coach;
 
     /**
      * Initialise la vue
@@ -59,7 +60,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
             Commande commande = facadeCommande.getCommandeById(getIdObjectSelected());
             Produit produit = facadeCommande.getProduitById(commande.getProduit());
             client = commande.getClient();
-            Coach coach = commande.getCoach();
+            coach = commande.getCoach();
             titleText.setText("Détail de la commande n°" + commande.getId());
             nomProduit.setText(produit.getNom());
             prixProduit.setText(produit.getPrix() + "€");
@@ -127,7 +128,9 @@ public class ControllerCommandeDetail extends ControllerCommande{
                 setObjectSelected(client);
                 goToPage(voirDestinataire, "coachs/detailClient-coach.fxml", "Mon client");
             } else {
-                displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
+                setPreviousPageName("commande");
+                setObjectSelected(coach);
+                goToPage(voirDestinataire, "coachs/detailCoach-coach.fxml", "Mon coach");
             }
         } catch (Exception e) {
             displayError(errorText, e.getMessage());
