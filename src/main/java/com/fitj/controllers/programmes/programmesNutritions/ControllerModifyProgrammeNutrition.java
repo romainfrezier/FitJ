@@ -96,7 +96,8 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
         }
         try {
             this.programmeNutrition = facadeProgrammeNutrition.getProgrammeNutritionById(getIdObjectSelected());
-            listeRecetteProgrammeNutrition = (ArrayList<Recette>) this.programmeNutrition.getListeRecette();
+            listeRecetteProgrammeNutrition = new ArrayList<>();
+            listeRecetteProgrammeNutrition.addAll(programmeNutrition.getListeRecette());
             nomProgrammeNutrition.setText(this.programmeNutrition.getNom());
             descriptionProgramme.setText(this.programmeNutrition.getDescription());
             prixProgrammeNutrition.setValue(this.programmeNutrition.getPrix());
@@ -226,7 +227,7 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
         List<Recette> recettesEnMoin = programmeNutrition.getListeRecette().stream().filter(recette -> !listeRecetteProgrammeNutrition.contains(recette)).toList();
         for (Recette recette : recettesEnMoin) {
             try {
-                facadeProgrammeNutrition.removeRecetteFromProgrammeNutrition(recette.getId(), recette);
+                facadeProgrammeNutrition.removeRecetteFromProgrammeNutrition(programmeNutrition.getId(), recette);
             } catch (Exception e) {
                 e.printStackTrace();
                 displayError(errorText, e.getMessage());
@@ -235,7 +236,7 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
         List<Recette> recettesEnPlus = listeRecetteProgrammeNutrition.stream().filter(recette -> !programmeNutrition.getListeRecette().contains(recette)).toList();
         for (Recette recette : recettesEnPlus) {
             try {
-                facadeProgrammeNutrition.addRecetteToProgrammeNutrition(recette.getId(), recette);
+                facadeProgrammeNutrition.addRecetteToProgrammeNutrition(programmeNutrition.getId(), recette);
             } catch (Exception e) {
                 e.printStackTrace();
                 displayError(errorText, e.getMessage());
