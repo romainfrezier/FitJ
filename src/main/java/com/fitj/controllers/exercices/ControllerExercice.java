@@ -32,11 +32,6 @@ public abstract class ControllerExercice extends Controller {
     private final String admin = "admins/";
 
     /**
-     * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux coachs
-     */
-    private final String coach = "coachs/";
-
-    /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux exercices
      */
     private final String exercice = "exercices/";
@@ -47,12 +42,7 @@ public abstract class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToMonEspace(Control controlEl) throws BadPageException {
-        String clientType = Facade.currentClient.getClass().getSimpleName();
-        if (clientType.equals("Admin")) {
-            goToPage(controlEl, admin + "monEspace-admin.fxml", "MonEspace");
-        } else {
-            goToPage(controlEl, coach + "monEspace-coach.fxml", "MonEspace");
-        }
+        goToPage(controlEl, admin + "monEspace-admin.fxml", "MonEspace");
     }
 
     /**
@@ -61,14 +51,7 @@ public abstract class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToAddExercice(Control controlEl) throws BadPageException {
-        String path;
-        Client currentClient = Facade.currentClient;
-        if (currentClient instanceof Admin) {
-            path =  exercice + admin;
-        } else {
-            path = exercice + coach;
-        }
-        goToPage(controlEl, path + "create-exercice.fxml", "Création d'un exercice");
+        goToPage(controlEl, exercice + "create-exercice.fxml", "Création d'un exercice");
     }
 
     /**
@@ -77,14 +60,7 @@ public abstract class ControllerExercice extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToUpdateExercice(Control controlEl) throws BadPageException {
-        String path;
-        Client currentClient = Facade.currentClient;
-        if (currentClient instanceof Admin) {
-            path = exercice + admin;
-        } else {
-            path = exercice + coach;
-        }
-        goToPage(controlEl, path + "update-exercice.fxml", "Modification d'un exercice");
+        goToPage(controlEl, exercice + "update-exercice.fxml", "Modification d'un exercice");
     }
 
     void initializeExerciceList(ListView<Exercice> listView, List<Exercice> items) {
