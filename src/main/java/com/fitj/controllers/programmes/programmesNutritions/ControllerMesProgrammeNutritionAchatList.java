@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class ControllerMesProframmeNutritionAchatList extends ControllerProgrammeNutrition {
+public class ControllerMesProgrammeNutritionAchatList extends ControllerProgrammeNutrition {
 
 
     @FXML

@@ -31,7 +31,7 @@ public abstract class DAOProgrammeNutrition extends DAO{
      * @return le ProgrammeNutrition récupéré dans la base de donnée
      * @throws Exception
      */
-    public abstract ProgrammeNutrition getProgrammeNutritionId(int id) throws Exception;
+    public abstract ProgrammeNutrition getProgrammeNutritionById(int id) throws Exception;
 
     /**
      * @param coachId int, l'id du coach

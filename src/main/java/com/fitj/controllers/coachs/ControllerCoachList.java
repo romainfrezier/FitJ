@@ -68,7 +68,14 @@ public class ControllerCoachList extends ControllerCoach {
      */
     @FXML
     private void handleSeeMoreButton() {
-        super.displayError(errorText, "Fonctionnalité non implémentée");
+        try {
+            hideError(errorText);
+            checkSelected();
+            setPreviousPageName("list-coachs");
+            goToPage(seeMoreButton, "coachs/detailCoach-coach.fxml", "Detail");
+        } catch (Exception e) {
+            displayError(errorText, e.getMessage());
+        }
     }
 
     /**
@@ -102,4 +109,8 @@ public class ControllerCoachList extends ControllerCoach {
     }
 
 
+    @FXML
+    private void selectCoach() {
+        setObjectSelected(listView.getSelectionModel().getSelectedItem());
+    }
 }

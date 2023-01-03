@@ -46,7 +46,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
                 listeInsertRecette.add(new Pair<>("idrecette",recette.getId()));
                 ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertRecette, "programmenutritionrecette");
             }
-            return this.getProgrammeNutritionId(idProgramme);
+            return this.getProgrammeNutritionById(idProgramme);
         }
         catch (Exception e){
             throw new DBProblemException("La création du programme nutrition a échoué");
@@ -54,7 +54,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
     }
 
     @Override
-    public ProgrammeNutrition getProgrammeNutritionId(int id) throws Exception {
+    public ProgrammeNutrition getProgrammeNutritionById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try{
@@ -95,7 +95,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         whereList.add(new Pair<>("id",idProgramme));
         try {
             ((MethodesPostgreSQL)this.methodesBD).update(listeUpdate, whereList, this.table);
-            return this.getProgrammeNutritionId(idProgramme);
+            return this.getProgrammeNutritionById(idProgramme);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du programme nutrition a échoué");
@@ -119,7 +119,7 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         whereList.add(new Pair<>("id",id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).update(updateList,whereList,this.table);
-            return this.getProgrammeNutritionId(id);
+            return this.getProgrammeNutritionById(id);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du programme nutrition a échoué");

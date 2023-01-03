@@ -17,7 +17,7 @@
                         <Font size="16.0" />
                     </font>
                 </Text>
-                <ListView fx:id="listViewRecetteProgrammeNutrition" layoutX="143.0" layoutY="108.0" onMouseClicked="#handlerViewIngredient" prefHeight="170.0" prefWidth="448.0" styleClass="emptyRectangle" />
+                <ListView fx:id="listViewRecetteProgrammeNutrition" layoutX="143.0" layoutY="108.0" onMouseClicked="#handlerViewRecette" prefHeight="170.0" prefWidth="448.0" styleClass="emptyRectangle" />
                 <Text fx:id="nomProgrammeNutrition" fill="#054371" layoutX="279.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du programme">
                     <font>
                         <Font size="20.0" />

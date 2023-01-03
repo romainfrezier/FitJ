@@ -47,6 +47,10 @@ public class Seance extends Produit {
         super(idseance);
     }
 
+    public Seance(int idseance, String nom) {
+        super(idseance, nom);
+    }
+
     /**
      * Ajoute un exercice à la séance
      * @param exercice Exercice, l'exercice à ajouter à la séance

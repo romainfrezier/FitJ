@@ -40,17 +40,6 @@ public class FacadeExercice extends Facade {
     }
 
     /**
-     * Méthode permettant de récupérer tous les exercices
-     *
-     * @param coach int, l'id du coach
-     * @return List<Exercice>, la liste des exercices
-     * @throws Exception en cas d'erreur
-     */
-    public List<Exercice> getAllExercicesByCoachId(int coach) throws Exception {
-        return this.daoExercice.getAllExerciceByCoachId(coach);
-    }
-
-    /**
      * Méthode permettant de créer un exercice
      *
      * @param exercice    le nom de l'exercice

@@ -19,5 +19,15 @@
         <Button fx:id="shop" layoutX="655.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToShop" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="SHOP" textFill="WHITE" />
         <Button fx:id="mesClients" layoutX="401.0" layoutY="13.0" mnemonicParsing="false" onAction="#goToMesClients" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="MES CLIENTS" textFill="WHITE" />
       <Text fx:id="errorText" fill="RED" layoutX="58.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="344.2275390625" />
+      <ImageView fx:id="notifIcon" fitHeight="32.0" fitWidth="36.0" layoutX="79.0" layoutY="12.0" onMouseClicked="#goToNotification" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/notifications_icon.png" />
+         </image>
+      </ImageView>
+        <ImageView fx:id="newNotifIcon" fitHeight="32.0" fitWidth="36.0" layoutX="79.0" layoutY="12.0" onMouseClicked="#goToNotification" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="@../../../../img/new_notifications_icon.png" />
+            </image>
+        </ImageView>
     </children>
 </Pane>

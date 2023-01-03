@@ -33,6 +33,10 @@ public class ProgrammeNutrition extends Programme {
         super(idProduit);
     }
 
+    public ProgrammeNutrition(int idProduit, String nom) {
+        super(idProduit, nom);
+    }
+
     /**
      * @return la liste des recettes du programme
      */

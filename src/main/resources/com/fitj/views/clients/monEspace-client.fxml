@@ -26,6 +26,7 @@
                               <content>
                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
+                                       <fx:include source="../../components/programmes/programmesSportifs/list-mes-programmesSportifs-achat.fxml" />
                                     </children>
                                  </AnchorPane>
                               </content>

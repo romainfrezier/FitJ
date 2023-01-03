@@ -35,6 +35,6 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="returerButton" layoutX="497.0" layoutY="292.0" mnemonicParsing="false" onAction="#retirer" styleClass="buttonRed" text="Retirer" />
+      <Button fx:id="retirerButton" layoutX="497.0" layoutY="295.0" mnemonicParsing="false" onAction="#handleRetirerButton" styleClass="buttonBlue" text="Retirer" />
    </children>
 </Pane>

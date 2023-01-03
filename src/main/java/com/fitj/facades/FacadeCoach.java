@@ -1,8 +1,6 @@
 package com.fitj.facades;
 
-import com.fitj.classes.Admin;
-import com.fitj.classes.Client;
-import com.fitj.classes.Coach;
+import com.fitj.classes.*;
 import com.fitj.dao.DAOClient;
 import com.fitj.dao.factory.FactoryDAO;
 
@@ -33,5 +31,25 @@ public class FacadeCoach extends Facade {
 
     public List<Client> getAllClientsForACoach(int coachId) throws Exception {
         return this.daoClient.getAllClientForACoach(coachId);
+    }
+
+    public Coach getCoachById(int id) throws Exception {
+        return (Coach)this.daoClient.getClientById(id);
+    }
+
+    public List<Seance> getSeanceByCoach(Coach coach) throws Exception {
+        return FactoryDAO.getInstance().getDAOSeance().getAllSeancesFromCoach(coach.getId());
+    }
+
+    public List<ProgrammeSportif> getCoachProgrammeSportifs(Coach coach) throws Exception {
+        return FactoryDAO.getInstance().getDAOProgrammeSportif().getAllProgrammeSportifByCoach(coach.getId());
+    }
+
+    public List<ProgrammeNutrition> getCoachProgrammeNutrition(Coach coach) throws Exception {
+        return FactoryDAO.getInstance().getDAOProgrammeNutrition().getProgrammeNutritionByCoach(coach.getId());
+    }
+
+    public List<Pack> getAllPackByCoach(Coach coach) throws Exception {
+        return FactoryDAO.getInstance().getDAOPack().getAllPackByCoach(coach.getId());
     }
 }

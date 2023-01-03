@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,7 +78,7 @@ public class DAONotificationPostgreSQLTest {
         sport = new DAOSportPostgreSQL().createSport("Test");
         seance = new DAOSeancePostgreSQL().createSeance("seance", "description", 1, coach, sport, new ArrayList<>());
         commande = new DAOCommandePostgreSQL().createCommande(client.getId(), coach.getId(), seance, PaiementType.CARTE_BANCAIRE);
-        notification = new Notification(1,"Votre commande est prête",commande.getClient().getId(), commande.getId());
+        notification = new Notification(1,"Votre commande est prête",commande.getClient().getId(), commande.getId(), new Date());
         idClient = notification.getIdClient();
         notificationBD = daoNotificationPostgreSQL.createNotification(notification.getMessage(), idClient, commande.getId());
     }

@@ -31,7 +31,7 @@ public abstract class DAOProgrammeSportif extends DAO{
      * @return le ProgrammeSportif récupéré dans la base de donnée
      * @throws Exception
      */
-    public abstract ProgrammeSportif getProgrammeSportifId(int id) throws Exception;
+    public abstract ProgrammeSportif getProgrammeSportifById(int id) throws Exception;
 
     /**
      * @param updateList List<Pair<String,Object>>, la liste des objet à modifié dans la table pour le programme sportif
@@ -40,6 +40,18 @@ public abstract class DAOProgrammeSportif extends DAO{
      * @throws Exception
      */
     public abstract ProgrammeSportif updateProgrammeSportif(List<Pair<String,Object>> updateList, int id) throws Exception;
+
+    /**
+     * @param idProgramme int, l'id du programme à modifier
+     * @param nom String, le nouveau nom du programme
+     * @param description String, la nouvelle description du programme
+     * @param prix double, le nouveau prix du programme
+     * @param type ProgrammeType, le nouveau type du programme
+     * @param nbMois int, le nouveau nombre de mois du programme
+     * @return le ProgrammeNutrition modifié
+     * @throws Exception
+     */
+    public abstract ProgrammeSportif updateProgrammeSportif(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception;
 
     /**
      * Supprimer dans la base de donnée le programme sportif
@@ -83,6 +95,20 @@ public abstract class DAOProgrammeSportif extends DAO{
      * @throws Exception
      */
     public abstract void supprimerSeanceProgramme(Seance seance, int id) throws Exception;
+
+    /**
+     * @param idCoach int, l'id du coach
+     * @return la liste des programmes sportif du coach
+     * @throws Exception
+     */
+    public abstract List<ProgrammeSportif> getAllProgrammeSportifByCoach(int idCoach) throws Exception;
+
+    /**
+     * @param idClient int, l'id du client
+     * @return la liste des programmes sportif du client
+     * @throws Exception
+     */
+    public abstract List<ProgrammeSportif> getAllProgrammeSportifByClient(int idClient) throws Exception;
 
 
 }

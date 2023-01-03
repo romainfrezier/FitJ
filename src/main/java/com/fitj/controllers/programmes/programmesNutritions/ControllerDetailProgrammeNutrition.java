@@ -93,14 +93,14 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             super.displayError(errorText, e.getMessage());
         }
         setObjectSelected(null);
-        initializeIngredientList();
+        initializeRecetteList();
 
     }
 
     /**
-     * Methode permettant d'initialiser la liste des ingrédients présents dans la recette
+     * Methode permettant d'initialiser la liste des recettes présentes dans le programme nutrition
      */
-    private void initializeIngredientList() {
+    private void initializeRecetteList() {
         listViewRecetteProgrammeNutrition.getItems().clear();
         try {
             super.initializeRecetteList(listViewRecetteProgrammeNutrition, listeRecettes);
@@ -136,7 +136,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void updateProgrammeNutrition() {
         try {
-            setObjectSelected(this.programmeNutrition.getId());
+            setIdObjectSelected(this.programmeNutrition.getId());
             this.goToUpdateProgrammeNutrition(updateProgrammeNutritionButton);
         }
         catch (Exception e){
@@ -150,7 +150,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void goToDetailRecette() {
         try {
-            setObjectSelected(this.listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem().getId());
+            setIdObjectSelected(this.listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem().getId());
             this.goToDetailRecette(detailProgrammeNutritionButton);
         }
         catch (Exception e){
@@ -162,14 +162,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
      * Permet d'afficher le bouton détail de la recette que lorsqu'il s'agit d'une recette de sélectionnée dans la liste
      */
     @FXML
-    private void handlerViewIngredient(){
-        if (listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem() instanceof Recette){
+    private void handlerViewRecette(){
             setIdObjectSelected(listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem().getId());
             this.detailProgrammeNutritionButton.setVisible(true);
-        }
-        else {
-            this.deleteProgrammeNutritionButton.setVisible(false);
-        }
     }
 
 

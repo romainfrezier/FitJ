@@ -1,10 +1,12 @@
 package com.fitj.classes;
 
 
+import java.util.Date;
+
 /**
  * Classe qui représente une commande.
  * Une commande est un ensemble de produits achetés par un client à un coach.
- * @author Paco Munarriz
+ * @author Paco Munarriz, Romain Frezier
  */
 public abstract class Commande {
 
@@ -29,6 +31,11 @@ public abstract class Commande {
     private Produit produit;
 
     /**
+     * Date de la commande
+     */
+    private Date date;
+
+    /**
      * La demande de la commande
      */
     private Demande demande;
@@ -37,22 +44,24 @@ public abstract class Commande {
     /**
      * Constructeur
      */
-    public Commande(Client client, Coach coach, Produit produit, int id) {
+    public Commande(Client client, Coach coach, Produit produit, int id, Date date) {
         this.client = client;
         this.coach = coach;
         this.produit = produit;
         this.id = id;
+        this.date = date;
         this.demande = null;
     }
 
     /**
      * Constructeur avec demande
      */
-    public Commande(Client client, Coach coach, Produit produit, int id, Demande demande) {
+    public Commande(Client client, Coach coach, Produit produit, int id, Date date, Demande demande) {
         this.client = client;
         this.coach = coach;
         this.produit = produit;
         this.id = id;
+        this.date = date;
         this.demande = demande;
     }
 
@@ -129,5 +138,13 @@ public abstract class Commande {
      */
     public int getId() {
         return id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

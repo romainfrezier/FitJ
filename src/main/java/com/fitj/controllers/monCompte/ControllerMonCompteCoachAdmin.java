@@ -2,7 +2,6 @@ package com.fitj.controllers.monCompte;
 
 import com.fitj.classes.Coach;
 import com.fitj.exceptions.BadPageException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -13,7 +12,7 @@ import static com.fitj.facades.Facade.currentClient;
 
 public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
-    private Button returerButton;
+    private Button retirerButton;
     @FXML
     private Text solde;
     @FXML
@@ -62,7 +61,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
         }
     }
 
+
     @FXML
-    private void retirer() {
+    private void handleRetirerButton() {
+        displayError(errorText, "Fontionnalité non disponible");
     }
 }

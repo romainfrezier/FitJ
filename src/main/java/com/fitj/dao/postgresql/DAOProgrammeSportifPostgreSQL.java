@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux exercices
@@ -45,7 +47,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
                 listeInsertSeance.add(new Pair<>("idseance",seance.getId()));
                 ((MethodesPostgreSQL)this.methodesBD).insert(listeInsertSeance, "programmesportseance");
             }
-            return this.getProgrammeSportifId(idProgramme);
+            return this.getProgrammeSportifById(idProgramme);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -54,7 +56,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
     }
 
     @Override
-    public ProgrammeSportif getProgrammeSportifId(int id) throws Exception {
+    public ProgrammeSportif getProgrammeSportifById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
         try {
@@ -81,7 +83,26 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         whereList.add(new Pair<>("id",id));
         try {
             ((MethodesPostgreSQL)this.methodesBD).update(updateList,whereList,this.table);
-            return this.getProgrammeSportifId(id);
+            return this.getProgrammeSportifById(id);
+        }
+        catch (Exception e){
+            throw new DBProblemException("La mise à jour du programme sportif a échoué");
+        }
+    }
+
+    @Override
+    public ProgrammeSportif updateProgrammeSportif(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception {
+        List<Pair<String,Object>> listeUpdate = new ArrayList<>();
+        listeUpdate.add(new Pair<>("nom",nom));
+        listeUpdate.add(new Pair<>("description",description));
+        listeUpdate.add(new Pair<>("prix",prix));
+        listeUpdate.add(new Pair<>("type",ProgrammeType.getProgrammeType(type)));
+        listeUpdate.add(new Pair<>("nbMois",nbMois));
+        List<Pair<String,Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("id",idProgramme));
+        try {
+            ((MethodesPostgreSQL)this.methodesBD).update(listeUpdate, whereList, this.table);
+            return this.getProgrammeSportifById(idProgramme);
         }
         catch (Exception e){
             throw new DBProblemException("La mise à jour du programme sportif a échoué");
@@ -124,6 +145,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         joinList.add(new Triple<>("programmepersonnaliseprogrammesportif","idprogrammesportif", "programmesportif.id"));
         joinList.add(new Triple<>("avisprogrammesportif","idprogramme", "programmesportif.id"));
         joinList.add(new Triple<>("commandeprogrammesportif","idprogramme", "programmesportif.id"));
+        joinList.add(new Triple<>("commande","id", "commandeprogrammesportif.idcommande"));
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
@@ -144,6 +166,7 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
                     listeProgrammes.add(new ProgrammeSportif(((Long)dataIndex.get(1)).intValue(), (String)dataIndex.get(2), (String)data.get("description"), ((Number)data.get("prix")).doubleValue(), ProgrammeType.getProgrammeType((String)data.get("type")), ((Long)data.get("nbmois")).intValue(), coach));
                     idCurrentProgramme = ((Long)dataIndex.get(1)).intValue();
                 }
+                i++;
             }
             return listeProgrammes;
         }
@@ -166,29 +189,47 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
 
     @Override
     public void ajouterSeanceProgramme(Seance seance, int id) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idseance", seance.getId()));
-        insertList.add(new Pair<>("idprogramme", id));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "programmesportseance");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout de la séance dans ce programme sportif a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> insertList = new ArrayList<>();
+            insertList.add(new Pair<>("idseance", seance.getId()));
+            insertList.add(new Pair<>("idprogramme", id));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "programmesportseance");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void supprimerSeanceProgramme(Seance seance, int id) throws Exception {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("idseance", seance.getId()));
+            whereList.add(new Pair<>("idprogramme", id));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "programmesportseance");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public List<ProgrammeSportif> getAllProgrammeSportifByCoach(int idCoach) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idseance", seance.getId()));
-        whereList.add(new Pair<>("idprogramme", id));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "programmesportseance");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("La suppression de la séance dans ce programme sportif a échoué");
-        }
+        whereList.add(new Pair<>("programmesportif.idcoach",idCoach));
+        return this.getAllProgrammeSportifWhere(whereList);
+    }
+
+    @Override
+    public List<ProgrammeSportif> getAllProgrammeSportifByClient(int idClient) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idclient",idClient));
+        return this.getAllProgrammeSportifWhere(whereList);
     }
 }

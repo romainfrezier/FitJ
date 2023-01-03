@@ -30,7 +30,11 @@ public abstract class ControllerAdmin extends Controller {
                     protected void updateItem(Client item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
-                            setText(item.getId() + ". " + item.getPseudo());
+                            if (item.isBanni()) {
+                                setText(item.getId() + ". " + item.getPseudo() + " (banni)");
+                            } else {
+                                setText(item.getId() + ". " + item.getPseudo());
+                            }
                         } else {
                             setText("");
                         }

@@ -5,10 +5,9 @@ import com.fitj.dao.postgresql.*;
 
 /**
  * Classe de la factory de model PostgreSQL qui permettent de créer des model PostgreSQL
- *
  * Classe (singleton)
  *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public class FactoryDAOPostgreSQL extends FactoryDAO {
 
@@ -134,6 +133,11 @@ public class FactoryDAOPostgreSQL extends FactoryDAO {
     @Override
     public DAODemande getDAODemande() {
         return new DAODemandePostgreSQL();
+    }
+
+    @Override
+    public DAONotification getDAONotification() {
+        return new DAONotificationPostgreSQL();
     }
 
 
