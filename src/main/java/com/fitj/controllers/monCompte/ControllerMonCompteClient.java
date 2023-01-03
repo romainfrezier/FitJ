@@ -14,8 +14,6 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
     @FXML
     private Text pseudo;
     @FXML
-    private Text password;
-    @FXML
     private Text mail;
     @FXML
     private ImageView image;
@@ -23,6 +21,8 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
     private Button UpdateButton;
     @FXML
     private Text errorText;
+    @FXML
+    private Button UpdatePasswordButton;
 
 
     @FXML
@@ -30,9 +30,7 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
         super.hideError(errorText);
         //change les valeurs des textArea
         pseudo.setText(currentClient.getPseudo());
-        password.setText(currentClient.getPassword());
         mail.setText(currentClient.getEmail());
-        //change l'image a partir d'un lien
         //image.setImage(currentClient.getPhoto());
     }
 
@@ -41,6 +39,16 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
         try {
             super.hideError(errorText);
             super.goToUpdate(UpdateButton);
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
+    }
+
+    @FXML
+    private void goToUpdatePassword() {
+        try {
+            super.hideError(errorText);
+            super.goToUpdatePassword(UpdatePasswordButton);
         } catch (BadPageException e) {
             super.displayError(errorText, e.getMessage());
         }
