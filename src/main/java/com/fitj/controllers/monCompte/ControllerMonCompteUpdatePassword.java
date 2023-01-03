@@ -26,13 +26,13 @@ public class ControllerMonCompteUpdatePassword extends ControllerMonCompte {
     }
 
     @FXML
-    public void update() throws Exception {
+    private void update() {
         super.hideError(errorText);
         try {
             if (!password.getText().isEmpty() && !passwordConfirm.getText().isEmpty()) {
                 if (password.getText().equals(passwordConfirm.getText())) {
                     clientFacade.updateClientPassword(password.getText(), currentClient.getId());
-                    super.displayError(errorText, "Mot de passe modifié");
+                    super.goToMonCompte(updateButton);
                 } else {
                     super.displayError(errorText, "Les mots de passe ne correspondent pas");
                 }

@@ -3,6 +3,7 @@ package com.fitj.controllers.monCompte;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -29,7 +30,8 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
         //change les valeurs des textArea
         pseudo.setText(currentClient.getPseudo());
         mail.setText(currentClient.getEmail());
-        //image.setImage(currentClient.getPhoto());
+        Image img = new Image(currentClient.getPhoto());
+        image.setImage(img);
     }
 
     @FXML
