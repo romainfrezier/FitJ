@@ -35,6 +35,10 @@ public abstract class Programme extends Produit {
         super(idProduit);
     }
 
+    public Programme(int idProduit, String nom) {
+        super(idProduit, nom);
+    }
+
     /**
      * Set le type du programme
      * @param type ProgrammeType, le type du programme

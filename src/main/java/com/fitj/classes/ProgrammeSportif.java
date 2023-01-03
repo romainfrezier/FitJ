@@ -33,6 +33,10 @@ public class ProgrammeSportif extends Programme {
         super(idProduit);
     }
 
+    public ProgrammeSportif(int idProduit, String nom) {
+        super(idProduit, nom);
+    }
+
     /**
      * @return la liste des séances du programme
      */

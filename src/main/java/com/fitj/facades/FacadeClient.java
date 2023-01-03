@@ -54,5 +54,7 @@ public class FacadeClient extends Facade {
     }
 
 
-
+    public Client getClientById(int idObjectSelected) throws Exception {
+        return this.daoClient.getClientById(idObjectSelected);
+    }
 }

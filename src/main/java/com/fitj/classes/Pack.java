@@ -30,6 +30,10 @@ public class Pack extends Produit {
         super(idpack);
     }
 
+    public Pack(int idpack, String nom) {
+        super(idpack, nom);
+    }
+
     /**
      * @return la liste des produits
      */

@@ -41,11 +41,12 @@ public class DAODemandePostgreSQL extends DAODemande {
                 Map<Integer,Object> resultSetIndex = resultIndex.get(0);
                 /*
                  * index = 1 : id de la demande
+                 * index = 8 : id du programme personnalisé
                  * index = 3 : Description de la demande
                  * index = 13 : Description du programme
                  */
                 Coach coach = (Coach)FactoryDAOPostgreSQL.getInstance().getDAOClient().getClientById(((Long)resultSet.get("idcoach")).intValue());
-                ProgrammePersonnalise programmePersonnalise = new ProgrammePersonnalise(((Long)resultSet.get("idprogramme")).intValue(),(String)resultSet.get("nom"),(String)resultSetIndex.get(7),((Number)resultSet.get("prix")).doubleValue(), coach);
+                ProgrammePersonnalise programmePersonnalise = new ProgrammePersonnalise(((Long)resultSetIndex.get(8)).intValue(),(String)resultSet.get("nom"),(String)resultSetIndex.get(13),((Number)resultSet.get("prix")).doubleValue(), coach);
                 Sport sport = FactoryDAOPostgreSQL.getInstance().getDAOSport().getSportById(((Long)resultSet.get("idsport")).intValue());
                 return new Demande(id, ((Long)resultSet.get("nbmois")).intValue(), (String)resultSetIndex.get(3),(boolean) resultSet.get("programmesportif"),(boolean) resultSet.get("programmenutrition"),((Long)resultSet.get("nbseancesemaine")).intValue(),((Long)resultSet.get("nbrecettesemaine")).intValue(),sport,programmePersonnalise, DemandeEtat.getDemandeEtat((String)resultSet.get("etat")));
             }

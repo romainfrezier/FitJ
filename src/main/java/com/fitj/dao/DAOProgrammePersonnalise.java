@@ -1,11 +1,8 @@
 package com.fitj.dao;
 
 import com.fitj.classes.*;
-import com.fitj.dao.methodesBD.MethodesPostgreSQL;
-import com.fitj.enums.ProgrammeType;
 import kotlin.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class DAOProgrammePersonnalise extends DAO{
@@ -40,7 +37,7 @@ public abstract class DAOProgrammePersonnalise extends DAO{
      * @return le ProgrammePersonnalise récupéré dans la base de donnée
      * @throws Exception
      */
-    public abstract ProgrammePersonnalise getProgrammePersonnaliseId(int id) throws Exception;
+    public abstract ProgrammePersonnalise getProgrammePersonnaliseById(int id) throws Exception;
 
     /**
      * @param updateList List<Pair<String,Object>>, la liste des objet à modifié dans la table pour le programme personnalise

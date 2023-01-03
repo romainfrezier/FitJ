@@ -378,8 +378,8 @@ public class DAOClientPostgreSQL extends DAOClient {
             int i = 0;
             while (i < listData.size()){
                 Map<String,Object> data = listData.get(i);
-                if (idCurrentClient != ((Long)data.get("id")).intValue()){
-                    idCurrentClient = ((Long)data.get("id")).intValue();
+                if (idCurrentClient != ((Long)data.get("idclient")).intValue()){
+                    idCurrentClient = ((Long)data.get("idclient")).intValue();
                     Client client = new Client((String)data.get("mail"), (String)data.get("pseudo"), ((Number)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanned"));
                     List<Materiel> materiels = new DAOMaterielPostgreSQL().getMaterielByIdClient(client.getId());
                     List<Sport> sports = new DAOSportPostgreSQL().getSportByIdClient(client.getId());

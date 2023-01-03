@@ -4,10 +4,8 @@ import com.fitj.dao.*;
 
 /**
  * Classe parente de toutes les factory de model qui permettent de créer des model en fonction du type de la base de donnée
- *
  * Classe abstraite non instanciable (singleton)
- *
- * @author Etienne Tillier
+ * @author Etienne Tillier, Romain Frezier
  */
 public abstract class FactoryDAO {
 
@@ -30,7 +28,7 @@ public abstract class FactoryDAO {
      */
     public static FactoryDAO getInstance(){
         if (instance == null){
-            if (databaseType == "postgreSQL"){
+            if (databaseType.equals("postgreSQL")){
                 instance = new FactoryDAOPostgreSQL();
             }
             else {
@@ -117,6 +115,11 @@ public abstract class FactoryDAO {
      * @return l'instance du DAODemande
      */
     public abstract DAODemande getDAODemande();
+
+    /**
+     * @return l'instance du DAONotification
+     */
+    public abstract DAONotification getDAONotification();
 
 }
 
