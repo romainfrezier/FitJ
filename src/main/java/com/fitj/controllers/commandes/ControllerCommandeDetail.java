@@ -3,10 +3,8 @@ package com.fitj.controllers.commandes;
 import com.fitj.classes.*;
 import com.fitj.enums.DemandeEtat;
 import com.fitj.facades.Facade;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -49,6 +47,8 @@ public class ControllerCommandeDetail extends ControllerCommande{
     @FXML
     private Button repondreButton;
 
+    private Client client;
+
     /**
      * Initialise la vue
      */
@@ -58,7 +58,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
         try {
             Commande commande = facadeCommande.getCommandeById(getIdObjectSelected());
             Produit produit = facadeCommande.getProduitById(commande.getProduit());
-            Client client = commande.getClient();
+            client = commande.getClient();
             Coach coach = commande.getCoach();
             titleText.setText("Détail de la commande n°" + commande.getId());
             nomProduit.setText(produit.getNom());
@@ -121,7 +121,16 @@ public class ControllerCommandeDetail extends ControllerCommande{
 
     @FXML
     private void voirDestinaire() {
-        // TODO emmener vers la page de détail du client ou du coach
-        displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
+        try {
+            if (Facade.currentClient instanceof Coach) {
+                setPreviousPageName("commande");
+                setObjectSelected(client);
+                goToPage(voirDestinataire, "coachs/detailClient-coach.fxml", "Mon client");
+            } else {
+                displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
+            }
+        } catch (Exception e) {
+            displayError(errorText, e.getMessage());
+        }
     }
 }

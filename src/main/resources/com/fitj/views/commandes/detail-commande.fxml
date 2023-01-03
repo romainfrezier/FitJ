@@ -12,7 +12,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.commandes.ControllerCommandeDetail">
     <children>
-        <AnchorPane layoutX="41.0" layoutY="87.0" prefHeight="676.0" prefWidth="938.0">
+        <AnchorPane layoutX="41.0" layoutY="87.0" prefHeight="676.0" prefWidth="938.0" styleClass="emptyRectangle">
             <children>
                 <Text fx:id="titleText" fill="#054371" layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande n°X " wrappingWidth="462.21630859375">
                     <font>
