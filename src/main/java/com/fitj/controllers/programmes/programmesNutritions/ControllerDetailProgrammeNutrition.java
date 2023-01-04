@@ -21,6 +21,8 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
 
 
     @FXML
+    private Text prix;
+    @FXML
     private Button buyButton;
     @FXML
     private Button detailProgrammeNutritionButton;
@@ -90,6 +92,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             this.programmeType.setText(ProgrammeType.getProgrammeType(this.programmeNutrition.getType()));
             this.nbMoisProgramme.setText(this.programmeNutrition.getNbMois() + " mois");
             this.descriptionProgramme.getChildren().add(new Text(this.programmeNutrition.getDescription()));
+            this.prix.setText(this.programmeNutrition.getPrix() + " €");
         }
         catch (Exception e){
             e.printStackTrace();
@@ -116,7 +119,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
         if (!(Facade.currentClient instanceof Admin) && this.programmeNutrition.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeNutritionButton.setVisible(false);
             deleteProgrammeNutritionButton.setVisible(false);
-            buyButton.setVisible(true);
+            if (getPreviousPageName().equals("shop")){
+                buyButton.setVisible(true);
+            }
         }
     }
 
@@ -168,7 +173,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void handlerViewRecette(){
             setIdObjectSelected(listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem().getId());
-            this.detailProgrammeNutritionButton.setVisible(true);
+            if (!getPreviousPageName().equals("shop")){
+                this.detailProgrammeNutritionButton.setVisible(true);
+            }
     }
 
 

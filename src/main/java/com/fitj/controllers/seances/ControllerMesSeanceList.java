@@ -78,7 +78,7 @@ public class ControllerMesSeanceList extends ControllerSeance{
      * Méthode appelée lors du clic sur une séance de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemSeance(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 

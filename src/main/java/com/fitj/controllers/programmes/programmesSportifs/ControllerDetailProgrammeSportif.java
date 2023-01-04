@@ -20,6 +20,8 @@ import java.util.Optional;
 public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif{
 
     @FXML
+    private Text prix;
+    @FXML
     private Button buyButton;
     @FXML
     private Button detailSeanceButton;
@@ -89,6 +91,7 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
             this.programmeType.setText(ProgrammeType.getProgrammeType(this.programmeSportif.getType()));
             this.nbMoisProgramme.setText(this.programmeSportif.getNbMois() + " mois");
             this.descriptionProgramme.getChildren().add(new Text(this.programmeSportif.getDescription()));
+            this.prix.setText(this.programmeSportif.getPrix() + " €");
             initializeSeanceList();
         }
         catch (Exception e){
@@ -113,7 +116,9 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
         if (!(Facade.currentClient instanceof Admin) && this.programmeSportif.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeSportifButton.setVisible(false);
             deleteProgrammeSportifButton.setVisible(false);
-            buyButton.setVisible(true);
+            if (getPreviousPageName().equals("shop")){
+                buyButton.setVisible(true);
+            }
         }
     }
 
@@ -165,7 +170,9 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
     @FXML
     private void handlerViewSeance(){
         setIdObjectSelected(listViewSeanceProgrammeSportif.getSelectionModel().getSelectedItem().getId());
-        this.detailSeanceButton.setVisible(true);
+        if (!getPreviousPageName().equals("shop")){
+            detailSeanceButton.setVisible(true);
+        }
     }
 
 

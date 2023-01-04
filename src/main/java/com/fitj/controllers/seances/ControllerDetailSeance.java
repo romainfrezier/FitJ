@@ -106,7 +106,9 @@ public class ControllerDetailSeance extends ControllerSeance{
         if (!(Facade.currentClient instanceof Admin) && this.seance.getCoach().getId() != Facade.currentClient.getId()){
             updateSeanceButton.setVisible(false);
             deleteSeanceButton.setVisible(false);
-            buyButton.setVisible(true);
+            if (getPreviousPageName().equals("shop")){
+                buyButton.setVisible(true);
+            }
         }
     }
 

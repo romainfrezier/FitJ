@@ -56,7 +56,7 @@ public class ControllerAlimentList extends ControllerAliment {
      * Méthode appelée lors du clic sur un aliment de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemAliment(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 

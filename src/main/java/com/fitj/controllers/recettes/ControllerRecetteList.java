@@ -61,7 +61,7 @@ public class ControllerRecetteList extends ControllerRecette {
      * Méthode appelée lors du clic sur une recette de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemRecette(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 

@@ -2,6 +2,7 @@ package com.fitj.controllers.commandes;
 
 import com.fitj.classes.*;
 import com.fitj.enums.DemandeEtat;
+import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,6 +50,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
 
     private Client client;
     private Coach coach;
+    private Produit produit;
 
     /**
      * Initialise la vue
@@ -58,7 +60,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
         super.hideError(errorText);
         try {
             Commande commande = facadeCommande.getCommandeById(getIdObjectSelected());
-            Produit produit = facadeCommande.getProduitById(commande.getProduit());
+            produit = facadeCommande.getProduitById(commande.getProduit());
             client = commande.getClient();
             coach = commande.getCoach();
             titleText.setText("Détail de la commande n°" + commande.getId());
@@ -115,9 +117,16 @@ public class ControllerCommandeDetail extends ControllerCommande{
     }
 
     @FXML
-    private void voirProduit() {
-        // TODO emmener vers la page de détail du produit
-        displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
+    private void voirProduit() throws BadPageException {
+        setPreviousPageName("commandes");
+        setIdObjectSelected(produit.getId());
+        if (produit instanceof ProgrammeNutrition){
+            goToPage(voirProduit, "produits/programmes/programmesNutrition/detail-programmeNutrition.fxml", "Détail du programme nutrition");
+        } else if (produit instanceof ProgrammeSportif){
+            goToPage(voirProduit, "produits/programmes/programmesSportifs/detail-programmeSportif.fxml", "Détail du programme sportif");
+        } else if (produit instanceof Seance){
+            goToPage(voirProduit, "produits/seances/detail-seance.fxml", "Détail de la séance");
+        }
     }
 
     @FXML

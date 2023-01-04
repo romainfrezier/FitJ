@@ -8,7 +8,7 @@
 <Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.aliments.ControllerAlimentList">
    <children>
        <Button fx:id="addAlimentButton" layoutX="394.0" layoutY="537.0" mnemonicParsing="false" onAction="#goToAddAliment" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Ajouter" textFill="WHITE" />
-       <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItem" prefHeight="470.0" prefWidth="867.0" styleClass="emptyRectangle" />
+       <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItemAliment" prefHeight="470.0" prefWidth="867.0" styleClass="emptyRectangle" />
        <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
        <Button fx:id="updateAlimentButton" layoutX="259.0" layoutY="537.0" mnemonicParsing="false" onAction="#goToUpdateAliment" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Modifier" textFill="WHITE" />
        <Button fx:id="deleteAlimentbutton" layoutX="528.0" layoutY="537.0" mnemonicParsing="false" onAction="#deleteAliment" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Supprimer" textFill="WHITE" />

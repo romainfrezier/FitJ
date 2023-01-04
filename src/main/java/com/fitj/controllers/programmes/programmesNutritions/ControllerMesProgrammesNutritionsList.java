@@ -58,7 +58,7 @@ public class ControllerMesProgrammesNutritionsList extends ControllerProgrammeNu
      * Méthode appelée lors du clic sur un programme nutrition de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemProgramme(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 

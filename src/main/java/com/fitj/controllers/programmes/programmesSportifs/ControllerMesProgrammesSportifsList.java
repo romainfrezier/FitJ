@@ -69,7 +69,7 @@ public class ControllerMesProgrammesSportifsList extends ControllerProgrammeSpor
      * Méthode appelée lors du clic sur un programme sportif de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemProgramme(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 

@@ -44,20 +44,22 @@ public class ControllerShopTabs extends ControllerShop {
     private Text errorText;
 
     @FXML
-    private void selectItem() {
+    private void selectItemList() {
         String currentTabName = tabs.getSelectionModel().getSelectedItem().getText();
         switch (currentTabName){
             case "Packs":
                 setIdObjectSelected(packList.getSelectionModel().getSelectedItem().getId());
                 break;
-            case "Programmes nutrition":
+            case "Programmes Nutrition":
                 setIdObjectSelected(programmeNutritionList.getSelectionModel().getSelectedItem().getId());
                 break;
-            case "Programmes sportifs":
+            case "Programmes Sportifs":
                 setIdObjectSelected(programmeSportifList.getSelectionModel().getSelectedItem().getId());
                 break;
             case "Séances":
                 setIdObjectSelected(seancesList.getSelectionModel().getSelectedItem().getId());
+                break;
+            default:
                 break;
         }
     }
@@ -134,7 +136,8 @@ public class ControllerShopTabs extends ControllerShop {
     private void handleVoirPack() {
         try {
             checkIfItemSelected(packList);
-            super.displayError(errorText, "Fonctionnalité non implémentée");
+            setPreviousPageName("shop");
+            goToPage(voirPack,"produits/packs/detail-pack.fxml", "Pack");
         } catch (Exception e) {
             e.printStackTrace();
             super.displayError(errorText, e.getMessage());
@@ -146,7 +149,7 @@ public class ControllerShopTabs extends ControllerShop {
         try {
             checkIfItemSelected(seancesList);
             setPreviousPageName("shop");
-            goToPage(voirNutrition,"produits/seances/detail.seance.fxml", "Séance");
+            goToPage(voirNutrition,"produits/seances/detail-seance.fxml", "Séance");
         } catch (Exception e) {
             e.printStackTrace();
             super.displayError(errorText, e.getMessage());
