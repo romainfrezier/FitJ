@@ -375,12 +375,15 @@ public class ControllerModifySeance extends ControllerSeance{
     }
 
     /**
-     * Méthode pour recuperer l'exercice selectionné dans la liste des exercices
+     * Méthode pour recuperer un exercice à supprimer
      */
     public Triple<Exercice, Integer, Integer> getExerciceSelectedToDelete() {
         return exerciceSelectedForDelete;
     }
 
+    /**
+     * Méthode pour selectionner un exercice à supprimer
+     */
     @FXML
     private void setExerciceSelectedToDelete() {
         this.exerciceSelectedForDelete = listViewExerciceSeance.getSelectionModel().getSelectedItem();
@@ -391,6 +394,9 @@ public class ControllerModifySeance extends ControllerSeance{
         updateButtonExerciceDisplay(true);
     }
 
+    /**
+     * Méthode pour selectionner un exercice
+     */
     @FXML
     private void setExerciceSelected() {
         this.exerciceSelected = listViewExercice.getSelectionModel().getSelectedItem();

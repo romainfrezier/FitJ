@@ -153,10 +153,18 @@ public abstract class Controller {
         textEl.setText("");
     }
 
+    /**
+     * Getter pour la page précédente
+     * @return String, la page précédente
+     */
     public String getPreviousPageName() {
         return previousPageName;
     }
 
+    /**
+     * Setter pour la page précédente
+     * @param previousPageName String, la page précédente
+     */
     public static void setPreviousPageName(String previousPageName) {
         Controller.previousPageName = previousPageName;
     }

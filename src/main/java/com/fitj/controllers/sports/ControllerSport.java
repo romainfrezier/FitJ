@@ -70,6 +70,11 @@ public abstract class ControllerSport extends Controller {
         goToPage(controlEl, sport + "update-sport.fxml", "Modification d'un sport");
     }
 
+    /**
+     * Methode qui initialise la liste des sports
+     * @param listView listView<Sport>, liste à afficher
+     * @param sports List<Sport>, liste des sports
+     */
      void initializeSportList(ListView<Sport> listView, List<Sport> sports) {
         super.initializeList(listView, sports, new Callback<ListView<Sport>, ListCell<Sport>>() {
             @Override

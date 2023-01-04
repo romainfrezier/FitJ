@@ -11,6 +11,11 @@ import javafx.util.Callback;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller de liste des séances
+ * @see ControllerSeance
+ * @author Romain Frezier
+ */
 public class ControllerSeanceList extends ControllerSeance{
 
 
