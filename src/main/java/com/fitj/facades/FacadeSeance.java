@@ -12,15 +12,34 @@ import kotlin.Triple;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Facade utilisée pour les opérations sur les séances
+ * @see Facade
+ * @author Paul Merceur
+ */
 public class FacadeSeance extends Facade {
 
+    /**
+     * Instance de la Facade, utilisée pour le pattern Singleton
+     */
     private static FacadeSeance instance = null;
+
+    /**
+     * Instance du DAO
+     */
     protected DAOSeance daoSeance;
 
+    /**
+     * Constructeur de la FacadeSeance
+     */
     protected FacadeSeance(){
         daoSeance = FactoryDAO.getInstance().getDAOSeance();
     }
 
+    /**
+     * Méthode permettant de récupérer l'instance de la FacadeSeance
+     * @return FacadeSeance, l'instance de la FacadeSeance
+     */
     public static FacadeSeance getInstance(){
         if (instance == null){
             instance = new FacadeSeance();
@@ -39,7 +58,7 @@ public class FacadeSeance extends Facade {
 
     /**
      * Méthode permettant de récupérer toutes les séances d'un client
-     * @param idClient l'id du client
+     * @param idClient int, l'id du client
      * @return List<Seance>, la liste des séances
      * @throws Exception en cas d'erreur
      */
@@ -49,7 +68,7 @@ public class FacadeSeance extends Facade {
 
     /**
      * Méthode permettant de récupérer toutes les séances d'un coach
-     * @param idCoach l'id du coach
+     * @param idCoach int, l'id du coach
      * @return List<Seance>, la liste des séances
      * @throws Exception en cas d'erreur
      */
@@ -58,8 +77,8 @@ public class FacadeSeance extends Facade {
     }
 
     /**
-     * Méthode permettant de récupérer une séance
-     * @param idSeance l'id de la séance
+     * Méthode permettant de récupérer une séance à partir de son id
+     * @param idSeance int, l'id de la séance
      * @return Seance, la séance
      * @throws Exception en cas d'erreur
      */
@@ -103,7 +122,7 @@ public class FacadeSeance extends Facade {
 
     /**
      * Méthode permettant de supprimer une séance
-     * @param id int, l'id de la séance
+     * @param id int, l'id de la séance à supprimer
      * @throws Exception en cas d'erreur
      */
     public void deleteSeance(int id) throws Exception {
@@ -139,4 +158,5 @@ public class FacadeSeance extends Facade {
     public List<Triple<Exercice, Integer, Integer>> getExercices(int id) throws Exception {
         return this.daoSeance.getExercices(id);
     }
+
 }

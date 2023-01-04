@@ -46,7 +46,7 @@ public class FacadeUser extends Facade {
 
     /**
      * Getter de l'instance de la facade pour le singleton
-     * @return l'instance de la facade
+     * @return FacadeUser, l'instance de la facade
      */
     public static FacadeUser getInstance(){
         if (instance == null){
@@ -57,7 +57,7 @@ public class FacadeUser extends Facade {
 
     /**
      * Gère la connexion d'un utilisateur
-     * @param mail     String, mail de l'utilisateur
+     * @param mail String, mail de l'utilisateur
      * @param password String, mot de passe de l'utilisateur
      * @return String, message de retour
      */
@@ -106,4 +106,5 @@ public class FacadeUser extends Facade {
             }
         }
     }
+
 }
