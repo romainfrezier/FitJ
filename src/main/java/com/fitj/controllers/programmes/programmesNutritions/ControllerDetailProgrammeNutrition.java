@@ -6,6 +6,7 @@ import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutrition {
 
 
+    @FXML
+    private Button buyButton;
     @FXML
     private Button detailProgrammeNutritionButton;
 
@@ -113,6 +116,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
         if (!(Facade.currentClient instanceof Admin) && this.programmeNutrition.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeNutritionButton.setVisible(false);
             deleteProgrammeNutritionButton.setVisible(false);
+            buyButton.setVisible(true);
         }
     }
 
@@ -190,5 +194,15 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             }
         }
 
+    }
+
+    @FXML
+    private void handleBuyButton() {
+        try {
+            setObjectSelected(this.programmeNutrition);
+            goToPage(buyButton, "paiements/paiement.fxml", "Acheter le programme " + this.programmeNutrition.getNom());
+        } catch (Exception e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 }

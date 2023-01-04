@@ -31,7 +31,7 @@ public abstract class ControllerSeance extends Controller {
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
      */
-    private final String recette = "seances/";
+    private final String recette = "produits/seances/";
 
     /**
      * Methode permettant de se rendre sur la page mon espace

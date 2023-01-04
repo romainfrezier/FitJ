@@ -71,7 +71,7 @@ public abstract class ControllerHeader extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToShop(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "s/shop-" +  path + ".fxml", "Shop");
+        goToPage(controlEl, "shop/shop.fxml", "Shop");
     }
 
     /**
