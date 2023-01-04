@@ -4,13 +4,28 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.*;
 
+/**
+ * Classe permettant de mapper les résultats d'une requête SQL
+ *
+ * @author Paul Merceur
+ */
 public final class DaoMapper {
 
+    /**
+     * La liste des données mappées, avec pour chaque ligne une Map associant le nom de chaque colonne à sa valeur.
+     */
     private final List<Map<String,Object>> listeData;
 
+    /**
+     * La liste des données mappées, avec pour chaque ligne une Map associant l'index de chaque colonne (à partir de 1) à sa valeur.
+     */
     private final List<Map<Integer,Object>> listeDataIndex;
 
-
+    /**
+     * Construit un nouveau DaoMapper en mappant les résultats du ResultSet fourni.
+     * @param resultSet ResultSet, le ResultSet à mapper
+     * @throws Exception en cas d'erreur lors de la récupération des données du ResultSet
+     */
     public DaoMapper(ResultSet resultSet) throws Exception {
         ResultSetMetaData rsmd = resultSet.getMetaData();
         int columnCount = rsmd.getColumnCount();
@@ -32,12 +47,19 @@ public final class DaoMapper {
         resultSet.close();
     }
 
+    /**
+     * Retourne la liste des données mappées, avec pour chaque ligne une Map associant le nom de chaque colonne à sa valeur.
+     * @return la liste des données mappées par nom de colonne
+     */
     public List<Map<String,Object>> getListeData() {
         return listeData;
     }
 
+    /**
+     * Retourne la liste des données mappées, avec pour chaque ligne une Map associant l'index de chaque colonne (à partir de 1) à sa valeur.
+     * @return la liste des données mappées par index de colonne
+     */
     public List<Map<Integer,Object>> getListeDataIndex() {
         return listeDataIndex;
     }
-
 }

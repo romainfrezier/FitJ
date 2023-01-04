@@ -74,7 +74,7 @@ public class FacadeCommande extends Facade {
     /**
      * Méthode permettant de récupérer l'id d'un produit
      * @param produit String, le nom du produit
-     * @return int, l'id du produit
+     * @return Produit, l'id du produit
      * @throws Exception
      */
     public Produit getProduitById(Produit produit) throws Exception {

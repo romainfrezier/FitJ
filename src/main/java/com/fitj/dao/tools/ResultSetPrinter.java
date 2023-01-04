@@ -3,7 +3,16 @@ package com.fitj.dao.tools;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
+/**
+ * Classe permettant d'afficher les résultats d'un ResultSet sous forme de tableau CSV.
+ */
 public final class ResultSetPrinter {
+
+    /**
+     * Affiche les résultats du ResultSet fourni sous forme de tableau CSV.
+     * @param rs ResultSet, le ResultSet à afficher
+     * @throws Exception en cas d'erreur lors de la récupération des données du ResultSet
+     */
     public static void displayResultSetAsCSVTable(ResultSet rs) throws Exception {
         ResultSetMetaData rsmd = rs.getMetaData();
 
