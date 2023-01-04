@@ -7,12 +7,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteClient">
+<Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" styleClass="emptyRectangle" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteClient">
    <children>
-      <ImageView fx:id="image" fitHeight="198.0" fitWidth="257.0" layoutX="36.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="272.0" fitWidth="257.0" layoutX="35.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
       <Text fill="#054371" layoutX="334.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mon compte" wrappingWidth="445.3367004394531">
          <font>
-            <Font size="20.0" />
+            <Font size="30.0" />
          </font>
       </Text>
       <Button fx:id="updateButton" layoutX="786.0" layoutY="271.0" mnemonicParsing="false" onAction="#goToUpdate" style="-fx-background-color:  #054371;" styleClass="buttonBlue" text="Mettre à jour" textFill="WHITE">

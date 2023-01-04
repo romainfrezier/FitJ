@@ -2,7 +2,6 @@ package com.fitj.controllers.monCompte;
 
 import com.fitj.classes.Coach;
 import com.fitj.exceptions.BadPageException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -13,15 +12,13 @@ import static com.fitj.facades.Facade.currentClient;
 
 public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
-    private Text solde;
+    private Button retirerButton;
     @FXML
-    private Button retirer;
+    private Text solde;
     @FXML
     private Text pseudo;
     @FXML
     private Text mail;
-    @FXML
-    private Text Solde;
     @FXML
     private ImageView image;
     @FXML
@@ -34,11 +31,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        //change les valeurs des text
         pseudo.setText(currentClient.getPseudo());
         mail.setText(currentClient.getEmail());
-        // solde.setText(((Coach)currentClient).getSolde() + " €");
-        //change l'image a partir d'un lien
+        solde.setText(((Coach)currentClient).getSolde() + " €");
         Image img = new Image(currentClient.getPhoto());
         image.setImage(img);
     }
@@ -66,6 +61,12 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
 
     @FXML
     private void handleRetirerButton() {
-        displayError(errorText, "Fontionnalité non disponible");
+        try {
+            super.hideError(errorText);
+            setPreviousPageName("monCompte");
+            super.goToMakePayment(retirerButton);
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 }

@@ -26,7 +26,7 @@ public class FacadeCoach extends Facade {
     }
 
     public Admin clientBecomeAdmin(int idObjectSelected) throws Exception {
-        return this.daoClient.clientBecomeAdmin(idObjectSelected);
+        return this.daoClient.coachBecomeAdmin(idObjectSelected);
     }
 
     public List<Client> getAllClientsForACoach(int coachId) throws Exception {

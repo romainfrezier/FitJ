@@ -25,6 +25,7 @@ module com.fitj {
     opens com.fitj.controllers.programmes.programmesSportifs to javafx.fxml;
     opens com.fitj.controllers.seances to javafx.fxml;
     opens com.fitj.controllers.monCompte to javafx.fxml;
+    opens com.fitj.controllers.paiements to javafx.fxml;
 
 
     opens com.fitj.classes to javafx.base;

@@ -343,9 +343,9 @@ public class DAOClientPostgreSQLTest {
     @Test
     public void testClientToAdmin() throws Exception {
         int size = daoClientPostgreSQL.getAllAdmin().size();
-        daoClientPostgreSQL.clientBecomeAdmin(clientBD.getId());
+        daoClientPostgreSQL.coachBecomeAdmin(clientBD.getId());
         int newSize = daoClientPostgreSQL.getAllAdmin().size();
-        daoClientPostgreSQL.clientBecomeAdmin(clientBD.getId());
+        daoClientPostgreSQL.coachBecomeAdmin(clientBD.getId());
         Assertions.assertEquals(size + 1, newSize);
     }
 

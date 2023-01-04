@@ -29,7 +29,7 @@ public class FacadeAdmin extends Facade {
     }
 
     public Admin clientBecomeAdmin(int idObjectSelected) throws Exception {
-        return this.daoClient.clientBecomeAdmin(idObjectSelected);
+        return this.daoClient.coachBecomeAdmin(idObjectSelected);
     }
 
     public Coach clientBecomeCoach(int idObjectSelected) throws Exception {

@@ -213,7 +213,7 @@ public abstract class DAOClient extends DAO {
      * @return Admin, le coach créé
      * @throws Exception en cas de problème lors de la requête SQL
      */
-    public abstract Admin clientBecomeAdmin(int idClient) throws Exception;
+    public abstract Admin coachBecomeAdmin(int idClient) throws Exception;
 
     /**
      * Permet à un admin de ban un client
@@ -230,4 +230,21 @@ public abstract class DAOClient extends DAO {
      * @throws Exception en cas de problème lors de la requête SQL
      */
     public abstract List<Client> getAllClientForACoach(int coachId) throws Exception;
+
+    /**
+     * Permet de remettre a zéro le solde d'un coach
+     * @param coachId int, l'id du coach
+     * @return Coach, le coach modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Coach resetSoldeCoach(int coachId) throws Exception;
+
+    /**
+     * Incrémente le solde d'un coach
+     * @param coachId int, l'id du coach
+     * @param solde int, le solde à ajouter
+     * @return Coach, le coach modifié
+     * @throws Exception en cas de problème lors de la requête SQL
+     */
+    public abstract Coach incrementeSoldeCoach(int coachId, int solde) throws Exception;
 }
