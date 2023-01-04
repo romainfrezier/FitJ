@@ -3,6 +3,7 @@ package com.fitj.controllers.seances;
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.facades.Facade;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -52,7 +53,8 @@ public class ControllerDetailSeance extends ControllerSeance{
 
     @FXML
     private VBox headerCoach;
-
+    @FXML
+    private Button buyButton;
     @FXML
     private VBox headerClient;
 
@@ -104,6 +106,9 @@ public class ControllerDetailSeance extends ControllerSeance{
         if (!(Facade.currentClient instanceof Admin) && this.seance.getCoach().getId() != Facade.currentClient.getId()){
             updateSeanceButton.setVisible(false);
             deleteSeanceButton.setVisible(false);
+            if (getPreviousPageName().equals("shop")){
+                buyButton.setVisible(true);
+            }
         }
     }
 
@@ -190,5 +195,14 @@ public class ControllerDetailSeance extends ControllerSeance{
     }
 
 
+    @FXML
+    private void handleBuyButton() {
+        try {
+            setObjectSelected(this.seance);
+            goToPage(buyButton, "paiements/paiement.fxml", "Acheter la séance" + this.seance.getNom());
+        } catch (Exception e) {
+            super.displayError(errorText, e.getMessage());
+        }
+    }
 }
 

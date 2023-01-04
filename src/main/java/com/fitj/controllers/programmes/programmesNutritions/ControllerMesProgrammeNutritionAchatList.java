@@ -48,7 +48,7 @@ public class ControllerMesProgrammeNutritionAchatList extends ControllerProgramm
      * Méthode appelée lors du clic sur un programme nutrition de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemProgramme(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 
@@ -63,6 +63,7 @@ public class ControllerMesProgrammeNutritionAchatList extends ControllerProgramm
             super.hideError(errorText);
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
+            setPreviousPageName("achats");
             super.goToDetailProgrammeNutrition(detailProgrammeNutritionButton);
         } catch (BadPageException | UnselectedItemException e) {
             e.printStackTrace();

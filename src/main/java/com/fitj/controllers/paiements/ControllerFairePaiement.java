@@ -2,6 +2,9 @@ package com.fitj.controllers.paiements;
 
 import com.fitj.classes.Admin;
 import com.fitj.classes.Coach;
+import com.fitj.classes.Produit;
+import com.fitj.classes.ProgrammePersonnalise;
+import com.fitj.enums.PaiementType;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
@@ -69,8 +72,9 @@ public class ControllerFairePaiement extends ControllerPaiement {
     private void handlePayerButton() {
         if (getPreviousPageName().equals("monCompte")) {
             showConfirmationRetirer();
-        } else {
-            displayError(errorText, "Fonctionnalité non implémentée");
+        } else if (getPreviousPageName().equals("shop")) {
+            Produit produit = (Produit) getObjectSelected();
+            showConfirmationPayer(produit);
         }
     }
 
@@ -86,6 +90,31 @@ public class ControllerFairePaiement extends ControllerPaiement {
             try {
                 Facade.currentClient = facadePaiement.retirerArgent(Facade.currentClient.getId());
                 super.goToMonCompte(payerButton);
+            } catch (Exception e) {
+                super.displayError(errorText, e.getMessage());
+            }
+        }
+    }
+
+    private void showConfirmationPayer(Produit produit) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Paiement");
+        alert.setHeaderText("Vous êtes sûr de vouloir acheter le produit \"" + produit.getNom() + "\" au prix de " + produit.getPrix() + " € ?");
+        alert.setContentText("Vous ne pourrez pas revenir en arrière");
+
+        Optional<ButtonType> option = alert.showAndWait();
+
+        if (option.isPresent() && option.get() == ButtonType.OK){
+            try {
+                if (!(produit instanceof ProgrammePersonnalise)) {
+                    RadioButton selectedButton = (RadioButton)payment.getSelectedToggle();
+                    if (selectedButton.equals(radioCB)) {
+                        facadePaiement.acheterProduit(Facade.currentClient.getId(), produit, PaiementType.CARTE_BANCAIRE);
+                    } else if (selectedButton.equals(radioPaypal)) {
+                        facadePaiement.acheterProduit(Facade.currentClient.getId(), produit, PaiementType.PAYPAL);
+                    }
+                }
+                super.goToShop(payerButton);
             } catch (Exception e) {
                 super.displayError(errorText, e.getMessage());
             }

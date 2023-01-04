@@ -67,12 +67,12 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
                 return new ProgrammeNutrition(((Long)data.get("id")).intValue(), (String) data.get("nom"), (String)data.get("description"),((Number)data.get("prix")).doubleValue(),ProgrammeType.getProgrammeType((String) data.get("type")), ((Number)data.get("nbmois")).intValue(),coach,listeRecette);
             }
             else {
-                throw new DBProblemException("Aucune programme nutrition avec cet id n'existe");
+                throw new DBProblemException("Aucun programme nutrition avec cet id n'existe");
             }
         }
         catch(Exception e){
             e.printStackTrace();
-            throw new DBProblemException("La sélection de du programme nutrition a échoué");
+            throw new DBProblemException("La sélection du programme nutrition a échoué");
         }
     }
 

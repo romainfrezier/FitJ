@@ -129,9 +129,4 @@ public class FacadeProgrammeSportif extends Facade{
     public List<ProgrammeSportif> getAllProgrammesSportifsByClient(int idClient) throws Exception{
         return programmeSportifDAO.getAllProgrammeSportifByClient(idClient);
     }
-
-
-
-
-
 }

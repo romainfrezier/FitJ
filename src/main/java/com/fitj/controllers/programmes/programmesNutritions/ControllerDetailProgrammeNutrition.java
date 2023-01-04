@@ -6,6 +6,7 @@ import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -19,6 +20,10 @@ import java.util.Optional;
 public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutrition {
 
 
+    @FXML
+    private Text prix;
+    @FXML
+    private Button buyButton;
     @FXML
     private Button detailProgrammeNutritionButton;
 
@@ -87,6 +92,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             this.programmeType.setText(ProgrammeType.getProgrammeType(this.programmeNutrition.getType()));
             this.nbMoisProgramme.setText(this.programmeNutrition.getNbMois() + " mois");
             this.descriptionProgramme.getChildren().add(new Text(this.programmeNutrition.getDescription()));
+            this.prix.setText(this.programmeNutrition.getPrix() + " €");
         }
         catch (Exception e){
             e.printStackTrace();
@@ -113,6 +119,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
         if (!(Facade.currentClient instanceof Admin) && this.programmeNutrition.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeNutritionButton.setVisible(false);
             deleteProgrammeNutritionButton.setVisible(false);
+            if (getPreviousPageName().equals("shop")){
+                buyButton.setVisible(true);
+            }
         }
     }
 
@@ -164,7 +173,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void handlerViewRecette(){
             setIdObjectSelected(listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem().getId());
-            this.detailProgrammeNutritionButton.setVisible(true);
+            if (!getPreviousPageName().equals("shop")){
+                this.detailProgrammeNutritionButton.setVisible(true);
+            }
     }
 
 
@@ -190,5 +201,15 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             }
         }
 
+    }
+
+    @FXML
+    private void handleBuyButton() {
+        try {
+            setObjectSelected(this.programmeNutrition);
+            goToPage(buyButton, "paiements/paiement.fxml", "Acheter le programme " + this.programmeNutrition.getNom());
+        } catch (Exception e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 }

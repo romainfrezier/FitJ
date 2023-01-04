@@ -29,38 +29,38 @@ public class FacadeProgrammeNutrition extends Facade{
 
     /**
      * @return la liste des programmes nutritions de la base de données
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public List<ProgrammeNutrition> getListeProgrammeNutrition() throws Exception{
-        return this.programmeNutritionDAO.getAllProgrammeNutrition();
+        return programmeNutritionDAO.getAllProgrammeNutrition();
     }
 
     /**
      * Supprime un programme nutrition de la base de données
      * @param idProgramme l'id du programme à récupérer
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
 
     public void deleteProgrammeNutrition(int idProgramme) throws Exception{
-        this.programmeNutritionDAO.supprimerProgrammeNutrition(idProgramme);
+        programmeNutritionDAO.supprimerProgrammeNutrition(idProgramme);
     }
 
     /**
      * @param idProgramme l'id du programme à récupérer
      * @return le programme nutrition correspondant à l'id
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public ProgrammeNutrition getProgrammeNutritionById(int idProgramme) throws Exception{
-        return this.programmeNutritionDAO.getProgrammeNutritionById(idProgramme);
+        return programmeNutritionDAO.getProgrammeNutritionById(idProgramme);
     }
 
     /**
      * @param coach le coach qui a créé le programme nutrition
      * @return la liste des programmes nutritions créées par le coach
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public List<ProgrammeNutrition> getProgrammeNutritionByCoach(Coach coach) throws Exception{
-        return this.programmeNutritionDAO.getProgrammeNutritionByCoach(coach.getId());
+        return programmeNutritionDAO.getProgrammeNutritionByCoach(coach.getId());
     }
 
 
@@ -72,10 +72,10 @@ public class FacadeProgrammeNutrition extends Facade{
      * @param type le nouveau type du programme nutrition
      * @param nbMois le nouveau nombre de mois du programme nutrition
      * @return le programme nutrition modifié
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public ProgrammeNutrition updateProgrammeNutrition(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception{
-        return this.programmeNutritionDAO.updateProgrammeNutrition(idProgramme, nom, description, prix, type, nbMois);
+        return programmeNutritionDAO.updateProgrammeNutrition(idProgramme, nom, description, prix, type, nbMois);
     }
 
 
@@ -88,10 +88,10 @@ public class FacadeProgrammeNutrition extends Facade{
      * @param coach le coach qui a créé le programme nutrition
      * @param listeRecettes la liste des recettes du programme nutrition
      * @return le programme nutrition créé
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public ProgrammeNutrition createProgrammeNutrition(String nom, String description, double prix, ProgrammeType type, int nbMois, Coach coach, ArrayList<Recette> listeRecettes) throws Exception{
-        return this.programmeNutritionDAO.createProgrammeNutrition(nom, description, prix, type, nbMois, coach, listeRecettes);
+        return programmeNutritionDAO.createProgrammeNutrition(nom, description, prix, type, nbMois, coach, listeRecettes);
     }
 
 
@@ -102,7 +102,7 @@ public class FacadeProgrammeNutrition extends Facade{
      * @throws Exception si la recette est déjà dans le programme nutrition
      */
     public void removeRecetteFromProgrammeNutrition(int idProgrammeNutrition, Recette recette) throws Exception{
-        this.programmeNutritionDAO.supprimerRecetteProgramme(recette, idProgrammeNutrition);
+        programmeNutritionDAO.supprimerRecetteProgramme(recette, idProgrammeNutrition);
     }
 
 
@@ -113,11 +113,11 @@ public class FacadeProgrammeNutrition extends Facade{
      * @throws Exception si la recette est déjà dans le programme nutrition
      */
     public void addRecetteToProgrammeNutrition(int idProgrammeNutrition, Recette recette) throws Exception{
-        this.programmeNutritionDAO.ajouterRecetteProgramme(recette, idProgrammeNutrition);
+        programmeNutritionDAO.ajouterRecetteProgramme(recette, idProgrammeNutrition);
     }
 
     public List<ProgrammeNutrition> getAllProgrammesNutritionsByClient(int idClient) throws Exception{
-        return this.programmeNutritionDAO.getAllProgrammesNutritionsByClient(idClient);
+        return programmeNutritionDAO.getAllProgrammesNutritionsByClient(idClient);
     }
 
 }

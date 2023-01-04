@@ -415,7 +415,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     }
 
     @Override
-    public Coach incrementeSoldeCoach(int coachId, int solde) throws Exception {
+    public Coach incrementeSoldeCoach(int coachId, double solde) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idcoach", coachId));
         DaoMapper soldeData = ((MethodesPostgreSQL)this.methodesBD).selectWhere(whereList, "solde");

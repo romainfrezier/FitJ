@@ -3,6 +3,7 @@ package com.fitj.controllers.programmes.programmesSportifs;
 import com.fitj.classes.*;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,6 +19,10 @@ import java.util.Optional;
 
 public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif{
 
+    @FXML
+    private Text prix;
+    @FXML
+    private Button buyButton;
     @FXML
     private Button detailSeanceButton;
 
@@ -86,14 +91,13 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
             this.programmeType.setText(ProgrammeType.getProgrammeType(this.programmeSportif.getType()));
             this.nbMoisProgramme.setText(this.programmeSportif.getNbMois() + " mois");
             this.descriptionProgramme.getChildren().add(new Text(this.programmeSportif.getDescription()));
+            this.prix.setText(this.programmeSportif.getPrix() + " €");
+            initializeSeanceList();
         }
         catch (Exception e){
             e.printStackTrace();
             super.displayError(errorText, e.getMessage());
         }
-        setObjectSelected(null);
-        initializeSeanceList();
-
     }
 
     /**
@@ -112,6 +116,9 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
         if (!(Facade.currentClient instanceof Admin) && this.programmeSportif.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeSportifButton.setVisible(false);
             deleteProgrammeSportifButton.setVisible(false);
+            if (getPreviousPageName().equals("shop")){
+                buyButton.setVisible(true);
+            }
         }
     }
 
@@ -163,7 +170,9 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
     @FXML
     private void handlerViewSeance(){
         setIdObjectSelected(listViewSeanceProgrammeSportif.getSelectionModel().getSelectedItem().getId());
-        this.detailSeanceButton.setVisible(true);
+        if (!getPreviousPageName().equals("shop")){
+            detailSeanceButton.setVisible(true);
+        }
     }
 
 
@@ -191,4 +200,13 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
 
     }
 
+    @FXML
+    private void handleBuyButton() {
+        try {
+            setObjectSelected(this.programmeSportif);
+            goToPage(buyButton, "paiements/paiement.fxml", "Acheter le programme " + this.programmeSportif.getNom());
+        } catch (Exception e) {
+            super.displayError(errorText, e.getMessage());
+        }
+    }
 }
