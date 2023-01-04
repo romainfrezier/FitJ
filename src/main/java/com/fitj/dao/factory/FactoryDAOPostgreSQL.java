@@ -11,6 +11,9 @@ import com.fitj.dao.postgresql.*;
  */
 public class FactoryDAOPostgreSQL extends FactoryDAO {
 
+    /**
+     * constructeur de la factory
+     */
     public FactoryDAOPostgreSQL(){
         super();
 
