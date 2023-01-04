@@ -15,6 +15,11 @@ import javafx.util.Callback;
 
 import java.util.List;
 
+/**
+ * Controller de la page des détails d'un coach
+ * @see ControllerCoach
+ * @author Romain Frezier
+ */
 public class ControllerCoachDetail extends ControllerCoach{
     @FXML
     private AnchorPane headerAdmin;
@@ -47,6 +52,9 @@ public class ControllerCoachDetail extends ControllerCoach{
 
     private Coach coach;
 
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize(){
         try {
@@ -74,6 +82,9 @@ public class ControllerCoachDetail extends ControllerCoach{
 
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste des packs du coach
+     */
     private void initializePackList() {
         try {
             List<Pack> packs = coachFacade.getAllPackByCoach(coach);
@@ -96,6 +107,9 @@ public class ControllerCoachDetail extends ControllerCoach{
         }
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste des programmes nutritions du coach
+     */
     private void initializeNutritionList() {
         try {
             List<ProgrammeNutrition> nutritions = coachFacade.getCoachProgrammeNutrition(coach);
@@ -120,6 +134,9 @@ public class ControllerCoachDetail extends ControllerCoach{
         }
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste des programmes sportifs du coach
+     */
     private void initializeSportifList() {
         try {
             List<ProgrammeSportif> sportifs = coachFacade.getCoachProgrammeSportifs(coach);
@@ -144,6 +161,9 @@ public class ControllerCoachDetail extends ControllerCoach{
         }
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste des séances du coach
+     */
     private void initializeSeanceList() {
         try {
             List<Seance> seances = coachFacade.getSeanceByCoach(coach);
@@ -168,6 +188,9 @@ public class ControllerCoachDetail extends ControllerCoach{
         }
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste des sports du coach
+     */
     private void initializeSportList() {
         super.initializeList(sportList, coach.getListeSport(), new Callback<ListView<Sport>, ListCell<Sport>>() {
             @Override
@@ -187,6 +210,9 @@ public class ControllerCoachDetail extends ControllerCoach{
         });
     }
 
+    /**
+     * Méthode permettant de retourner à la page précédente
+     */
     @FXML
     private void goBack() {
         try {

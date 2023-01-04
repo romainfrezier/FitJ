@@ -7,6 +7,11 @@ import javafx.scene.text.Text;
 
 import static com.fitj.facades.Facade.currentClient;
 
+/**
+ * Controller de la page de modification du mot de passe
+ * @see ControllerMonCompte
+ * @author Paco Munarriz
+ */
 public class ControllerMonCompteUpdatePassword extends ControllerMonCompte {
 
 
@@ -20,11 +25,17 @@ public class ControllerMonCompteUpdatePassword extends ControllerMonCompte {
     private Text errorText;
 
 
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize() {
         super.hideError(errorText);
     }
 
+    /**
+     * Méthode permettant de modifier le mot de passe
+     */
     @FXML
     private void update() {
         super.hideError(errorText);

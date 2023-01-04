@@ -100,6 +100,10 @@ public class ControllerDetailSeance extends ControllerSeance{
 
     }
 
+    /**
+     *Vérifie si le client courant est un coach ou un admin
+     *Si le client courant n'est pas un admin et que le coach de la seance n'est pas le client courant, alors les boutons de modification et de suppression de la seance sont cachés
+     */
     public void checkCurrentCoach(){
         if (!(Facade.currentClient instanceof Admin) && this.seance.getCoach().getId() != Facade.currentClient.getId()){
             updateSeanceButton.setVisible(false);

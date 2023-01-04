@@ -15,6 +15,11 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller de la page pour modifier un programme nutrition
+ * @see ControllerProgrammeNutrition
+ * @author Romain Frezier
+ */
 public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutrition {
 
 
@@ -244,6 +249,9 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
         }
     }
 
+    /**
+     * Méthode pour vérifier que les champs sont bien remplis
+     */
     public boolean verifChamps() {
         if (nomProgrammeNutrition.getText().isEmpty()) {
             super.displayError(errorText, "Veuillez renseigner le nom du programme nutrition");
@@ -268,22 +276,34 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
         return true;
     }
 
+    /**
+     * Méthode pour modifier le montant du prix du programme nutrition
+     */
     @FXML
     private void updateMontantProgramme(){
         montantProgramme.setText((int) prixProgrammeNutrition.getValue() + " €");
     }
 
 
+    /**
+     * Méthode pour selectionner une recette à supprimer
+     */
     @FXML
     private void setRecetteSelectedToDelete() {
         this.recetteSelectedForDelete = listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode pour selectionner une recette
+     */
     @FXML
     private void setRecetteSelected() {
         this.recetteSelected = listViewRecette.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode pour modifier le nombre de mois du programme nutrition
+     */
     @FXML
     private void updateMoisValue() {
         nbMoisValue.setText((int) nbMoisProgrammeNutrition.getValue() + " mois");

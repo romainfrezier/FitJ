@@ -10,6 +10,11 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
+/**
+ * Controller de la page pour voir ses programmes nutrition achetés
+ * @see ControllerProgrammeNutrition
+ * @author Paco Munarriz
+ */
 public class ControllerMesProgrammeNutritionAchatList extends ControllerProgrammeNutrition {
 
 

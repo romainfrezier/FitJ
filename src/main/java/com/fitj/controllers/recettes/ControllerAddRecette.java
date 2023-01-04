@@ -103,6 +103,9 @@ public class ControllerAddRecette extends ControllerRecette {
         }
     }
 
+    /**
+     * Methode permettant d'initialiser la liste des aliments
+     */
     private void initializeAlimentList(){
         try {
             listViewAliment.getItems().clear();
@@ -131,6 +134,9 @@ public class ControllerAddRecette extends ControllerRecette {
         }
     }
 
+    /**
+     * Methode permettant d'initialiser la liste des recettes
+     */
     private void initializeRecetteList() {
         try {
             listViewRecette.getItems().clear();
@@ -198,20 +204,32 @@ public class ControllerAddRecette extends ControllerRecette {
         }
     }
 
+    /**
+     * Méthode pour recuperer l'ingrédient à supprimer
+     */
     public Ingredient getIngredientSelectedToDelete() {
         return ingredientSelected;
     }
 
+    /**
+     * Méthode pour selectionner l'ingrédient à supprimer
+     */
     @FXML
     public void setIngredientSelectedToDelete() {
         this.ingredientSelectedForDelete = listViewIngredientRecette.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode pour selectionner un ingrédient
+     */
     @FXML
     public void setIngredientSelectedAliment() {
         this.ingredientSelected = listViewAliment.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode pour selectionner un ingrédient dans une recette
+     */
     @FXML
     public void setIngredientSelectedRecette() {
         this.ingredientSelected = listViewRecette.getSelectionModel().getSelectedItem();

@@ -15,6 +15,11 @@ import javafx.util.Callback;
 
 import java.util.ArrayList;
 
+/**
+ * Controller de la page pour ajouter un programme sportif
+ * @see ControllerProgrammeSportif
+ * @author Paco Munarriz
+ */
 public class ControllerAddProgrammeSportif extends ControllerProgrammeSportif{
 
     @FXML
@@ -202,6 +207,9 @@ public class ControllerAddProgrammeSportif extends ControllerProgrammeSportif{
         }
     }
 
+    /**
+     * Méthode pour verifier que les champs sont remplies, retourne true si c'est le cas
+     */
     public boolean verifChamps() {
         if (nomProgrammeSportif.getText().isEmpty()) {
             super.displayError(errorText, "Veuillez renseigner le nom du programme sportif");
@@ -226,21 +234,33 @@ public class ControllerAddProgrammeSportif extends ControllerProgrammeSportif{
         return true;
     }
 
+    /**
+     * Méthode pour modifier le prix du programme sportif
+     */
     @FXML
     private void updateMontantProgramme(){
         montantProgramme.setText((int) prixProgrammeSportif.getValue() + " €");
     }
 
+    /**
+     * Méthode selectionner la recette a supprimer
+     */
     @FXML
     private void setSeanceSelectedToDelete() {
         this.seanceSelectedForDelete = listViewSeanceProgrammeSportif.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode selectionner une seance
+     */
     @FXML
     private void setSeanceSelected() {
         this.seanceSelected = listViewSeance.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode pour le nombre de mois du programme sportif
+     */
     @FXML
     private void updateMoisValue() {
         this.nbMoisValue.setText((int) nbMoisProgrammeSportif.getValue() + " mois");

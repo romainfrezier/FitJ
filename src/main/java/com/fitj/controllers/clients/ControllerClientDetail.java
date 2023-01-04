@@ -12,7 +12,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-
+/**
+ * Controller de la page client-detail-view.fxml
+ * @see ControllerClient
+ * @author Romain Frezier
+ */
 public class ControllerClientDetail extends ControllerClient {
     @FXML
     private Button goBackButton;
@@ -33,6 +37,10 @@ public class ControllerClientDetail extends ControllerClient {
 
     private Client client;
 
+
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize(){
         try {
@@ -52,6 +60,9 @@ public class ControllerClientDetail extends ControllerClient {
 
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste du materiel du client
+     */
     private void initializeClientMaterielList() {
         super.initializeList(materielList, client.getListeMateriel(), new Callback<ListView<Materiel>, ListCell<Materiel>>(){
             @Override
@@ -71,6 +82,9 @@ public class ControllerClientDetail extends ControllerClient {
         });
     }
 
+    /**
+     * Methode permettant d'initialiser la liste des sports du client
+     */
     private void initializeClientSportList() {
         super.initializeList(sportList, client.getListeSport(), new Callback<ListView<Sport>, ListCell<Sport>>() {
             @Override
@@ -90,6 +104,11 @@ public class ControllerClientDetail extends ControllerClient {
         });
     }
 
+    /**
+     * Méthode appelée lors du clic sur le bouton retour
+     * Permet de revenir à la page précédente
+     * @throws BadPageException
+     */
     @FXML
     private void goBack() {
         try {

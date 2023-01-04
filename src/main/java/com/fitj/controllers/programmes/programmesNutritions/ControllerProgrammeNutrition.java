@@ -89,6 +89,9 @@ public abstract class ControllerProgrammeNutrition extends Controller {
         goToPage(controlEl, "recettes/" + "detail-recette.fxml", "Détail d'une recette");
     }
 
+    /**
+     * Methode pour initialiser la liste des programmes nutrition
+     */
     void initializeProgrammeNutritionList(ListView<ProgrammeNutrition> listView, List<ProgrammeNutrition> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override
@@ -108,6 +111,9 @@ public abstract class ControllerProgrammeNutrition extends Controller {
         });
     }
 
+    /**
+     * Methode pour initialiser la liste des recettes
+     */
     void initializeRecetteList(ListView<Recette> listView, List<Recette> recettes) {
         super.initializeList(listView, recettes, new Callback<ListView<Recette>, ListCell<Recette>>() {
             @Override

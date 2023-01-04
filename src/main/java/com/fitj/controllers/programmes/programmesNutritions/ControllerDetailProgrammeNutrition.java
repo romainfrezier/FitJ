@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller de la page des détails d'un programme nutrition
+ * @see ControllerProgrammeNutrition
+ * @author Romain Frezier
+ */
 public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutrition {
 
 
@@ -109,6 +114,10 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
         }
     }
 
+    /**
+     *Vérifie si le client courant est un coach ou un admin
+     *Si le client courant n'est pas un admin et que le coach du programme de nutrition n'est pas le client courant, alors les boutons de modification et de suppression du programme de nutrition sont cachés
+     */
     public void checkCurrentCoach(){
         if (!(Facade.currentClient instanceof Admin) && this.programmeNutrition.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeNutritionButton.setVisible(false);

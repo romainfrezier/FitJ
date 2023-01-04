@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller de la page des détails d'un programme sportif
+ * @see ControllerProgrammeSportif
+ * @author Romain Frezier
+ */
 public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif{
 
     @FXML
@@ -108,6 +113,10 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
         }
     }
 
+    /**
+     *Vérifie si le client courant est un coach ou un admin
+     *Si le client courant n'est pas un admin et que le coach du programme sportif n'est pas le client courant, alors les boutons de modification et de suppression du programme sportif sont cachés
+     */
     public void checkCurrentCoach(){
         if (!(Facade.currentClient instanceof Admin) && this.programmeSportif.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeSportifButton.setVisible(false);

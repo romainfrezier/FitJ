@@ -8,6 +8,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+/**
+ * Controller de la page de modification d'un exercice
+ * @see ControllerExercice
+ * @author Paul Merceur
+ */
 public class ControllerUpdateExercice extends ControllerExercice {
 
     // Composants FXML -----------------------------------------------------------------------------------------------

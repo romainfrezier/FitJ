@@ -12,6 +12,10 @@ import javafx.util.Callback;
 
 import java.util.List;
 
+/**
+ * Classe abstraite de base pour les controllers de programmes sportifs
+ * @author Romain Frezier
+ */
 public abstract class ControllerProgrammeSportif extends Controller {
 
     /**
@@ -92,6 +96,11 @@ public abstract class ControllerProgrammeSportif extends Controller {
         goToPage(controlEl, "seances/" + "detail-seance.fxml", "Détail d'une séance");
     }
 
+    /**
+     * Methode qui initialise la liste des programmes sportifs
+     * @param listView<ProgrammeSportif> ListView, liste à afficher
+     * @param items<ProgrammeSportif> items, liste des programmes sportifs
+     */
     void initializeProgrammeSportifList(ListView<ProgrammeSportif> listView, List<ProgrammeSportif> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override
@@ -111,8 +120,13 @@ public abstract class ControllerProgrammeSportif extends Controller {
         });
     }
 
-    void initializeSeanceList(ListView<Seance> listView, List<Seance> recettes) {
-        super.initializeList(listView, recettes, new Callback<ListView<Seance>, ListCell<Seance>>() {
+    /**
+     * Methode qui initialise la liste des séances
+     * @param listView<Seance> ListView, liste à afficher
+     * @param seances<Seance> seances, liste des séances
+     */
+    void initializeSeanceList(ListView<Seance> listView, List<Seance> seances) {
+        super.initializeList(listView, seances, new Callback<ListView<Seance>, ListCell<Seance>>() {
             @Override
             public ListCell<Seance> call(ListView<Seance> param) {
                 return new ListCell<>() {

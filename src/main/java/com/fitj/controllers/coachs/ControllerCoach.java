@@ -22,6 +22,9 @@ public abstract class ControllerCoach extends Controller {
      */
     final FacadeCoach coachFacade = FacadeCoach.getInstance();
 
+    /**
+     * Méthode permettant d'initialiser la liste des coachs
+     */
     void initializeCoachList(ListView<Coach> listView, List<Coach> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override
@@ -41,6 +44,9 @@ public abstract class ControllerCoach extends Controller {
         });
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste des clients
+     */
     void initializeClientList(ListView<Client> listView, List<Client> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override

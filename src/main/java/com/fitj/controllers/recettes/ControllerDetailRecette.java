@@ -82,6 +82,10 @@ public class ControllerDetailRecette extends ControllerRecette{
 
     }
 
+    /**
+     *Vérifie si le client courant est un coach ou un admin
+     *Si le client courant n'est pas un admin et que le coach de la recette n'est pas le client courant, alors les boutons de modification et de suppression de la recette sont cachés
+     */
     public void checkCurrentCoach(){
         if (!(Facade.currentClient instanceof Admin) && this.recette.getCoach().getId() != Facade.currentClient.getId()){
             updateRecetteButton.setVisible(false);

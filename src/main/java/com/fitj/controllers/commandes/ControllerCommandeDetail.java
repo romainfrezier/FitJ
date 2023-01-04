@@ -10,6 +10,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+/**
+ * Controller de la page des détails d'une commande
+ * @see ControllerCommande
+ * @author Romain Frezier
+ */
 public class ControllerCommandeDetail extends ControllerCommande{
 
     @FXML
@@ -93,6 +98,9 @@ public class ControllerCommandeDetail extends ControllerCommande{
         }
     }
 
+    /**
+     * Méthode pour revenir à la page précédente
+     */
     @FXML
     private void goBack() {
         try {
@@ -108,18 +116,27 @@ public class ControllerCommandeDetail extends ControllerCommande{
 
     }
 
+    /**
+     * Méthode pour emmener vers la page de création de programme personnalisé
+     */
     @FXML
     private void repondre() {
         // TODO emmener vers la page de création de programme personnalisé
         displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
     }
 
+    /**
+     * Méthode pour emmener vers la page de détail du produit
+     */
     @FXML
     private void voirProduit() {
         // TODO emmener vers la page de détail du produit
         displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
     }
 
+    /**
+     * Méthode pour emmener vers la page de détail du destinataire
+     */
     @FXML
     private void voirDestinaire() {
         try {

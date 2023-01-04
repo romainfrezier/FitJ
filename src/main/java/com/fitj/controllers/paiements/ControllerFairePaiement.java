@@ -11,6 +11,11 @@ import javafx.scene.text.Text;
 
 import java.util.Optional;
 
+/**
+ * Controller de la page pour faire un paiement
+ * @see ControllerPaiement
+ * @author Paco Munarriz
+ */
 public class ControllerFairePaiement extends ControllerPaiement {
     @FXML
     private RadioButton radioCB;
@@ -33,6 +38,9 @@ public class ControllerFairePaiement extends ControllerPaiement {
     @FXML
     private Button goBackButton;
 
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize() {
         super.hideError(errorText);
@@ -51,6 +59,9 @@ public class ControllerFairePaiement extends ControllerPaiement {
         }
     }
 
+    /**
+     * Méthode pour retourner à la page précédente
+     */
     @FXML
     private void goBack() {
         try {
@@ -65,6 +76,9 @@ public class ControllerFairePaiement extends ControllerPaiement {
 
     }
 
+    /**
+     * Méthode pour payer
+     */
     @FXML
     private void handlePayerButton() {
         if (getPreviousPageName().equals("monCompte")) {
@@ -74,6 +88,9 @@ public class ControllerFairePaiement extends ControllerPaiement {
         }
     }
 
+    /**
+     * Méthode pour afficher la fenêtre de confirmation de retrait
+     */
     private void showConfirmationRetirer() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Retirer");

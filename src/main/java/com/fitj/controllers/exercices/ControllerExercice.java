@@ -63,6 +63,10 @@ public abstract class ControllerExercice extends Controller {
         goToPage(controlEl, exercice + "update-exercice.fxml", "Modification d'un exercice");
     }
 
+    /**
+     * Methode qui initialise la liste des exercices
+     * @param listView ListView, liste des exercices
+     */
     void initializeExerciceList(ListView<Exercice> listView, List<Exercice> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override
