@@ -6,8 +6,6 @@ import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeClient;
-import com.fitj.facades.FacadeMateriel;
-import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 
 /**
@@ -46,6 +44,9 @@ public abstract class ControllerMonCompte extends Controller {
         }
     }
 
+    protected void goToMakePayment(Control controlEl) throws BadPageException {
+        goToPage(controlEl, "paiements/paiement.fxml", "Retirer");
+    }
 }
 
 

@@ -62,6 +62,7 @@ public class ControllerLogin extends ControllerUser {
                 } else {
                     scope = "client";
                 }
+                System.out.println(client.getId());
                 Facade.currentClient = client;
                 goToHome(scope);
             }

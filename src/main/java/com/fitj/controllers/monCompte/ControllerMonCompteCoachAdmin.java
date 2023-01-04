@@ -20,8 +20,6 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
     private Text mail;
     @FXML
-    private Text Solde;
-    @FXML
     private ImageView image;
     @FXML
     private Button updateButton;
@@ -33,10 +31,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        //change les valeurs des text
         pseudo.setText(currentClient.getPseudo());
         mail.setText(currentClient.getEmail());
-        Solde.setText(((Coach)currentClient).getSolde() + " €");
+        solde.setText(((Coach)currentClient).getSolde() + " €");
         Image img = new Image(currentClient.getPhoto());
         image.setImage(img);
     }
@@ -64,6 +61,12 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
 
     @FXML
     private void handleRetirerButton() {
-        displayError(errorText, "Fontionnalité non disponible");
+        try {
+            super.hideError(errorText);
+            setPreviousPageName("monCompte");
+            super.goToMakePayment(retirerButton);
+        } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 }

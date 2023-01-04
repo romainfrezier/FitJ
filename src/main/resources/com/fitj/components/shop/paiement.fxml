@@ -12,7 +12,7 @@
                 <Font size="24.0" />
             </font>
         </Text>
-        <Button fx:id="goBackButton" layoutX="462.0" layoutY="673.0" mnemonicParsing="false" onAction="#goToDetails" style="-fx-background-color: red;" text="Retour" textFill="WHITE">
+        <Button fx:id="goBackButton" layoutX="462.0" layoutY="673.0" mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: red;" text="Retour" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>

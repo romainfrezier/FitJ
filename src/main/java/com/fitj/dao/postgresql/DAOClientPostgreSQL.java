@@ -10,7 +10,6 @@ import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
 import kotlin.Triple;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,39 +51,39 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @return Client, le client avec le bon role correspondant au résultat de la requête SQL
      */
     private Client chooseRole(Map<String,Object> compte){
-        Client connectedClient;
         if ((Boolean)compte.get("isadmin")){
-            connectedClient = new Admin((String)compte.get("mail"), (String)compte.get("pseudo"),((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
+            Admin connectedClient = new Admin((String)compte.get("mail"), (String)compte.get("pseudo"),((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
+            connectedClient.setSolde((double)compte.get("montant"));
+            return connectedClient;
         } else if ((Boolean)compte.get("iscoach")){
-            connectedClient = new Coach((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
+            Coach connectedClient = new Coach((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
+            connectedClient.setSolde((double)compte.get("montant"));
+            return connectedClient;
         } else {
-            connectedClient = new Client((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
+            return new Client((String)compte.get("mail"), (String)compte.get("pseudo"), ((Number)compte.get("poids")).doubleValue(), (String)compte.get("photo"), ((Long)compte.get("taille")).intValue(), Sexe.getSexe((String)compte.get("sexe")), (String)compte.get("password"), ((Long)compte.get("id")).intValue(), (boolean) compte.get("isbanned"));
         }
-        return connectedClient;
     }
 
     @Override
     public Client getClientByEmail(String mail) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("mail", mail));
+        List<Triple<String, String, String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("solde","idcoach", "client.id"));
         try {
-            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, data, this.table);
             List<Map<String,Object>> result = compte.getListeData();
             if (!result.isEmpty()){
                 if ((boolean)result.get(0).get("isbanned")) {
                     throw new BannedAccountException();
                 }
-                Client client = chooseRole(result.get(0));
-                client.setListeCommande(new ArrayList<>());
-                client.setListeMateriel(new ArrayList<>());
-                client.setListeSport(new ArrayList<>());
-                return client;
+                return chooseRole(result.get(0));
             }
             else {
                 throw new DBProblemException("Aucun client avec cet email n'existe");
             }
         }
-        catch (SQLException e){
+        catch (Exception e){
             throw new DBProblemException("La sélection du client a échoué");
         }
     }
@@ -93,21 +92,20 @@ public class DAOClientPostgreSQL extends DAOClient {
     public Client getClientById(int id) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
         data.add(new Pair<>("id", id));
-        try{
-            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectWhere(data, this.table);
+        List<Triple<String, String, String>> joinList = new ArrayList<>();
+        joinList.add(new Triple<>("solde","idcoach", "client.id"));
+        try {
+            DaoMapper compte = ((MethodesPostgreSQL)this.methodesBD).selectJoin(joinList, data, this.table);
             List<Map<String,Object>> result = compte.getListeData();
             if (!result.isEmpty()){
-                Client client = chooseRole(result.get(0));
-                client.setListeCommande(new ArrayList<>());
-                client.setListeMateriel(new ArrayList<>());
-                client.setListeSport(new ArrayList<>());
-                return client;
+                return chooseRole(result.get(0));
             }
             else {
                 throw new DBProblemException("Aucun client avec cet id n'existe");
             }
         }
-        catch (SQLException e){
+        catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("La sélection du client a échoué");
         }
     }
@@ -281,25 +279,14 @@ public class DAOClientPostgreSQL extends DAOClient {
                 Map<String,Object> data = listData.get(i);
                 if (idCurrentClient != ((Long)data.get("id")).intValue()){
                     idCurrentClient = ((Long)data.get("id")).intValue();
-                    if ((boolean)data.get("isadmin")){
-                        Admin admin = new Admin((String)data.get("mail"), (String)data.get("pseudo"), (double)data.get("poids"), (String)data.get("photo"), (int)data.get("taille"), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanni"));
-                        admin.setSolde((double)data.get("montant"));
-                        listClients.add(admin);
-                    }
-                    else if ((boolean)data.get("iscoach")){
-                        Coach coach = new Coach((String)data.get("mail"), (String)data.get("pseudo"), (double)data.get("poids"), (String)data.get("photo"), (int)data.get("taille"), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanni"));
-                        coach.setSolde((double)data.get("montant"));
-                        listClients.add(coach);
-                    }
-                    else {
-                        listClients.add(new Client((String)data.get("mail"), (String)data.get("pseudo"), (double)data.get("poids"), (String)data.get("photo"), (int)data.get("taille"), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanni")));
-                    }
+                    listClients.add(new Client((String)data.get("mail"), (String)data.get("pseudo"), ((Float)data.get("poids")).doubleValue(), (String)data.get("photo"), ((Long)data.get("taille")).intValue(), Sexe.getSexe((String)data.get("sexe")), (String)data.get("password"), idCurrentClient, (boolean)data.get("isbanned")));
                 }
                 i++;
             }
             return listClients;
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("Impossible de récupérer tous les clients");
         }
     }
@@ -412,6 +399,7 @@ public class DAOClientPostgreSQL extends DAOClient {
             return clients;
         }
         catch (Exception e){
+            e.printStackTrace();
             throw new DBProblemException("Impossible de récupérer tous les clients du coach");
         }
     }
@@ -419,7 +407,7 @@ public class DAOClientPostgreSQL extends DAOClient {
     @Override
     public Coach resetSoldeCoach(int coachId) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
-        updateList.add(new Pair<>("solde", 0));
+        updateList.add(new Pair<>("montant", (double)0));
         List<Pair<String,Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idcoach", coachId));
         ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, "solde");
@@ -435,7 +423,7 @@ public class DAOClientPostgreSQL extends DAOClient {
         if (!result.isEmpty()){
             double soldeActuel = (double)result.get(0).get("montant");
             List<Pair<String,Object>> updateList = new ArrayList<>();
-            updateList.add(new Pair<>("solde", soldeActuel + solde));
+            updateList.add(new Pair<>("montant", soldeActuel + solde));
             ((MethodesPostgreSQL)this.methodesBD).update(updateList, whereList, "solde");
             return (Coach) this.getClientById(coachId);
         } else {
