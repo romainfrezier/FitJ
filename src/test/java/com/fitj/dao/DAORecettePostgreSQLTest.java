@@ -58,7 +58,7 @@ public class DAORecettePostgreSQLTest {
     @BeforeAll
     public static void init() throws Exception {
         daoRecettePostgreSQL = new DAORecettePostgreSQL();
-        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44);
+        coach = new Coach("coach@gmail.com", "elcocho", 100, "dadada", 174, Sexe.HOMME, "test", 44,false);
         aliment = FactoryDAOPostgreSQL.getInstance().getDAOAliment().createAliment("Cacao");
         ingredients = new ArrayList<>();
         ingredients.add(aliment);
