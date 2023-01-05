@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -41,15 +40,10 @@
             <Button fx:id="voirDestinataire" layoutX="583.0" layoutY="181.0" mnemonicParsing="false" onAction="#voirDestinaire" styleClass="buttonBlue" text="Voir" />
             </children>
         </AnchorPane>
-        <VBox fx:id="headerCoach" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
+        <AnchorPane>
             <children>
-                <fx:include source="../../components/headers/header-coach.fxml" />
+                <fx:include source="../../components/headers/header.fxml" />
             </children>
-        </VBox>
-        <VBox fx:id="headerClient" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
-            <children>
-                <fx:include source="../../components/headers/header-client.fxml" />
-            </children>
-        </VBox>
+        </AnchorPane>
     </children>
 </Pane>

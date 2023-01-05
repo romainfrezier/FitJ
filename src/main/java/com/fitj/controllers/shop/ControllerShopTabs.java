@@ -5,23 +5,13 @@ import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import java.util.List;
 
 public class ControllerShopTabs extends ControllerShop {
-
-    @FXML
-    private AnchorPane headerCoach;
-    @FXML
-    private AnchorPane headerClient;
-    @FXML
-    private AnchorPane headerAdmin;
     @FXML
     private TabPane tabs;
     @FXML
@@ -68,13 +58,6 @@ public class ControllerShopTabs extends ControllerShop {
     private void initialize(){
         super.hideError(errorText);
         initializeAllList();
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else if (Facade.currentClient instanceof Coach) {
-            headerCoach.setVisible(true);
-        } else {
-            headerClient.setVisible(true);
-        }
     }
 
     private void initializeAllList() {
@@ -87,8 +70,11 @@ public class ControllerShopTabs extends ControllerShop {
     private void initializeSeanceList() {
         try {
             List<Seance> seances = facadeSeance.getAllSeances();
-            List<Seance> seancesClient = facadeSeance.getAllSeancesFromCoach(Facade.currentClient.getId());
-            seances.removeAll(seancesClient);
+            List<Seance> seancesToRemove = facadeSeance.getAllSeancesFromClient(Facade.currentClient.getId());
+            if (Facade.currentClient instanceof Coach) {
+                seancesToRemove.addAll(facadeSeance.getAllSeancesFromCoach(Facade.currentClient.getId()));
+            }
+            seances.removeAll(seancesToRemove);
             super.initializeProduitList(seancesList, seances);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,8 +85,11 @@ public class ControllerShopTabs extends ControllerShop {
     private void initializeProgrammeNutritionList() {
         try {
             List<ProgrammeNutrition> programmeNutritions = facadeProgrammeNutrition.getListeProgrammeNutrition();
-            List<ProgrammeNutrition> programmeNutritionsByIdClient = facadeProgrammeNutrition.getAllProgrammesNutritionsByClient(Facade.currentClient.getId());
-            programmeNutritions.removeAll(programmeNutritionsByIdClient);
+            List<ProgrammeNutrition> programmeNutritionsToRemove = facadeProgrammeNutrition.getAllProgrammesNutritionsByClient(Facade.currentClient.getId());
+            if (Facade.currentClient instanceof Coach) {
+                programmeNutritionsToRemove.addAll(facadeProgrammeNutrition.getProgrammeNutritionByCoach(Facade.currentClient.getId()));
+            }
+            programmeNutritions.removeAll(programmeNutritionsToRemove);
             super.initializeProduitList(programmeNutritionList, programmeNutritions);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,8 +100,11 @@ public class ControllerShopTabs extends ControllerShop {
     private void initializeProgrammeSportifList() {
         try {
             List<ProgrammeSportif> programmeSportifs = facadeProgrammeSportif.getListeProgrammeSportif();
-            List<ProgrammeSportif> programmeSportifsByIdClient = facadeProgrammeSportif.getAllProgrammesSportifsByClient(Facade.currentClient.getId());
-            programmeSportifs.removeAll(programmeSportifsByIdClient);
+            List<ProgrammeSportif> programmeSportifsToRemove = facadeProgrammeSportif.getAllProgrammesSportifsByClient(Facade.currentClient.getId());
+            if (Facade.currentClient instanceof Coach) {
+                programmeSportifsToRemove.addAll(facadeProgrammeSportif.getProgrammeSportifByCoach(Facade.currentClient.getId()));
+            }
+            programmeSportifs.removeAll(programmeSportifsToRemove);
             super.initializeProduitList(programmeSportifList, programmeSportifs);
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,8 +115,11 @@ public class ControllerShopTabs extends ControllerShop {
     private void initializePackList() {
         try {
             List<Pack> packs = facadePack.getAllPacks();
-            List<Pack> packsByIdClient = facadePack.getAllPacksByIdClient(Facade.currentClient.getId());
-            packs.removeAll(packsByIdClient);
+            List<Pack> packsToRemove = facadePack.getAllPacksByIdClient(Facade.currentClient.getId());
+            if (Facade.currentClient instanceof Coach) {
+                packsToRemove.addAll(facadePack.getAllPacksByIdCoach(Facade.currentClient.getId()));
+            }
+            packs.removeAll(packsToRemove);
             super.initializeProduitList(packList, packs);
         } catch (Exception e) {
             e.printStackTrace();

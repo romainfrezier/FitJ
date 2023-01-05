@@ -3,16 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.AnchorPane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.sports.ControllerAddMesSport">
     <children>
-      <VBox layoutX="1.0" prefHeight="55.0" prefWidth="1000.0">
-         <children>
-             <fx:include source="../../components/headers/header-admin.fxml" />
-         </children>
-      </VBox>
+        <AnchorPane>
+            <children>
+                <fx:include source="../../components/headers/header.fxml" />
+            </children>
+        </AnchorPane>
       <Pane layoutX="51.0" layoutY="100.0" prefHeight="600.0" prefWidth="900.0" scaleShape="false">
          <children>
             <Button fx:id="addSportButton" layoutX="392.0" layoutY="551.0" mnemonicParsing="false" onAction="#AddSport" prefHeight="26.0" prefWidth="116.0" styleClass="buttonBlue" text="Ajouter" textFill="WHITE" />

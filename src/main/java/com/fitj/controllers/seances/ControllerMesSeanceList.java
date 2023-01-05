@@ -27,8 +27,6 @@ public class ControllerMesSeanceList extends ControllerSeance{
     @FXML
     private Button updateSeanceButton;
     @FXML
-    private Button deleteSeancebutton;
-    @FXML
     private Text errorText;
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -39,16 +37,16 @@ public class ControllerMesSeanceList extends ControllerSeance{
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        initializeAlimentList();
+        initializeSeancesList();
     }
 
     /**
      * Methode permettant d'initialiser la liste des séances
      */
-    private void initializeAlimentList() {
+    private void initializeSeancesList() {
         try {
             List<Seance> seances = facadeSeance.getAllSeancesFromCoach(Facade.currentClient.getId());
-            listView.setCellFactory(new Callback<>() {
+            super.initializeList(listView, seances, new Callback<>() {
                 @Override
                 public ListCell<Seance> call(ListView<Seance> param) {
                     return new ListCell<>() {
@@ -64,9 +62,6 @@ public class ControllerMesSeanceList extends ControllerSeance{
                     };
                 }
             });
-            for (Seance seance : seances) {
-                listView.getItems().add(seance);
-            }
         } catch (Exception e) {
             e.printStackTrace();
             super.displayError(errorText, "Erreur lors de la récupération des séances");

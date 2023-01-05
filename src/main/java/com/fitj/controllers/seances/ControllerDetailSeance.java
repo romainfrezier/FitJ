@@ -1,18 +1,14 @@
 package com.fitj.controllers.seances;
 
 import com.fitj.classes.*;
-import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.facades.Facade;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import kotlin.Triple;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -46,17 +42,8 @@ public class ControllerDetailSeance extends ControllerSeance{
 
     @FXML
     private Text errorText;
-
-
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerCoach;
     @FXML
     private Button buyButton;
-    @FXML
-    private VBox headerClient;
 
     private ArrayList<Triple<Exercice,Integer,Integer>> listeExerciceSeance;
 
@@ -76,14 +63,6 @@ public class ControllerDetailSeance extends ControllerSeance{
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else if (Facade.currentClient instanceof Coach){
-            headerCoach.setVisible(true);
-        }
-        else {
-            headerClient.setVisible(true);
-        }
         try {
             listeExerciceSeance = (ArrayList<Triple<Exercice, Integer, Integer>>) facadeSeance.getExercices(getIdObjectSelected());
             this.seance = facadeSeance.getSeance(getIdObjectSelected());

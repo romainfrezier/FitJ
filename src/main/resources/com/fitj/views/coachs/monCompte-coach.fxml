@@ -5,11 +5,15 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.admins.ControllerAdminMonCompte">
    <children>
-      <fx:include source="../../components/headers/header-coach.fxml" />
+      <AnchorPane>
+         <children>
+            <fx:include source="../../components/headers/header.fxml" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="50.0" layoutY="130.0" prefHeight="339.0" prefWidth="886.0" style="-fx-background-color: #e1e1e1;">
+         <children>
+            <fx:include source="../../components/monCompte/info-coach-admin.fxml" />
+         </children>
+      </AnchorPane>
    </children>
-   <AnchorPane layoutX="50.0" layoutY="130.0" prefHeight="339.0" prefWidth="886.0" style="-fx-background-color: #e1e1e1;">
-      <children>
-         <fx:include source="../../components/monCompte/info-coach-admin.fxml" />
-      </children>
-   </AnchorPane>
 </Pane>

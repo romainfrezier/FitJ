@@ -59,8 +59,8 @@ public class FacadeProgrammeNutrition extends Facade{
      * @return la liste des programmes nutritions créées par le coach
      * @throws Exception si la requête échoue
      */
-    public List<ProgrammeNutrition> getProgrammeNutritionByCoach(Coach coach) throws Exception{
-        return programmeNutritionDAO.getProgrammeNutritionByCoach(coach.getId());
+    public List<ProgrammeNutrition> getProgrammeNutritionByCoach(int coach) throws Exception{
+        return programmeNutritionDAO.getProgrammeNutritionByCoach(coach);
     }
 
 

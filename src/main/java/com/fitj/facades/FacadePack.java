@@ -29,4 +29,8 @@ public class FacadePack extends Facade {
     public List<Pack> getAllPacksByIdClient(int id) throws Exception {
         return this.daoPack.getAllPackByCoach(id);
     }
+
+    public List<Pack> getAllPacksByIdCoach(int id) throws Exception {
+        return this.daoPack.getAllPackByCoach(id);
+    }
 }

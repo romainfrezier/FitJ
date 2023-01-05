@@ -5,7 +5,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.admins.ControllerAdminMonCompte">
     <children>
-        <fx:include source="../../components/headers/header-admin.fxml" />
+        <AnchorPane>
+            <children>
+                <fx:include source="../../components/headers/header.fxml" />
+            </children>
+        </AnchorPane>
         <AnchorPane layoutX="325.0" layoutY="130.0" prefHeight="265.0" prefWidth="351.0" style="-fx-background-color: lightgrey;">
             <children>
                 <fx:include source="../../components/monCompte/updateMonCompte.fxml" />
