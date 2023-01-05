@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,60 +9,62 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.coachs.ControllerCoachMonEspace">
    <children>
-      <fx:include source="../../components/headers/header-coach.fxml" />
-   </children>
-   <Text fx:id="coachName" fill="#054371" layoutX="32.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CoachName" wrappingWidth="241.2509765625">
-      <font>
-         <Font name="System Bold" size="30.0" />
-      </font>
-   </Text>
-   <ProgressBar fx:id="coachGrade" layoutX="273.0" layoutY="82.0" prefHeight="35.0" prefWidth="200.0" progress="0.74" style="-fx-accent: #054371;" />
-   <TabPane layoutX="23.0" layoutY="133.0" prefHeight="627.0" prefWidth="936.0" styleClass="emptyRectangle" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-         <Tab text="Mes créations">
-            <content>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <TabPane prefHeight="594.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
-                           <Tab text="Mes programmes">
-                              <content>
-                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                       <TabPane prefHeight="563.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
-                                          <tabs>
-                                             <Tab text="Mes programmes sportifs">
-                                                <content>
-                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                      <children>
-                                                         <fx:include source="../../components/programmes/programmesSportifs/list-mes-programmesSportifs.fxml" />
-                                                      </children>
-                                                   </AnchorPane>
-                                                </content>
-                                             </Tab>
-                                             <Tab text="Mes programmes nutritions">
-                                                <content>
-                                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                      <children>
-                                                         <fx:include source="../../components/programmes/programmesNutritions/list-mes-programmesNutritions.fxml" />
-                                                      </children>
-                                                   </AnchorPane>
-                                                </content>
-                                             </Tab>
-                                          </tabs>
-                                       </TabPane>
-                                    </children>
-                                 </AnchorPane>
-                              </content>
-                           </Tab>
-                           <Tab text="Mes recettes">
-                              <content>
-                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                       <fx:include source="../../components/recettes/list-mes-recettes.fxml" />
-                                    </children>
-                                 </AnchorPane>
-                              </content>
-                           </Tab>
+      <AnchorPane>
+         <children>
+            <fx:include source="../../components/headers/header.fxml" />
+         </children>
+      </AnchorPane>
+      <Text fx:id="coachName" fill="#054371" layoutX="32.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CoachName" wrappingWidth="241.2509765625">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Text>
+      <TabPane layoutX="23.0" layoutY="133.0" prefHeight="627.0" prefWidth="936.0" styleClass="emptyRectangle" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Mes créations">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane prefHeight="594.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
+                              <Tab text="Mes programmes">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <TabPane prefHeight="563.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
+                                             <tabs>
+                                                <Tab text="Mes programmes sportifs">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <fx:include source="../../components/programmes/programmesSportifs/list-mes-programmesSportifs.fxml" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </Tab>
+                                                <Tab text="Mes programmes nutritions">
+                                                   <content>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                         <children>
+                                                            <fx:include source="../../components/programmes/programmesNutritions/list-mes-programmesNutritions.fxml" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </content>
+                                                </Tab>
+                                             </tabs>
+                                          </TabPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Mes recettes">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <fx:include source="../../components/recettes/list-mes-recettes.fxml" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                            <Tab text="Mes séances">
                               <content>
                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -73,79 +74,80 @@
                                  </AnchorPane>
                               </content>
                            </Tab>
+                           </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Programmes">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane prefHeight="602.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab text="Mes programmes sportifs">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <fx:include source="../../components/programmes/programmesSportifs/list-mes-programmesSportifs-achat.fxml" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Mes programmes nutritions">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <fx:include source="../../components/programmes/programmesNutritions/list-mes-programmesNutritions-achat.fxml" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
                         </TabPane>
-                  </children>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Séances">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <fx:include source="../../components/seances/list-mes-seances-achat.fxml" />
+                     </children>
                </AnchorPane>
-            </content>
-         </Tab>
-         <Tab text="Programmes">
-            <content>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <TabPane prefHeight="602.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
-                        <tabs>
-                           <Tab text="Mes programmes sportifs">
-                              <content>
-                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                       <fx:include source="../../components/programmes/programmesSportifs/list-mes-programmesSportifs-achat.fxml" />
-                                    </children>
-                                 </AnchorPane>
-                              </content>
-                           </Tab>
-                           <Tab text="Mes programmes nutritions">
-                              <content>
-                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                       <fx:include source="../../components/programmes/programmesNutritions/list-mes-programmesNutritions-achat.fxml" />
-                                    </children>
-                                 </AnchorPane>
-                              </content>
-                           </Tab>
-                        </tabs>
-                     </TabPane>
-                  </children>
-               </AnchorPane>
-            </content>
-         </Tab>
-         <Tab text="Séances">
-            <content>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <fx:include source="../../components/seances/list-mes-seances-achat.fxml" />
-                  </children>
-            </AnchorPane>
-            </content>
-         </Tab>
-         <Tab text="Informations">
-            <content>
-               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <TabPane prefHeight="602.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
-                        <tabs>
-                           <Tab text="Mes sports">
-                              <content>
-                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="597.0" prefWidth="936.0">
-                                    <children>
-                                       <fx:include source="../../components/sports/list-mes-sport.fxml" />
-                                    </children>
-                                 </AnchorPane>
-                              </content>
-                           </Tab>
-                           <Tab text="Mon materiels">
-                              <content>
-                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                                       <fx:include source="../../components/materiels/list-mon-materiel.fxml" />
-                                    </children>
-                                 </AnchorPane>
-                              </content>
-                           </Tab>
-                        </tabs>
-                     </TabPane>
-                  </children></AnchorPane>
-            </content>
-         </Tab>
-      </tabs>
-   </TabPane>
+               </content>
+            </Tab>
+            <Tab text="Informations">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane prefHeight="602.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab text="Mes sports">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="597.0" prefWidth="936.0">
+                                       <children>
+                                          <fx:include source="../../components/sports/list-mes-sport.fxml" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Mon materiels">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <fx:include source="../../components/materiels/list-mon-materiel.fxml" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
 </Pane>

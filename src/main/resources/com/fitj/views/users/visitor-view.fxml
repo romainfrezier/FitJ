@@ -10,6 +10,6 @@
             <Image url="@../../../../img/home_image.png" />
          </image>
       </ImageView>
-      <fx:include source="../../components/headers/header-home.fxml" />
+      <fx:include source="../../components/headers/header.fxml" />
    </children>
 </Pane>

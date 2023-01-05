@@ -11,8 +11,8 @@
    <children>
       <Pane layoutX="325.0" layoutY="279.0" prefHeight="244.0" prefWidth="351.0" style="-fx-background-color: lightgrey; -fx-border-color: black; -fx-border-radius: 10px; -fx-background-radius: 10px;">
          <children>
-            <TextField fx:id="username" layoutX="54.0" layoutY="43.0" prefHeight="25.0" prefWidth="234.0" styleClass="emptyRectangle" />
-            <PasswordField fx:id="password" layoutX="54.0" layoutY="109.0" prefHeight="26.0" prefWidth="234.0" styleClass="emptyRectangle" />
+            <TextField fx:id="username" layoutX="54.0" layoutY="43.0" onKeyPressed="#handleEnter" prefHeight="25.0" prefWidth="234.0" styleClass="emptyRectangle" />
+            <PasswordField fx:id="password" layoutX="54.0" layoutY="109.0" onKeyPressed="#handleEnter" prefHeight="26.0" prefWidth="234.0" styleClass="emptyRectangle" />
             <Text fill="#054371" layoutX="54.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="92.13671875" />
             <Text fill="#054371" layoutX="54.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" wrappingWidth="92.13671875" />
             <Button fx:id="loginButton" layoutX="97.0" layoutY="190.0" mnemonicParsing="false" onAction="#handleButtonConnect" prefHeight="25.0" prefWidth="159.0" styleClass="buttonRed" text="Me connecter" textFill="WHITE">
@@ -31,7 +31,7 @@
       <Button fx:id="visitorButton" layoutX="451.0" layoutY="756.0" mnemonicParsing="false" onAction="#goToVisitor" styleClass="buttonBlue" text="&lt;&lt; Retour" textFill="WHITE" />
       <Pane prefHeight="79.0" prefWidth="1000.0">
          <children>
-            <fx:include source="../../components/headers/header-home.fxml" />
+            <fx:include source="../../components/headers/header.fxml" />
          </children>
       </Pane>
    </children>

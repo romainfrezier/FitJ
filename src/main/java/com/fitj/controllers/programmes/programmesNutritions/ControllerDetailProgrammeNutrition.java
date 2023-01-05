@@ -1,15 +1,12 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
 import com.fitj.classes.Admin;
-import com.fitj.classes.Coach;
 import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -48,16 +45,6 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private Text nomCoach;
 
-
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerClient;
-
-    @FXML
-    private VBox headerCoach;
-
     @FXML
     private Text nomProgrammeNutrition;
 
@@ -74,14 +61,6 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else if (Facade.currentClient instanceof Coach){
-            headerCoach.setVisible(true);
-        }
-        else {
-            headerClient.setVisible(true);
-        }
         detailProgrammeNutritionButton.setVisible(false);
         try {
             this.programmeNutrition = facadeProgrammeNutrition.getProgrammeNutritionById(getIdObjectSelected());

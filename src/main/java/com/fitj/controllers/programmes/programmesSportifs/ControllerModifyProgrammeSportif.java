@@ -3,10 +3,8 @@ package com.fitj.controllers.programmes.programmesSportifs;
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.enums.ProgrammeType;
-import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -56,12 +54,6 @@ public class ControllerModifyProgrammeSportif extends ControllerProgrammeSportif
 
     private Seance seanceSelectedForDelete = null;
 
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerCoach;
-
     private ArrayList<Seance> listeSeances;
 
     private ArrayList<Seance> listeSeanceProgrammeSportif;
@@ -86,11 +78,6 @@ public class ControllerModifyProgrammeSportif extends ControllerProgrammeSportif
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else {
-            headerCoach.setVisible(true);
-        }
         try {
             this.programmeSportif = facadeProgrammeSportif.getProgrammeSportifById(getIdObjectSelected());
             listeSeanceProgrammeSportif = new ArrayList<>();

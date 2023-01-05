@@ -3,6 +3,7 @@ package com.fitj.controllers.coachs;
 import com.fitj.classes.Client;
 import com.fitj.classes.Coach;
 import com.fitj.controllers.Controller;
+import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeCoach;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -31,7 +32,11 @@ public abstract class ControllerCoach extends Controller {
                     protected void updateItem(Coach item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
-                            setText(item.getPseudo());
+                            if (item.getId() == Facade.currentClient.getId()){
+                                setText(item.getPseudo() + " (moi)");
+                            } else {
+                                setText(item.getPseudo());
+                            }
                         } else {
                             setText("");
                         }

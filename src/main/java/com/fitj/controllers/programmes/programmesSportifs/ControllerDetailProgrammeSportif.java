@@ -3,13 +3,11 @@ package com.fitj.controllers.programmes.programmesSportifs;
 import com.fitj.classes.*;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -46,17 +44,6 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
 
     @FXML
     private Text nomCoach;
-
-
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerClient;
-
-    @FXML
-    private VBox headerCoach;
-
     @FXML
     private Text nomProgrammeSportif;
 
@@ -73,14 +60,6 @@ public class ControllerDetailProgrammeSportif extends ControllerProgrammeSportif
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else if (Facade.currentClient instanceof Coach){
-            headerCoach.setVisible(true);
-        }
-        else {
-            headerClient.setVisible(true);
-        }
         detailSeanceButton.setVisible(false);
         try {
             this.programmeSportif = facadeProgrammeSportif.getProgrammeSportifById(getIdObjectSelected());

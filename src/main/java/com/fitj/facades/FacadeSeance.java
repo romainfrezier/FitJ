@@ -47,15 +47,6 @@ public class FacadeSeance extends Facade {
         return this.daoSeance.getAllSeancesFromClient(idClient);
     }
 
-    /**
-     * Méthode permettant de récupérer toutes les séances d'un coach
-     * @param idCoach l'id du coach
-     * @return List<Seance>, la liste des séances
-     * @throws Exception en cas d'erreur
-     */
-    public List<Seance> getAllSeancesFromCoach(int idCoach) throws Exception {
-        return this.daoSeance.getAllSeancesFromCoach(idCoach);
-    }
 
     /**
      * Méthode permettant de récupérer une séance
@@ -138,5 +129,25 @@ public class FacadeSeance extends Facade {
      */
     public List<Triple<Exercice, Integer, Integer>> getExercices(int id) throws Exception {
         return this.daoSeance.getExercices(id);
+    }
+
+    /**
+     * Méthode permettant de récupérer les séances achetées par un client
+     * @param idClient int, l'id du client
+     * @return List<Seance>, la liste des séances achetées par le client
+     * @throws Exception en cas d'erreur
+     */
+    public List<Seance> getAllSeancesByClient(int idClient) throws Exception {
+        return this.daoSeance.getAllSeancesFromClient(idClient);
+    }
+
+    /**
+     * Récupère les séances d'un coach
+     * @param id int, l'id de la séance
+     * @return List<Seance>, la liste des séances achetées par le client
+     * @throws Exception en cas d'erreur
+     */
+    public List<Seance> getAllSeancesFromCoach(int id) throws Exception {
+        return this.daoSeance.getAllSeancesFromCoach(id);
     }
 }

@@ -9,7 +9,8 @@
 
 <Pane prefHeight="315.0" prefWidth="900.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;" styleClass="emptyRectangle" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.monCompte.ControllerMonCompteClient">
    <children>
-      <ImageView fx:id="image" fitHeight="272.0" fitWidth="257.0" layoutX="35.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image" fitHeight="272.0" fitWidth="257.0" layoutX="35.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true"
+      />
       <Text fill="#054371" layoutX="334.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mon compte" wrappingWidth="445.3367004394531">
          <font>
             <Font size="30.0" />

@@ -65,7 +65,7 @@
       <Button fx:id="visitorButton" layoutX="451.0" layoutY="756.0" mnemonicParsing="false" onAction="#goToVisitor" styleClass="buttonBlue" text="&lt;&lt; Retour" textFill="WHITE" />
       <Pane prefHeight="77.0" prefWidth="1000.0">
          <children>
-              <fx:include source="../../components/headers/header-home.fxml" />
+              <fx:include source="../../components/headers/header.fxml" />
          </children>
       </Pane>
     </children>
