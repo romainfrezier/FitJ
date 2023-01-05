@@ -5,6 +5,7 @@ import com.fitj.dao.DAOPack;
 import com.fitj.dao.factory.FactoryDAOPostgreSQL;
 import com.fitj.dao.methodesBD.MethodesPostgreSQL;
 import com.fitj.dao.tools.DaoMapper;
+import com.fitj.enums.ProgrammeType;
 import com.fitj.enums.Sexe;
 import com.fitj.exceptions.DBProblemException;
 import kotlin.Pair;
@@ -49,6 +50,17 @@ public class DAOPackPostgreSQL extends DAOPack {
         catch (Exception e){
             throw new DBProblemException("La mise à jour du pack a échoué");
         }
+    }
+
+    @Override
+    public Pack updatePack(int idPack, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception {
+        List<Pair<String, Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("nom",nom));
+        updateList.add(new Pair<>("description",description));
+        updateList.add(new Pair<>("prix",prix));
+        updateList.add(new Pair<>("type",type.toString()));
+        updateList.add(new Pair<>("nbmois",nbMois));
+        return this.updatePack(updateList,idPack);
     }
 
     @Override
@@ -401,6 +413,13 @@ public class DAOPackPostgreSQL extends DAOPack {
     public List<Pack> getAllPackByCoach(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idcoach", id));
+        return this.getAllPackWhere(whereList);
+    }
+
+    @Override
+    public List<Pack> getAllPackByClient(int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idclient", id));
         return this.getAllPackWhere(whereList);
     }
 

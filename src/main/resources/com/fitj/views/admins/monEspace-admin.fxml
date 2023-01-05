@@ -19,6 +19,15 @@
       <ProgressBar fx:id="adminGrade" layoutX="273.0" layoutY="82.0" prefHeight="35.0" prefWidth="200.0" progress="0.74" style="-fx-accent: #054371;" />
       <TabPane layoutX="23.0" layoutY="133.0" prefHeight="627.0" prefWidth="936.0" styleClass="emptyRectangle" tabClosingPolicy="UNAVAILABLE">
         <tabs>
+            <Tab text="Packs">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <fx:include source="../../components/packs/list-pack.fxml" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
           <Tab text="Programmes">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

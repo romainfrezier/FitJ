@@ -1,6 +1,7 @@
 package com.fitj.dao;
 
 import com.fitj.classes.*;
+import com.fitj.enums.ProgrammeType;
 import kotlin.Pair;
 
 import java.util.List;
@@ -30,6 +31,18 @@ public abstract class DAOPack extends DAO{
      * @throws Exception si la requête échoue
      */
     public abstract Pack updatePack(List<Pair<String,Object>> updateList, int id) throws Exception;
+
+    /**
+     * @param idPack l'id du pack à récupérer
+     * @param nom le nouveau nom du pack
+     * @param description la nouvelle description du pack
+     * @param prix le nouveau prix du pack
+     * @param type le nouveau type du pack
+     * @param nbMois le nouveau nombre de mois du pack
+     * @return le pack modifié
+     * @throws Exception si la requête échoue
+     */
+    public abstract Pack updatePack(int idPack, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception;
 
     /**
      * Supprime le pack dans la base de donnée
@@ -203,4 +216,11 @@ public abstract class DAOPack extends DAO{
      * @throws Exception si la requête échoue
      */
     public abstract List<Pack> getAllPackByCoach(int id) throws Exception;
+
+    /**
+     * Récupérer les packs d'un client
+     * @param id int, l'id du client
+     * @throws Exception si la requête échoue
+     */
+    public abstract List<Pack> getAllPackByClient(int id) throws Exception;
 }

@@ -122,8 +122,8 @@ public class ControllerShopTabs extends ControllerShop {
 
     private void initializePackList() {
         try {
-            List<Pack> packs = facadePack.getAllPacks();
-            List<Pack> packsByIdClient = facadePack.getAllPacksByIdClient(Facade.currentClient.getId());
+            List<Pack> packs = facadePack.getListePack();
+            List<Pack> packsByIdClient = facadePack.getAllPacksByClient(Facade.currentClient.getId());
             packs.removeAll(packsByIdClient);
             super.initializeProduitList(packList, packs);
         } catch (Exception e) {
