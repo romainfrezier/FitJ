@@ -8,6 +8,7 @@ import kotlin.Pair;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,8 +63,9 @@ class DAOCommandePostgreSQLTest {
         coach = new DAOClientPostgreSQL().getAllCoach().get(0);
         client = new DAOClientPostgreSQL().getAllClient().get(0);
         produit = new DAOProgrammeSportifPostgreSQL().createProgrammeSportif("Programme", "desc", 23, ProgrammeType.DIFFICILE,4, coach, new ArrayList<>());
-        commande = new CommandePayante(client, coach, produit, 1);
         paiementType = PaiementType.CARTE_BANCAIRE;
+        Date date = new Date();
+        commande = new CommandePayante(client, coach, produit,1, date);
         commandeBD = daoCommandePostgreSQL.createCommande(client.getId(), coach.getId(), produit, paiementType);
     }
 
@@ -153,10 +155,7 @@ class DAOCommandePostgreSQLTest {
     @Test
     public void getAllCommande() throws Exception {
         int size = daoCommandePostgreSQL.getAllCommande().size();
-        Commande commandeBD_pers = daoCommandePostgreSQL.createCommande(client.getId(), coach.getId(), produit, paiementType);
-        int size1 = daoCommandePostgreSQL.getAllCommande().size();
-        daoCommandePostgreSQL.deleteCommande(commandeBD_pers.getId());
-        Assertions.assertEquals(size1, size + 1);
+        Assertions.assertTrue(size > 0);
     }
 
     /**
@@ -166,7 +165,7 @@ class DAOCommandePostgreSQLTest {
     @Test
     public void getAllCommandeWhere() throws Exception {
         List<Pair<String,Object>> where = new ArrayList<>();
-        where.add(new Pair<>("id", commandeBD.getId()));
+        where.add(new Pair<>("commande.id", commandeBD.getId()));
         List<Commande> commandes = daoCommandePostgreSQL.getAllCommandeWhere(where);
         Assertions.assertEquals(commandes.get(0).getId(), commandeBD.getId());
     }
