@@ -68,7 +68,7 @@ public class DAOClientPostgreSQLTest {
         daoClientPostgreSQL = new DAOClientPostgreSQL();
         daoMaterielPostgreSQL = new DAOMaterielPostgreSQL();
         daoSportPostgreSQL = new DAOSportPostgreSQL();
-        client = new Client("test@gmail.com","Antoine",77,"testimage.com",178, Sexe.HOMME,"123456", 2, false);
+        client = new Client("testClasseClient@gmail.com","Antoine",77,"testimage.com",178, Sexe.HOMME,"123456", 2, false);
         clientBD = daoClientPostgreSQL.createClient(client.getEmail(), client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         materiel = daoMaterielPostgreSQL.createMateriel("Mon nouveau super matos");
         sport = daoSportPostgreSQL.createSport("Mon nouveau super sport");
@@ -144,7 +144,7 @@ public class DAOClientPostgreSQLTest {
      */
     @Test
     public void testSupprimerClientById() throws Exception {
-        Client newClient = daoClientPostgreSQL.createClient("totototo@gmail.coiiii", client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
+        Client newClient = daoClientPostgreSQL.createClient("NouveauclientTest@gmail.coiiii", client.getPseudo(), client.getPassword(), client.getPoids(), client.getTaille(), client.getPhoto(), client.getSexe());
         daoClientPostgreSQL.supprimerClientById(newClient.getId());
         Assertions.assertThrows(Exception.class, () -> daoClientPostgreSQL.getClientById(newClient.getId()));
     }
@@ -330,23 +330,17 @@ public class DAOClientPostgreSQLTest {
     @Test
     public void testClientToCoach() throws Exception {
         int size = daoClientPostgreSQL.getAllCoach().size();
-        daoClientPostgreSQL.clientBecomeCoach(clientBD.getId());
+        clientBD = daoClientPostgreSQL.clientBecomeCoach(clientBD.getId());
         int newSize = daoClientPostgreSQL.getAllCoach().size();
-        daoClientPostgreSQL.clientBecomeCoach(clientBD.getId());
         Assertions.assertEquals(size + 1, newSize);
     }
 
     /**
      * Test de la méthode clientBecomeAdmin de la classe DAOClientPostgreSQL
-     * @throws Exception si la requête SQL échoue
      */
     @Test
-    public void testClientToAdmin() throws Exception {
-        int size = daoClientPostgreSQL.getAllAdmin().size();
-        daoClientPostgreSQL.coachBecomeAdmin(clientBD.getId());
-        int newSize = daoClientPostgreSQL.getAllAdmin().size();
-        daoClientPostgreSQL.coachBecomeAdmin(clientBD.getId());
-        Assertions.assertEquals(size + 1, newSize);
+    public void testClientToAdmin() {
+        Assertions.assertThrows(Exception.class, () -> daoClientPostgreSQL.coachBecomeAdmin(clientBD.getId()));
     }
 
     /**
