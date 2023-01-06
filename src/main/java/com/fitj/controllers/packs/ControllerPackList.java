@@ -1,7 +1,6 @@
 package com.fitj.controllers.packs;
 
 import com.fitj.classes.Pack;
-import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
 import javafx.fxml.FXML;

@@ -121,6 +121,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         joinList.add(new Triple<>("packseance","idpack", "pack.id"));
         joinList.add(new Triple<>("avispack","idpack", "pack.id"));
         joinList.add(new Triple<>("commandepack","idpack", "pack.id"));
+        joinList.add(new Triple<>("commande","id", "commandepack.idcommande"));
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
@@ -412,7 +413,7 @@ public class DAOPackPostgreSQL extends DAOPack {
     @Override
     public List<Pack> getAllPackByCoach(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idcoach", id));
+        whereList.add(new Pair<>("pack.idcoach", id));
         return this.getAllPackWhere(whereList);
     }
 

@@ -26,6 +26,15 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TabPane prefHeight="594.0" prefWidth="936.0" tabClosingPolicy="UNAVAILABLE">
+                           <Tab text="Mes packs">
+                              <content>
+                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                       <fx:include source="../../components/packs/list-mes-packs.fxml" />
+                                    </children>
+                                 </AnchorPane>
+                              </content>
+                           </Tab>
                               <Tab text="Mes programmes">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -75,6 +84,15 @@
                               </content>
                            </Tab>
                            </TabPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Packs">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <fx:include source="../../components/packs/list-mes-packs-achat.fxml" />
                      </children>
                   </AnchorPane>
                </content>

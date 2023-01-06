@@ -57,7 +57,7 @@ public class FacadePack extends Facade {
      * @return la liste des packs créées par le coach
      * @throws Exception si la requête échoue
      */
-    public List<Pack> getProgrammeNutritionByCoach(Coach coach) throws Exception{
+    public List<Pack> getPackByCoach(Coach coach) throws Exception{
         return packDAO.getAllPackByCoach(coach.getId());
     }
 
@@ -72,7 +72,7 @@ public class FacadePack extends Facade {
      * @return le pack modifié
      * @throws Exception si la requête échoue
      */
-    public Pack updateProgrammeNutrition(int idPack, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception{
+    public Pack updatePack(int idPack, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception{
         return packDAO.updatePack(idPack, nom, description, prix, type, nbMois);
     }
 
