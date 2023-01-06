@@ -1,3 +1,4 @@
+package com.fitj.enums;
 /**
  * Énumération représentant les différents sexes.
  *
