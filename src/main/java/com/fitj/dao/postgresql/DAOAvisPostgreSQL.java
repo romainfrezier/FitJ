@@ -10,6 +10,9 @@ import com.fitj.dao.methodesBD.MethodesPostgreSQL;
  */
 public class DAOAvisPostgreSQL extends DAOAvis {
 
+    /**
+     * Constructeur
+     */
     public DAOAvisPostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
