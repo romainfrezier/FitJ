@@ -1,7 +1,6 @@
 package com.fitj.controllers.headers;
 
 import com.fitj.exceptions.BadPageException;
-import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -43,20 +42,7 @@ public class ControllerHeaderCoach extends ControllerHeader {
      */
     @FXML
     private void initialize() {
-        super.hideError(errorText);
-        super.setPath(path);
-        try {
-            if (facadeNotification.getAllNotificationsByIdClient(Facade.currentClient.getId()).size() > 0) {
-                newNotifIcon.setVisible(true);
-                notifIcon.setVisible(false);
-            } else {
-                newNotifIcon.setVisible(false);
-                notifIcon.setVisible(true);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            super.displayError(errorText, "Impossible de récupérer les notifications");
-        }
+        super.getNotifIcon(notifIcon, newNotifIcon, errorText);
     }
 
     /**

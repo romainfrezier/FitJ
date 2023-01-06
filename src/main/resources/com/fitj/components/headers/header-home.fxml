@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<Pane layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.headers.ControllerHeaderVisitor">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="1000.0" style="-fx-border-style: hidden none solid none; -fx-border-color: #054371; -fx-border-width: 2;" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.headers.ControllerHeaderVisitor">
    <children>
       <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>

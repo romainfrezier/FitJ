@@ -159,4 +159,14 @@ public class FacadeSeance extends Facade {
         return this.daoSeance.getExercices(id);
     }
 
+    /**
+     * Méthode permettant de récupérer les séances achetées par un client
+     * @param idClient int, l'id du client
+     * @return List<Seance>, la liste des séances achetées par le client
+     * @throws Exception en cas d'erreur
+     */
+    public List<Seance> getAllSeancesByClient(int idClient) throws Exception {
+        return this.daoSeance.getAllSeancesFromClient(idClient);
+    }
+
 }

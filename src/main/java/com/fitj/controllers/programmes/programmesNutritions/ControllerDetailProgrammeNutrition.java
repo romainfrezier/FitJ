@@ -1,14 +1,12 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
 import com.fitj.classes.Admin;
-import com.fitj.classes.Coach;
 import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -24,6 +22,10 @@ import java.util.Optional;
 public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutrition {
 
 
+    @FXML
+    private Text prix;
+    @FXML
+    private Button buyButton;
     @FXML
     private Button detailProgrammeNutritionButton;
 
@@ -48,16 +50,6 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private Text nomCoach;
 
-
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerClient;
-
-    @FXML
-    private VBox headerCoach;
-
     @FXML
     private Text nomProgrammeNutrition;
 
@@ -74,14 +66,6 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else if (Facade.currentClient instanceof Coach){
-            headerCoach.setVisible(true);
-        }
-        else {
-            headerClient.setVisible(true);
-        }
         detailProgrammeNutritionButton.setVisible(false);
         try {
             this.programmeNutrition = facadeProgrammeNutrition.getProgrammeNutritionById(getIdObjectSelected());
@@ -92,6 +76,7 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             this.programmeType.setText(ProgrammeType.getProgrammeType(this.programmeNutrition.getType()));
             this.nbMoisProgramme.setText(this.programmeNutrition.getNbMois() + " mois");
             this.descriptionProgramme.getChildren().add(new Text(this.programmeNutrition.getDescription()));
+            this.prix.setText(this.programmeNutrition.getPrix() + " €");
         }
         catch (Exception e){
             e.printStackTrace();
@@ -122,6 +107,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
         if (!(Facade.currentClient instanceof Admin) && this.programmeNutrition.getCoach().getId() != Facade.currentClient.getId()){
             updateProgrammeNutritionButton.setVisible(false);
             deleteProgrammeNutritionButton.setVisible(false);
+            if (getPreviousPageName().equals("shop")){
+                buyButton.setVisible(true);
+            }
         }
     }
 
@@ -173,7 +161,9 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void handlerViewRecette(){
             setIdObjectSelected(listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem().getId());
-            this.detailProgrammeNutritionButton.setVisible(true);
+            if (!getPreviousPageName().equals("shop")){
+                this.detailProgrammeNutritionButton.setVisible(true);
+            }
     }
 
 
@@ -199,5 +189,15 @@ public class ControllerDetailProgrammeNutrition extends ControllerProgrammeNutri
             }
         }
 
+    }
+
+    @FXML
+    private void handleBuyButton() {
+        try {
+            setObjectSelected(this.programmeNutrition);
+            goToPage(buyButton, "paiements/paiement.fxml", "Acheter le programme " + this.programmeNutrition.getNom());
+        } catch (Exception e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 }

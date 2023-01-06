@@ -2,12 +2,9 @@ package com.fitj.controllers.seances;
 
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAO;
-import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import kotlin.Triple;
@@ -57,8 +54,6 @@ public class ControllerAddSeance extends ControllerSeance{
     @FXML
     private Button ajouterExerciceButton;
 
-    @FXML
-    private Button supprimerExerciceButton;
 
     @FXML
     private Button addSeance;
@@ -79,12 +74,6 @@ public class ControllerAddSeance extends ControllerSeance{
     private Exercice exerciceSelected = null;
 
     private Triple<Exercice,Integer,Integer> exerciceSelectedForDelete = null;
-
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerCoach;
 
     private ArrayList<Exercice> listeExercice;
 
@@ -109,11 +98,6 @@ public class ControllerAddSeance extends ControllerSeance{
     private void initialize() {
         super.hideError(errorText);
         updateButtonExerciceDisplay(false);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else {
-            headerCoach.setVisible(true);
-        }
         try {
             listeExerciceSeance = new ArrayList<>();
             setObjectSelected(null);
@@ -280,7 +264,7 @@ public class ControllerAddSeance extends ControllerSeance{
             e.printStackTrace();
             super.displayError(errorText, "Erreur lors de l'initialisation de la liste des sports");
         }
-    };
+    }
 
 
 

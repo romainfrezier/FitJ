@@ -88,9 +88,8 @@ public class DAODemandePostgreSQL extends DAODemande {
                  * index 10 = nom du coach
                  */
                 System.out.println((String) dataIndex.get(3));
-                System.out.println((String) dataIndex.get(8));
                 if (idCurrentDemande != ((Long)dataIndex.get(1)).intValue()){
-                    Sport sport = new Sport(((Long)data.get("idsport")).intValue(), (String) dataIndex.get(8));
+                    Sport sport = new Sport(((Long)data.get("idsport")).intValue(), (String) dataIndex.get(12));
                     Demande demande = new Demande(((Long)dataIndex.get(1)).intValue(), ((Long)data.get("nbmois")).intValue(), (String) dataIndex.get(3), (boolean) data.get("programmesportif"), (boolean) data.get("programmenutrition"), ((Long)data.get("nbseancesemaine")).intValue(), ((Long)data.get("nbrecettesemaine")).intValue(), sport, DemandeEtat.getDemandeEtat((String) data.get("etat")));
                     listeDemande.add(demande);
                     idCurrentDemande = ((Long)dataIndex.get(1)).intValue();

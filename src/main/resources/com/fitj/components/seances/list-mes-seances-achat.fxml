@@ -7,8 +7,7 @@
 
 <Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.seances.ControllerSeanceListAchat">
     <children>
-        <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItem" prefHeight="450.0" prefWidth="867.0" styleClass="emptyRectangle" />
-        <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="384.28125" />
+        <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItemSeance" prefHeight="450.0" prefWidth="867.0" styleClass="emptyRectangle" />
         <Text fx:id="errorText" fill="RED" layoutX="129.0" layoutY="503.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
         <Button fx:id="detailSeanceButton" layoutX="400.0" layoutY="519.0" mnemonicParsing="false" onAction="#goToDetailSeance" styleClass="buttonBlue" text="Voir" />
     </children>

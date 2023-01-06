@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
 /**
@@ -62,7 +63,6 @@ public class ControllerLogin extends ControllerUser {
                 } else {
                     scope = "client";
                 }
-                System.out.println(client.getId());
                 Facade.currentClient = client;
                 goToHome(scope);
             }
@@ -118,6 +118,13 @@ public class ControllerLogin extends ControllerUser {
     private void checkForm() throws UncompletedFormException {
         if (username.getText().equals("") || password.getText().equals("")) {
             throw new UncompletedFormException("Le formulaire n'est pas complet");
+        }
+    }
+
+    @FXML
+    private void handleEnter(KeyEvent keyEvent) {
+        if (keyEvent.getCode().toString().equals("ENTER")) {
+            handleButtonConnect();
         }
     }
 }

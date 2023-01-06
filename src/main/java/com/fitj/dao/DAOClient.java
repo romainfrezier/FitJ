@@ -242,9 +242,17 @@ public abstract class DAOClient extends DAO {
     /**
      * Incrémente le solde d'un coach
      * @param coachId int, l'id du coach
-     * @param solde int, le solde à ajouter
+     * @param solde double, le solde à ajouter
      * @return Coach, le coach modifié
      * @throws Exception en cas de problème lors de la requête SQL
      */
-    public abstract Coach incrementeSoldeCoach(int coachId, int solde) throws Exception;
+    public abstract Coach incrementeSoldeCoach(int coachId, double solde) throws Exception;
+
+    /**
+     * Créé le solde d'un coach
+     * @param coachId int, l'id du coach
+     * @throws Exception en cas de problème lors de la requête SQL
+     * @return double, le solde coach
+     */
+    public abstract double getSoldeCoach(int coachId) throws Exception;
 }

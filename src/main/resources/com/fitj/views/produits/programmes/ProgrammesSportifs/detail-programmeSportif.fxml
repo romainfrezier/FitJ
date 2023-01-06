@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.programmes.programmesSportifs.ControllerDetailProgrammeSportif">
+    <children>
+        <Pane layoutX="139.0" layoutY="213.0" prefHeight="461.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" layoutX="7.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" styleClass="rectangleShape" width="127.0" />
+                <Text fill="#054371" layoutX="143.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Séances du programme">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <ListView fx:id="listViewSeanceProgrammeSportif" layoutX="143.0" layoutY="108.0" onMouseClicked="#handlerViewSeance" prefHeight="170.0" prefWidth="448.0" styleClass="emptyRectangle" />
+                <Text fx:id="nomProgrammeSportif" fill="#054371" layoutX="279.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du programme">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Text>
+                <Button fx:id="detailSeanceButton" layoutX="143.0" layoutY="285.0" mnemonicParsing="false" onAction="#goToDetailSeance" prefHeight="27.0" prefWidth="92.0" styleClass="buttonBlue" text="Voir" />
+                <Text fx:id="programmeType" fill="#054371" layoutX="72.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulté" />
+                <Text fill="#054371" layoutX="571.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Crée par : " />
+                <Text fx:id="nomCoach" fill="#054371" layoutX="626.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nomCoach" textAlignment="RIGHT" wrappingWidth="84.05517578125">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font></Text>
+                <TextFlow fx:id="descriptionProgramme" layoutX="141.0" layoutY="350.0" prefHeight="89.0" prefWidth="448.0" styleClass="emptyRectangle" />
+                <Text fill="#054371" layoutX="15.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Durée :" />
+                <Text fx:id="nbMoisProgramme" fill="#054371" layoutX="72.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nbMois" wrappingWidth="54.7041015625" />
+                <Text fill="#054371" layoutX="140.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="92.0" />
+                <Text fill="#054371" layoutX="15.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix :" />
+                <Text fill="#054371" layoutX="15.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulté :" />
+                <Text fx:id="prix" fill="#054371" layoutX="72.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="prix" wrappingWidth="54.7041015625" />
+            </children>
+        </Pane>
+        <Text fill="#054371" layoutX="289.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Détail du programme sportif">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Text>
+        <AnchorPane>
+            <children>
+                <fx:include source="../../../../components/headers/header.fxml" />
+            </children>
+        </AnchorPane>
+        <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
+        <Button fx:id="updateProgrammeSportifButton" layoutX="381.0" layoutY="694.0" mnemonicParsing="false" onAction="#updateProgrammeSportif" prefHeight="43.0" prefWidth="114.0" styleClass="buttonBlue" text="Modifier" />
+        <Button fx:id="deleteProgrammeSportifButton" layoutX="504.0" layoutY="694.0" mnemonicParsing="false" onAction="#deleteProgrammeSportif" prefHeight="43.0" prefWidth="114.0" styleClass="buttonBlue" text="Supprimer" />
+        <Button fx:id="buyButton" layoutX="764.0" layoutY="694.0" mnemonicParsing="false" onAction="#handleBuyButton" styleClass="buttonRed" text="Acheter" visible="false"/>
+    </children>
+</Pane>

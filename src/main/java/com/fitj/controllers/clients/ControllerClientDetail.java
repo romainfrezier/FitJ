@@ -12,6 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+
+import java.util.List;
+
 /**
  * Controller de la page client-detail-view.fxml
  * @see ControllerClient
@@ -64,44 +67,54 @@ public class ControllerClientDetail extends ControllerClient {
      * Méthode permettant d'initialiser la liste du materiel du client
      */
     private void initializeClientMaterielList() {
-        super.initializeList(materielList, client.getListeMateriel(), new Callback<ListView<Materiel>, ListCell<Materiel>>(){
-            @Override
-            public ListCell<Materiel> call(ListView<Materiel> param) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Materiel item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setText(item.getNom());
-                        } else {
-                            setText("");
+        try {
+            List<Materiel> materiels = clientFacade.getMaterielByClient(client);
+            super.initializeList(materielList, materiels, new Callback<ListView<Materiel>, ListCell<Materiel>>(){
+                @Override
+                public ListCell<Materiel> call(ListView<Materiel> param) {
+                    return new ListCell<>() {
+                        @Override
+                        protected void updateItem(Materiel item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item.getNom());
+                            } else {
+                                setText("");
+                            }
                         }
-                    }
-                };
-            }
-        });
+                    };
+                }
+            });
+        } catch (Exception e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**
      * Methode permettant d'initialiser la liste des sports du client
      */
     private void initializeClientSportList() {
-        super.initializeList(sportList, client.getListeSport(), new Callback<ListView<Sport>, ListCell<Sport>>() {
-            @Override
-            public ListCell<Sport> call(ListView<Sport> param) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Sport item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setText(item.getNom());
-                        } else {
-                            setText("");
+        try {
+            List<Sport> sports = clientFacade.getAllSportByClient(client);
+            super.initializeList(sportList, sports, new Callback<ListView<Sport>, ListCell<Sport>>() {
+                @Override
+                public ListCell<Sport> call(ListView<Sport> param) {
+                    return new ListCell<>() {
+                        @Override
+                        protected void updateItem(Sport item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item.getNom());
+                            } else {
+                                setText("");
+                            }
                         }
-                    }
-                };
-            }
-        });
+                    };
+                }
+            });
+        } catch (Exception e) {
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     /**

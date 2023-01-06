@@ -1,19 +1,15 @@
 package com.fitj.controllers.programmes.programmesSportifs;
 
-import com.fitj.classes.Client;
 import com.fitj.classes.ProgrammeSportif;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Controller de la page des programmes sportifs achetés
@@ -65,7 +61,7 @@ public class ControllerMesProgrammesSportifsAchat extends ControllerProgrammeSpo
      * Méthode appelée lors du clic sur un programme sportif de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemProgramme(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 
@@ -81,6 +77,7 @@ public class ControllerMesProgrammesSportifsAchat extends ControllerProgrammeSpo
             super.hideError(errorText);
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
+            setPreviousPageName("achats");
             super.goToDetailProgrammeSportif(detailProgrammeSportifButton);
         } catch (BadPageException | UnselectedItemException e) {
             e.printStackTrace();

@@ -13,19 +13,9 @@
 <?import javafx.scene.control.ToggleGroup?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.paiements.ControllerFairePaiement">
     <children>
-        <AnchorPane fx:id="headerCoach" visible="false">
+        <AnchorPane>
             <children>
-                <fx:include source="../../components/headers/header-coach.fxml" />
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="headerClient" visible="false">
-            <children>
-                <fx:include source="../../components/headers/header-client.fxml" />
-            </children>
-        </AnchorPane>
-        <AnchorPane fx:id="headerAdmin" visible="false">
-            <children>
-                <fx:include source="../../components/headers/header-admin.fxml" />
+                <fx:include source="../../components/headers/header.fxml" />
             </children>
         </AnchorPane>
         <AnchorPane layoutY="55.0" prefHeight="745.0" prefWidth="1000.0">

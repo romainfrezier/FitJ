@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.programmes.programmesSportifs.ControllerModifyProgrammeSportif">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.programmes.programmesSportifs.ControllerModifyProgrammeSportif">
     <children>
         <Pane layoutX="138.0" layoutY="215.0" prefHeight="495.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
             <children>
@@ -60,16 +60,11 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <VBox fx:id="headerAdmin" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
+        <AnchorPane>
             <children>
-                <fx:include source="../../../components/headers/header-admin.fxml" />
+                <fx:include source="../../../../components/headers/header.fxml" />
             </children>
-        </VBox>
-        <VBox fx:id="headerCoach" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
-            <children>
-                <fx:include source="../../../components/headers/header-coach.fxml" />
-            </children>
-        </VBox>
+        </AnchorPane>
         <Text fx:id="errorText" fill="RED" layoutX="137.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
     </children>
 </Pane>

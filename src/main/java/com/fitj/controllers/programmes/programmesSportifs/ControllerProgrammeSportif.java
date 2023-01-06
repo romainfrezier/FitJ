@@ -41,7 +41,7 @@ public abstract class ControllerProgrammeSportif extends Controller {
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
      */
-    private final String programmeSportif = "programmes/programmesSportifs/";
+    private final String programmeSportif = "produits/programmes/programmesSportifs/";
 
     /**
      * Methode permettant de se rendre sur la page mon espace

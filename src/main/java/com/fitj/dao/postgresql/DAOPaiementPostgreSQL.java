@@ -58,7 +58,7 @@ public class DAOPaiementPostgreSQL extends DAOPaiement {
                 Map<String, Object> data = listData.get(i);
                 paiements.add(new Paiement(
                         ((Long)data.get("id")).intValue(),
-                        ((Long)data.get("montant")).intValue(),
+                        (double)data.get("montant"),
                         PaiementType.getPaiementType((String)data.get("type"))));
                 i++;
             }

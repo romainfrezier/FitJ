@@ -56,7 +56,7 @@ public class ControllerMaterielList extends ControllerMateriel {
      * Méthode appelée lors du clic sur un matériel de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemMateriel(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 

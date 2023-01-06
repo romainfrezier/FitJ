@@ -1,6 +1,5 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
-import com.fitj.classes.Coach;
 import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
@@ -51,7 +50,7 @@ public class ControllerMesProgrammesNutritionsList extends ControllerProgrammeNu
     private void initializeProgrammeNutritionList() {
         try {
 
-            List<ProgrammeNutrition> programmeNutritions = facadeProgrammeNutrition.getProgrammeNutritionByCoach((Coach)Facade.currentClient);
+            List<ProgrammeNutrition> programmeNutritions = facadeProgrammeNutrition.getProgrammeNutritionByCoach(Facade.currentClient.getId());
             super.initializeProgrammeNutritionList(listView, programmeNutritions);
         } catch (Exception e) {
             super.displayError(errorText, e.getMessage());
@@ -63,7 +62,7 @@ public class ControllerMesProgrammesNutritionsList extends ControllerProgrammeNu
      * Méthode appelée lors du clic sur un programme nutrition de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemProgramme(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 

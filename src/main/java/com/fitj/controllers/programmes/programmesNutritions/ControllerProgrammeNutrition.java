@@ -37,7 +37,7 @@ public abstract class ControllerProgrammeNutrition extends Controller {
     /**
      * Chemin du dossier dans lequel se trouve les ressources pour les pages relatives aux admins
      */
-    private final String programmeNutrition = "programmes/programmesNutritions/";
+    private final String programmeNutrition = "produits/programmes/programmesNutritions/";
 
     /**
      * Methode permettant de se rendre sur la page mon espace

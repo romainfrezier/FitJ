@@ -75,7 +75,7 @@ public class ControllerSeanceListAchat extends ControllerSeance{
      * Méthode appelée lors du clic sur une séance de la liste
      */
     @FXML
-    private void selectItem(){
+    private void selectItemSeance(){
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 
@@ -90,6 +90,7 @@ public class ControllerSeanceListAchat extends ControllerSeance{
             super.hideError(errorText);
             checkSelected();
             setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
+            setPreviousPageName("achats");
             super.goToDetailSeance(detailSeanceButton);
         } catch (BadPageException | UnselectedItemException e) {
             e.printStackTrace();

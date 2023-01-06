@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="893.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.notifications.ControllerNotificationsList">
+    <children>
+        <ListView fx:id="notificationsListView" layoutX="11.0" layoutY="12.0" prefHeight="521.0" prefWidth="869.0" styleClass="emptyRectangle" />
+        <Button fx:id="deleteNotification" layoutX="396.0" layoutY="575.0" mnemonicParsing="false" onAction="#deleteNotification" styleClass="buttonBlue" text="Supprimer" />
+        <Text fx:id="errorTextNotif" fill="RED" layoutX="159.0" layoutY="557.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="573.21630859375" />
+    </children>
+</AnchorPane>

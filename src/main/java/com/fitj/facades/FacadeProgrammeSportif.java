@@ -1,12 +1,9 @@
 package com.fitj.facades;
 
 import com.fitj.classes.*;
-import com.fitj.dao.DAOProgrammeNutrition;
 import com.fitj.dao.DAOProgrammeSportif;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.enums.ProgrammeType;
-import com.fitj.interfaces.Ingredient;
-import kotlin.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +80,8 @@ public class FacadeProgrammeSportif extends Facade{
      * @return List<ProgrammeSportif>, la liste des programmes sportifs créés par le coach
      * @throws Exception en cas d'erreur
      */
-    public List<ProgrammeSportif> getProgrammeSportifByCoach(Coach coach) throws Exception{
-        return programmeSportifDAO.getAllProgrammeSportifByCoach(coach.getId());
+    public List<ProgrammeSportif> getProgrammeSportifByCoach(int coach) throws Exception{
+        return programmeSportifDAO.getAllProgrammeSportifByCoach(coach);
     }
 
 

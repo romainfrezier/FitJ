@@ -2,10 +2,10 @@ package com.fitj.controllers.commandes;
 
 import com.fitj.classes.*;
 import com.fitj.enums.DemandeEtat;
+import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -32,10 +32,6 @@ public class ControllerCommandeDetail extends ControllerCommande{
     @FXML
     private Text demandeLabel;
     @FXML
-    private VBox headerCoach;
-    @FXML
-    private VBox headerClient;
-    @FXML
     private Text errorText;
     @FXML
     private Text titleText;
@@ -54,6 +50,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
 
     private Client client;
     private Coach coach;
+    private Produit produit;
 
     /**
      * Initialise la vue
@@ -63,7 +60,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
         super.hideError(errorText);
         try {
             Commande commande = facadeCommande.getCommandeById(getIdObjectSelected());
-            Produit produit = facadeCommande.getProduitById(commande.getProduit());
+            produit = facadeCommande.getProduitById(commande.getProduit());
             client = commande.getClient();
             coach = commande.getCoach();
             titleText.setText("Détail de la commande n°" + commande.getId());
@@ -85,12 +82,14 @@ public class ControllerCommandeDetail extends ControllerCommande{
                 sportLabel.setVisible(false);
             }
             if (!(Facade.currentClient instanceof Coach)) {
-                headerCoach.setVisible(false);
                 repondreButton.setVisible(false);
                 destinataire.setText(coach.getPseudo());
             } else {
-                headerClient.setVisible(false);
                 destinataire.setText(client.getPseudo());
+            }
+            if (Facade.currentClient.getId() == client.getId()) {
+                voirDestinataire.setText("Mon profil");
+                destinataire.setText(destinataire.getText() + " (moi)");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,11 +103,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
     @FXML
     private void goBack() {
         try {
-            if (Facade.currentClient instanceof Coach) {
-                goToPage(retourButton, "coachs/notifications-coach.fxml", "Notifications");
-            } else {
-                goToPage(retourButton, "clients/notifications-client.fxml", "Notifications");
-            }
+            goToPage(retourButton, "notifications/notifications-commandes-list.fxml", "Notifications & Commandes");
         } catch (Exception e) {
             e.printStackTrace();
             displayError(errorText, e.getMessage());
@@ -129,9 +124,16 @@ public class ControllerCommandeDetail extends ControllerCommande{
      * Méthode pour emmener vers la page de détail du produit
      */
     @FXML
-    private void voirProduit() {
-        // TODO emmener vers la page de détail du produit
-        displayError(errorText, "Cette fonctionnalité n'est pas encore disponible");
+    private void voirProduit() throws BadPageException {
+        setPreviousPageName("commandes");
+        setIdObjectSelected(produit.getId());
+        if (produit instanceof ProgrammeNutrition){
+            goToPage(voirProduit, "produits/programmes/programmesNutrition/detail-programmeNutrition.fxml", "Détail du programme nutrition");
+        } else if (produit instanceof ProgrammeSportif){
+            goToPage(voirProduit, "produits/programmes/programmesSportifs/detail-programmeSportif.fxml", "Détail du programme sportif");
+        } else if (produit instanceof Seance){
+            goToPage(voirProduit, "produits/seances/detail-seance.fxml", "Détail de la séance");
+        }
     }
 
     /**
@@ -140,14 +142,12 @@ public class ControllerCommandeDetail extends ControllerCommande{
     @FXML
     private void voirDestinaire() {
         try {
-            if (Facade.currentClient instanceof Coach) {
-                setPreviousPageName("commande");
-                setObjectSelected(client);
-                goToPage(voirDestinataire, "coachs/detailClient-coach.fxml", "Mon client");
-            } else {
-                setPreviousPageName("commande");
-                setObjectSelected(coach);
+            setPreviousPageName("commande");
+            setObjectSelected(client);
+            if (client instanceof Coach) {
                 goToPage(voirDestinataire, "coachs/detailCoach-coach.fxml", "Mon coach");
+            } else {
+                goToPage(voirDestinataire, "coachs/detailClient-coach.fxml", "Mon client");
             }
         } catch (Exception e) {
             displayError(errorText, e.getMessage());

@@ -1,15 +1,12 @@
 package com.fitj.controllers.programmes.programmesSportifs;
 
-import com.fitj.classes.Admin;
 import com.fitj.classes.Coach;
-import com.fitj.classes.Recette;
 import com.fitj.classes.Seance;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.enums.ProgrammeType;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -61,13 +58,6 @@ public class ControllerAddProgrammeSportif extends ControllerProgrammeSportif{
     private Seance seanceSelected = null;
 
     private Seance seanceSelectedForDelete = null;
-
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerCoach;
-
     private ArrayList<Seance> listeSeances;
 
     private ArrayList<Seance> listeSeanceProgrammeSportif;
@@ -90,11 +80,6 @@ public class ControllerAddProgrammeSportif extends ControllerProgrammeSportif{
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else {
-            headerCoach.setVisible(true);
-        }
         listeSeanceProgrammeSportif = new ArrayList<>();
         setObjectSelected(null);
         initializeDifficulteProgramme();

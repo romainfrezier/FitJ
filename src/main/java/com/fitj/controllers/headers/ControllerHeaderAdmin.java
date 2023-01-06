@@ -3,6 +3,7 @@ package com.fitj.controllers.headers;
 import com.fitj.exceptions.BadPageException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 /**
@@ -16,6 +17,10 @@ public class ControllerHeaderAdmin extends ControllerHeader {
      * Chemin caractérisant la page admin
      */
     private final String path = "admin";
+    @FXML
+    private ImageView notifIcon;
+    @FXML
+    private ImageView newNotifIcon;
 
     // Composants FXML ----------------------------------------------
     @FXML
@@ -37,8 +42,7 @@ public class ControllerHeaderAdmin extends ControllerHeader {
      */
     @FXML
     private void initialize() {
-        super.hideError(errorText);
-        super.setPath(path);
+        super.getNotifIcon(notifIcon, newNotifIcon, errorText);
     }
 
     /**
@@ -102,6 +106,19 @@ public class ControllerHeaderAdmin extends ControllerHeader {
             super.hideError(errorText);
             super.goToPage(clients, path + "s/clients-" +  path + ".fxml", "Clients");
         } catch (BadPageException e) {
+            super.displayError(errorText, e.getMessage());
+        }
+    }
+
+    /**
+     * Methode permettant de se rendre sur la page des notifications et des commandes
+     */
+    @FXML
+    private void goToNotification() {
+        try{
+            super.hideError(errorText);
+            super.goToNotification(shop); // Shop est sur la même page que l'icône des notifications
+        } catch (BadPageException e){
             super.displayError(errorText, e.getMessage());
         }
     }

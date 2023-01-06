@@ -3,10 +3,8 @@ package com.fitj.controllers.seances;
 import com.fitj.classes.*;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.facades.Facade;
-import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import kotlin.Triple;
@@ -79,12 +77,6 @@ public class ControllerModifySeance extends ControllerSeance{
 
     private Triple<Exercice,Integer,Integer> exerciceSelectedForDelete = null;
 
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerCoach;
-
     private ArrayList<Exercice> listeExercice;
 
     private ArrayList<Triple<Exercice,Integer,Integer>> listeExerciceSeance;
@@ -110,11 +102,6 @@ public class ControllerModifySeance extends ControllerSeance{
     private void initialize() {
         super.hideError(errorText);
         updateButtonExerciceDisplay(false);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else {
-            headerCoach.setVisible(true);
-        }
         try {
             listeExerciceSeance = (ArrayList<Triple<Exercice, Integer, Integer>>) facadeSeance.getExercices(getIdObjectSelected());
             this.seance = facadeSeance.getSeance(getIdObjectSelected());
@@ -288,7 +275,7 @@ public class ControllerModifySeance extends ControllerSeance{
             e.printStackTrace();
             super.displayError(errorText, "Erreur lors de l'initialisation de la liste des sports");
         }
-    };
+    }
 
 
 

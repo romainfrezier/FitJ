@@ -1,14 +1,11 @@
 package com.fitj.controllers.programmes.programmesNutritions;
 
-import com.fitj.classes.Admin;
 import com.fitj.classes.ProgrammeNutrition;
 import com.fitj.classes.Recette;
 import com.fitj.dao.factory.FactoryDAO;
 import com.fitj.enums.ProgrammeType;
-import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
@@ -64,12 +61,6 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
 
     private Recette recetteSelectedForDelete = null;
 
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerCoach;
-
     private ArrayList<Recette> listeRecettes;
 
     private ArrayList<Recette> listeRecetteProgrammeNutrition;
@@ -94,11 +85,6 @@ public class ControllerModifyProgrammeNutrition extends ControllerProgrammeNutri
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else {
-            headerCoach.setVisible(true);
-        }
         try {
             this.programmeNutrition = facadeProgrammeNutrition.getProgrammeNutritionById(getIdObjectSelected());
             listeRecetteProgrammeNutrition = new ArrayList<>();
