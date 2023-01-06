@@ -81,14 +81,11 @@ public class FacadePack extends Facade {
      * @param nom le nom du pack
      * @param description la description du pack
      * @param prix le prix du pack
-     * @param type le type du pack
-     * @param nbMois le nombre de mois du pack
      * @param coach le coach qui a créé le pack
-     * @param listeRecettes la liste des recettes du pack
      * @return le pack créé
      * @throws Exception si la requête échoue
      */
-    public Pack createPack(String nom, String description, double prix, ProgrammeType type, int nbMois, Coach coach, ArrayList<Recette> listeRecettes) throws Exception{
+    public Pack createPack(String nom, String description, double prix, Coach coach) throws Exception{
         return packDAO.createPack(nom, description, prix, coach);
     }
 

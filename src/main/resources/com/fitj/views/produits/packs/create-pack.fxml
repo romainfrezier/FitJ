@@ -1,14 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.fitj.views.produits.packs.CreatePack"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" stylesheets="@../../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.packs.ControllerAddPack">
+    <children>
+        <Pane layoutX="138.0" layoutY="215.0" prefHeight="495.0" prefWidth="725.0" style="-fx-border-color: #054371; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-background-color: lightgrey;">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" layoutX="376.0" layoutY="367.0" stroke="#054371" strokeType="INSIDE" width="315.0">
+                    <styleClass>
+                        <String fx:value="rectangleShape" />
+                    </styleClass></Rectangle>
+                <Text fill="#054371" layoutX="40.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les produits du pack">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <TabPane layoutX="375" layoutY="78.0" prefHeight="183.0" prefWidth="300.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Packs">
+                            <content>
+                                <ListView fx:id="listViewPack" layoutX="74.0" layoutY="155.0" onMouseClicked="#setProduitSelectedPack" prefHeight="265.0" prefWidth="273.0" styleClass="emptyRectangle" />
+                            </content>
+                        </Tab>
+                        <Tab text="Programmes">
+                            <content>
+                                <TabPane layoutX="409.0" layoutY="155.0" prefHeight="242.0" prefWidth="274.0" tabClosingPolicy="UNAVAILABLE">
+                                    <tabs>
+                                    <Tab text="Programmes Sportifs">
+                                        <content>
+                                            <ListView fx:id="listViewProgrammeSportif" layoutX="74.0" layoutY="155.0" onMouseClicked="#setProduitSelectedProgrammeSportif" prefHeight="265.0" prefWidth="273.0" styleClass="emptyRectangle" />
+                                        </content>
+                                    </Tab>
+                                        <Tab text="Programmes Nutritions">
+                                            <content>
+                                                <ListView fx:id="listViewProgrammeNutrition" layoutX="74.0" layoutY="155.0" onMouseClicked="#setProduitSelectedProgrammeNutrition" prefHeight="265.0" prefWidth="273.0" styleClass="emptyRectangle" />
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Séances">
+                            <content>
+                                <ListView fx:id="listViewSeance" layoutX="74.0" layoutY="155.0" onMouseClicked="#setProduitSelectedSeance" prefHeight="265.0" prefWidth="273.0" styleClass="emptyRectangle" />
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <TextField fx:id="nomPack" layoutX="125.0" layoutY="48.0" prefHeight="28.0" prefWidth="461.0" styleClass="emptyRectangle" />
+                <ListView fx:id="listViewProduitPack" layoutX="40.0" layoutY="111.0" onMouseClicked="#setProduitSelectedToDelete" prefHeight="150.0" prefWidth="315.0" styleClass="emptyRectangle" />
+                <Button layoutX="144.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#supprimerProduit" prefHeight="27.0" prefWidth="92.0" styleClass="buttonBlue" text="Supprimer" textFill="WHITE" />
+                <Button layoutX="487.0" layoutY="267.0" mnemonicParsing="false" onMouseClicked="#addProduit" prefHeight="25.0" prefWidth="92.0" styleClass="buttonBlue" text="Ajouter" textFill="WHITE" />
+                <Text fill="#054371" layoutX="125.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom du pack">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Text>
+                <TextArea fx:id="descriptionPack" layoutX="40.0" layoutY="323.0" prefHeight="150.0" prefWidth="315.0" styleClass="emptyRectangle" />
+                <Text fill="#054371" layoutX="40.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" />
+                <Text fill="#054371" layoutX="376.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix" />
+                <Slider fx:id="prixPack" layoutX="398.0" layoutY="391.0" max="2000.0" onMouseReleased="#updateMontantPack" prefHeight="33.0" prefWidth="271.0" showTickLabels="true" />
+                <Text fx:id="montantPack" fill="RED" layoutX="613.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="montant" textAlignment="RIGHT" wrappingWidth="77.90478515625" />
+            </children>
+        </Pane>
+        <Text fill="#054371" layoutX="335.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Créer un nouveau pack">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Text>
+        <Button fx:id="addPack" layoutX="450.0" layoutY="726.0" mnemonicParsing="false" onAction="#addPack" styleClass="buttonBlue" text="Créer le pack" textFill="WHITE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <AnchorPane>
+            <children>
+                <fx:include source="../../../components/headers/header.fxml" />
+            </children>
+        </AnchorPane>
+        <Text fx:id="errorText" fill="RED" layoutX="137.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
+    </children>
+</Pane>

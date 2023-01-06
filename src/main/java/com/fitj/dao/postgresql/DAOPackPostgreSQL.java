@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DAOPackPostgreSQL extends DAOPack {
 
@@ -250,72 +252,82 @@ public class DAOPackPostgreSQL extends DAOPack {
 
     @Override
     public void ajouterProgrammeNutrition(ProgrammeNutrition programmeNutrition, int idPack) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idprogramme", programmeNutrition.getId()));
-        insertList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packprogrammenutrition");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout du programme nutrition dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> insertList = new ArrayList<>();
+            insertList.add(new Pair<>("idprogramme", programmeNutrition.getId()));
+            insertList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packprogrammenutrition");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void ajouterProgrammePersonnalise(ProgrammePersonnalise programmePersonnalise, int idPack) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idprogramme", programmePersonnalise.getId()));
-        insertList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packprogrammepersonnalise");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout du programme personnalisé dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> insertList = new ArrayList<>();
+            insertList.add(new Pair<>("idprogramme", programmePersonnalise.getId()));
+            insertList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packprogrammepersonnalise");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void ajouterProgrammeSportif(ProgrammeSportif programmeSportif, int idPack) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idprogramme", programmeSportif.getId()));
-        insertList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packprogrammesportif");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout du programme sportif dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> insertList = new ArrayList<>();
+            insertList.add(new Pair<>("idprogramme", programmeSportif.getId()));
+            insertList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packprogrammesportif");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void ajouterSeance(Seance seance, int idPack) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idseance", seance.getId()));
-        insertList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packseance");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout de la séance dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> insertList = new ArrayList<>();
+            insertList.add(new Pair<>("idseance", seance.getId()));
+            insertList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packseance");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void ajouterPack(Pack pack, int idPack) throws Exception {
-        List<Pair<String, Object>> insertList = new ArrayList<>();
-        insertList.add(new Pair<>("idpack1", idPack));
-        insertList.add(new Pair<>("idpack2", pack.getId()));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packpack");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("L'ajout du pack dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> insertList = new ArrayList<>();
+            insertList.add(new Pair<>("idpack1", idPack));
+            insertList.add(new Pair<>("idpack2", pack.getId()));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).insert(insertList, "packpack");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -342,72 +354,82 @@ public class DAOPackPostgreSQL extends DAOPack {
 
     @Override
     public void supprimerProgrammeNutrition(ProgrammeNutrition programmeNutrition, int idPack) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idprogramme", programmeNutrition.getId()));
-        whereList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packprogrammenutrition");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("La suppression du programme nutrition dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("idprogramme", programmeNutrition.getId()));
+            whereList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packprogrammenutrition");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void supprimerProgrammePersonnalise(ProgrammePersonnalise programmePersonnalise, int idPack) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idprogramme", programmePersonnalise.getId()));
-        whereList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packprogrammepersonnalise");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("La suppression du programme personnalisé dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("idprogramme", programmePersonnalise.getId()));
+            whereList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packprogrammepersonnalise");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void supprimerProgrammeSportif(ProgrammeSportif programmeSportif, int idPack) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idprogramme", programmeSportif.getId()));
-        whereList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packprogrammesportif");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("La suppression du programme sportif dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("idprogramme", programmeSportif.getId()));
+            whereList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packprogrammesportif");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void supprimerSeance(Seance seance, int idPack) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idseance", seance.getId()));
-        whereList.add(new Pair<>("idpack", idPack));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packseance");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("La suppression de la séance dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("idseance", seance.getId()));
+            whereList.add(new Pair<>("idpack", idPack));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packseance");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void supprimerPack(Pack pack, int idPack) throws Exception {
-        List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idpack1", idPack));
-        whereList.add(new Pair<>("idpack2", pack.getId()));
-        try {
-            ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packpack");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new DBProblemException("La suppression du pack dans ce pack a échoué");
-        }
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            List<Pair<String, Object>> whereList = new ArrayList<>();
+            whereList.add(new Pair<>("idpack1",idPack));
+            whereList.add(new Pair<>("idpack2", pack.getId()));
+            try {
+                ((MethodesPostgreSQL)this.methodesBD).delete(whereList, "packpack");
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

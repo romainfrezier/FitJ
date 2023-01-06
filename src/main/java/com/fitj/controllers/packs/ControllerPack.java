@@ -12,7 +12,7 @@ import javafx.util.Callback;
 
 import java.util.List;
 
-public class ControllerPack extends Controller {
+public abstract class ControllerPack extends Controller {
 
     /**
      * Facade pour les packs
@@ -111,6 +111,26 @@ public class ControllerPack extends Controller {
         });
     }
 
+    void initializeProgrammeSportifList(ListView<ProgrammeSportif> listView, List<ProgrammeSportif> items) {
+        super.initializeList(listView, items, new Callback<>() {
+            @Override
+            public ListCell<ProgrammeSportif> call(ListView<ProgrammeSportif> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(ProgrammeSportif item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item.getNom());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+
     void initializePackList(ListView<Pack> listView, List<Pack> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override
@@ -130,13 +150,13 @@ public class ControllerPack extends Controller {
         });
     }
 
-    void initializeProgrammeSportifList(ListView<ProgrammeSportif> listView, List<ProgrammeSportif> items) {
+    void initializeProduitList(ListView<Produit> listView, List<Produit> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override
-            public ListCell<ProgrammeSportif> call(ListView<ProgrammeSportif> param) {
+            public ListCell<Produit> call(ListView<Produit> param) {
                 return new ListCell<>() {
                     @Override
-                    protected void updateItem(ProgrammeSportif item, boolean empty) {
+                    protected void updateItem(Produit item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item != null) {
                             setText(item.getNom());
