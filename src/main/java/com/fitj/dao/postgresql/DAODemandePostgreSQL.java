@@ -21,11 +21,20 @@ import java.util.Map;
  */
 public class DAODemandePostgreSQL extends DAODemande {
 
+    /**
+     * Constructeur
+     */
     public DAODemandePostgreSQL() {
         super();
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+    /**
+     * Retourne la demande dans la base de donnée contenant l'id rentré en paramètre
+     * @param id int, l'id de la demande
+     * @return la demande dans la base de donnée contenant l'id rentré en paramètre
+     * @throws Exception
+     */
     @Override
     public Demande getDemandeById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -60,11 +69,22 @@ public class DAODemandePostgreSQL extends DAODemande {
         }
     }
 
+    /**
+     * Retourne la liste des demandes dans la base de donnée
+     * @return la liste des demandes dans la base de donnée
+     * @throws Exception
+     */
     @Override
     public List<Demande> getAllDemande() throws Exception {
         return this.getAllDemandeWhere(new ArrayList<>());
     }
 
+    /**
+     * Retourne la liste des demandes dans la base de donnée contenant les paramètres rentrés en paramètre
+     * @param whereList List<Pair<String, Object>>, la liste des paramètres
+     * @return la liste des demandes dans la base de donnée contenant les paramètres rentrés en paramètre
+     * @throws Exception
+     */
     @Override
     public List<Demande> getAllDemandeWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Demande> listeDemande = new ArrayList<>();
@@ -104,6 +124,19 @@ public class DAODemandePostgreSQL extends DAODemande {
         }
     }
 
+    /**
+     * Crée une demande dans la base de donnée
+     * @param nbMois int, le nombre de mois de la demande
+     * @param description String, la description de la demande
+     * @param programmeSportif boolean, si l'on veut un programme sportif dans le programme personnalise
+     * @param programmeNutrition boolean, si l'on veut un programme nutrition dans le programme personnalise
+     * @param nbSeanceSemaine int, le nombre de séances par semaine
+     * @param nbRecetteSemaine int, le nombre de recettes par semaine
+     * @param sport Sport, la sport de la demande
+     * @param programmePersonnalise ProgrammePersonnalise, le programme personnalisé sur lequel on fait la demande
+     * @return la demande créée
+     * @throws Exception
+     */
     @Override
     public Demande createDemande(int nbMois, String description, boolean programmeSportif, boolean programmeNutrition, int nbSeanceSemaine, int nbRecetteSemaine, Sport sport, ProgrammePersonnalise programmePersonnalise) throws Exception {
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
@@ -140,6 +173,11 @@ public class DAODemandePostgreSQL extends DAODemande {
         return this.updateDemande(updateList,id);
     }
 
+    /**
+     * Supprime une demande dans la base de donnée
+     * @param id int, l'id de la demande
+     * @throws Exception
+     */
     @Override
     public void supprimerDemande(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -157,6 +195,13 @@ public class DAODemandePostgreSQL extends DAODemande {
         }
     }
 
+    /**
+     * Met à jour une demande dans la base de donnée
+     * @param updateList List<Pair<String, Object>>, la liste des champs à mettre à jour
+     * @param id int, l'id de la demande
+     * @return la demande mise à jour dans la base de donnée
+     * @throws Exception
+     */
     @Override
     public Demande updateDemande(List<Pair<String, Object>> updateList, int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();

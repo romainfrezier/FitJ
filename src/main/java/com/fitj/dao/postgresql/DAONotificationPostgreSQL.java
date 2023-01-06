@@ -27,6 +27,14 @@ public class DAONotificationPostgreSQL extends DAONotification {
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+    /**
+     * Permet de récupérer une notification
+     * @param idClient int, l'id du client
+     * @param idCommande int, l'id de la commande
+     * @param message String, le message de la notification
+     * @return la notification dans la base de donnée contenant l'id rentré en paramètre
+     * @throws DBProblemException si une erreur SQL est détectée
+     */
     @Override
     public Notification createNotification(String message, int idClient, int idCommande) throws Exception {
         List<Pair<String,Object>> insertList = new ArrayList<>();
@@ -42,6 +50,12 @@ public class DAONotificationPostgreSQL extends DAONotification {
         }
     }
 
+    /**
+     * Retourne la notification possédant l'id rentré en paramètre
+     * @param id int, l'id de la notification
+     * @return la notification dans la base de donnée contenant l'id rentré en paramètre
+     * @throws Exception
+     */
     @Override
     public Notification getNotificationById(int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -61,11 +75,22 @@ public class DAONotificationPostgreSQL extends DAONotification {
         }
     }
 
+    /**
+     * Retourne toutes les notifications de la base de données
+     * @return la liste de toutes les notifications de la base de données
+     * @throws Exception
+     */
     @Override
     public List<Notification> getAllNotifications() throws Exception {
         return this.getAllNotificationsWhere(new ArrayList<>());
     }
 
+    /**
+     * Retourne toutes les notifications de la base de données correspondant aux paramètres rentrés
+     * @param whereList List<Pair<String,Object>>, la liste des paramètres de recherche
+     * @return la liste de toutes les notifications de la base de données correspondant aux paramètres rentrés
+     * @throws Exception
+     */
     @Override
     public List<Notification> getAllNotificationsWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Notification> notificationsList = new ArrayList<>();
@@ -84,6 +109,11 @@ public class DAONotificationPostgreSQL extends DAONotification {
         }
     }
 
+    /**
+     * Permet de supprimer une notification de la base de données
+     * @param id int, l'id de la notification
+     * @throws Exception
+     */
     @Override
     public void supprimerNotification(int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -95,6 +125,13 @@ public class DAONotificationPostgreSQL extends DAONotification {
         }
     }
 
+    /**
+     * Modifier une notification dans la base de données
+     * @param updateList List<Pair<String,Object>>, la liste des champs à mettre à jour pour la requête
+     * @param id int, l'id de la notification à modifier
+     * @return la notification modifiée
+     * @throws Exception
+     */
     @Override
     public Notification modifierNotification(List<Pair<String, Object>> updateList, int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -107,6 +144,12 @@ public class DAONotificationPostgreSQL extends DAONotification {
         }
     }
 
+    /**
+     * Retourne la liste des notifications d'un client
+     * @param id int, l'id de l'utilisateur à qui appartient la notification
+     * @return la liste des notifications d'un client
+     * @throws Exception
+     */
     @Override
     public List<Notification> getNotificationsByIdClient(int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -114,6 +157,12 @@ public class DAONotificationPostgreSQL extends DAONotification {
         return this.getAllNotificationsWhere(whereList);
     }
 
+    /**
+     * Retourne la liste des notifications de cette commande
+     * @param id int, l'id de la commande à laquelle appartient la notification
+     * @return la liste des notifications d'une commande
+     * @throws Exception
+     */
     @Override
     public List<Notification> getNotificationsByIdCommande(int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();

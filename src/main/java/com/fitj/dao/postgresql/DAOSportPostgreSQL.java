@@ -21,6 +21,9 @@ import java.util.Map;
  */
 public class DAOSportPostgreSQL extends DAOSport {
 
+    /**
+     * Constructeur
+     */
     public DAOSportPostgreSQL() {
         super();
         this.methodesBD = new MethodesPostgreSQL();
@@ -70,6 +73,12 @@ public class DAOSportPostgreSQL extends DAOSport {
 
     }
 
+    /**
+     * Retourne un sport en fonction de son nom
+     * @param nom String, le nom du sport
+     * @return
+     * @throws Exception
+     */
     @Override
     public Sport getSportByNom(String nom) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -90,11 +99,22 @@ public class DAOSportPostgreSQL extends DAOSport {
         }
     }
 
+    /**
+     * Retourne la liste de tous les sports
+     * @return List<Sport>, la liste de tous les sports
+     * @throws Exception
+     */
     @Override
     public List<Sport> getAllSport() throws Exception {
         return this.getAllSportWhere(new ArrayList<>());
     }
 
+    /**
+     * Retourne la liste de tous les sports qui vérifient les conditions rentrées en paramètre
+     * @param whereList List<Pair<String, Object>>, la liste des conditions
+     * @return List<Sport>, la liste de tous les sports qui vérifient les conditions rentrées en paramètre
+     * @throws Exception
+     */
     public List<Sport> getAllSportWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Sport> listeSport = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
@@ -175,6 +195,12 @@ public class DAOSportPostgreSQL extends DAOSport {
         }
     }
 
+    /**
+     * Retourne la liste des sports d'un client
+     * @param clientId int, l'id du client pratiquant le sport
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Sport> getSportByIdClient(int clientId) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();

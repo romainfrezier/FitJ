@@ -632,6 +632,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui retourne le solde d'un coach
+     * @param coachId int, l'id du coach
+     * @return double, le solde du coach
+     * @throws Exception
+     */
     @Override
     public double getSoldeCoach(int coachId) throws Exception {
         try {

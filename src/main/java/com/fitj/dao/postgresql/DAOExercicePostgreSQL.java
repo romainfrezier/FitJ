@@ -20,6 +20,9 @@ import java.util.Map;
 public class DAOExercicePostgreSQL extends DAOExercice {
 
 
+    /**
+     * Constructeur
+     */
     public DAOExercicePostgreSQL() {
         super();
         this.methodesBD = new MethodesPostgreSQL();
@@ -49,11 +52,22 @@ public class DAOExercicePostgreSQL extends DAOExercice {
         }
     }
 
+    /**
+     * Retourne tout les exercices de la base de donnée
+     * @return List<Exercice>, la liste des exercices
+     * @throws Exception
+     */
     @Override
     public List<Exercice> getAllExercice() throws Exception{
         return this.getAllExerciceWhere(new ArrayList<>());
     }
 
+    /**
+     * Rtourne tout les exercices de la base de donnée qui respectent les conditions du where
+     * @param whereList List<Pair<String,Object>>, la liste des conditions du where pour la requête
+     * @return List<Exercice>, la liste des exercices
+     * @throws Exception
+     */
     @Override
     public List<Exercice> getAllExerciceWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Exercice> listExercice = new ArrayList<>();
@@ -147,6 +161,12 @@ public class DAOExercicePostgreSQL extends DAOExercice {
         }
     }
 
+    /**
+     * Retourne tout les exercices d'un coach
+     * @param id int, l'id du coach
+     * @return List<Exercice>, la liste des exercices du coach
+     * @throws Exception
+     */
     @Override
     public List<Exercice> getAllExerciceByCoachId(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();

@@ -52,6 +52,13 @@ public class FacadePaiement extends Facade {
         return FactoryDAO.getInstance().getDAOClient().resetSoldeCoach(id);
     }
 
+    /**
+     *
+     * @param id Methode permettant d'acheter un produit
+     * @param produit Produit, le produit à acheter
+     * @param paiementType PaiementType, le type de paiement
+     * @throws Exception
+     */
     public void acheterProduit(int id, Produit produit, PaiementType paiementType) throws Exception {
         Commande commande = FactoryDAO.getInstance().getDAOCommande().createCommande(id, produit.getCoach().getId(), produit, paiementType);
         FactoryDAO.getInstance().getDAONotification().createNotification("Vous avez acheté le produit \"" + produit.getNom() +"\"", id, commande.getId());
