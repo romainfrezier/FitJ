@@ -21,10 +21,13 @@ public class ControllerHeaderAll extends ControllerHeader {
         if (Facade.currentClient == null) {
             headerVisitor.setVisible(true);
         } else if (Facade.currentClient instanceof Admin) {
+            super.setPath("admin");
             this.headerAdmin.setVisible(true);
         } else if (Facade.currentClient instanceof Coach) {
+            super.setPath("coach");
             this.headerCoach.setVisible(true);
         } else {
+            super.setPath("client");
             this.headerClient.setVisible(true);
         }
     }
