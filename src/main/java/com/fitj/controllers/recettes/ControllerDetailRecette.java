@@ -1,13 +1,11 @@
 package com.fitj.controllers.recettes;
 
 import com.fitj.classes.Admin;
-import com.fitj.classes.Coach;
 import com.fitj.classes.Recette;
 import com.fitj.facades.Facade;
 import com.fitj.interfaces.Ingredient;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -32,16 +30,6 @@ public class ControllerDetailRecette extends ControllerRecette{
 
     @FXML
     private ListView<Ingredient> listViewIngredientRecette;
-
-    @FXML
-    private VBox headerAdmin;
-
-    @FXML
-    private VBox headerCoach;
-
-    @FXML
-    private VBox headerClient;
-
     @FXML
     private Text nomRecette;
 
@@ -58,14 +46,6 @@ public class ControllerDetailRecette extends ControllerRecette{
     @FXML
     private void initialize() {
         super.hideError(errorText);
-        if (Facade.currentClient instanceof Admin) {
-            headerAdmin.setVisible(true);
-        } else if (Facade.currentClient instanceof Coach){
-            headerCoach.setVisible(true);
-        }
-        else {
-            headerClient.setVisible(true);
-        }
         detailRecetteButton.setVisible(false);
         try {
             this.recette = recetteFacade.getRecetteById(getIdObjectSelected());

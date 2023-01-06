@@ -53,4 +53,13 @@ public class FacadeCommande extends Facade {
             return null;
         }
     }
+
+    /**
+     * Récupère la liste de toutes les commandes
+     * @return List<Commande> liste de toutes les commandes
+     * @throws Exception si une erreur survient
+     */
+    public List<Commande> getAllCommandes() throws Exception {
+        return this.daoCommande.getAllCommande();
+    }
 }

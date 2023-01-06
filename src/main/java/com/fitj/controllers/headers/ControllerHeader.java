@@ -2,8 +2,11 @@ package com.fitj.controllers.headers;
 
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
+import com.fitj.facades.Facade;
 import com.fitj.facades.FacadeNotification;
 import javafx.scene.control.Control;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 /**
  * Controller générique pour les headers
@@ -80,6 +83,25 @@ public abstract class ControllerHeader extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToNotification(Control controlEl) throws BadPageException {
-        goToPage(controlEl, path + "s/notifications-" +  path + ".fxml", "Notifications & Commandes");
+        goToPage(controlEl, "notifications/notifications-commandes-list.fxml", "Notifications & Commandes");
+    }
+
+    protected void getNotifIcon(ImageView notifIcon, ImageView newNotifIcon, Text errorText) {
+        if (Facade.currentClient != null) {
+            super.hideError(errorText);
+            this.setPath(path);
+            try {
+                if (facadeNotification.getAllNotificationsByIdClient(Facade.currentClient.getId()).size() > 0) {
+                    newNotifIcon.setVisible(true);
+                    notifIcon.setVisible(false);
+                } else {
+                    newNotifIcon.setVisible(false);
+                    notifIcon.setVisible(true);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                super.displayError(errorText, "Impossible de récupérer les notifications");
+            }
+        }
     }
 }

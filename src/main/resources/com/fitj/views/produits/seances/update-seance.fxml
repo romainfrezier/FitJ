@@ -19,7 +19,7 @@
                 <ListView fx:id="listViewExercice" layoutX="372.0" layoutY="134.0" onMouseClicked="#setExerciceSelected" prefHeight="150.0" prefWidth="334.0" styleClass="emptyRectangle" />
                 <ListView fx:id="listViewExerciceSeance" layoutX="17.0" layoutY="134.0" onMouseClicked="#setExerciceSelectedToDelete" prefHeight="150.0" prefWidth="334.0" styleClass="emptyRectangle" />
                 <Button fx:id="deleteExerciceButton" layoutX="124.0" layoutY="347.0" mnemonicParsing="false" onMouseClicked="#supprimerExercice" prefHeight="27.0" prefWidth="92.0" style="-fx-background-color: #054371;" styleClass="buttonBlue" text="Supprimer" textFill="WHITE" />
-                <Button fx:id="addExerciceButton" layoutX="374.0" layoutY="347.0" mnemonicParsing="false" onMouseClicked="#addExercice" prefHeight="25.0" prefWidth="92.0" styleClass="buttonBlue" text="Ajouter" textFill="WHITE" />
+                <Button fx:id="ajouterExerciceButton" layoutX="374.0" layoutY="347.0" mnemonicParsing="false" onMouseClicked="#addExercice" prefHeight="25.0" prefWidth="92.0" styleClass="buttonBlue" text="Ajouter" textFill="WHITE" />
                 <Text fill="#054371" layoutX="283.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la séance">
                     <font>
                         <Font size="20.0" />
@@ -57,16 +57,11 @@
                 <Font size="16.0" />
             </font>
         </Button>
-        <VBox fx:id="headerAdmin" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
+        <AnchorPane>
             <children>
-                <fx:include source="../../../components/headers/header-admin.fxml" />
+                <fx:include source="../../../components/headers/header.fxml" />
             </children>
-        </VBox>
-        <VBox fx:id="headerCoach" layoutX="1.0" prefHeight="55.0" prefWidth="1000.0" visible="false">
-            <children>
-                <fx:include source="../../../components/headers/header-coach.fxml" />
-            </children>
-        </VBox>
+        </AnchorPane>
         <Text fx:id="errorText" fill="RED" layoutX="139.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message d'erreur" textAlignment="CENTER" wrappingWidth="725.0" />
     </children>
 </Pane>

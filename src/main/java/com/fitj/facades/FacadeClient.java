@@ -1,8 +1,12 @@
 package com.fitj.facades;
 
 import com.fitj.classes.Client;
+import com.fitj.classes.Materiel;
+import com.fitj.classes.Sport;
 import com.fitj.dao.DAOClient;
 import com.fitj.dao.factory.FactoryDAO;
+
+import java.util.List;
 
 public class FacadeClient extends Facade {
 
@@ -56,5 +60,13 @@ public class FacadeClient extends Facade {
 
     public Client getClientById(int idObjectSelected) throws Exception {
         return this.daoClient.getClientById(idObjectSelected);
+    }
+
+    public List<Sport> getAllSportByClient(Client client) throws Exception {
+        return FactoryDAO.getInstance().getDAOSport().getSportByIdClient(client.getId());
+    }
+
+    public List<Materiel> getMaterielByClient(Client client) throws Exception {
+        return FactoryDAO.getInstance().getDAOMateriel().getMaterielByIdClient(client.getId());
     }
 }

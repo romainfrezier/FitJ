@@ -6,7 +6,6 @@ import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -27,10 +26,6 @@ public class ControllerCommandeDetail extends ControllerCommande{
     private Text sport;
     @FXML
     private Text demandeLabel;
-    @FXML
-    private VBox headerCoach;
-    @FXML
-    private VBox headerClient;
     @FXML
     private Text errorText;
     @FXML
@@ -82,12 +77,14 @@ public class ControllerCommandeDetail extends ControllerCommande{
                 sportLabel.setVisible(false);
             }
             if (!(Facade.currentClient instanceof Coach)) {
-                headerCoach.setVisible(false);
                 repondreButton.setVisible(false);
                 destinataire.setText(coach.getPseudo());
             } else {
-                headerClient.setVisible(false);
                 destinataire.setText(client.getPseudo());
+            }
+            if (Facade.currentClient.getId() == client.getId()) {
+                voirDestinataire.setText("Mon profil");
+                destinataire.setText(destinataire.getText() + " (moi)");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,11 +95,7 @@ public class ControllerCommandeDetail extends ControllerCommande{
     @FXML
     private void goBack() {
         try {
-            if (Facade.currentClient instanceof Coach) {
-                goToPage(retourButton, "coachs/notifications-coach.fxml", "Notifications");
-            } else {
-                goToPage(retourButton, "clients/notifications-client.fxml", "Notifications");
-            }
+            goToPage(retourButton, "notifications/notifications-commandes-list.fxml", "Notifications & Commandes");
         } catch (Exception e) {
             e.printStackTrace();
             displayError(errorText, e.getMessage());
@@ -132,14 +125,12 @@ public class ControllerCommandeDetail extends ControllerCommande{
     @FXML
     private void voirDestinaire() {
         try {
-            if (Facade.currentClient instanceof Coach) {
-                setPreviousPageName("commande");
-                setObjectSelected(client);
-                goToPage(voirDestinataire, "coachs/detailClient-coach.fxml", "Mon client");
-            } else {
-                setPreviousPageName("commande");
-                setObjectSelected(coach);
+            setPreviousPageName("commande");
+            setObjectSelected(client);
+            if (client instanceof Coach) {
                 goToPage(voirDestinataire, "coachs/detailCoach-coach.fxml", "Mon coach");
+            } else {
+                goToPage(voirDestinataire, "coachs/detailClient-coach.fxml", "Mon client");
             }
         } catch (Exception e) {
             displayError(errorText, e.getMessage());

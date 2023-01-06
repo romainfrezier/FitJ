@@ -1,6 +1,5 @@
 package com.fitj.controllers.programmes.programmesSportifs;
 
-import com.fitj.classes.Coach;
 import com.fitj.classes.ProgrammeSportif;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.exceptions.UnselectedItemException;
@@ -43,7 +42,7 @@ public class ControllerMesProgrammesSportifsList extends ControllerProgrammeSpor
     private void initialize() {
         super.hideError(errorText);
         try {
-            programmeSportifs = facadeProgrammeSportif.getProgrammeSportifByCoach((Coach)Facade.currentClient);
+            programmeSportifs = facadeProgrammeSportif.getProgrammeSportifByCoach(Facade.currentClient.getId());
             initializeProgrammeSportifList();
         }
         catch (Exception e) {

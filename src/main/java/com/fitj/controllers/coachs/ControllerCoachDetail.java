@@ -9,19 +9,12 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.util.List;
 
 public class ControllerCoachDetail extends ControllerCoach{
-    @FXML
-    private AnchorPane headerAdmin;
-    @FXML
-    private AnchorPane headerClient;
-    @FXML
-    private AnchorPane headerCoach;
     @FXML
     private Button goBackButton;
     @FXML
@@ -61,13 +54,6 @@ public class ControllerCoachDetail extends ControllerCoach{
             initializeNutritionList();
             initializeSportifList();
             initializePackList();
-            if (Facade.currentClient instanceof Admin){
-                headerAdmin.setVisible(true);
-            } else if (Facade.currentClient instanceof Coach){
-                headerCoach.setVisible(true);
-            } else {
-                headerClient.setVisible(true);
-            }
         } catch (Exception e){
             super.displayError(errorText, e.getMessage());
         }
@@ -169,22 +155,27 @@ public class ControllerCoachDetail extends ControllerCoach{
     }
 
     private void initializeSportList() {
-        super.initializeList(sportList, coach.getListeSport(), new Callback<ListView<Sport>, ListCell<Sport>>() {
-            @Override
-            public ListCell<Sport> call(ListView<Sport> param) {
-                return new ListCell<>() {
-                    @Override
-                    protected void updateItem(Sport item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item != null) {
-                            setText(item.getNom());
-                        } else {
-                            setText("");
+        try {
+            List<Sport> sports = coachFacade.getSportByCoach(coach);
+            super.initializeList(sportList, sports, new Callback<ListView<Sport>, ListCell<Sport>>(){
+                @Override
+                public ListCell<Sport> call(ListView<Sport> param) {
+                    return new ListCell<>() {
+                        @Override
+                        protected void updateItem(Sport item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item != null) {
+                                setText(item.getNom());
+                            } else {
+                                setText(null);
+                            }
                         }
-                    }
-                };
-            }
-        });
+                    };
+                }
+            });
+        } catch (Exception e){
+            super.displayError(errorText, e.getMessage());
+        }
     }
 
     @FXML

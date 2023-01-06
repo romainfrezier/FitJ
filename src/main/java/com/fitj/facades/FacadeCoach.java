@@ -52,4 +52,8 @@ public class FacadeCoach extends Facade {
     public List<Pack> getAllPackByCoach(Coach coach) throws Exception {
         return FactoryDAO.getInstance().getDAOPack().getAllPackByCoach(coach.getId());
     }
+
+    public List<Sport> getSportByCoach(Coach coach) throws Exception {
+        return FactoryDAO.getInstance().getDAOSport().getSportByIdClient(coach.getId());
+    }
 }
