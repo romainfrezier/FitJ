@@ -61,6 +61,15 @@ public class DAOPackPostgreSQL extends DAOPack {
     }
 
     @Override
+    public Pack updatePack(int idPack, String nom, String description, double prix) throws Exception {
+        List<Pair<String,Object>> updateList = new ArrayList<>();
+        updateList.add(new Pair<>("nom",nom));
+        updateList.add(new Pair<>("description",description));
+        updateList.add(new Pair<>("prix",prix));
+        return this.updatePack(updateList,idPack);
+    }
+
+    @Override
     public void deletePack(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id",id));
@@ -112,12 +121,13 @@ public class DAOPackPostgreSQL extends DAOPack {
         List<Pack> listePack = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("client","id", "pack.idcoach"));
-        joinList.add(new Triple<>("packpack","idpack1", "pack.id"));
+        joinList.add(new Triple<>("packpack","idpack2", "pack.id"));
         joinList.add(new Triple<>("packprogrammenutrition","idpack", "pack.id"));
         joinList.add(new Triple<>("packprogrammesportif","idpack", "pack.id"));
         joinList.add(new Triple<>("packseance","idpack", "pack.id"));
         joinList.add(new Triple<>("avispack","idpack", "pack.id"));
         joinList.add(new Triple<>("commandepack","idpack", "pack.id"));
+        joinList.add(new Triple<>("commande","id", "commandepack.idcommande"));
         try {
             DaoMapper resultSet = ((MethodesPostgreSQL) this.methodesBD).selectJoin(joinList, whereList, this.table);
             List<Map<String, Object>> listData = resultSet.getListeData();
@@ -409,7 +419,14 @@ public class DAOPackPostgreSQL extends DAOPack {
     @Override
     public List<Pack> getAllPackByCoach(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
-        whereList.add(new Pair<>("idcoach", id));
+        whereList.add(new Pair<>("pack.idcoach", id));
+        return this.getAllPackWhere(whereList);
+    }
+
+    @Override
+    public List<Pack> getAllPackByClient(int id) throws Exception {
+        List<Pair<String, Object>> whereList = new ArrayList<>();
+        whereList.add(new Pair<>("commande.idclient", id));
         return this.getAllPackWhere(whereList);
     }
 
