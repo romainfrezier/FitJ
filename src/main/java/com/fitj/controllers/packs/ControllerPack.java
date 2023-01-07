@@ -72,6 +72,7 @@ public abstract class ControllerPack extends Controller {
      * @throws BadPageException si la vue n'existe pas
      */
     void goToDetailPack(Control controlEl) throws BadPageException {
+        setPreviousPageName("coco");
         goToPage(controlEl, pack + "detail-pack.fxml", "Détail d'un pack");
     }
 
@@ -83,12 +84,15 @@ public abstract class ControllerPack extends Controller {
      */
     void goToDetailProduit(Control controlEl, Produit produit) throws BadPageException {
         if (produit instanceof ProgrammeNutrition) {
-            goToPage(controlEl, "produits/programmes/detail-programmeNutrition.fxml", "Détail d'un programme de nutrition");
+            goToPage(controlEl, "produits/programmes/programmesNutritions/detail-programmeNutrition.fxml", "Détail d'un programme de nutrition");
         } else if (produit instanceof ProgrammeSportif) {
-            goToPage(controlEl, "produits/programmes/detail-programmeSportif.fxml", "Détail d'un programme sportif");
+            goToPage(controlEl, "produits/programmes/programmesSportifs/detail-programmeSportif.fxml", "Détail d'un programme sportif");
         }
         else if (produit instanceof Seance){
             goToPage(controlEl, "produits/seances/detail-seance.fxml", "Détail d'une séance");
+        }
+        else if (produit instanceof Pack){
+            goToPage(controlEl, "produits/packs/detail-pack.fxml", "Détail d'un pack");
         }
     }
 

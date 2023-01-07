@@ -55,13 +55,11 @@ public class DAOPackPostgreSQL extends DAOPack {
     }
 
     @Override
-    public Pack updatePack(int idPack, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception {
+    public Pack updatePack(int idPack, String nom, String description, double prix) throws Exception {
         List<Pair<String, Object>> updateList = new ArrayList<>();
         updateList.add(new Pair<>("nom",nom));
         updateList.add(new Pair<>("description",description));
         updateList.add(new Pair<>("prix",prix));
-        updateList.add(new Pair<>("type",type.toString()));
-        updateList.add(new Pair<>("nbmois",nbMois));
         return this.updatePack(updateList,idPack);
     }
 

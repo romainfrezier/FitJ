@@ -109,7 +109,7 @@ public class ControllerAddPack extends ControllerPack{
     private void initializeProgrammeSportif()  {
         listViewProgrammeSportif.getItems().clear();
         try {
-            listeProgrammeSportif = (ArrayList<ProgrammeSportif>) FactoryDAO.getInstance().getDAOProgrammeSportif().getAllProgrammeSportif();
+            listeProgrammeSportif = (ArrayList<ProgrammeSportif>) FactoryDAO.getInstance().getDAOProgrammeSportif().getAllProgrammeSportifByCoach(Facade.currentClient.getId());
             initializeProgrammeSportifList(listViewProgrammeSportif, listeProgrammeSportif);
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +122,7 @@ public class ControllerAddPack extends ControllerPack{
     private void initializeProgrammeNutrition()  {
         listViewProgrammeNutrition.getItems().clear();
         try {
-            listeProgrammeNutrition = (ArrayList<ProgrammeNutrition>) FactoryDAO.getInstance().getDAOProgrammeNutrition().getAllProgrammeNutrition();
+            listeProgrammeNutrition = (ArrayList<ProgrammeNutrition>) FactoryDAO.getInstance().getDAOProgrammeNutrition().getProgrammeNutritionByCoach(Facade.currentClient.getId());
             initializeProgrammeNutritionList(listViewProgrammeNutrition, listeProgrammeNutrition);
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,7 +136,7 @@ public class ControllerAddPack extends ControllerPack{
     private void initializeSeance()  {
         listViewSeance.getItems().clear();
         try {
-            listeSeance = (ArrayList<Seance>) FactoryDAO.getInstance().getDAOSeance().getAllSeances();
+            listeSeance = (ArrayList<Seance>) FactoryDAO.getInstance().getDAOSeance().getAllSeancesFromCoach(Facade.currentClient.getId());
             initializeSeanceList(listViewSeance, listeSeance);
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,7 +150,7 @@ public class ControllerAddPack extends ControllerPack{
     private void initializePack()  {
         listViewPack.getItems().clear();
         try {
-            listePack = (ArrayList<Pack>) FactoryDAO.getInstance().getDAOPack().getAllPack();
+            listePack = (ArrayList<Pack>) FactoryDAO.getInstance().getDAOPack().getAllPackByCoach(Facade.currentClient.getId());
             initializePackList(listViewPack, listePack);
         } catch (Exception e) {
             e.printStackTrace();

@@ -67,13 +67,11 @@ public class FacadePack extends Facade {
      * @param nom le nouveau nom du pack
      * @param description la nouvelle description du pack
      * @param prix le nouveau prix du pack
-     * @param type le nouveau type du pack
-     * @param nbMois le nouveau nombre de mois du pack
      * @return le pack modifié
      * @throws Exception si la requête échoue
      */
-    public Pack updatePack(int idPack, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception{
-        return packDAO.updatePack(idPack, nom, description, prix, type, nbMois);
+    public Pack updatePack(int idPack, String nom, String description, double prix) throws Exception{
+        return packDAO.updatePack(idPack, nom, description, prix);
     }
 
 

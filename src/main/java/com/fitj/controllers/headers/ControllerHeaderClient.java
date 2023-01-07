@@ -40,6 +40,7 @@ public class ControllerHeaderClient extends ControllerHeader {
      */
     @FXML
     private void initialize() {
+        super.setPath(path);
         super.getNotifIcon(notifIcon, newNotifIcon, errorText);
     }
 

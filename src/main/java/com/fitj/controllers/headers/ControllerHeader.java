@@ -33,6 +33,7 @@ public abstract class ControllerHeader extends Controller {
         return path;
     }
 
+
     /**
      * Setter pour le chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux clients avec un certain role
      * @param path Chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux clients avec un certain role
