@@ -115,7 +115,7 @@ public class DAOPackPostgreSQL extends DAOPack {
         List<Pack> listePack = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
         joinList.add(new Triple<>("client","id", "pack.idcoach"));
-        joinList.add(new Triple<>("packpack","idpack1", "pack.id"));
+        joinList.add(new Triple<>("packpack","idpack2", "pack.id"));
         joinList.add(new Triple<>("packprogrammenutrition","idpack", "pack.id"));
         joinList.add(new Triple<>("packprogrammesportif","idpack", "pack.id"));
         joinList.add(new Triple<>("packseance","idpack", "pack.id"));
