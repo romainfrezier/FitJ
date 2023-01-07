@@ -23,11 +23,24 @@ import java.util.Map;
  */
 public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise {
 
+    /**
+     * Constructeur
+     */
     public DAOProgrammePersonnalisePostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+    /**
+     * Crée un nouveau programme personnalisé dans la base de données.
+     *
+     * @param nom Le nom du programme personnalisé.
+     * @param description La description du programme personnalisé.
+     * @param prix Le prix du programme personnalisé.
+     * @param coach Le coach responsable du programme personnalisé.
+     * @return Le nouveau programme personnalisé créé.
+     * @throws Exception Si la création échoue.
+     */
     @Override
     public ProgrammePersonnalise createProgrammePersonnalise(String nom, String description, double prix, Coach coach) throws Exception {
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
@@ -45,6 +58,14 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Crée un nouveau programme personnalisé dans la base de données en associant une demande.
+     *
+     * @param programmePersonnalise Le programme personnalisé à créer.
+     * @param demande La demande à associer au programme personnalisé.
+     * @return Le nouveau programme personnalisé créé.
+     * @throws Exception Si la création échoue.
+     */
     @Override
     public ProgrammePersonnalise createProgrammePersonnaliseDemande(ProgrammePersonnalise programmePersonnalise, Demande demande) throws Exception {
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
@@ -64,6 +85,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Récupère un programme personnalisé à partir de son identifiant.
+     *
+     * @param id L'identifiant du programme personnalisé à récupérer.
+     * @return Le programme personnalisé associé à l'identifiant spécifié.
+     * @throws Exception Si la récupération échoue.
+     */
     @Override
     public ProgrammePersonnalise getProgrammePersonnaliseById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -87,6 +115,14 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Met à jour un programme personnalisé dans la base de données.
+     *
+     * @param updateList La liste des modifications à apporter au programme personnalisé.
+     * @param id L'identifiant du programme personnalisé à mettre à jour.
+     * @return Le programme personnalisé mis à jour.
+     * @throws Exception Si la mise à jour échoue.
+     */
     @Override
     public ProgrammePersonnalise updateProgrammePersonnalise(List<Pair<String, Object>> updateList, int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -100,6 +136,12 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Supprime un programme personnalisé de la base de données.
+     *
+     * @param id L'identifiant du programme personnalisé à supprimer.
+     * @throws Exception Si la suppression échoue.
+     */
     @Override
     public void supprimerProgrammePersonnalise(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -122,11 +164,25 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+
+    /**
+     * Récupère tous les programmes personnalisés de la base de données.
+     *
+     * @return La liste de tous les programmes personnalisés.
+     * @throws Exception Si la récupération échoue.
+     */
     @Override
     public List<ProgrammePersonnalise> getAllProgrammePersonnalise() throws Exception {
         return this.getAllProgrammePersonnaliseWhere(new ArrayList<>());
     }
 
+    /**
+     * Récupère tous les programmes personnalisés de la base de données répondant à une condition.
+     *
+     * @param whereList La liste des conditions à respecter.
+     * @return La liste de tous les programmes personnalisés répondant à la condition.
+     * @throws Exception Si la récupération échoue.
+     */
     @Override
     public List<ProgrammePersonnalise> getAllProgrammePersonnaliseWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<ProgrammePersonnalise> listeProgrammes = new ArrayList<>();
@@ -168,6 +224,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Renvoie la liste des programmes (nutrition et sportifs) associés à un utilisateur.
+     *
+     * @param id L'identifiant de l'utilisateur.
+     * @return La liste des programmes de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de la récupération des programmes.
+     */
     @Override
     public List<Programme> getProgrammes(int id) throws Exception {
         List<Programme> listeProgramme = new ArrayList<>();
@@ -176,6 +239,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         return listeProgramme;
     }
 
+    /**
+     * Renvoie la liste des programmes sportifs associés à un utilisateur.
+     *
+     * @param id L'identifiant de l'utilisateur.
+     * @return La liste des programmes sportifs de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de la récupération des programmes sportifs.
+     */
     public List<ProgrammeSportif> getProgrammesSportif(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("programmepersonnaliseprogrammesportif.idprogrammepersonnalise", id));
@@ -188,6 +258,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Renvoie la liste des programmes de nutrition associés à un utilisateur.
+     *
+     * @param id L'identifiant de l'utilisateur.
+     * @return La liste des programmes de nutrition de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de la récupération des programmes de nutrition.
+     */
     public List<ProgrammeNutrition> getProgrammesNutrition(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("programmepersonnaliseprogrammenutrition.idprogrammepersonnalise", id));
@@ -200,6 +277,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Ajoute un programme (nutrition ou sportif) au programme personnalisé d'un utilisateur.
+     *
+     * @param programme Le programme à ajouter.
+     * @param id L'identifiant de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de l'ajout du programme.
+     */
     @Override
     public void ajouterProgrammeProgrammePersonnalise(Programme programme, int id) throws Exception {
         if (programme instanceof ProgrammeSportif){
@@ -213,6 +297,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Ajoute un programme sportif au programme personnalisé d'un utilisateur.
+     *
+     * @param programmeSportif Le programme sportif à ajouter.
+     * @param id L'identifiant de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de l'ajout du programme sportif.
+     */
     public void ajouterProgrammeSportifProgrammePersonnalise(ProgrammeSportif programmeSportif, int id) throws Exception {
         List<Pair<String, Object>> insertList = new ArrayList<>();
         insertList.add(new Pair<>("idprogrammesportif", programmeSportif.getId()));
@@ -226,6 +317,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Ajoute un programme de nutrition au programme personnalisé d'un utilisateur.
+     *
+     * @param programmeNutrition Le programme de nutrition à ajouter.
+     * @param id L'identifiant de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de l'ajout du programme de nutrition.
+     */
     public void ajouterProgrammeNutritionProgrammePersonnalise(ProgrammeNutrition programmeNutrition, int id) throws Exception {
         List<Pair<String, Object>> insertList = new ArrayList<>();
         insertList.add(new Pair<>("idprogrammenutrition", programmeNutrition.getId()));
@@ -239,6 +337,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Supprime un programme (nutrition ou sportif) du programme personnalisé d'un utilisateur.
+     *
+     * @param programme Le programme à supprimer.
+     * @param id L'identifiant de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de la suppression du programme.
+     */
     @Override
     public void supprimerProgrammeProgrammePersonnalise(Programme programme, int id) throws Exception {
         if (programme instanceof ProgrammeSportif){
@@ -252,6 +357,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Supprime un programme sportif du programme personnalisé d'un utilisateur.
+     *
+     * @param programmeSportif Le programme sportif à supprimer.
+     * @param id L'identifiant de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de la suppression du programme sportif.
+     */
     public void supprimerProgrammeSportifProgrammePersonnalise(ProgrammeSportif programmeSportif, int id) throws Exception{
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idprogrammesportif", programmeSportif.getId()));
@@ -265,6 +377,13 @@ public class DAOProgrammePersonnalisePostgreSQL extends DAOProgrammePersonnalise
         }
     }
 
+    /**
+     * Supprime un programme de nutrition du programme personnalisé d'un utilisateur.
+     *
+     * @param programmeNutrition Le programme de nutrition à supprimer.
+     * @param id L'identifiant de l'utilisateur.
+     * @throws Exception Si une erreur survient lors de la suppression du programme de nutrition.
+     */
     public void supprimerProgrammeNutritionProgrammePersonnalise(ProgrammeNutrition programmeNutrition, int id) throws Exception{
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("idprogrammenutrition", programmeNutrition.getId()));

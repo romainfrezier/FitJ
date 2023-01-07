@@ -20,6 +20,10 @@ public abstract class MethodesBD {
     protected ConnexionBD connexionBD;
 
 
+    /**
+     * Constructeur de la classe MethodesBD
+     * @param connexionBD une instance de la connexionBD
+     */
     public MethodesBD(ConnexionBD connexionBD){
         this.connexionBD = connexionBD;
     }

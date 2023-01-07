@@ -25,11 +25,27 @@ import java.util.concurrent.Executors;
  */
 public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
 
+    /**
+     * Constructeur
+     */
     public DAOProgrammeSportifPostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+    /**
+     * Crée un programme sportif avec les informations spécifiées.
+     *
+     * @param nom Le nom du programme sportif.
+     * @param description La description du programme sportif.
+     * @param prix Le prix du programme sportif.
+     * @param type Le type du programme sportif (débutant, intermédiaire, avancé).
+     * @param nbMois La durée du programme sportif en mois.
+     * @param coach Le coach responsable du programme sportif.
+     * @param listeSeances La liste des séances incluses dans le programme sportif.
+     * @return Le programme sportif créé.
+     * @throws Exception Si une erreur survient lors de la création du programme sportif.
+     */
     @Override
     public ProgrammeSportif createProgrammeSportif(String nom, String description, double prix, ProgrammeType type, int nbMois, Coach coach, ArrayList<Seance> listeSeances) throws Exception {
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
@@ -55,6 +71,13 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
     }
 
+    /**
+     * Renvoie le programme sportif associé à l'identifiant spécifié.
+     *
+     * @param id L'identifiant du programme sportif.
+     * @return Le programme sportif associé à l'identifiant.
+     * @throws Exception Si une erreur survient lors de la récupération du programme sportif.
+     */
     @Override
     public ProgrammeSportif getProgrammeSportifById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -77,6 +100,14 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
     }
 
+    /**
+     * Met à jour le programme sportif associé à l'identifiant spécifié avec les nouvelles informations spécifiées.
+     *
+     * @param updateList La liste des modifications à apporter au programme sportif.
+     * @param id L'identifiant du programme sportif à mettre à jour.
+     * @return Le programme sportif mis à jour.
+     * @throws Exception Si une erreur survient lors de la mise à jour du programme sportif.
+     */
     @Override
     public ProgrammeSportif updateProgrammeSportif(List<Pair<String, Object>> updateList, int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -90,6 +121,18 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
     }
 
+    /**
+     * Met à jour le programme sportif associé à l'identifiant spécifié avec les nouvelles informations spécifiées.
+     *
+     * @param idProgramme L'identifiant du programme sportif à mettre à jour.
+     * @param nom Le nouveau nom du programme sportif.
+     * @param description La nouvelle description du programme sportif.
+     * @param prix Le nouveau prix du programme sportif.
+     * @param type Le nouveau type du programme sportif (débutant, intermédiaire, avancé).
+     * @param nbMois La nouvelle durée du programme sportif en mois.
+     * @return Le programme sportif mis à jour.
+     * @throws Exception Si une erreur survient lors de la mise à jour du programme sportif.
+     */
     @Override
     public ProgrammeSportif updateProgrammeSportif(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception {
         List<Pair<String,Object>> listeUpdate = new ArrayList<>();
@@ -109,6 +152,12 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
     }
 
+    /**
+     * Supprime le programme sportif associé à l'identifiant spécifié.
+     *
+     * @param id L'identifiant du programme sportif à supprimer.
+     * @throws Exception Si une erreur survient lors de la suppression du programme sportif.
+     */
     @Override
     public void supprimerProgrammeSportif(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -130,11 +179,23 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
     }
 
+    /**
+     * Récupère tous les programmes sportif de la base de données.
+     * @return La liste de tous les programmes sportifs de la base de données.
+     * @throws Exception
+     */
     @Override
     public List<ProgrammeSportif> getAllProgrammeSportif() throws Exception{
         return this.getAllProgrammeSportifWhere(new ArrayList<>());
     }
 
+    /**
+     * Récupère tous les programmes sportifs de la base de données qui répondent aux critères spécifiés.
+     *
+     * @param whereList La liste des critères à vérifier pour chaque programme sportif.
+     * @return Une liste de tous les programmes sportif qui répondent aux critères spécifiés.
+     * @throws Exception Si la récupération échoue.
+     */
     @Override
     public List<ProgrammeSportif> getAllProgrammeSportifWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<ProgrammeSportif> listeProgrammes = new ArrayList<>();
@@ -175,6 +236,12 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
     }
 
+    /**
+     * Recupere toutes les seances d'un programme sportif
+     * @param id int, l'id du programme
+     * @return List<Seance>, la liste des seances du programme
+     * @throws Exception
+     */
     @Override
     public List<Seance> getSeances(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -187,6 +254,13 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         }
     }
 
+    /**
+     * Ajoute une seance à un programme sportif dans la base de données.
+     *
+     * @param seance La seance à ajouter au programme sportif.
+     * @param id L'identifiant du programme sportif auquel ajouter la seance.
+     * @throws Exception Si l'ajout échoue.
+     */
     @Override
     public void ajouterSeanceProgramme(Seance seance, int id) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -203,6 +277,13 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         });
     }
 
+    /**
+     * Supprime une seance d'un programme sportif dans la base de données.
+     *
+     * @param seance La seance à supprimer du programme sportif.
+     * @param id L'identifiant du programme sportif duquel supprimer la seance.
+     * @throws Exception Si la suppression échoue.
+     */
     @Override
     public void supprimerSeanceProgramme(Seance seance, int id) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -219,6 +300,13 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         });
     }
 
+
+    /**
+     * Recupere tous les programmes sportifs d'un coach
+     * @param idCoach int, l'id du coach
+     * @return List<ProgrammeSportif>, la liste des programmes sportifs du coach
+     * @throws Exception
+     */
     @Override
     public List<ProgrammeSportif> getAllProgrammeSportifByCoach(int idCoach) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -226,6 +314,13 @@ public class DAOProgrammeSportifPostgreSQL extends DAOProgrammeSportif {
         return this.getAllProgrammeSportifWhere(whereList);
     }
 
+    /**
+     * Récupère tous les programmes sportif achetés par un client donné.
+     *
+     * @param idClient L'identifiant du client pour lequel récupérer les programmes sportif.
+     * @return Une liste de tous les programmes sportif achetés par le client.
+     * @throws Exception Si la récupération échoue.
+     */
     @Override
     public List<ProgrammeSportif> getAllProgrammeSportifByClient(int idClient) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();

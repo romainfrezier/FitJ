@@ -13,6 +13,9 @@ import javafx.scene.control.Control;
  */
 public abstract class ControllerMonCompte extends Controller {
 
+    /**
+     * Facade pour les clients
+     */
     final FacadeClient clientFacade = FacadeClient.getInstance();
 
 
@@ -30,10 +33,21 @@ public abstract class ControllerMonCompte extends Controller {
         goToPage(controlEl, monCompte + "update-monCompte.fxml", "Update");
     }
 
+
+    /**
+     *Méthode permettant de naviguer vers la page de mise à jour du mot de passe
+     *@param controlEl élément de contrôle à partir duquel la navigation est déclenchée
+     *@throws BadPageException lorsque la page cible est introuvable
+     */
     void goToUpdatePassword(Control controlEl) throws BadPageException {
         goToPage(controlEl, monCompte + "update-password.fxml", "UpdatePassword");
     }
 
+    /**
+     *Méthode permettant de naviguer vers la page de "Mon Compte" en fonction du type de compte de l'utilisateur actuel
+     *@param controlEl élément de contrôle à partir duquel la navigation est déclenchée
+     *@throws BadPageException lorsque la page cible est introuvable
+     */
     protected void goToMonCompte(Control controlEl) throws BadPageException {
         if (Facade.currentClient instanceof Admin) {
             goToPage(controlEl, "admins/monCompte-admin.fxml", "Mon Compte");
@@ -44,6 +58,11 @@ public abstract class ControllerMonCompte extends Controller {
         }
     }
 
+    /**
+     *Méthode permettant de naviguer vers la page de payement
+     *@param controlEl élément de contrôle à partir duquel la navigation est déclenchée
+     *@throws BadPageException lorsque la page cible est introuvable
+     */
     protected void goToMakePayment(Control controlEl) throws BadPageException {
         goToPage(controlEl, "paiements/paiement.fxml", "Retirer");
     }

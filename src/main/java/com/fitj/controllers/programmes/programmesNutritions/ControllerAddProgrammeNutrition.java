@@ -12,6 +12,11 @@ import javafx.util.Callback;
 
 import java.util.ArrayList;
 
+/**
+ * Controller de la page pour ajouter un programme nutrition
+ * @see ControllerProgrammeNutrition
+ * @author Paco Munarriz
+ */
 public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutrition {
 
 
@@ -34,8 +39,6 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
 
     @FXML
     private ComboBox<String> typeProgrammeNutrition;
-
-
 
     @FXML
     private Button ajouterRecetteButton;
@@ -192,6 +195,10 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         }
     }
 
+    /**
+     * Méthode permettant de vérifier que tous les champs sont remplis
+     * @return true si tous les champs sont remplis, false sinon
+     */
     public boolean verifChamps() {
         if (nomProgrammeNutrition.getText().isEmpty()) {
             super.displayError(errorText, "Veuillez renseigner le nom du programme nutrition");
@@ -216,21 +223,33 @@ public class ControllerAddProgrammeNutrition extends ControllerProgrammeNutritio
         return true;
     }
 
+    /**
+     * Méthode pour update le montant du programme nutrition
+     */
     @FXML
     private void updateMontantProgramme(){
         montantProgramme.setText((int) prixProgrammeNutrition.getValue() + " €");
     }
 
+    /**
+     * Méthode pour selectionner une recette a supprimer
+     */
     @FXML
     private void setRecetteSelectedToDelete() {
         this.recetteSelectedForDelete = listViewRecetteProgrammeNutrition.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode pour selectionner une recette
+     */
     @FXML
     private void setRecetteSelected() {
         this.recetteSelected = listViewRecette.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Méthode pour modifier le nombre de mois du programme nutrition
+     */
     @FXML
     private void updateMoisValue() {
         this.nbMoisValue.setText((int) nbMoisProgrammeNutrition.getValue() + " mois");

@@ -11,6 +11,11 @@ import javafx.scene.text.Text;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller de la page de la liste des coachs
+ * @see ControllerCoach
+ * @author Romain Frezier
+ */
 public class ControllerCoachList extends ControllerCoach {
 
     // Composants de la vue -----------------------------------------------

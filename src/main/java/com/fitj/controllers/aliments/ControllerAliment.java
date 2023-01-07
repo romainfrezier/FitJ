@@ -58,6 +58,10 @@ public abstract class ControllerAliment extends Controller {
         goToPage(controlEl, aliment + "update-aliment.fxml", "Modification d'un aliment");
     }
 
+    /** Méthode qui initialise la liste des aliments dans la vue.
+     * @param listView la liste à initialiser
+     * @param items la liste des aliments à afficher
+     */
     void initializeAlimentList(ListView<Aliment> listView, List<Aliment> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override

@@ -9,6 +9,11 @@ import javafx.scene.text.Text;
 
 import static com.fitj.facades.Facade.currentClient;
 
+/**
+ * Controller de la page mon compte du client
+ * @see ControllerMonCompte
+ * @author Paco Munarriz
+ */
 public class ControllerMonCompteClient extends ControllerMonCompte {
     @FXML
     private Text pseudo;
@@ -24,6 +29,9 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
     private Button updatePasswordButton;
 
 
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize() {
         super.hideError(errorText);
@@ -34,6 +42,9 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
         image.setImage(img);
     }
 
+    /**
+     * Méthode permettant d'aller vers la page de modification du compte
+     */
     @FXML
     private void goToUpdate() {
         try {
@@ -44,6 +55,9 @@ public class ControllerMonCompteClient extends ControllerMonCompte {
         }
     }
 
+    /**
+     * Méthode permettant d'aller vers la page de modification du mot de passe
+     */
     @FXML
     private void goToUpdatePassword() {
         try {

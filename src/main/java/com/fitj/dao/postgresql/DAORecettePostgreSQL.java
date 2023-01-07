@@ -25,11 +25,22 @@ import java.util.concurrent.Executors;
  */
 public class DAORecettePostgreSQL extends DAORecette {
 
+    /**
+     * Constructeur
+     */
     public DAORecettePostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+    /**
+     * Crée une recette dans la base de données
+     * @param nom String, le nom de la recette
+     * @param coach Coach, le coach qui a créé la recette
+     * @param ingredients List<Ingredient>, la liste des ingrédients de la recette
+     * @return la recette créée
+     * @throws Exception
+     */
     @Override
     public Recette createRecette(String nom,Coach coach, List<Ingredient> ingredients) throws Exception {
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
@@ -62,6 +73,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Récupère une recette dans la base de données
+     * @param id int, l'id de la recette
+     * @return la recette récupérée
+     * @throws Exception
+     */
     @Override
     public Recette getRecetteById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -84,6 +101,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Recupere une recette mais sans les ingrédients
+     * @param id int, l'id de la recette
+     * @return la recette récupérée
+     * @throws Exception
+     */
     public Recette getRecetteByIdWithoutIngredients(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("id", id));
@@ -104,6 +127,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Récupère les ingrédients d'une recette
+     * @param id int, l'id de la recette
+     * @return la liste des ingrédients de la recette
+     * @throws Exception
+     */
     public List<Ingredient> getIngredientsFromRecette(int id) throws Exception{
         List<Ingredient> listeAliment = new ArrayList<>();
         List<Pair<String, Object>> whereListAliment = new ArrayList<>();
@@ -148,6 +177,11 @@ public class DAORecettePostgreSQL extends DAORecette {
     }
 
 
+    /**
+     * Supprime une recette de la base de données
+     * @param id int, l'id de la recette
+     * @throws Exception
+     */
     @Override
     public void supprimerRecette(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -169,6 +203,11 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Récupère toutes les recettes de la base de données
+     * @return la liste des recettes
+     * @throws Exception
+     */
     @Override
     public List<Recette> getAllRecettes() throws Exception{
         return this.getAllRecettesWhere(new ArrayList<>());
@@ -176,6 +215,12 @@ public class DAORecettePostgreSQL extends DAORecette {
 
 
 
+    /**
+     * Récupère toutes les recettes de la base de données qui vérifient les conditions de la liste whereList
+     * @param whereList List<Pair<String, Object>>, la liste des conditions
+     * @return la liste des recettes
+     * @throws Exception
+     */
     @Override
     public List<Recette> getAllRecettesWhere(List<Pair<String,Object>> whereList) throws Exception {
         List<Recette> listeRecettes = new ArrayList<>();
@@ -214,6 +259,13 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Modifie une recette dans la base de données
+     * @param updateList List<Pair<String, Object>>, la liste des attributs à mettre à jour dans la base de donnée
+     * @param id int, l'id de la recette
+     * @return la recette modifiée
+     * @throws Exception
+     */
     @Override
     public Recette updateRecette(List<Pair<String, Object>> updateList, int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -228,6 +280,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Récupère toute les recettes d'un coach
+     * @param idCoach int, l'id du coach
+     * @return la liste des recettes du coach
+     * @throws Exception
+     */
     @Override
     public List<Recette> getAllRecettesByCoach(int idCoach) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -235,6 +293,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         return this.getAllRecettesWhere(whereList);
     }
 
+    /**
+     * Ajoute un ingrédient à une recette
+     * @param ingredient IsIngredient, l'ingrédient à ajouter à la recette
+     * @param id int, l'id de la recette
+     * @throws Exception
+     */
     @Override
     public void ajouterIngredient(Ingredient ingredient, int id) throws Exception {
         if (ingredient instanceof Recette){
@@ -248,6 +312,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Ajoute une recette à une recette
+     * @param recette Recette, la recette à ajouter à la recette
+     * @param id int, l'id de la recette
+     * @throws Exception
+     */
     public void ajouterRecette(Recette recette, int id) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {
@@ -267,6 +337,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         });
     }
 
+/**
+     * Ajoute un aliment à une recette
+     * @param aliment Aliment, l'aliment à ajouter à la recette
+     * @param id int, l'id de la recette
+     * @throws Exception
+     */
     public void ajouterAliment(Aliment aliment, int id) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {
@@ -286,6 +362,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         });
     }
 
+    /**
+     * Supprime un ingrédient d'une recette
+     * @param ingredient IsIngredient, l'ingrédient à supprimer de la recette
+     * @param id int, l'id de la recette
+     * @throws Exception
+     */
     @Override
     public void  supprimerIngredient(Ingredient ingredient, int id) throws Exception {
         if (ingredient instanceof Recette){
@@ -299,6 +381,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         }
     }
 
+    /**
+     * Supprime une recette d'une recette
+     * @param recette Recette, la recette à supprimer de la recette
+     * @param id int, l'id de la recette
+     * @throws Exception
+     */
     public void supprimerRecette(Recette recette, int id) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {
@@ -318,6 +406,12 @@ public class DAORecettePostgreSQL extends DAORecette {
         });
     }
 
+    /**
+     * Supprime un aliment d'une recette
+     * @param aliment Aliment, l'aliment à supprimer de la recette
+     * @param id int, l'id de la recette
+     * @throws Exception
+     */
     public void supprimerAliment(Aliment aliment, int id) throws DBProblemException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(() -> {

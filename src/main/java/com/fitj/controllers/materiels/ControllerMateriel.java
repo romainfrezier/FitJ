@@ -67,6 +67,10 @@ public abstract class ControllerMateriel extends Controller {
         goToPage(controlEl, materiel + "update-materiel.fxml", "Modification d'un materiel");
     }
 
+    /**
+     * Methode qui initialise la liste des materiels
+     * @param listView ListView, liste des materiels
+     */
     void initializeMaterielList(ListView<Materiel> listView, List<Materiel> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override

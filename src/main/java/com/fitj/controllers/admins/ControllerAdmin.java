@@ -21,6 +21,11 @@ public abstract class ControllerAdmin extends Controller {
      */
     final FacadeAdmin adminFacade = FacadeAdmin.getInstance();
 
+    /**
+     * Initialise la liste de clients à partir de la liste donnée.
+     * @param listView la liste de clients à initialiser
+     * @param items la liste de clients à afficher dans la liste de clients
+     */
     void initializeClientList(ListView<Client> listView, List<Client> items) {
         super.initializeList(listView, items, new Callback<>() {
             @Override

@@ -118,8 +118,11 @@ public class ControllerAddSeance extends ControllerSeance{
             super.displayError(errorText, e.getMessage());
             e.printStackTrace();
         }
-
     }
+
+    /**
+     * Méthode pour modifier l'affichage des boutons d'exercice
+     */
     public void updateButtonExerciceDisplay(boolean display) {
         nbRepetModifButton.setVisible(display);
         nbSerieModifButton.setVisible(display);
@@ -213,6 +216,9 @@ public class ControllerAddSeance extends ControllerSeance{
         }
     }
 
+    /**
+     *Méthode pour modifier un exercice
+     */
     public void updateExercice(){
         if (exerciceSelectedForDelete != null){
             if (nbSerieModifButton.getValue() > 0 && nbRepetModifButton.getValue() > 0) {
@@ -295,6 +301,10 @@ public class ControllerAddSeance extends ControllerSeance{
         }
     }
 
+    /**
+     * Méthode pour vérifier que tous les champs sont remplis
+     * @return true si tous les champs sont remplis, false sinon
+     */
     public boolean verifChamps() {
         if (nomSeance.getText().isEmpty()) {
             super.displayError(errorText, "Veuillez renseigner le nom de la séance");
@@ -315,15 +325,24 @@ public class ControllerAddSeance extends ControllerSeance{
         return true;
     }
 
+    /**
+     * Méthode pour modifier le prix de la séance
+     */
     @FXML
     public void updateMontantSeance(){
         montantSeance.setText((int) prixSeance.getValue() + " €");
     }
 
+    /**
+     * Méthode pour recupérer l'execice de la seance à supprimer
+     */
     public Triple<Exercice, Integer, Integer> getExerciceSelectedToDelete() {
         return exerciceSelectedForDelete;
     }
 
+    /**
+     * Méthode pour selectionner l'exercice de la seance à supprimer
+     */
     @FXML
     public void setExerciceSelectedToDelete() {
         this.exerciceSelectedForDelete = listViewExerciceSeance.getSelectionModel().getSelectedItem();
@@ -334,6 +353,9 @@ public class ControllerAddSeance extends ControllerSeance{
         updateButtonExerciceDisplay(true);
     }
 
+    /**
+     * Méthode pour selectionner un exercice
+     */
     @FXML
     public void setExerciceSelected() {
         this.exerciceSelected = listViewExercice.getSelectionModel().getSelectedItem();

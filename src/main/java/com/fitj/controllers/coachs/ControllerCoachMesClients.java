@@ -49,11 +49,17 @@ public class ControllerCoachMesClients extends ControllerCoach {
         }
     }
 
+    /**
+     * Méthode pour selectionner un client
+     */
     @FXML
     private void selectClient() {
         setObjectSelected(listView.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * Méthode réagissant au clic sur le bouton "Voir plus"
+     */
     @FXML
     private void handleSeeMoreButton() {
         try {
@@ -66,6 +72,9 @@ public class ControllerCoachMesClients extends ControllerCoach {
         }
     }
 
+    /**
+     * Méthode qui verifie si un client est selectionné
+     */
     private void checkSelected() throws UnselectedItemException {
         if (listView.getSelectionModel().getSelectedItem() == null) {
             throw new UnselectedItemException("Vous devez sélectionner un client");
