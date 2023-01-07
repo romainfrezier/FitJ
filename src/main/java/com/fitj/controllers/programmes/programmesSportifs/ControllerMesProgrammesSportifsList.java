@@ -14,6 +14,11 @@ import javafx.scene.text.Text;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Controller de la page de mes programmes sportifs
+ * @see ControllerProgrammeSportif
+ * @author Romain Frezier
+ */
 public class ControllerMesProgrammesSportifsList extends ControllerProgrammeSportif{
 
 

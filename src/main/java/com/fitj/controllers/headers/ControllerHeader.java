@@ -1,5 +1,7 @@
 package com.fitj.controllers.headers;
 
+import com.fitj.classes.Admin;
+import com.fitj.classes.Coach;
 import com.fitj.controllers.Controller;
 import com.fitj.exceptions.BadPageException;
 import com.fitj.facades.Facade;
@@ -32,7 +34,6 @@ public abstract class ControllerHeader extends Controller {
     public String getPath() {
         return path;
     }
-
 
     /**
      * Setter pour le chemin du dossier dans lequel se trouve les ressources pour les pages accessibles aux clients avec un certain role
@@ -87,6 +88,12 @@ public abstract class ControllerHeader extends Controller {
         goToPage(controlEl, "notifications/notifications-commandes-list.fxml", "Notifications & Commandes");
     }
 
+    /**
+     * Méthode pour récupérer les notifications et les commandes
+     * @param notifIcon ImageView, icône de notification
+     * @param newNotifIcon ImageView, icône de nouvelle notification
+     * @param errorText Text, texte d'erreur
+     */
     protected void getNotifIcon(ImageView notifIcon, ImageView newNotifIcon, Text errorText) {
         if (Facade.currentClient != null) {
             super.hideError(errorText);
@@ -105,4 +112,21 @@ public abstract class ControllerHeader extends Controller {
             }
         }
     }
+
+
+    /**
+     * Méthode pour récupérer le chemin correspondant au bon role de l'utilisateur
+     * @return String, chemin
+     */
+    private String getCurrentPath() {
+        if (Facade.currentClient instanceof Admin) {
+            return "admin";
+        } else if (Facade.currentClient instanceof Coach) {
+            return "coach";
+        } else {
+            return "client";
+        }
+    }
+}
+
 }

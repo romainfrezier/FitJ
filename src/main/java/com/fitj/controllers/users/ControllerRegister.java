@@ -147,11 +147,17 @@ public class ControllerRegister extends ControllerUser {
         return Sexe.getSexe(selectedButton.getText());
     }
 
+    /**
+     * Méthode pour modifier la taille
+     */
     @FXML
     private void updateTailleValue() {
         this.tailleValue.setText((int) tailleSlider.getValue() + " cm");
     }
 
+    /**
+     * Méthode pour modifier le poids
+     */
     @FXML
     private void updatePoidsValue() {
         this.poidsValue.setText((int) poidsSlider.getValue() + " kg");

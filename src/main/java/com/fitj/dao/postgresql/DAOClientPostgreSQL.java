@@ -22,11 +22,26 @@ import java.util.Map;
  */
 public class DAOClientPostgreSQL extends DAOClient {
 
+    /**
+     * Constructeur
+     */
     public DAOClientPostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+    /**
+     * Méthode qui crée un nouveau client dans la base de données avec les informations passées en paramètre.
+     * @param mail String, l'email du client
+     * @param pseudo String, le pseudo du client
+     * @param password String,  le mot de passe rentré par le client
+     * @param poids float,  le poids du client
+     * @param taille int, la taille du client
+     * @param photo String, le lien de la photo du client
+     * @param sexe Sexe, le sexe du client
+     * @return Client, le client créé
+     * @throws Exception
+     */
     @Override
     public Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
@@ -65,6 +80,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Méthode qui permet de recuperer un client dans la base de données avec son mail
+     * @param mail String, l'email du client
+     * @return Client, le client correspondant à l'email
+     * @throws Exception
+     */
+
     @Override
     public Client getClientByEmail(String mail) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
@@ -88,6 +110,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Méthode qui permet de recuperer un client dans la base de données avec son id
+     * @param id int, l'id du client
+     * @return Client, le client correspondant à l'id
+     * @throws Exception
+     */
     @Override
     public Client getClientById(int id) throws Exception {
         List<Pair<String,Object>> data = new ArrayList<>();
@@ -109,7 +137,11 @@ public class DAOClientPostgreSQL extends DAOClient {
     }
 
 
-
+    /**
+     * Methode qui permet de supprimer un client de la base de données à partir de son id
+     * @param mail String, l'email du client
+     * @throws Exception
+     */
     @Override
     public void supprimerClientByMail(String mail) throws Exception{
         try {
@@ -128,6 +160,11 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de supprimer un client de la base de données à partir de son id
+     * @param id int, l'id du client
+     * @throws Exception
+     */
     @Override
     public void supprimerClientById(int id) throws Exception{
         try {
@@ -147,6 +184,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour un client dans la base de données
+     * @param data, la liste des champs à mettre à jour
+     * @param id, l'id du client à mettre à jour
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client updateClient(List<Pair<String,Object>> data, int id) throws Exception{
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -160,6 +204,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour la photo d'un client dans la base de données
+     * @param photo String, la photo du client
+     * @param id int, l'id du client
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client updateClientPhoto(String photo, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
@@ -172,6 +223,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour le pseudo d'un client dans la base de données
+     * @param pseudo String, pseudo du client
+     * @param id int, l'id du client
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client updateClientPseudo(String pseudo, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
@@ -184,6 +242,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour le poids d'un client dans la base de données
+     * @param poids double, poids du client
+     * @param id int, l'id du client
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client updateClientPoids(double poids, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
@@ -195,6 +260,14 @@ public class DAOClientPostgreSQL extends DAOClient {
             throw new DBProblemException("La mise à jour du poids du client a échoué");
         }
     }
+
+    /**
+     * Methode qui permet de mettre à jour la taille d'un client dans la base de données
+     * @param taille double, taille du client
+     * @param id int, l'id du client
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
 
     @Override
     public Client updateClientTaille(int taille, int id) throws Exception {
@@ -208,6 +281,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour le mot de passe d'un client dans la base de données
+     * @param password String, le mot de passe du client
+     * @param id int, l'id du client
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client updateClientPassword(String password, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
@@ -220,6 +300,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour le sexe d'un client dans la base de données
+     * @param sexe Sexe, le sexe du client
+     * @param id int, l'id du client
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client updateClientSexe(Sexe sexe, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
@@ -232,6 +319,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de mettre à jour le mail d'un client dans la base de données
+     * @param mail String, le mail du client
+     * @param id int, l'id du client
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client updateClientMail(String mail, int id) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
@@ -244,11 +338,21 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui retourne la liste des clients
+     * @return List<Client>, la liste des clients
+     * @throws Exception
+     */
     @Override
     public List<Client> getAllClient() throws Exception {
         return this.getAllClientWhere(new ArrayList<>());
     }
 
+    /**
+     * Methode qui retourne la liste des coachs
+     * @return List<Coach>, la liste des coachs
+     * @throws Exception
+     */
     @Override
     public List<Coach> getAllCoach() throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -261,6 +365,11 @@ public class DAOClientPostgreSQL extends DAOClient {
         return coachs;
     }
 
+    /**
+     * Methode qui retourne la liste des admins
+     * @return List<Admin>, la liste des admins
+     * @throws Exception
+     */
     @Override
     public List<Admin> getAllAdmin() throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -273,6 +382,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         return admins;
     }
 
+    /**
+     * Methode qui retourne la liste des clients qui correspondent à la liste de conditions
+     * @param whereList List<Pair<String,Object>>, la liste des critères
+     * @return List<Client>, la liste des clients
+     * @throws Exception
+     */
     @Override
     public List<Client> getAllClientWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Client> listClients = new ArrayList<>();
@@ -302,6 +417,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui ajoute un materiel à un client
+     * @param idClient int, l'id du client
+     * @param idMateriel int, l'id du matériel
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client addMaterielToClient(int idClient, int idMateriel) throws Exception {
         List<Pair<String,Object>> insertList = new ArrayList<>();
@@ -312,6 +434,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         return this.getClientById(idClient);
     }
 
+    /**
+     * Methode qui supprime un materiel à un client
+     * @param idClient int, l'id du client
+     * @param idMateriel int, l'id du matériel
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client deleteMaterielToClient(int idClient, int idMateriel) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -322,6 +451,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         return this.getClientById(idClient);
     }
 
+    /**
+     * Methode qui ajoute un sport à un client
+     * @param idClient int, l'id du client
+     * @param idSport int, l'id du sport
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client addSportToClient(int idClient, int idSport) throws Exception {
         List<Pair<String,Object>> insertList = new ArrayList<>();
@@ -332,6 +468,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         return this.getClientById(idClient);
     }
 
+    /**
+     * Methode qui supprime un sport à un client
+     * @param idClient int, l'id du client
+     * @param idSport int, l'id du sport
+     * @return Client, le client mis à jour
+     * @throws Exception
+     */
     @Override
     public Client deleteSportToClient(int idClient, int idSport) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -342,6 +485,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         return this.getClientById(idClient);
     }
 
+    /**
+     * Methode qui permet a un client de devenir un coach
+     * @param idClient int, l'id du client
+     * @return Coach, le coach créé
+     * @throws Exception
+     */
     @Override
     public Coach clientBecomeCoach(int idClient) throws Exception {
         try {
@@ -361,6 +510,12 @@ public class DAOClientPostgreSQL extends DAOClient {
 
     }
 
+    /**
+     * Methode qui permet a un coach de devenir un admin
+     * @param idClient int, l'id du coach
+     * @return Admin, l'admin créé
+     * @throws Exception
+     */
     @Override
     public Admin coachBecomeAdmin(int idClient) throws Exception {
         try {
@@ -380,6 +535,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui permet de banne un client
+     * @param client Client, client à bannir
+     * @return Client, le client banni
+     * @throws Exception
+     */
     @Override
     public Client banClient(Client client) throws Exception {
         client.setBanni();
@@ -392,6 +553,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         return this.getClientById(client.getId());
     }
 
+    /**
+     * Methode qui retourne tous les clients d'un coach
+     * @param coachId int, l'id du coach
+     * @return List<Client>, la liste des clients du coach
+     * @throws Exception
+     */
     @Override
     public List<Client> getAllClientForACoach(int coachId) throws Exception {
         List<Client> clients = new ArrayList<>();
@@ -425,6 +592,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui reser le solde d'un coach
+     * @param coachId int, l'id du coach
+     * @return Coach, le coach mis à jour
+     * @throws Exception
+     */
     @Override
     public Coach resetSoldeCoach(int coachId) throws Exception {
         List<Pair<String,Object>> updateList = new ArrayList<>();
@@ -435,6 +608,13 @@ public class DAOClientPostgreSQL extends DAOClient {
         return (Coach) this.getClientById(coachId);
     }
 
+    /**
+     * Methode qui modifie le solde d'un coach
+     * @param coachId int, l'id du coach
+     * @param solde int, le solde à ajouter
+     * @return Coach, le coach mis à jour
+     * @throws Exception
+     */
     @Override
     public Coach incrementeSoldeCoach(int coachId, double solde) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -452,6 +632,12 @@ public class DAOClientPostgreSQL extends DAOClient {
         }
     }
 
+    /**
+     * Methode qui retourne le solde d'un coach
+     * @param coachId int, l'id du coach
+     * @return double, le solde du coach
+     * @throws Exception
+     */
     @Override
     public double getSoldeCoach(int coachId) throws Exception {
         try {

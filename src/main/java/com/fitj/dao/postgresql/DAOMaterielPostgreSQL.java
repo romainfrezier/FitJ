@@ -19,7 +19,9 @@ import java.util.Map;
  */
 public class DAOMaterielPostgreSQL extends DAOMateriel {
 
-
+    /**
+     * Constructeur
+     */
     public DAOMaterielPostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
@@ -137,6 +139,12 @@ public class DAOMaterielPostgreSQL extends DAOMateriel {
         }
     }
 
+    /**
+     * Permet de récupérer tous les matériels d'un client rentré en paramètre
+     * @param idClient int, l'id du client
+     * @return la liste de tous les matériels du client
+     * @throws Exception
+     */
         @Override
     public List<Materiel> getMaterielByIdClient(int idClient) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();

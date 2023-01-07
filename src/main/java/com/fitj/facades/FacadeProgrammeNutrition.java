@@ -12,13 +12,27 @@ import java.util.List;
 
 public class FacadeProgrammeNutrition extends Facade{
 
+    /**
+     * Instance de la Facade, utilisée pour le pattern Singleton
+     */
     private static FacadeProgrammeNutrition instance = null;
 
+    /**
+     * Instance du DAO
+     */
     private static DAOProgrammeNutrition programmeNutritionDAO;
+
+    /**
+     * Constructeur de la FacadeProgrammeNutrition
+     */
     protected FacadeProgrammeNutrition(){
         programmeNutritionDAO = FactoryDAO.getInstance().getDAOProgrammeNutrition();
     }
 
+    /**
+     * Méthode permettant de récupérer l'instance de la FacadeProgrammeNutrition
+     * @return FacadeProgrammeNutrition, l'instance de la FacadeProgrammeNutrition
+     */
     public static FacadeProgrammeNutrition getInstance(){
         if (instance == null){
             instance = new FacadeProgrammeNutrition();
@@ -28,6 +42,7 @@ public class FacadeProgrammeNutrition extends Facade{
 
 
     /**
+     * Méthode permettant de récupérer tous les programmes nutrition
      * @return la liste des programmes nutritions de la base de données
      * @throws Exception si la requête échoue
      */
@@ -116,6 +131,12 @@ public class FacadeProgrammeNutrition extends Facade{
         programmeNutritionDAO.ajouterRecetteProgramme(recette, idProgrammeNutrition);
     }
 
+    /**
+     * Méthode permettant de récupérer tous les programmes nutrition d'un client
+     * @param idClient int, le client qui a acheté le programme nutrition
+     * @return List<ProgrammeNutrition>, la liste des programmes nutrition
+     * @throws Exception en cas d'erreur
+     */
     public List<ProgrammeNutrition> getAllProgrammesNutritionsByClient(int idClient) throws Exception{
         return programmeNutritionDAO.getAllProgrammesNutritionsByClient(idClient);
     }

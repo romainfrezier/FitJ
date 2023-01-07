@@ -24,11 +24,26 @@ import java.util.concurrent.Executors;
  */
 public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
 
+    /**
+     * Constructeur
+     */
     public DAOProgrammeNutritionPostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
     }
 
+    /**
+     * Crée un programme de nutrition dans la base de données
+     * @param nom String, le nom du programme
+     * @param description String, la description du programme
+     * @param prix double, le prix du programme
+     * @param coach Coach, le coach qui a créé le programme
+     * @param listeRecette List<Recette>, la liste des recettes du programme
+     * @param type ProgrammeType, le type du programme
+     * @param nbMois int, le nombre de mois du programme
+     * @return le programme de nutrition créé
+     * @throws Exception
+     */
     @Override
     public ProgrammeNutrition createProgrammeNutrition(String nom, String description, double prix, ProgrammeType type, int nbMois, Coach coach, ArrayList<Recette> listeRecette) throws Exception {
         List<Pair<String,Object>> listeInsert = new ArrayList<>();
@@ -53,6 +68,12 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    /**
+     * Récupère un programme de nutrition dans la base de données
+     * @param id int, l'id du programme
+     * @return le programme de nutrition
+     * @throws Exception
+     */
     @Override
     public ProgrammeNutrition getProgrammeNutritionById(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -76,6 +97,12 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    /**
+     * Récupère tous les programmes de nutrition d'un coach
+     * @param coachId int, l'id du coach
+     * @return la liste des programmes de nutrition du coach
+     * @throws Exception
+     */
     @Override
     public List<ProgrammeNutrition> getProgrammeNutritionByCoach(int coachId) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -83,6 +110,17 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         return this.getAllProgrammeNutritionWhere(whereList);
     }
 
+    /**
+     * Met à jour un programme de nutrition dans la base de données
+     * @param idProgramme int, l'id du programme à modifier
+     * @param nom String, le nouveau nom du programme
+     * @param description String, la nouvelle description du programme
+     * @param prix double, le nouveau prix du programme
+     * @param type ProgrammeType, le nouveau type du programme
+     * @param nbMois int, le nouveau nombre de mois du programme
+     * @return le programme de nutrition modifié
+     * @throws Exception
+     */
     @Override
     public ProgrammeNutrition updateProgrammeNutrition(int idProgramme, String nom, String description, double prix, ProgrammeType type, int nbMois) throws Exception {
         List<Pair<String,Object>> listeUpdate = new ArrayList<>();
@@ -102,6 +140,13 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    /**
+     * Récupère toutes les recettes associées à un programme de nutrition donné.
+     *
+     * @param id L'ID du programme de nutrition pour lequel récupérer les recettes
+     * @return La liste de toutes les recettes associées au programme de nutrition
+     * @throws Exception Si une erreur survient lors de la récupération des recettes associées au programme de nutrition
+     */
     public List<Recette> getRecettes(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
         whereList.add(new Pair<>("programmenutritionrecette.idprogramme", id));
@@ -113,6 +158,14 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    /**
+     * Met à jour un programme de nutrition dans la base de données.
+     *
+     * @param updateList La liste des modifications à effectuer sur le programme de nutrition
+     * @param id L'ID du programme de nutrition à mettre à jour
+     * @return Le programme de nutrition mis à jour
+     * @throws Exception Si une erreur survient lors de la mise à jour du programme de nutrition
+     */
     @Override
     public ProgrammeNutrition updateProgrammeNutrition(List<Pair<String, Object>> updateList, int id) throws Exception {
         List<Pair<String,Object>> whereList = new ArrayList<>();
@@ -126,6 +179,12 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    /**
+     * Supprime un programme nutrition de la base de données.
+     *
+     * @param id L'identifiant du programme nutrition à supprimer.
+     * @throws Exception Si la suppression échoue.
+     */
     @Override
     public void supprimerProgrammeNutrition(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -147,11 +206,23 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    /**
+     * Récupère tous les programmes de nutrition de la base de données.
+     * @return La liste de tous les programmes de nutrition de la base de données.
+     * @throws Exception
+     */
     @Override
     public List<ProgrammeNutrition> getAllProgrammeNutrition() throws Exception{
         return this.getAllProgrammeNutritionWhere(new ArrayList<>());
     }
 
+    /**
+     * Récupère tous les programmes nutrition de la base de données qui répondent aux critères spécifiés.
+     *
+     * @param whereList La liste des critères à vérifier pour chaque programme nutrition.
+     * @return Une liste de tous les programmes nutrition qui répondent aux critères spécifiés.
+     * @throws Exception Si la récupération échoue.
+     */
     @Override
     public List<ProgrammeNutrition> getAllProgrammeNutritionWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<ProgrammeNutrition> listeProgrammes = new ArrayList<>();
@@ -194,6 +265,13 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         }
     }
 
+    /**
+     * Ajoute une recette à un programme nutrition dans la base de données.
+     *
+     * @param recette La recette à ajouter au programme nutrition.
+     * @param id L'identifiant du programme nutrition auquel ajouter la recette.
+     * @throws Exception Si l'ajout échoue.
+     */
     @Override
     public void ajouterRecetteProgramme(Recette recette, int id) throws Exception {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -209,6 +287,13 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         });
     }
 
+    /**
+     * Supprime une recette d'un programme nutrition dans la base de données.
+     *
+     * @param recette La recette à supprimer du programme nutrition.
+     * @param id L'identifiant du programme nutrition duquel supprimer la recette.
+     * @throws Exception Si la suppression échoue.
+     */
     @Override
     public void supprimerRecetteProgramme(Recette recette, int id) throws Exception {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -224,6 +309,13 @@ public class DAOProgrammeNutritionPostgreSQL extends DAOProgrammeNutrition {
         });
     }
 
+    /**
+     * Récupère tous les programmes nutrition achetés par un client donné.
+     *
+     * @param idClient L'identifiant du client pour lequel récupérer les programmes nutrition.
+     * @return Une liste de tous les programmes nutrition achetés par le client.
+     * @throws Exception Si la récupération échoue.
+     */
     @Override
     public List<ProgrammeNutrition> getAllProgrammesNutritionsByClient(int idClient) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();

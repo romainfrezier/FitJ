@@ -213,6 +213,12 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         return getAllCommandeWhere(listeWhere).get(0);
     }
 
+    /**
+     * Récupère toutes les commandes d'un client
+     * @param client int, l'id du client
+     * @return List<Commande>, la liste des commandes du client
+     * @throws Exception
+     */
     @Override
     public List<Commande>  getCommandeByIdClient(int client) throws Exception {
         List<Pair<String, Object>> listeWhere = new ArrayList<>();
@@ -220,6 +226,12 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         return getAllCommandeWhere(listeWhere);
     }
 
+    /**
+     * Récupère toutes les commandes d'un coach
+     * @param coach Coach, le coach
+     * @return List<Commande>, la liste des commandes du client
+     * @throws Exception
+     */
     @Override
     public List<Commande> getCommandeByIdCoach(int coach) throws Exception {
         List<Pair<String, Object>> listeWhere = new ArrayList<>();
@@ -227,6 +239,12 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         return getAllCommandeWhere(listeWhere);
     }
 
+    /**
+     * Retourne toutes les commandes correspondant à un produit
+     * @param produit Produit, le produit associé à la commande
+     * @return List<Commande>, la liste des commandes correspondant au produit
+     * @throws Exception
+     */
     @Override
     public List<Commande> getCommandeByProduit(Produit produit) throws Exception {
         List<Pair<String, Object>> listeWhere = new ArrayList<>();
@@ -247,11 +265,22 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         return getAllCommandeWhere(listeWhere);
     }
 
+    /**
+     * Retourne toute les commandes
+     * @return List<Commande>, la liste des commandes
+     * @throws Exception
+     */
     @Override
     public List<Commande> getAllCommande() throws Exception {
         return getAllCommandeWhere(new ArrayList<>());
     }
 
+    /**
+     * Retourne toutes les commandes correspondant à une liste de conditions
+     * @param whereList List<Pair<String, Object>>, la liste des conditions
+     * @return List<Commande>, la liste des commandes correspondant aux conditions
+     * @throws Exception
+     */
     @Override
     public List<Commande> getAllCommandeWhere(List<Pair<String, Object>> whereList) throws Exception {
         List<Commande> listeCommande = new ArrayList<>();
@@ -346,6 +375,11 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         }
     }
 
+    /**
+     * Supprime une commande
+     * @param id int, l'id de la commande
+     * @throws Exception
+     */
     @Override
     public void deleteCommande(int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -368,6 +402,13 @@ public class DAOCommandePostgreSQL extends DAOCommande {
         }
     }
 
+    /**
+     * Modifie une commande
+     * @param udpateList List<Pair<String,Object>>, la liste des modifications à effectuer
+     * @param id int, l'id de la commande à modifier
+     * @return Commande, la commande modifiée
+     * @throws Exception
+     */
     @Override
     public Commande updateCommande(List<Pair<String, Object>> udpateList, int id) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();

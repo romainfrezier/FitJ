@@ -26,6 +26,9 @@ import java.util.concurrent.Executors;
  */
 public class DAOSeancePostgreSQL extends DAOSeance {
 
+    /**
+     * Constructeur
+     */
     public DAOSeancePostgreSQL(){
         super();
         this.methodesBD = new MethodesPostgreSQL();
@@ -125,6 +128,12 @@ public class DAOSeancePostgreSQL extends DAOSeance {
 
     }
 
+    /**
+     * Retoure toutes les séances d'un client
+     * @param idClient l'id du client
+     * @return la liste des séances
+     * @throws Exception
+     */
     @Override
     public List<Seance> getAllSeancesFromClient(int idClient) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -132,6 +141,12 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         return getAllSeancesWhere(whereList);
     }
 
+    /**
+     * Retourne toutes les séances d'un coach
+     * @param idCoach l'id du coach
+     * @return la liste des séances
+     * @throws Exception
+     */
     @Override
     public List<Seance> getAllSeancesFromCoach(int idCoach) throws Exception {
         List<Pair<String, Object>> whereList = new ArrayList<>();
@@ -199,11 +214,22 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         }
     }
 
+    /**
+     * Retourne toutes les séances
+     * @return la liste des séances
+     * @throws Exception
+     */
     @Override
     public List<Seance> getAllSeances() throws Exception {
         return this.getAllSeancesWhere(new ArrayList<>());
     }
 
+    /**
+     * Retourne toutes les séances qui correspondent à la liste de where
+     * @param whereList la liste des where
+     * @return la liste des séances
+     * @throws Exception
+     */
     public List<Seance> getAllSeancesWhere(List<Pair<String,Object>> whereList) throws Exception {
         List<Seance> listeSeances = new ArrayList<>();
         List<Triple<String,String,String>> joinList = new ArrayList<>();
@@ -289,6 +315,14 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         }
     }
 
+    /**
+     * Ajoute une séance dans la base de donnée
+     * @param exercice Exercice, l'exercice à ajouter à la séance
+     * @param nbrepetition int, le nombre de répétition de l'exercice
+     * @param nbserie int, le nombre de série de l'exercice
+     * @param id int, l'id de la séance
+     * @throws Exception
+     */
     @Override
     public void ajouterExercice(Exercice exercice, int nbrepetition, int nbserie, int id) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -306,6 +340,12 @@ public class DAOSeancePostgreSQL extends DAOSeance {
         });
     }
 
+    /**
+     * Supprime un exercice de la séance
+     * @param exercice Exercice, l'exercice à supprimer de la séance
+     * @param id int, l'id de la séance
+     * @throws Exception
+     */
     @Override
     public void supprimerExercice(Exercice exercice, int id) throws Exception {
         ExecutorService executorService = Executors.newSingleThreadExecutor();

@@ -129,8 +129,11 @@ public class ControllerModifySeance extends ControllerSeance{
             super.displayError(errorText, e.getMessage());
             e.printStackTrace();
         }
-
     }
+
+    /**
+     * Méthode pour modifier le bouton "Ajouter un exercice"
+     */
     public void updateButtonExerciceDisplay(boolean display) {
         nbRepetModifButton.setVisible(display);
         nbSerieModifButton.setVisible(display);
@@ -224,6 +227,9 @@ public class ControllerModifySeance extends ControllerSeance{
         }
     }
 
+    /**
+     * Méthode pour modifier un exercice
+     */
     public void updateExercice(){
         if (exerciceSelectedForDelete != null){
             if (nbSerieModifButton.getValue() > 0 && nbRepetModifButton.getValue() > 0) {
@@ -347,15 +353,24 @@ public class ControllerModifySeance extends ControllerSeance{
         return true;
     }
 
+    /**
+     * Méthode pour modifier le prix de la séance
+     */
     @FXML
     private void updateMontantSeance(){
         montantSeance.setText((int) prixSeance.getValue() + " €");
     }
 
+    /**
+     * Méthode pour recuperer un exercice à supprimer
+     */
     public Triple<Exercice, Integer, Integer> getExerciceSelectedToDelete() {
         return exerciceSelectedForDelete;
     }
 
+    /**
+     * Méthode pour selectionner un exercice à supprimer
+     */
     @FXML
     private void setExerciceSelectedToDelete() {
         this.exerciceSelectedForDelete = listViewExerciceSeance.getSelectionModel().getSelectedItem();
@@ -366,6 +381,9 @@ public class ControllerModifySeance extends ControllerSeance{
         updateButtonExerciceDisplay(true);
     }
 
+    /**
+     * Méthode pour selectionner un exercice
+     */
     @FXML
     private void setExerciceSelected() {
         this.exerciceSelected = listViewExercice.getSelectionModel().getSelectedItem();

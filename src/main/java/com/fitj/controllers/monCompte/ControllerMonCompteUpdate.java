@@ -7,6 +7,11 @@ import javafx.scene.text.Text;
 
 import static com.fitj.facades.Facade.currentClient;
 
+/**
+ * Controller de la page de modification du compte
+ * @see ControllerMonCompte
+ * @author Paco Munarriz
+ */
 public class ControllerMonCompteUpdate extends ControllerMonCompte {
 
     @FXML
@@ -20,6 +25,9 @@ public class ControllerMonCompteUpdate extends ControllerMonCompte {
     @FXML
     private Text errorText;
 
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize() {
         super.hideError(errorText);
@@ -27,9 +35,11 @@ public class ControllerMonCompteUpdate extends ControllerMonCompte {
         pseudo.setText(currentClient.getPseudo());
         mail.setText(currentClient.getEmail());
         image.setText(currentClient.getPhoto());
-
     }
 
+    /**
+     * Méthode permettant de modifier le compte
+     */
      @FXML
      private void update() {
          super.hideError(errorText);

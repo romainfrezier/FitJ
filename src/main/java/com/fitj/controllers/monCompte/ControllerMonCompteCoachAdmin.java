@@ -10,6 +10,11 @@ import javafx.scene.text.Text;
 
 import static com.fitj.facades.Facade.currentClient;
 
+/**
+ * Controller de la page mon compte du coach et de l'admin
+ * @see ControllerMonCompte
+ * @author Paco Munarriz
+ */
 public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
     private Button retirerButton;
@@ -28,6 +33,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML
     private Text errorText;
 
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize() {
         super.hideError(errorText);
@@ -38,6 +46,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
         image.setImage(img);
     }
 
+    /**
+     * Méthode permettant d'aller vers la page de modification du compte
+     */
     @FXML
     private void goToUpdate() {
         try {
@@ -48,6 +59,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
         }
     }
 
+    /**
+     * Méthode permettant d'aller vers la page de modification du mot de passe
+     */
     @FXML
     private void goToUpdatePassword() {
         try {
@@ -59,6 +73,9 @@ public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     }
 
 
+    /**
+     * Méthode permettant de retirer l'argent du compte du coach
+     */
     @FXML
     private void handleRetirerButton() {
         try {

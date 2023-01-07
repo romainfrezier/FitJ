@@ -17,8 +17,10 @@ public class ControllerHeaderAdmin extends ControllerHeader {
      * Chemin caractérisant la page admin
      */
     private final String path = "admin";
-    public ImageView notifIcon;
-    public ImageView newNotifIcon;
+    @FXML
+    private ImageView notifIcon;
+    @FXML
+    private ImageView newNotifIcon;
 
     // Composants FXML ----------------------------------------------
     @FXML

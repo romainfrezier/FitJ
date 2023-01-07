@@ -15,6 +15,11 @@ import javafx.util.Callback;
 
 import java.util.List;
 
+/**
+ * Controller de la page client-detail-view.fxml
+ * @see ControllerClient
+ * @author Romain Frezier
+ */
 public class ControllerClientDetail extends ControllerClient {
     @FXML
     private Button goBackButton;
@@ -35,6 +40,10 @@ public class ControllerClientDetail extends ControllerClient {
 
     private Client client;
 
+
+    /**
+     * Méthode appelée lors du chargement de la page
+     */
     @FXML
     private void initialize(){
         try {
@@ -54,6 +63,9 @@ public class ControllerClientDetail extends ControllerClient {
 
     }
 
+    /**
+     * Méthode permettant d'initialiser la liste du materiel du client
+     */
     private void initializeClientMaterielList() {
         try {
             List<Materiel> materiels = clientFacade.getMaterielByClient(client);
@@ -78,6 +90,9 @@ public class ControllerClientDetail extends ControllerClient {
         }
     }
 
+    /**
+     * Methode permettant d'initialiser la liste des sports du client
+     */
     private void initializeClientSportList() {
         try {
             List<Sport> sports = clientFacade.getAllSportByClient(client);
@@ -102,6 +117,11 @@ public class ControllerClientDetail extends ControllerClient {
         }
     }
 
+    /**
+     * Méthode appelée lors du clic sur le bouton retour
+     * Permet de revenir à la page précédente
+     * @throws BadPageException
+     */
     @FXML
     private void goBack() {
         try {

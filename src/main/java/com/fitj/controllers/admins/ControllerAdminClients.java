@@ -143,7 +143,9 @@ public class ControllerAdminClients extends ControllerAdmin {
         }
     }
 
-
+    /**
+     * Méthode réagissant au clic sur le bouton "Bannir".
+     */
     @FXML
     private void handleBan() {
         try {
@@ -155,6 +157,9 @@ public class ControllerAdminClients extends ControllerAdmin {
         }
     }
 
+    /**
+     * Méthode permettant d'afficher une fenêtre de confirmation pour le bannissement
+     */
     private void showConfirmationBan() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Bannir ce client");
@@ -183,6 +188,10 @@ public class ControllerAdminClients extends ControllerAdmin {
         }
     }
 
+
+    /**
+     * Méthode qui met à jour le texte du bouton "Bannir" en fonction de l'état de bannissement du client sélectionné.
+     */
     public void setTextBanButton() {
         super.hideError(errorText);
         setIdObjectSelected(listView.getSelectionModel().getSelectedItem().getId());
