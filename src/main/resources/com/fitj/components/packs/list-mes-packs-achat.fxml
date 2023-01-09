@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane prefHeight="600.0" prefWidth="900.0" scaleShape="false" stylesheets="@../../styles/style.css" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fitj.controllers.packs.ControllerMesPacksAchatList">
+    <children>
+        <ListView fx:id="listView" layoutX="17.0" layoutY="25.0" onMouseClicked="#selectItemPack" prefHeight="450.0" prefWidth="867.0" styleClass="emptyRectangle" />
+        <Text fx:id="errorText" fill="RED" layoutX="128.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error Message" textAlignment="CENTER" wrappingWidth="642.0" />
+        <Button fx:id="detailPackButton" layoutX="399.0" layoutY="518.0" mnemonicParsing="false" onAction="#goToDetailPack" styleClass="buttonBlue" text="Voir" />
+    </children>
+</Pane>

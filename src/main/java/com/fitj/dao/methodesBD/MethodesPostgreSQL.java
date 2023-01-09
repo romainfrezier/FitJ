@@ -237,7 +237,7 @@ public class MethodesPostgreSQL extends MethodesBD{
                 }
                 sql += ";";
                 try (PreparedStatement query = connection.prepareStatement(sql)) {
-                    //System.out.println(query);
+                    System.out.println(query);
                     ResultSet result = query.executeQuery();
                     return new DaoMapper(result);
                 }

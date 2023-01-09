@@ -1,37 +1,22 @@
 package com.fitj.facades;
-import com.fitj.classes.Pack;
+
+import com.fitj.classes.*;
 import com.fitj.dao.DAOPack;
+import com.fitj.dao.DAOProgrammeNutrition;
 import com.fitj.dao.factory.FactoryDAO;
+import com.fitj.enums.ProgrammeType;
 
+import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Facade utilisée pour les opérations sur les packs
- * @see Facade
- * @author Paul Merceur
- */
-
 
 public class FacadePack extends Facade {
 
-    /**
-     * Instance de la facade, utilisée pour le pattern Singleton
-     */
-    protected DAOPack daoPack;
-
     private static FacadePack instance = null;
-
-    /**
-     * Constructeur de la FacadePack
-     */
-    protected FacadePack(){
-        this.daoPack = FactoryDAO.getInstance().getDAOPack();
+    private static DAOPack packDAO;
+    public FacadePack(){
+        packDAO = FactoryDAO.getInstance().getDAOPack();
     }
 
-    /**
-     * Méthode permettant de récupérer l'instance de la FacadePack
-     * @return FacadePack, l'instance de la FacadePack
-     */
     public static FacadePack getInstance(){
         if (instance == null){
             instance = new FacadePack();
@@ -39,15 +24,98 @@ public class FacadePack extends Facade {
         return instance;
     }
 
-    public List<Pack> getAllPacks() throws Exception {
-        return this.daoPack.getAllPack();
+
+    /**
+     * @return la liste des packs de la base de données
+     * @throws Exception si la requête échoue
+     */
+    public List<Pack> getListePack() throws Exception{
+        return packDAO.getAllPack();
     }
 
-    public List<Pack> getAllPacksByIdClient(int id) throws Exception {
-        return this.daoPack.getAllPackByCoach(id);
+    /**
+     * Supprime un pack de la base de données
+     * @param idPack l'id du pack à récupérer
+     * @throws Exception si la requête échoue
+     */
+
+    public void deletePack(int idPack) throws Exception{
+        packDAO.deletePack(idPack);
     }
 
-    public List<Pack> getAllPacksByIdCoach(int id) throws Exception {
-        return this.daoPack.getAllPackByCoach(id);
+    /**
+     * @param idPack l'id du pack à récupérer
+     * @return le programme nutrition correspondant à l'id
+     * @throws Exception si la requête échoue
+     */
+    public Pack getPackById(int idPack) throws Exception{
+        return packDAO.getPackById(idPack);
     }
+
+    /**
+     * @param coach le coach qui a créé les packs
+     * @return la liste des packs créées par le coach
+     * @throws Exception si la requête échoue
+     */
+    public List<Pack> getPackByCoach(Coach coach) throws Exception{
+        return packDAO.getAllPackByCoach(coach.getId());
+    }
+
+
+    /**
+     * @param idPack l'id du pack à récupérer
+     * @param nom le nouveau nom du pack
+     * @param description la nouvelle description du pack
+     * @param prix le nouveau prix du pack
+     * @return le pack modifié
+     * @throws Exception si la requête échoue
+     */
+    public Pack updatePack(int idPack, String nom, String description, double prix) throws Exception{
+        return packDAO.updatePack(idPack, nom, description, prix);
+    }
+
+
+    /**
+     * @param nom le nom du pack
+     * @param description la description du pack
+     * @param prix le prix du pack
+     * @param coach le coach qui a créé le pack
+     * @return le pack créé
+     * @throws Exception si la requête échoue
+     */
+    public Pack createPack(String nom, String description, double prix, Coach coach) throws Exception{
+        return packDAO.createPack(nom, description, prix, coach);
+    }
+
+
+    /**
+     * Supprime un produit d'un pack
+     * @param idPack l'id du pack à récupérer
+     * @param produit le produit à supprimer du pack
+     * @throws Exception si la requête échoue
+     */
+    public void removeProduitFromPack(int idPack, Produit produit) throws Exception{
+        packDAO.supprimerProduit(produit, idPack);
+    }
+
+
+    /**
+     * Ajoute un produit à un pack
+     * @param idPack l'id du pack à récupérer
+     * @param produit le produit à ajouter au pack
+     * @throws Exception si la produit est déjà dans le pack
+     */
+    public void addProduitToPack(int idPack, Produit produit) throws Exception{
+        packDAO.ajouterProduit(produit, idPack);
+    }
+
+    /**
+     * @param idClient l'id du client à récupérer
+     * @return la liste des packs achetés par le client
+     * @throws Exception
+     */
+    public List<Pack> getAllPacksByClient(int idClient) throws Exception{
+        return packDAO.getAllPackByClient(idClient);
+    }
+
 }

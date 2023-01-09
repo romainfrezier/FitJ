@@ -114,10 +114,10 @@ public class ControllerShopTabs extends ControllerShop {
 
     private void initializePackList() {
         try {
-            List<Pack> packs = facadePack.getAllPacks();
-            List<Pack> packsToRemove = facadePack.getAllPacksByIdClient(Facade.currentClient.getId());
+            List<Pack> packs = facadePack.getListePack();
+            List<Pack> packsToRemove = facadePack.getAllPacksByClient(Facade.currentClient.getId());
             if (Facade.currentClient instanceof Coach) {
-                packsToRemove.addAll(facadePack.getAllPacksByIdCoach(Facade.currentClient.getId()));
+                packsToRemove.addAll(facadePack.getPackByCoach((Coach)Facade.currentClient));
             }
             packs.removeAll(packsToRemove);
             super.initializeProduitList(packList, packs);
