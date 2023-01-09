@@ -12,7 +12,7 @@ import static com.fitj.facades.Facade.currentClient;
 /**
  * Controller de la page mon compte du client
  * @see ControllerMonCompte
- * @author Paco Munarriz
+ * @author Paco Munarriz, Romain Frezier
  */
 public class ControllerMonCompteClient extends ControllerMonCompte {
     @FXML

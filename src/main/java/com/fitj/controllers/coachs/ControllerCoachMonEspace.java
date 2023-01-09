@@ -15,8 +15,6 @@ public class ControllerCoachMonEspace extends ControllerCoach {
     // Composants FXML-----------------------------------------------------------------------------------------------
     @FXML
     private Text coachName;
-    @FXML
-    private ProgressBar coachGrade;
     // --------------------------------------------------------------------------------------------------------------
 
     /**

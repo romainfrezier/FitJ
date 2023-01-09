@@ -12,10 +12,9 @@ import java.util.List;
 /**
  * Classe parente de tous les modèles séance qui permettent d'intéragir avec tout type de base de données
  * pour toutes modifications de cette dernière en rapport avec les séances
- *
  * Classe abstraite non instanciable
- *
- * @author Etienne Tillier
+ * @see DAO
+ * @author Etienne Tillier, Romain Frezier
  */
 public abstract class DAOSeance extends DAO {
     public DAOSeance() {

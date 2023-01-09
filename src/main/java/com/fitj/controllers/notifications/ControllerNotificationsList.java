@@ -13,6 +13,11 @@ import javafx.util.Callback;
 
 import java.util.List;
 
+/**
+ * Controller de la page notification-list-view.fxml
+ * @see ControllerNotifications
+ * @author Romain Frezier
+ */
 public class ControllerNotificationsList extends ControllerNotifications {
     @FXML
     private ListView<Notification> notificationsListView;

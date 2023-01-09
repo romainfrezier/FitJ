@@ -40,7 +40,7 @@ public class DAOClientPostgreSQL extends DAOClient {
      * @param photo String, le lien de la photo du client
      * @param sexe Sexe, le sexe du client
      * @return Client, le client créé
-     * @throws Exception
+     * @throws Exception si la création du client a échoué
      */
     @Override
     public Client createClient(String mail, String pseudo, String password, double poids, int taille, String photo, Sexe sexe) throws Exception {

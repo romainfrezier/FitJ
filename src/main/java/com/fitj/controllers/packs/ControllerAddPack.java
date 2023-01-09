@@ -11,6 +11,11 @@ import javafx.util.Callback;
 
 import java.util.ArrayList;
 
+/**
+ * Controller de la page add-pack-view.fxml
+ * @see ControllerPack
+ * @author Etienne Tillier
+ */
 public class ControllerAddPack extends ControllerPack{
 
 

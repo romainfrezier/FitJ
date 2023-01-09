@@ -10,10 +10,9 @@ import java.util.List;
 /**
  * Classe parente de tous les modèles exercice qui permettent d'intéragir avec tout type de base de données
  * pour toutes modifications de cette dernière en rapport avec les exercices
- *
  * Classe abstraite non instanciable
- *
- * @author Etienne Tillier
+ * @see DAO
+ * @author Etienne Tillier, Romain Frezier
  */
 public abstract class DAOExercice extends DAO {
     public DAOExercice() {

@@ -5,6 +5,7 @@ import java.sql.ResultSetMetaData;
 
 /**
  * Classe permettant d'afficher les résultats d'un ResultSet sous forme de tableau CSV.
+ * @author Romain Frezier
  */
 public final class ResultSetPrinter {
 

@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * Classe qui permet d'intéragir avec la base de données PostgreSQL pour ce qui fait référence aux aliments
- *
+ * @see DAOAliment
  * @author Etienne Tillier, Romain Frezier
  */
 public class DAOAlimentPostgreSQL extends DAOAliment {
@@ -80,7 +80,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
     /**
      * Méthode qui retourne tous les aliments de la base de données.
      * @return la liste de tous les aliments de la base de données.
-     * @throws Exception
+     * @throws Exception si la récupération des aliments a échoué.
      */
     @Override
     public List<Aliment> getAllAliments() throws Exception {
@@ -103,7 +103,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
     /**
      * Méthode qui suppresse l'aliment ayant l'identifiant passé en paramètre.
      * @param id int, l'id de l'aliment
-     * @throws Exception
+     * @throws Exception si la suppression de l'aliment a échoué.
      */
     @Override
     public void supprimerAliment(int id) throws Exception {
@@ -125,7 +125,7 @@ public class DAOAlimentPostgreSQL extends DAOAliment {
      * @param updateList List<Pair<String, Object>>, la liste des attributs à mettre à jour dans la table avec leur valeur
      * @param id int, l'id de l'aliment
      * @return Aliment, l'aliment modifié
-     * @throws Exception
+     * @throws Exception si la modification de l'aliment a échoué.
      */
     @Override
     public Aliment updateAliment(List<Pair<String, Object>> updateList, int id) throws Exception {

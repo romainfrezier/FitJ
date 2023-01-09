@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Classe permettant de mapper les résultats d'une requête SQL
  *
- * @author Paul Merceur
+ * @author Etienne Tillier, Paul Merceur
  */
 public final class DaoMapper {
 

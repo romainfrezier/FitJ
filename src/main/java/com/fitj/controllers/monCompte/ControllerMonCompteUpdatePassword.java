@@ -10,7 +10,7 @@ import static com.fitj.facades.Facade.currentClient;
 /**
  * Controller de la page de modification du mot de passe
  * @see ControllerMonCompte
- * @author Paco Munarriz
+ * @author Paco Munarriz, Romain Frezier
  */
 public class ControllerMonCompteUpdatePassword extends ControllerMonCompte {
 

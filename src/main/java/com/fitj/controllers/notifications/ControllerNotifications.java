@@ -7,7 +7,7 @@ import com.fitj.facades.FacadeNotification;
 /**
  * Controller de la page notification
  * @see Controller
- * @author Paco Munarriz
+ * @author Romain Frezier, Paco Munarriz
  */
 public abstract class ControllerNotifications extends Controller {
 

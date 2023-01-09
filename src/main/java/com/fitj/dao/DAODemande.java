@@ -11,9 +11,8 @@ import java.util.List;
 /**
  * Classe parente de tous les modèles demande qui permettent d'intéragir avec tout type de base de données
  * pour toutes modifications de cette dernière en rapport avec les demandes
- *
  * Classe abstraite non instanciable
- *
+ * @see DAO
  * @author Etienne Tillier
  */
 public abstract class DAODemande extends DAO {
@@ -24,20 +23,20 @@ public abstract class DAODemande extends DAO {
     /**
      * @param id int, l'id de la demande
      * @return la demande dans la base de donnée avec l'id rentré en paramètre
-     * @throws Exception
+     * @throws Exception si une erreur SQL est rencontrée
      */
     public abstract Demande getDemandeById(int id) throws Exception;
 
     /**
      * @return une liste contenant toutes les demandes dans la base de donnée
-     * @throws Exception
+     * @throws Exception si une erreur SQL est rencontrée
      */
     public abstract List<Demande> getAllDemande() throws Exception;
 
     /**
      * @return une liste contenant tous les demandes dans la base de donnée
      * @param whereList List<Pair<String,Object>>, la liste des conditions du where pour la requête
-     * @throws Exception
+     * @throws Exception si une erreur SQL est rencontrée
      */
     public abstract List<Demande> getAllDemandeWhere(List<Pair<String,Object>> whereList) throws Exception;
 
@@ -53,14 +52,14 @@ public abstract class DAODemande extends DAO {
      * @param nbRecetteSemaine int, le nombre de recettes par semaine
      * @param programmePersonnalise ProgrammePersonnalise, le programme personnalisé sur lequel on fait la demande
      * @return la demande créée dans la base de donnée
-     * @throws Exception
+     * @throws Exception si une erreur SQL est rencontrée
      */
     public abstract Demande createDemande(int nbMois, String description, boolean programmeSportif, boolean programmeNutrition, int nbSeanceSemaine, int nbRecetteSemaine, Sport sport, ProgrammePersonnalise programmePersonnalise) throws Exception;
 
     /**
      * Supprimer la demande de la base de donnée
      * @param id int, l'id de la demande
-     * @throws Exception
+     * @throws Exception si une erreur SQL est rencontrée
      */
     public abstract void supprimerDemande(int id) throws Exception;
 
@@ -69,7 +68,7 @@ public abstract class DAODemande extends DAO {
      * @param updateList List<Pair<String,Object>>, la liste des attributs à mettre à jour dans la base de donnée
      * @param id int, l'id de la demande
      * @return la demande mise à jour
-     * @throws Exception
+     * @throws Exception si une erreur SQL est rencontrée
      */
     public abstract Demande updateDemande(List<Pair<String,Object>> updateList, int id) throws Exception;
 }

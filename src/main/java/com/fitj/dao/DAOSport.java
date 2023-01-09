@@ -8,9 +8,8 @@ import java.util.List;
 /**
  * Classe parente de tous les modèles sport qui permettent d'intéragir avec tout type de base de données
  * pour toutes modifications de cette dernière en rapport avec les sports
- *
  * Classe abstraite non instanciable
- *
+ * @see DAO
  * @author Etienne Tillier
  */
 public abstract class DAOSport extends DAO {
@@ -22,27 +21,27 @@ public abstract class DAOSport extends DAO {
     /**
      * Ajoute un sport dans la base de donnée
      * @param nom String, le nom du sport
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public abstract Sport createSport(String nom) throws Exception;
 
     /**
      * @param id int, l'id du sport
      * @return le sport dans la base de donnée contenant l'id rentré en paramètre
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public abstract Sport getSportById(int id) throws Exception;
 
     /**
      * @param nom String, le nom du sport
      * @return le sport dans la base de donnée contenant le nom rentré en paramètre
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public abstract Sport getSportByNom(String nom) throws Exception;
 
     /**
      * @return tous les sports présents dans la base de donnée dans une List
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public abstract List<Sport> getAllSport() throws Exception;
 
@@ -50,7 +49,7 @@ public abstract class DAOSport extends DAO {
     /**
      * @return tous les sports présents dans la base de donnée dans une List
      * @param whereList List<Pair<String,Object>>, la liste des conditions du where pour la requête
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public abstract List<Sport> getAllSportWhere(List<Pair<String,Object>> whereList) throws Exception;
 
@@ -58,7 +57,7 @@ public abstract class DAOSport extends DAO {
     /**
      * Supprime le sport de la base de donnée
      * @param id int, l'id du sport
-     * @throws Exception
+     * @throws Exception si la requête échoue
      */
     public abstract void supprimerSport(int id) throws Exception;
 

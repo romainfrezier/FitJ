@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Controller de la page materiel-list-view.fxml
  * @see ControllerMateriel
- * @author Paco Munarriz
+ * @author Paco Munarriz, Romain Frezier
  */
 public class ControllerMaterielList extends ControllerMateriel {
 

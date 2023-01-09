@@ -13,7 +13,7 @@ import static com.fitj.facades.Facade.currentClient;
 /**
  * Controller de la page mon compte du coach et de l'admin
  * @see ControllerMonCompte
- * @author Paco Munarriz
+ * @author Paco Munarriz, Romain Frezier
  */
 public class ControllerMonCompteCoachAdmin extends ControllerMonCompte {
     @FXML

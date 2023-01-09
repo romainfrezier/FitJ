@@ -11,8 +11,8 @@ import java.util.List;
  * Classe parente de tous les modèles client qui permettent d'intéragir avec tout type de base de données
  * pour toutes modifications de cette dernière en rapport avec les clients
  * Classe abstraite non instanciable
- *
- * @author Etienne Tillier
+ * @see DAO
+ * @author Etienne Tillier, Romain Frezier
  */
 public abstract class DAOClient extends DAO {
 

@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Controller de la page aliment-list-view.fxml
  * @see ControllerAliment
- * @author Paco Munarriz
+ * @author Paco Munarriz, Romain Frezier
  */
 public class ControllerAlimentList extends ControllerAliment {
 

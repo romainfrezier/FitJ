@@ -10,7 +10,7 @@ import static com.fitj.facades.Facade.currentClient;
 /**
  * Controller de la page de modification du compte
  * @see ControllerMonCompte
- * @author Paco Munarriz
+ * @author Paco Munarriz, Romain Frezier
  */
 public class ControllerMonCompteUpdate extends ControllerMonCompte {
 

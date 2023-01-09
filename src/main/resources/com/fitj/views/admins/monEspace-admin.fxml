@@ -20,7 +20,6 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Text>
-      <ProgressBar fx:id="adminGrade" layoutX="273.0" layoutY="82.0" prefHeight="35.0" prefWidth="200.0" progress="0.74" style="-fx-accent: #054371;" />
       <TabPane layoutX="23.0" layoutY="133.0" prefHeight="627.0" prefWidth="936.0" styleClass="emptyRectangle" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Packs">

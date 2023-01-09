@@ -15,8 +15,6 @@ public class ControllerAdminMonEspace extends ControllerAdmin {
     // Composants FXML-----------------------------------------------------------------------------------------------
     @FXML
     private Text adminName;
-    @FXML
-    private ProgressBar adminGrade;
     // --------------------------------------------------------------------------------------------------------------
 
     /**
