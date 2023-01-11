@@ -74,7 +74,6 @@ public class MethodesPostgreSQL extends MethodesBD{
                 sql = sql.substring(0, sql.length() - 4);
                 sql += ";";
                 try(PreparedStatement query = connection.prepareStatement(sql)){
-                    //System.out.println(query);
                     ResultSet result = query.executeQuery();
                     return new DaoMapper(result);
                 } catch (Exception e) {
@@ -104,7 +103,6 @@ public class MethodesPostgreSQL extends MethodesBD{
                 sql = sql.substring(0, sql.length() - 4);
                 sql += ";";
                 try(PreparedStatement query = connection.prepareStatement(sql)){
-                    //System.out.println(query);
                     query.executeUpdate();
                 }
             }
@@ -137,7 +135,6 @@ public class MethodesPostgreSQL extends MethodesBD{
                 sql = sql.substring(0, sql.length() - 4);
                 sql += ";";
                 try(PreparedStatement query = connection.prepareStatement(sql)){
-                    //System.out.println(query);
                     query.executeUpdate();
                 }
             }
@@ -168,7 +165,6 @@ public class MethodesPostgreSQL extends MethodesBD{
             sql = sql.substring(0, sql.length() - 1);
             sql += ");";
             try(PreparedStatement query = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-                //System.out.println(query);
                 int nbRows = query.executeUpdate();
                 if (nbRows == 0) {
                     throw new SQLException("Creating user failed, no rows affected.");
@@ -237,7 +233,6 @@ public class MethodesPostgreSQL extends MethodesBD{
                 }
                 sql += ";";
                 try (PreparedStatement query = connection.prepareStatement(sql)) {
-                    System.out.println(query);
                     ResultSet result = query.executeQuery();
                     return new DaoMapper(result);
                 }
