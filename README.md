@@ -7,7 +7,7 @@ Projet de Software Engineering, projet de conception, modélisation et développ
 ---
 
 Pour lancer l'application, on a le choix entre deux options
-- avec un jar : `java -jar jar/fitj.jar` depuis l'intérieur du projet
+- avec un jar : lancer `mvn clean package` puis `java -jar jar/fitj.jar` depuis l'intérieur du projet
 - directement depuis le code source : `mvn clean javafx:run` depuis l'intérieur du projet
 
 ---
